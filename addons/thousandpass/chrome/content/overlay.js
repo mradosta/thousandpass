@@ -2,7 +2,6 @@ var thousandpass = function () {
 
 	return {
 		init : function () {
-			alert('xxxxxxxxxxxx');
 			gBrowser.addEventListener("load", function () {
 				//if (window.content.document.location == 'http://localhost/epl/sites_users/') {
 					thousandpass.bindEvents();
