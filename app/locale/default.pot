@@ -1,0 +1,333 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+# No version information was available in the source files.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2010-03-01 00:15-0300\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: /controllers/sites_controller.php:13
+msgid "Invalid Site."
+msgstr ""
+
+#: /controllers/sites_controller.php:23;40
+msgid "The Site has been saved"
+msgstr ""
+
+#: /controllers/sites_controller.php:26;43
+msgid "The Site could not be saved. Please, try again."
+msgstr ""
+
+#: /controllers/sites_controller.php:35
+msgid "Invalid Site"
+msgstr ""
+
+#: /controllers/sites_controller.php:55
+msgid "Invalid id for Site"
+msgstr ""
+
+#: /controllers/sites_controller.php:59
+msgid "Site deleted"
+msgstr ""
+
+#: /controllers/sites_users_controller.php:13
+msgid "Invalid SitesUser."
+msgstr ""
+
+#: /controllers/sites_users_controller.php:23;40
+msgid "The SitesUser has been saved"
+msgstr ""
+
+#: /controllers/sites_users_controller.php:26;43
+msgid "The SitesUser could not be saved. Please, try again."
+msgstr ""
+
+#: /controllers/sites_users_controller.php:35
+msgid "Invalid SitesUser"
+msgstr ""
+
+#: /controllers/sites_users_controller.php:56
+msgid "Invalid id for SitesUser"
+msgstr ""
+
+#: /controllers/sites_users_controller.php:60
+msgid "SitesUser deleted"
+msgstr ""
+
+#: /controllers/users_controller.php:25
+msgid "Invalid User."
+msgstr ""
+
+#: /controllers/users_controller.php:35;52
+msgid "The User has been saved"
+msgstr ""
+
+#: /controllers/users_controller.php:38;55
+msgid "The User could not be saved. Please, try again."
+msgstr ""
+
+#: /controllers/users_controller.php:47
+msgid "Invalid User"
+msgstr ""
+
+#: /controllers/users_controller.php:67
+msgid "Invalid id for User"
+msgstr ""
+
+#: /controllers/users_controller.php:71
+msgid "User deleted"
+msgstr ""
+
+#: /views/elements/plugin.ctp:7;8
+#: /views/sites/edit.ctp:16
+#: /views/sites/index.ctp:41
+#: /views/sites/view.ctp:61
+#: /views/sites_users/edit.ctp:17
+#: /views/users/edit.ctp:16
+#: /views/users/index.ctp:37
+#: /views/users/view.ctp:56
+msgid "Delete"
+msgstr ""
+
+#: /views/elements/plugin.ctp:12;13
+#: /views/sites/index.ctp:40
+#: /views/sites/view.ctp:60
+#: /views/users/index.ctp:36
+#: /views/users/view.ctp:55
+msgid "Edit"
+msgstr ""
+
+#: /views/layouts/default.ctp:25;26
+msgid "Add new site"
+msgstr ""
+
+#: /views/layouts/default.ctp:53
+msgid "Home"
+msgstr ""
+
+#: /views/layouts/default.ctp:56
+#: /views/sites/index.ctp:2
+msgid "Sites"
+msgstr ""
+
+#: /views/layouts/default.ctp:59
+#: /views/sites_users/view.ctp:19
+#: /views/users/view.ctp:2
+msgid "User"
+msgstr ""
+
+#: /views/layouts/default.ctp:62
+msgid "User's Sites"
+msgstr ""
+
+#: /views/layouts/default.ctp:65
+msgid "Logout"
+msgstr ""
+
+#: /views/sites/add.ctp:4
+msgid "Add Site"
+msgstr ""
+
+#: /views/sites/add.ctp:15
+#: /views/sites/edit.ctp:17
+#: /views/sites/view.ctp:30
+#: /views/sites_users/add.ctp:18
+#: /views/sites_users/edit.ctp:19
+#: /views/sites_users/view.ctp:32
+#: /views/users/add.ctp:16
+#: /views/users/edit.ctp:18
+#: /views/users/index.ctp:51
+#: /views/users/view.ctp:27
+msgid "List Sites"
+msgstr ""
+
+#: /views/sites/add.ctp:16
+#: /views/sites/edit.ctp:18
+#: /views/sites/index.ctp:55
+#: /views/sites/view.ctp:32
+#: /views/sites_users/add.ctp:20
+#: /views/sites_users/edit.ctp:21
+#: /views/sites_users/view.ctp:34
+#: /views/users/add.ctp:15
+#: /views/users/edit.ctp:17
+#: /views/users/view.ctp:25
+msgid "List Users"
+msgstr ""
+
+#: /views/sites/add.ctp:17
+#: /views/sites/edit.ctp:19
+#: /views/sites/index.ctp:56
+#: /views/sites/view.ctp:33;70
+#: /views/sites_users/add.ctp:21
+#: /views/sites_users/edit.ctp:22
+#: /views/sites_users/view.ctp:35
+#: /views/users/index.ctp:50
+#: /views/users/view.ctp:26
+msgid "New User"
+msgstr ""
+
+#: /views/sites/edit.ctp:4
+#: /views/sites/view.ctp:28
+msgid "Edit Site"
+msgstr ""
+
+#: /views/sites/edit.ctp:16
+#: /views/sites/index.ctp:41
+#: /views/sites/view.ctp:29;61
+#: /views/sites_users/edit.ctp:17
+#: /views/sites_users/view.ctp:29
+#: /views/users/edit.ctp:16
+#: /views/users/index.ctp:37
+#: /views/users/view.ctp:24;56
+msgid "Are you sure you want to delete # %s?"
+msgstr ""
+
+#: /views/sites/index.ctp:6
+#: /views/users/index.ctp:6
+msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
+msgstr ""
+
+#: /views/sites/index.ctp:15
+#: /views/sites/view.ctp:44
+#: /views/users/index.ctp:14
+#: /views/users/view.ctp:39
+msgid "Actions"
+msgstr ""
+
+#: /views/sites/index.ctp:39
+#: /views/sites/view.ctp:59
+#: /views/users/index.ctp:35
+#: /views/users/view.ctp:54
+msgid "View"
+msgstr ""
+
+#: /views/sites/index.ctp:48
+#: /views/users/index.ctp:44
+msgid "previous"
+msgstr ""
+
+#: /views/sites/index.ctp:50
+#: /views/users/index.ctp:46
+msgid "next"
+msgstr ""
+
+#: /views/sites/index.ctp:54
+#: /views/sites/view.ctp:31
+#: /views/sites_users/add.ctp:19
+#: /views/sites_users/edit.ctp:20
+#: /views/sites_users/view.ctp:33
+#: /views/users/add.ctp:17
+#: /views/users/edit.ctp:19
+#: /views/users/index.ctp:52
+#: /views/users/view.ctp:28;65
+msgid "New Site"
+msgstr ""
+
+#: /views/sites/view.ctp:2
+#: /views/sites_users/view.ctp:14
+msgid "Site"
+msgstr ""
+
+#: /views/sites/view.ctp:4;41
+#: /views/sites_users/view.ctp:4
+#: /views/users/view.ctp:4;36
+msgid "Id"
+msgstr ""
+
+#: /views/sites/view.ctp:9
+#: /views/users/view.ctp:37
+msgid "Title"
+msgstr ""
+
+#: /views/sites/view.ctp:14
+msgid "Logo"
+msgstr ""
+
+#: /views/sites/view.ctp:19
+msgid "Login Url"
+msgstr ""
+
+#: /views/sites/view.ctp:29
+msgid "Delete Site"
+msgstr ""
+
+#: /views/sites/view.ctp:37
+msgid "Related Users"
+msgstr ""
+
+#: /views/sites/view.ctp:42
+#: /views/users/view.ctp:9
+msgid "Username"
+msgstr ""
+
+#: /views/sites/view.ctp:43
+#: /views/users/view.ctp:14
+msgid "Password"
+msgstr ""
+
+#: /views/sites_users/add.ctp:4
+msgid "Add SitesUser"
+msgstr ""
+
+#: /views/sites_users/add.ctp:17
+#: /views/sites_users/edit.ctp:18
+#: /views/sites_users/view.ctp:30
+msgid "List SitesUsers"
+msgstr ""
+
+#: /views/sites_users/edit.ctp:4
+#: /views/sites_users/view.ctp:28
+msgid "Edit SitesUser"
+msgstr ""
+
+#: /views/sites_users/view.ctp:2
+msgid "SitesUser"
+msgstr ""
+
+#: /views/sites_users/view.ctp:9
+#: /views/users/view.ctp:38
+msgid "Description"
+msgstr ""
+
+#: /views/sites_users/view.ctp:29
+msgid "Delete SitesUser"
+msgstr ""
+
+#: /views/sites_users/view.ctp:31
+msgid "New SitesUser"
+msgstr ""
+
+#: /views/users/add.ctp:4
+msgid "Add User"
+msgstr ""
+
+#: /views/users/edit.ctp:4
+#: /views/users/view.ctp:23
+msgid "Edit User"
+msgstr ""
+
+#: /views/users/index.ctp:2
+msgid "Users"
+msgstr ""
+
+#: /views/users/view.ctp:24
+msgid "Delete User"
+msgstr ""
+
+#: /views/users/view.ctp:32
+msgid "Related Sites"
+msgstr ""
+
+#: /webroot/test.php:98
+msgid "Debug setting does not allow access to this url."
+msgstr ""
+

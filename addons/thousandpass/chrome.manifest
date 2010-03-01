@@ -1,0 +1,6 @@
+content   thousandpass                 chrome/content/
+skin      thousandpass   classic/1.0   chrome/skin/
+locale    thousandpass   en-US         chrome/locale/en-US/
+
+
+overlay   chrome://browser/content/browser.xul   chrome://thousandpass/content/ff-overlay.xul

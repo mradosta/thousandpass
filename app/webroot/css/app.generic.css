@@ -1,0 +1,76 @@
+body {
+	background-color: #fff;
+	margin-left: auto;
+	margin-right: auto;
+	width: 908px;
+}
+
+div {
+	margin: 0;
+	padding: 0;
+	float: left;
+	width: 100%;
+}
+
+img {
+	border: 0;
+}
+
+.hidden {
+	display: none;	
+}
+
+#container {
+}
+
+#header {
+}
+
+.logo {
+	background: url(img/logo.png) no-repeat;
+	width: 198px;
+	height: 63px;
+}
+
+.search {
+	background: url(img/search_bg.png) no-repeat;
+	width: 898px;
+	margin: 0 0 10px 2px;
+	padding: 15px;
+}
+
+.search .add {
+	margin-left: 800px;
+}
+
+.plugins {
+	background: url(img/banner_bg.png) no-repeat;
+	float:left;
+	width: 224px;
+	height: 178px;
+	text-align: center;
+}
+
+.plugins .toolbar {
+	color: #fff;
+	background: url(img/enabled.png) no-repeat;
+	width: 187px;
+	height: 19px;
+	margin: 12px 0 0 14px;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 5px 0 0 10px;
+	text-align: left;
+}
+
+.plugins .action {
+	width: 15px;
+	height: 15px;
+	float: right;
+	1border: 1px solid;
+	margin: 0 5px 0 0;
+}
+
+.plugins .edit {
+	background: url(img/edit.png) no-repeat;
+}
