@@ -16,13 +16,17 @@
 	$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar'));
 
 	$out[] = $html->image('logos/' . $data['Site']['logo'], array('class' => 'remote_site_logo'));
+
+	$out[] = $html->tag('div', $data['SitesUser']['description'], array('class' => 'description'));
+
 	$out[] = '<div class="hidden">';
+	$out[] = $html->tag('div', $data['SitesUser']['id'], array('id' => 'plugin_identifier'));
 		$out[] = $html->tag('div', $data['Site']['login_url'], array('id' => 'url'));
 		$out[] = $html->tag('div', $data['SitesUser']['username'], array('id' => 'username', 'class' => $data['Site']['username_field']));
 		$out[] = $html->tag('div', $data['SitesUser']['password'], array('id' => 'password', 'class' => $data['Site']['password_field']));
 		$out[] = $html->tag('div', '', array('id' => 'submit', 'class' => $data['Site']['submit']));
 	$out[] = '</div>';
 
-	echo $out[] = $html->tag('div', implode("\n", $out), array('class' => 'plugins'));
+	echo $html->tag('div', implode("\n", $out), array('class' => 'plugins'));
 
 ?>

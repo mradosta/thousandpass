@@ -40,10 +40,5 @@ class AppController extends Controller {
 	var $helpers = array('Html', 'Form');
 	var $components = array('Auth');
 
-	function xbeforeFilter() {
-		d($this->Auth->user());
-		//d($this->Auth->password('x'));
-	}
-
 }
 ?>
