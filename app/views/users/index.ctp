@@ -10,7 +10,6 @@ echo $paginator->counter(array(
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('username');?></th>
-	<th><?php echo $paginator->sort('password');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php

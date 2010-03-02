@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-03-01 00:15-0300\n"
+"POT-Creation-Date: 2010-03-02 15:43-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: mradosta <martinradosta@gmail.com>\n"
 "Language-Team: \n"
@@ -37,47 +37,47 @@ msgstr "Sitio borrado"
 msgid "Invalid SitesUser."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:23;40
+#: /controllers/sites_users_controller.php:24;41
 msgid "The SitesUser has been saved"
-msgstr ""
+msgstr "El Stio de Usuario ha sido guardado"
 
-#: /controllers/sites_users_controller.php:26;43
+#: /controllers/sites_users_controller.php:27;44
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:35
+#: /controllers/sites_users_controller.php:36
 msgid "Invalid SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:56
+#: /controllers/sites_users_controller.php:57
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:60
+#: /controllers/sites_users_controller.php:61
 msgid "SitesUser deleted"
-msgstr ""
+msgstr "Sitio de Usuario Borrado"
 
-#: /controllers/users_controller.php:25
+#: /controllers/users_controller.php:58
 msgid "Invalid User."
 msgstr ""
 
-#: /controllers/users_controller.php:35;52
+#: /controllers/users_controller.php:68;85
 msgid "The User has been saved"
 msgstr ""
 
-#: /controllers/users_controller.php:38;55
+#: /controllers/users_controller.php:71;88
 msgid "The User could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/users_controller.php:47
+#: /controllers/users_controller.php:80
 msgid "Invalid User"
-msgstr ""
+msgstr "Usuario Inválido"
 
-#: /controllers/users_controller.php:67
+#: /controllers/users_controller.php:100
 msgid "Invalid id for User"
 msgstr ""
 
-#: /controllers/users_controller.php:71
+#: /controllers/users_controller.php:104
 msgid "User deleted"
 msgstr "Usuario borrado"
 
@@ -86,44 +86,48 @@ msgstr "Usuario borrado"
 #: /views/sites/index.ctp:41
 #: /views/sites/view.ctp:61
 #: /views/sites_users/edit.ctp:17
-#: /views/users/edit.ctp:16
-#: /views/users/index.ctp:37
-#: /views/users/view.ctp:56
+#: /views/users/edit.ctp:15
+#: /views/users/index.ctp:36
+#: /views/users/view.ctp:51
 msgid "Delete"
 msgstr "Borrar"
 
 #: /views/elements/plugin.ctp:12;13
 #: /views/sites/index.ctp:40
 #: /views/sites/view.ctp:60
-#: /views/users/index.ctp:36
-#: /views/users/view.ctp:55
+#: /views/users/index.ctp:35
+#: /views/users/view.ctp:50
 msgid "Edit"
 msgstr "Modificar"
 
-#: /views/layouts/default.ctp:25;26
-msgid "Add new site"
-msgstr "Agregar nuevo sitio"
-
-#: /views/layouts/default.ctp:53
+#: /views/layouts/default.ctp:24;25;61
 msgid "Home"
 msgstr "Principal"
 
-#: /views/layouts/default.ctp:56
+#: /views/layouts/default.ctp:33;34
+msgid "Add new site"
+msgstr "Agregar nuevo sitio"
+
+#: /views/layouts/default.ctp:64
 #: /views/sites/index.ctp:2
 msgid "Sites"
 msgstr "Sitios"
 
-#: /views/layouts/default.ctp:59
+#: /views/layouts/default.ctp:67
 #: /views/sites_users/view.ctp:19
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr "Usuarios"
 
-#: /views/layouts/default.ctp:62
+#: /views/layouts/default.ctp:70
 msgid "User's Sites"
 msgstr ""
 
-#: /views/layouts/default.ctp:65
+#: /views/layouts/default.ctp:73
+msgid "Sign Up"
+msgstr "Registrate"
+
+#: /views/layouts/default.ctp:76
 msgid "Logout"
 msgstr "Salir"
 
@@ -137,12 +141,12 @@ msgstr "Agregar Sitio"
 #: /views/sites_users/add.ctp:18
 #: /views/sites_users/edit.ctp:19
 #: /views/sites_users/view.ctp:32
-#: /views/users/add.ctp:16
-#: /views/users/edit.ctp:18
-#: /views/users/index.ctp:51
-#: /views/users/view.ctp:27
+#: /views/users/add.ctp:15
+#: /views/users/edit.ctp:17
+#: /views/users/index.ctp:50
+#: /views/users/view.ctp:22
 msgid "List Sites"
-msgstr ""
+msgstr "Mostrar Sitios"
 
 #: /views/sites/add.ctp:16
 #: /views/sites/edit.ctp:18
@@ -151,11 +155,11 @@ msgstr ""
 #: /views/sites_users/add.ctp:20
 #: /views/sites_users/edit.ctp:21
 #: /views/sites_users/view.ctp:34
-#: /views/users/add.ctp:15
-#: /views/users/edit.ctp:17
-#: /views/users/view.ctp:25
+#: /views/users/add.ctp:14
+#: /views/users/edit.ctp:16
+#: /views/users/view.ctp:20
 msgid "List Users"
-msgstr ""
+msgstr "Mostrar Usuarios"
 
 #: /views/sites/add.ctp:17
 #: /views/sites/edit.ctp:19
@@ -164,8 +168,8 @@ msgstr ""
 #: /views/sites_users/add.ctp:21
 #: /views/sites_users/edit.ctp:22
 #: /views/sites_users/view.ctp:35
-#: /views/users/index.ctp:50
-#: /views/users/view.ctp:26
+#: /views/users/index.ctp:49
+#: /views/users/view.ctp:21
 msgid "New User"
 msgstr "Nuevo Usuario"
 
@@ -179,50 +183,50 @@ msgstr "Modificar Sitio"
 #: /views/sites/view.ctp:29;61
 #: /views/sites_users/edit.ctp:17
 #: /views/sites_users/view.ctp:29
-#: /views/users/edit.ctp:16
-#: /views/users/index.ctp:37
-#: /views/users/view.ctp:24;56
+#: /views/users/edit.ctp:15
+#: /views/users/index.ctp:36
+#: /views/users/view.ctp:19;51
 msgid "Are you sure you want to delete # %s?"
-msgstr ""
+msgstr "Esta seguro que desea borrar # %s?"
 
 #: /views/sites/index.ctp:6
 #: /views/users/index.ctp:6
 msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
-msgstr ""
+msgstr "Página %page% de %pages%, mostrando %current% registros de %count%, desde el registro %start%, hasta el registro %end%"
 
 #: /views/sites/index.ctp:15
 #: /views/sites/view.ctp:44
-#: /views/users/index.ctp:14
-#: /views/users/view.ctp:39
+#: /views/users/index.ctp:13
+#: /views/users/view.ctp:34
 msgid "Actions"
 msgstr "Acciones"
 
 #: /views/sites/index.ctp:39
 #: /views/sites/view.ctp:59
-#: /views/users/index.ctp:35
-#: /views/users/view.ctp:54
+#: /views/users/index.ctp:34
+#: /views/users/view.ctp:49
 msgid "View"
 msgstr "Ver"
 
 #: /views/sites/index.ctp:48
-#: /views/users/index.ctp:44
+#: /views/users/index.ctp:43
 msgid "previous"
-msgstr ""
+msgstr "anterior"
 
 #: /views/sites/index.ctp:50
-#: /views/users/index.ctp:46
+#: /views/users/index.ctp:45
 msgid "next"
-msgstr ""
+msgstr "siguiente"
 
 #: /views/sites/index.ctp:54
 #: /views/sites/view.ctp:31
 #: /views/sites_users/add.ctp:19
 #: /views/sites_users/edit.ctp:20
 #: /views/sites_users/view.ctp:33
-#: /views/users/add.ctp:17
-#: /views/users/edit.ctp:19
-#: /views/users/index.ctp:52
-#: /views/users/view.ctp:28;65
+#: /views/users/add.ctp:16
+#: /views/users/edit.ctp:18
+#: /views/users/index.ctp:51
+#: /views/users/view.ctp:23;60
 msgid "New Site"
 msgstr "Nuevo Sitio"
 
@@ -233,12 +237,12 @@ msgstr "Sitio"
 
 #: /views/sites/view.ctp:4;41
 #: /views/sites_users/view.ctp:4
-#: /views/users/view.ctp:4;36
+#: /views/users/view.ctp:4;31
 msgid "Id"
 msgstr "Id"
 
 #: /views/sites/view.ctp:9
-#: /views/users/view.ctp:37
+#: /views/users/view.ctp:32
 msgid "Title"
 msgstr "Título"
 
@@ -252,7 +256,7 @@ msgstr ""
 
 #: /views/sites/view.ctp:29
 msgid "Delete Site"
-msgstr ""
+msgstr "Borrar Sitio"
 
 #: /views/sites/view.ctp:37
 msgid "Related Users"
@@ -264,13 +268,12 @@ msgid "Username"
 msgstr "Nombre de Usuario"
 
 #: /views/sites/view.ctp:43
-#: /views/users/view.ctp:14
 msgid "Password"
 msgstr "Clave"
 
 #: /views/sites_users/add.ctp:4
 msgid "Add SitesUser"
-msgstr ""
+msgstr "Agregar Sitio de Usuario"
 
 #: /views/sites_users/add.ctp:17
 #: /views/sites_users/edit.ctp:18
@@ -281,14 +284,14 @@ msgstr ""
 #: /views/sites_users/edit.ctp:4
 #: /views/sites_users/view.ctp:28
 msgid "Edit SitesUser"
-msgstr ""
+msgstr "Modificar Sitio de Usuario"
 
 #: /views/sites_users/view.ctp:2
 msgid "SitesUser"
-msgstr ""
+msgstr "Sitios de Usuario"
 
 #: /views/sites_users/view.ctp:9
-#: /views/users/view.ctp:38
+#: /views/users/view.ctp:33
 msgid "Description"
 msgstr "Descripción"
 
@@ -298,14 +301,14 @@ msgstr ""
 
 #: /views/sites_users/view.ctp:31
 msgid "New SitesUser"
-msgstr ""
+msgstr "Nuevo Sitio de Usuario"
 
 #: /views/users/add.ctp:4
 msgid "Add User"
 msgstr "Agregar Usuario"
 
 #: /views/users/edit.ctp:4
-#: /views/users/view.ctp:23
+#: /views/users/view.ctp:18
 msgid "Edit User"
 msgstr "Modificar Usuario"
 
@@ -313,11 +316,11 @@ msgstr "Modificar Usuario"
 msgid "Users"
 msgstr "Usuarios"
 
-#: /views/users/view.ctp:24
+#: /views/users/view.ctp:19
 msgid "Delete User"
 msgstr "Borrar Usuario"
 
-#: /views/users/view.ctp:32
+#: /views/users/view.ctp:27
 msgid "Related Sites"
 msgstr ""
 

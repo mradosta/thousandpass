@@ -18,7 +18,15 @@
 <body>
 
 	<div id="header">
-		<div class="logo"></div>
+		<div class="logo">
+			<?php
+				echo $html->image('logo.png', array(
+					'alt'	=> __('Home', true),
+					'title'	=> __('Home', true),
+					'url' 	=> array('controller' => 'sites_users', 'action' => 'index')));
+			?>
+
+		</div>
 
 		<div class="search">
 			<?php echo $html->image('add.png', array(
@@ -60,6 +68,9 @@
 	$out[] = '</li>';
 	$out[] = '<li>';
 	$out[] = $html->link(__('User\'s Sites', true), array('controller' => 'sites_users'));
+	$out[] = '</li>';
+	$out[] = '<li>';
+	$out[] = $html->link(__('Sign Up', true), array('controller' => 'users', 'action' => 'register'));
 	$out[] = '</li>';
 	$out[] = '<li>';
 	$out[] = $html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'));

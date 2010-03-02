@@ -15,9 +15,13 @@
 			'class' => 'action edit'));
 	$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar'));
 
-	$out[] = $html->image('logos/' . $data['Site']['logo'], array('class' => 'remote_site_logo'));
 
-	$out[] = $html->tag('div', $data['SitesUser']['description'], array('class' => 'description'));
+	if (empty($data['Site']['logo']) || !file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
+		$data['Site']['logo'] = 'default.png';
+	}
+	$out[] = $html->image('logos' . DS . $data['Site']['logo'], array('class' => 'remote_site_logo'));
+
+	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['description']:$data['SitesUser']['username'], array('class' => 'description'));
 
 	$out[] = '<div class="hidden">';
 	$out[] = $html->tag('div', $data['SitesUser']['id'], array('id' => 'plugin_identifier'));
