@@ -37,8 +37,35 @@
  */
 class AppController extends Controller {
 
-	var $helpers = array('Html', 'Form');
-	var $components = array('Auth');
+	var $helpers = array('Html', 'Form', 'Javascript');
+	var $components = array('Auth', 'Cookie');
+
+
+	function beforeFilter() {
+
+		$language = $this->Cookie->read('language');
+		if (empty($language)) {
+
+			App::import('Vendor', 'Pragmatia', array('file' => 'l10nextended.php'));
+
+			$L10nExtended = new L10nExtended();
+			$L10nExtended->get();
+			$locale = $L10nExtended->locale;
+
+			$language = $L10nExtended->getLanguage();
+			$this->Cookie->write('language', $language, false, '10 year');
+
+			$availableLanguages = Configure::read('Config.languages');
+			if (in_array($language, $availableLanguages)) {
+				$availableLanguages = array_flip($availableLanguages);
+				$language = $availableLanguages[$language];
+			} else {
+				$language = 'eng';
+			}
+		}
+		Configure::write('Config.language', $language);
+	}
+
 
 }
 ?>

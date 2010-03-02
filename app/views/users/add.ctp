@@ -5,6 +5,7 @@
 	<?php
 		echo $form->input('username');
 		echo $form->input('password');
+		echo $form->input('email');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>

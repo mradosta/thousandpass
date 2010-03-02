@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-03-02 15:43-0300\n"
+"POT-Creation-Date: 2010-03-02 15:49-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -130,6 +130,7 @@ msgid "User's Sites"
 msgstr ""
 
 #: /views/layouts/default.ctp:73
+#: /views/users/register.ctp:3
 msgid "Sign Up"
 msgstr ""
 
@@ -274,6 +275,7 @@ msgid "Username"
 msgstr ""
 
 #: /views/sites/view.ctp:43
+#: /views/users/register.ctp:9
 msgid "Password"
 msgstr ""
 
@@ -320,6 +322,14 @@ msgstr ""
 
 #: /views/users/index.ctp:2
 msgid "Users"
+msgstr ""
+
+#: /views/users/register.ctp:6
+msgid "Pick a username"
+msgstr ""
+
+#: /views/users/register.ctp:10
+msgid "We need to send you a confirmation email"
 msgstr ""
 
 #: /views/users/view.ctp:19

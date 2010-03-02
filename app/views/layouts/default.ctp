@@ -10,6 +10,23 @@
 		echo $html->css('cake.generic');
 		echo $html->css('app.generic');
 
+		$js = null;
+		$js[] = 'jquery/jquery-1.4.1.min';
+		$js[] = 'jquery/jquery.cookie';
+		echo $javascript->link($js);
+
+		echo $javascript->codeBlock("
+
+			$(document).ready(function($) {
+				$('#language').bind('change', function() {
+					var options = {  path: '/', expires: 1000 };
+					$.cookie('CakeCookie[language]', $(this).val(), options);
+					location.reload(true);
+					return false;
+				});
+			});
+		");
+
 		echo $scripts_for_layout;
 	?>
 </head>
@@ -25,8 +42,19 @@
 					'title'	=> __('Home', true),
 					'url' 	=> array('controller' => 'sites_users', 'action' => 'index')));
 			?>
-
 		</div>
+
+
+		<div class="languages">
+			<?php
+				echo $form->input('language', array(
+					'label'		=> false,
+					'default'	=> Configure::read('Config.language'),
+					'options' 	=> Configure::read('Config.languages'))
+				);
+			?>
+		</div>
+
 
 		<div class="search">
 			<?php echo $html->image('add.png', array(

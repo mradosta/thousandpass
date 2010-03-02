@@ -2,6 +2,9 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
+
+	var $components = array('Email');
+
  
     /**
      *  The AuthComponent provides the needed functionality
@@ -16,13 +19,40 @@ class UsersController extends AppController {
 
 
 	function beforeFilter() {
+		/**
+		* Allows a user to sign up for a new account
+		*/
 		$this->Auth->allow('register');
+		return parent::beforeFilter();
 	}
 
 
-	/**
-		* Allows a user to sign up for a new account
-	*/
+	private function __sendConfirmationEmail($user) {
+
+		/* SMTP Options */
+		$this->Email->smtpOptions = array(
+				'port'=>'25',
+				'timeout'=>'30',
+				'host' => 'smtp.pragmatia.com',
+				'username'=>'mradosta@pragmatia.com.ar',
+				'password'=>'NatachaLia0',
+				'client' => 'smtp_helo_hostname'
+		);
+		$this->Email->delivery = 'smtp';
+
+		$this->Email->to = $user['User']['email'];
+		$this->Email->subject = 'Welcome to 1000Pass.com';
+		$this->Email->replyTo = 'support@1000pass.com';
+		$this->Email->from = '1000Pass.com <support@1000pass.com>';
+		$this->Email->template = 'sign_up';
+		$this->Email->sendAs = 'both'; // because we like to send pretty mail
+		$this->set('user', $user);
+
+		$this->Email->send();
+		d($this->Email->smtpError);
+	}
+
+
 	function register() {
 		// If the user submitted the form.
 		if (!empty($this->data)) {
@@ -31,15 +61,15 @@ class UsersController extends AppController {
 				$this->data['User']['password'] = $this->Auth->password($this->data['User']['passwrd']);
 
 				// Always Sanitize any data from users!
+				App::import('core', 'Sanitize');
 				$this->User->data = Sanitize::clean($this->data);
 				if ($this->User->save()) {
 						// Use a private method to send a confirmation
 						// email to the new user (code not shown)
-						$this->__sendConfirmationEmail();
-
-						// Success! Redirect to a thanks page.
-						$this->redirect('/users/thanks');
-				}
+						$this->__sendConfirmationEmail($this->data);
+d();
+						$this->redirect('/');
+				} d();
 
 				// The plain text password supplied has been hashed into the 'password' field so
 				// should now be nulled so it doesn't get render in the HTML if the save() fails
