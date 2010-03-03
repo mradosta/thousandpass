@@ -21,7 +21,7 @@
 	}
 	$out[] = $html->image('logos' . DS . $data['Site']['logo'], array('class' => 'remote_site_logo'));
 
-	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['description']:$data['SitesUser']['username'], array('class' => 'description'));
+	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['username']:$data['SitesUser']['decription'], array('class' => 'description'));
 
 	$out[] = '<div class="hidden">';
 	$out[] = $html->tag('div', $data['SitesUser']['id'], array('id' => 'plugin_identifier'));

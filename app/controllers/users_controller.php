@@ -49,7 +49,6 @@ class UsersController extends AppController {
 		$this->set('user', $user);
 
 		$this->Email->send();
-		d($this->Email->smtpError);
 	}
 
 
@@ -64,12 +63,14 @@ class UsersController extends AppController {
 				App::import('core', 'Sanitize');
 				$this->User->data = Sanitize::clean($this->data);
 				if ($this->User->save()) {
-						// Use a private method to send a confirmation
-						// email to the new user (code not shown)
-						$this->__sendConfirmationEmail($this->data);
-d();
-						$this->redirect('/');
-				} d();
+					// Use a private method to send a confirmation
+					// email to the new user (code not shown)
+					$this->__sendConfirmationEmail($this->data);
+					$this->Session->setFlash(__('Thanks for signing up at 1000Pass.com.', true));
+					$this->redirect('/');
+				} else {
+					$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
+				}
 
 				// The plain text password supplied has been hashed into the 'password' field so
 				// should now be nulled so it doesn't get render in the HTML if the save() fails

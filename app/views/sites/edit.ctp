@@ -7,6 +7,9 @@
 		echo $form->input('title');
 		echo $form->input('logo');
 		echo $form->input('login_url');
+		echo $form->input('username_field');
+		echo $form->input('password_field');
+		echo $form->input('submit');
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>
