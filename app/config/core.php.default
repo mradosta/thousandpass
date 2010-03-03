@@ -25,6 +25,11 @@
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 /**
+ * App available languages:
+ */
+	Configure::write('Config.languages', array('eng' => 'English', 'spa' => 'Spanish'));
+
+/**
  * CakePHP Debug Level:
  *
  * Production Mode:
@@ -38,13 +43,11 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 1);
+	Configure::write('debug', 0);
 /**
  * Application wide charset encoding
  */
 	Configure::write('App.encoding', 'UTF-8');
-
-	Configure::write('Config.language', 'spa');
 
 /**
  * To configure CakePHP *not* to use mod_rewrite and to
