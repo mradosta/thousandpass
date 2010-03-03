@@ -10,7 +10,45 @@ var thousandpass = function () {
 		}, //init
 
 
+		getHostNameFromUrl : function (url) {
+			return url.match(/:\/\/(.[^/]+)/)[1]; //.replace('www.','');
+		},
+		
+
+
+		deleteCookies : function (url) {
+
+			/** TODO: Remove cookies for only current domain */
+
+			var cookieManager = Components.classes["@mozilla.org/cookiemanager;1"]
+								.getService(Components.interfaces.nsICookieManager);
+
+
+			cookieManager.removeAll();
+
+			/*
+			return;
+
+			var iter = cookieManager.enumerator;
+			while (iter.hasMoreElements()){
+				var cookie = iter.getNext();
+				if (cookie instanceof Components.interfaces.nsICookie){
+					//if (cookie.host == host) {
+						alert('in ' + cookie.host);
+						//alert(cookie.name);
+						//alert(cookie.value);
+					//}
+				}
+			}
+			*/
+
+		}, //deleteCookies
+
+
 		openAndReuseOneTabPerAttributeValue : function (attrValue, url) {
+
+			
+			var domain = thousandpass.getHostNameFromUrl(url);
 
 			var attrName = 'my-attribute-mark';
 
@@ -24,16 +62,27 @@ var thousandpass = function () {
 					var currentTab = tabbrowser.tabContainer.childNodes[index];
 
 					// Does this tab contain our custom attribute?
-					if (currentTab.hasAttribute(attrName) && currentTab.getAttribute(attrName) == attrValue) {
+					if (currentTab.hasAttribute(attrName)) {
 
-						// Yes--select and focus it.
-						tabbrowser.selectedTab = currentTab;
+						var attrData = currentTab.getAttribute(attrName).split('|');
+						if (attrData[0] == domain) {
 
-						// Focus *this* browser window in case another one is currently focused
-						tabbrowser.ownerDocument.defaultView.focus();
-						found = true;
+							// Yes--select and focus it.
+							tabbrowser.selectedTab = currentTab;
+
+							if (attrData[1] != attrValue) {
+								thousandpass.deleteCookies(url);
+								gBrowser.removeCurrentTab();
+							} else {
+
+								// Focus *this* browser window in case another one is currently focused
+								tabbrowser.ownerDocument.defaultView.focus();
+								found = true;
+							}
+							break;
+						}
 					}
-			}
+			} //for
 
 
 			if (!found) {
@@ -44,7 +93,7 @@ var thousandpass = function () {
 
 				// Create tab
 				var newTab = tabbrowser.addTab(url);
-				newTab.setAttribute(attrName, attrValue);
+				newTab.setAttribute(attrName, domain + '|' + attrValue);
 
 				// Focus tab
 				tabbrowser.selectedTab = newTab;
@@ -74,7 +123,7 @@ var thousandpass = function () {
 				var plugin = $(this).parent();
 				var data = {
 					id: $('#plugin_identifier', plugin).html(),
-					url: $('#url', plugin).html(),
+					url: $('#url', plugin).html().replace('&amp;', '&'),
 					username: $('#username', plugin).html(),
 					usernameField: $('#username', plugin).attr('class'),
 					password: $('#password', plugin).html(),
@@ -83,8 +132,7 @@ var thousandpass = function () {
 				};
 
 
-				var myTab = thousandpass.openAndReuseOneTabPerAttributeValue(data.id, data.url);
-				myTab.addEventListener('load', function () {
+				var onLoadTabListener = function () {
 
 					/** Username */
 					var tmpUsernameField = data.usernameField.split('|');
@@ -97,7 +145,6 @@ var thousandpass = function () {
 					if (tmpPasswordField[0] == 'id') {
 						content.document.getElementById(tmpPasswordField[1]).value = data.password;
 					}
-					//$(data.usernameField, content.document).val( data.username );
 
 					/** Submit the form */
 					var tmpForm = data.form.split('|');
@@ -115,10 +162,16 @@ var thousandpass = function () {
 						var myForms = content.document.getElementsByClassName(tmpForm[1]);
 						var myForm = myForms[0];
 					}
-					myForm.submit();
+					setTimeout(function(){myForm.submit();}, 1000);
 
-				}, true);
+					/** When finished, must remove event listener to prevent re-posting data */
+					this.removeEventListener('load', onLoadTabListener, true);
+				};
 
+				var myTab = thousandpass.openAndReuseOneTabPerAttributeValue(data.id, data.url);
+				if (data.form != '') {
+					myTab.addEventListener('load', onLoadTabListener, true);
+				}
 			} //openFillFieldsAndSubmit
 		} // bindEvents
 	} // return

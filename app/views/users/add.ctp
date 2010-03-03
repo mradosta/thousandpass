@@ -6,6 +6,9 @@
 		echo $form->input('username');
 		echo $form->input('password');
 		echo $form->input('email');
+		echo $form->input('state', array('options' => array(
+			'pending' 	=> __('Pending', true),
+			'approved' 	=> __('Approved', true))));
 	?>
 	</fieldset>
 <?php echo $form->end('Submit');?>

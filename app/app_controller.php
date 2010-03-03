@@ -39,6 +39,7 @@ class AppController extends Controller {
 
 	var $helpers = array('Html', 'Form', 'Javascript');
 	var $components = array('Auth', 'Cookie');
+	//var $components = array('Cookie');
 
 
 	function beforeFilter() {
