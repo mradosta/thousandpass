@@ -1,3 +1,44 @@
+<div class="inner_container_border">
+
+	<div class="inner_container">
+
+	<div class="left"></div>
+
+	<div class="right">
+
+		<div class="text_and_logo">
+			<?php
+				echo $html->tag('span', __('Sign Up at', true));
+				echo $html->image('logo_black.png');
+			?>
+		</div>
+
+		<h3><?php __('We order your home page') ?></h3>
+
+			<?php
+				echo $form->create('User', array('action' => 'register'));
+				echo $form->input('username', array('between' => __('Pick a username', true)));
+
+				// Force the FormHelper to render a password field, and change the label.
+				echo $form->input('passwrd', array('type' => 'password', 'label' => __('Password', true)));
+				echo $form->input('email', array('between' => __('We need to send you a confirmation email', true)));
+			?>
+		<?php echo $form->end('Add');?>
+		</div>
+		<div class="actions">
+			<ul>
+				<li><?php echo $html->link(__('List SitesUsers', true), array('action' => 'index'));?></li>
+				<li><?php echo $html->link(__('List Sites', true), array('controller' => 'sites', 'action' => 'index')); ?> </li>
+				<li><?php echo $html->link(__('New Site', true), array('controller' => 'sites', 'action' => 'add')); ?> </li>
+				<li><?php echo $html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+				<li><?php echo $html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
+			</ul>
+		</div>
+
+	</div> <!--right-->
+</div> <!--inner_container_border-->
+
+
 <?php
 
 	echo '<h2>'.__('Sign Up', true).'</h2>';

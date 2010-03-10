@@ -33,7 +33,6 @@
 
 
 <body>
-
 	<div id="header">
 		<div class="logo">
 			<?php
@@ -56,7 +55,39 @@
 		</div>
 
 
+		<div class="addsense top_addsense">
+			<script type="text/javascript"><!--
+				google_ad_client = "pub-0846414566912792";
+				/* 234x60, creado 10/03/10 */
+				google_ad_slot = "1083049098";
+				google_ad_width = 234;
+				google_ad_height = 60;
+				//-->
+			</script>
+			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+		</div>
+
+
 		<div class="search">
+
+
+
+		<?php
+			if (!$session->check('Auth.User')) {
+				$session->flash('auth');
+				echo $form->create('User', array('action' => 'login'));
+				echo $form->input('username');
+				echo $form->input('password');
+				echo $form->end('Login');
+			} else {
+				echo $html->image('add.png', array(
+					'alt'	=> __('Add web site', true),
+					'title'	=> __('Add web site', true),
+					'class'	=> 'add',
+					'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
+				echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
+			}
+		?>
 
 			<div class="google_search">
 				<form method="get" action="http://www.google.com/search">
@@ -65,13 +96,6 @@
 				</form>
 			</div> <!--google_search-->
 
-			<?php echo $html->image('add.png', array(
-				'alt'	=> __('Add web site', true),
-				'title'	=> __('Add web site', true),
-				'class'	=> 'add',
-				'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
-			?>
-			<span class="label"><?php __('Add web site'); ?></span>
 		</div> <!--search-->
 	</div>
 
@@ -119,6 +143,19 @@
 
 
 ?>
+
+	<div class="addsense bottom_addsense">
+		<script type="text/javascript"><!--
+			google_ad_client = "pub-0846414566912792";
+			/* 728x90, creado 10/03/10 */
+			google_ad_slot = "9749307972";
+			google_ad_width = 728;
+			google_ad_height = 90;
+			//-->
+		</script>
+		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+	</div>
+
 
 </body>
 

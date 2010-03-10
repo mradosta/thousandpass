@@ -6,7 +6,7 @@ class SitesUsersController extends AppController {
 	function index() {
 		$this->SitesUser->recursive = 0;
 		$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));
-		//$this->set('sitesUsers', $this->paginate());
+		$this->set('sitesUsers', $this->paginate());
 	}
 
 	function view($id = null) {

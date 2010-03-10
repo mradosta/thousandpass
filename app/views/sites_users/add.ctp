@@ -6,7 +6,13 @@
 
 	<div class="right">
 
-		<h2 class="logo"><?php __('Add new web site to') ?></h2><!--Agrega Sitio Web a-->
+
+		<div class="text_and_logo">
+			<?php
+				echo $html->tag('span', __('Add new web site to', true));
+				echo $html->image('logo_black.png');
+			?>
+		</div>
 		<h3><?php __('We order your home page') ?></h3>
 
 		<?php echo $form->create('SitesUser');?>
