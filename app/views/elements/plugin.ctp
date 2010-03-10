@@ -19,7 +19,12 @@
 	if (empty($data['Site']['logo']) || !file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
 		$data['Site']['logo'] = 'default.png';
 	}
-	$out[] = $html->image('logos' . DS . $data['Site']['logo'], array('class' => 'remote_site_logo'));
+
+	if (empty($data['Site']['submit'])) {
+		$out[] = $html->link($html->image('logos' . DS . $data['Site']['logo'], array('class' => 'remote_site_logo_disabled')), $data['Site']['login_url'], array('target' => '_BLANK'), false, false);
+	} else {
+		$out[] = $html->image('logos' . DS . $data['Site']['logo'], array('class' => 'remote_site_logo'));
+	}
 
 	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['username']:$data['SitesUser']['description'], array('class' => 'description'));
 

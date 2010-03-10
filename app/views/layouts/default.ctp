@@ -7,7 +7,7 @@
 	<?php
 		echo $html->meta('icon');
 
-		echo $html->css('cake.generic');
+		//echo $html->css('cake.generic');
 		echo $html->css('app.generic');
 
 		$js = null;
@@ -57,11 +57,21 @@
 
 
 		<div class="search">
+
+			<div class="google_search">
+				<form method="get" action="http://www.google.com/search">
+					<input type="text" name="q" size="31" maxlength="255" value="" />
+					<input type="submit" value="<?php __('Search'); ?>" />
+				</form>
+			</div> <!--google_search-->
+
 			<?php echo $html->image('add.png', array(
-				'alt'	=> __('Add new site', true),
-				'title'	=> __('Add new site', true),
+				'alt'	=> __('Add web site', true),
+				'title'	=> __('Add web site', true),
 				'class'	=> 'add',
-				'url' 	=> array('controller' => 'sites_users', 'action' => 'add'))); ?>
+				'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
+			?>
+			<span class="label"><?php __('Add web site'); ?></span>
 		</div> <!--search-->
 	</div>
 

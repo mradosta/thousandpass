@@ -6,7 +6,7 @@ class SitesUsersController extends AppController {
 	function index() {
 		$this->SitesUser->recursive = 0;
 		$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));
-		$this->set('sitesUsers', $this->paginate());
+		//$this->set('sitesUsers', $this->paginate());
 	}
 
 	function view($id = null) {
@@ -28,7 +28,7 @@ class SitesUsersController extends AppController {
 				$this->Session->setFlash(__('The SitesUser could not be saved. Please, try again.', true));
 			}
 		}
-		$sites = $this->SitesUser->Site->find('list');
+		$sites = $this->SitesUser->Site->find('list', array('order' => array('Site.title' => 'asc')));
 		$this->set(compact('sites'));
 	}
 

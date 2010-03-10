@@ -137,24 +137,45 @@ var thousandpass = function () {
 					/** Username */
 					var tmpUsernameField = data.usernameField.split('|');
 					if (tmpUsernameField[0] == 'id') {
-						content.document.getElementById(tmpUsernameField[1]).value = data.username;
+						var myUsername = content.document.getElementById(tmpUsernameField[1]);
+					} else if (tmpUsernameField[0] == 'name') {
+						var myUsernames = content.document.getElementsByTagName('input');
+						for(var i=0; i<myUsernames.length; i++) {
+							if (myUsernames[i].name == tmpUsernameField[1]) {
+								var myUsername = myUsernames[i];
+								break;
+							}
+						}
 					}
+					myUsername.value = data.username;
+
 
 					/** Password */
 					var tmpPasswordField = data.passwordField.split('|');
 					if (tmpPasswordField[0] == 'id') {
-						content.document.getElementById(tmpPasswordField[1]).value = data.password;
+						var myPassword = content.document.getElementById(tmpPasswordField[1]);
+					} else if (tmpPasswordField[0] == 'name') {
+						var myPasswords = content.document.getElementsByTagName('input');
+						for(var i=0; i<myPasswords.length; i++) {
+							if (myPasswords[i].type == 'password' && myPasswords[i].name == tmpPasswordField[1]) {
+								var myPassword = myPasswords[i];
+								break;
+							}
+						}
 					}
+					myPassword.value = data.password;
+
 
 					/** Submit the form */
 					var tmpForm = data.form.split('|');
 					if (tmpForm[0] == 'id') {
 						var myForm = content.document.getElementById(tmpForm[1]);
-					} else if (tmpForm[0] == 'name') {
+					} else if (tmpForm[0] == 'name' || tmpForm[0] == 'action') {
 						var myForms = content.document.getElementsByTagName('form');
 						for(var i=0; i<myForms.length; i++) {
-							if (myForms[i].name == tmpForm[1]) {
-								var myForm = myForms[0];
+							if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
+								|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
+								var myForm = myForms[i];
 								break;
 							}
 						}
@@ -162,9 +183,9 @@ var thousandpass = function () {
 						var myForms = content.document.getElementsByClassName(tmpForm[1]);
 						var myForm = myForms[0];
 					}
-					setTimeout(function(){myForm.submit();}, 1000);
+					setTimeout(function(){myForm.submit();}, 2000);
 
-					/** When finished, must remove event listener to prevent re-posting data */
+					/** When finished, must remove event listener to prevent re-posting data when page re-loading */
 					this.removeEventListener('load', onLoadTabListener, true);
 				};
 

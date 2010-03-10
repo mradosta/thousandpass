@@ -14,11 +14,6 @@
 	  <stringbundle id="thousandpass-strings" src="chrome://thousandpass/locale/overlay.properties"/>
   </stringbundleset>
 
-  <menupopup id="menu_ToolsPopup">
-    <menuitem id="thousandpass-hello" label="&thousandpass.label;"
-			  oncommand="thousandpass.onMenuItemCommand(event);"/>
-  </menupopup>
-
   <popup id="contentAreaContextMenu">
 	<menuitem id="context-thousandpass" label="&thousandpassContext.label;"
               accesskey="&thousandpassContext.accesskey;"
@@ -27,8 +22,20 @@
   </popup>
 
   <statusbar id="status-bar">
-	  <statusbarpanel id="link-target-finder-status-bar-icon" class="statusbarpanel-iconic" src="chrome://thousandpass/skin/status-bar.png" onclick="thousandpass.onClick()" >1000Pass.com</statusbarpanel>
+	  <statusbarpanel id="link-target-finder-status-bar-icon" class="statusbarpanel-menu-iconic" context="rightclickpopup" popup="leftclickpopup" src="chrome://thousandpass/skin/status-bar.png" onclick="thousandpass.onClick()" >1000Pass.com</statusbarpanel>
   </statusbar>
+
+  <popupset>
+	  <menupopup id="leftclickpopup">
+		  <menuitem label="Item 1" oncommand="dothis('1')"/>
+		  <menuitem label="Item 2" oncommand="dothis('2')"/>
+	  </menupopup>
+	  <menupopup id="rightclickpopup">
+		  <menuitem label="Item 3" oncommand="dothis('3')"/>
+		  <menuitem label="Item 4" oncommand="dothis('4')"/>
+	  </menupopup>
+  </popupset>
+
 
   <toolbarpalette id="BrowserToolbarPalette">
   <toolbarbutton id="thousandpass-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional"
