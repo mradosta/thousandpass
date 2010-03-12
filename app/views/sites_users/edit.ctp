@@ -1,24 +1,32 @@
-<div class="sitesUsers form">
-<?php echo $form->create('SitesUser');?>
-	<fieldset>
- 		<legend><?php __('Edit SitesUser');?></legend>
-	<?php
-		echo $form->input('id');
-		echo $form->input('site_id');
-		echo $form->input('username');
-		echo $form->input('password');
-		echo $form->input('description');
-	?>
-	</fieldset>
-<?php echo $form->end('Submit');?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $html->link(__('Delete', true), array('action' => 'delete', $form->value('SitesUser.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $form->value('SitesUser.id'))); ?></li>
-		<li><?php echo $html->link(__('List SitesUsers', true), array('action' => 'index'));?></li>
-		<li><?php echo $html->link(__('List Sites', true), array('controller' => 'sites', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New Site', true), array('controller' => 'sites', 'action' => 'add')); ?> </li>
-		<li><?php echo $html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
-		<li><?php echo $html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+<div class="inner_container_border">
+
+	<div class="inner_container">
+
+		<div class="left"></div>
+
+		<div class="right">
+			<div class="text_and_logo">
+				<?php
+					echo $html->tag('span', __('Edit web site in', true));
+					echo $html->image('logo_black.png');
+				?>
+				<span class="subtitle"><?php __('We order your home page') ?></span>
+			</div>
+
+			<?php echo $form->create('SitesUser');?>
+				<?php
+					echo $form->input('id');
+					echo $form->input('site_id');
+					echo $form->input('username');
+					echo $form->input('password');
+					echo $form->input('description');
+				?>
+			<?php
+				echo $form->end('Save');
+				echo $html->link(__('Back', true), '/home');
+			?>
+			</div>
+		</div> <!--right-->
+
+	</div> <!--inner_container-->
+</div> <!--inner_container_border-->

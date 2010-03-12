@@ -29,6 +29,7 @@ class SitesUsersController extends AppController {
 			}
 		}
 		$sites = $this->SitesUser->Site->find('list', array('order' => array('Site.title' => 'asc')));
+		$sites[0] = __('Request not listed site', true);
 		$this->set(compact('sites'));
 	}
 

@@ -11,10 +11,11 @@ class UsersController extends AppController {
      *  for login, so you can leave this function blank.
      */
     function login() {
+		$this->render('register');
     }
 
     function logout() {
-        $this->redirect($this->Auth->logout());
+		$this->redirect($this->Auth->logout());
     }
 
 
@@ -57,7 +58,7 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 				// Turn the supplied password into the correct Hash.
 				// and move into the 'password' field so it will get saved.
-				$this->data['User']['password'] = $this->Auth->password($this->data['User']['passwrd']);
+				$this->data['User']['password'] = $this->Auth->password($this->data['User']['password']);
 
 				// Always Sanitize any data from users!
 				App::import('core', 'Sanitize');

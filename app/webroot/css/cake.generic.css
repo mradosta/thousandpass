@@ -80,7 +80,7 @@ ul, li {
 	margin: 0 12px;
 }
 
-/* Layout
+/* Layout */
 #container {
 	text-align: left;
 }
@@ -88,9 +88,15 @@ ul, li {
 #header{
 	padding: 10px 20px;
 }
-#header h1 {
-	background: #003d4c url('../img/cake.icon.gif') no-repeat left;
+
+#header{
+	padding: 10px 20px;
+}
+#header div {
+	background-color: #003d4c;
 	color: #fff;
+	width: auto;
+	float: left;
 	padding: 0px 30px;
 }
 #header h1 a {
@@ -116,7 +122,7 @@ ul, li {
 	padding: 6px 10px;
 	text-align: right;
 }
- */
+
 
 /* Tables */
 table {

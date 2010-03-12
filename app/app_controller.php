@@ -44,6 +44,23 @@ class AppController extends Controller {
 
 	function beforeFilter() {
 
+
+		$this->Auth->loginRedirect = '/home';
+		$this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'register');
+		//$this->Auth->loginAction = array('controller' => 'users', 'action' => 'register');
+
+		/** if admin url requested */
+		if (isset($this->params['admin']) && $this->params['admin']) {
+
+			if ($this->Session->read('Auth.User.username') !== 'root') {
+				$this->Session->setFlash(__('You must be logged in as an admin user to enter this section.', true));
+				$this->redirect('/');
+			}
+			$this->layout = 'admin';
+		}
+ 
+
+		/** Language settings */
 		$language = $this->Cookie->read('language');
 		if (empty($language)) {
 

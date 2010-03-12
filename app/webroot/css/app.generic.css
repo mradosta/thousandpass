@@ -12,6 +12,7 @@ div {
 	padding: 0;
 	float: left;
 	width: 100%;
+	1width: auto;
 }
 
 img {
@@ -31,11 +32,14 @@ label {
 
 input, select, textarea {
 	padding-top: 3px;
-	height: 22px;
+	1height: 22px;
+	1width: 230px;
+	1border: 1px solid #cccccc;
+	border: 0;
+	height: 21px;
+	width: 190px;
 	color: #333333;
-	width: 240px;
-	background: transparent url(img/input_bg.png) repeat-x bottom;
-	border: 1px solid #cccccc;
+	background: transparent url(img/input_bg.png) no-repeat bottom;
 }
 
 select {
@@ -44,10 +48,18 @@ select {
 
 textarea {
 	height: 44px;
+	background: transparent url(img/text_bg.png) repeat-x bottom;
+}
+
+input[type=checkbox] {
+	clear: left;
+	float: left;
+	1margin: 0px 6px 7px 2px;
+	width: auto;
 }
 
 div.input {
-	height: 50px;
+	height: 40px;
 }
 
 div.textarea {
@@ -73,23 +85,6 @@ input[type=submit] {
 	height: 63px;
 }
 
-.search {
-	background: url(img/search_bg.png) no-repeat;
-	width: 898px;
-	height: 50px;
-	margin: 0 0 10px 2px;
-	padding: 30px 15px 15px 15px;
-}
-
-.search span.label {
-	color: #A3A3A3;
-	font-size: 18px;
-}
-
-.google_search {
-	width: 400px;
-	float: right;
-}
 
 .plugins {
 	background: url(img/plugin_bg.png) no-repeat;
@@ -135,14 +130,13 @@ input[type=submit] {
 }
 
 div.inner_container_border {
-	1padding: 17px;
 	height: 354px;
 	background: url(img/inner_container_border.png) no-repeat;
 }
 
 div.inner_container {
 	padding: 17px;
-	height: 354px;
+	height: 317px;
 	background: url(img/inner_container_bg.png) no-repeat;
 }
 
@@ -155,15 +149,17 @@ div.inner_container div.left {
 }
 
 div.inner_container div.right {
-	width: 345px;
+	width: 340px;
 	height: 320px;
 	margin: 0 0 0 25px;
+	overflow-y: scroll;
+	overflow-x: hidden;
 }
 
 div.text_and_logo {
 	color: #A3A3A3;
-	width: 298px;
-	height: 35px;
+	width: 330px;
+	height: 55px;
 	font-size: 20px;
 	margin: 0;
 }
@@ -171,6 +167,13 @@ div.text_and_logo {
 div.text_and_logo span {
 	float: left;
 	padding: 10px 5px 0 0;
+}
+
+div.text_and_logo span.subtitle {
+	float: left;
+	padding: 0 5px 0 0;
+	width: 330px;
+	font-size: 11px;
 }
 
 div.top_addsense {
@@ -184,6 +187,96 @@ div.bottom_addsense {
 	margin: 0 10px 0 90px;
 }
 
-div.languages {
+#languages {
 	width: 250px;
+	float: right;
 }
+
+
+/** Top Bar */
+#top_bar {
+	background: url(img/search_bg.png) no-repeat;
+	width: 898px;
+	height: 50px;
+	margin: 0 0 10px 2px;
+	padding: 30px 15px 15px 15px;
+}
+
+#top_bar img {
+	float: left;
+}
+
+#top_bar span.label {
+	float: left;
+	color: #A3A3A3;
+	font-size: 14px;
+	padding: 6px 25px 0 4px;
+}
+
+#top_bar div.actions {
+	width: auto;
+}
+
+#top_bar div.login {
+	width: auto;
+	margin: 5px 0 0 0;
+}
+
+/**Login */
+#UserLoginForm div {
+	width: 205px;
+	height: 21px;
+}
+
+#UserLoginForm div.submit {
+	width: 50px;
+}
+
+#UserLoginForm label {
+	width: 40px;
+	float: left;
+}
+
+#UserLoginForm input {
+	width: 140px;
+	float: left;
+	background: transparent url(img/input_140_bg.png) no-repeat bottom;
+}
+
+#UserLoginForm input[type=submit] {
+	width: 77px;
+	float: left;
+	margin: 0;
+	text-align: center;
+	background: url(img/button_bg.png) no-repeat;
+}
+
+#google_search {
+	background: url(img/google_logo.jpg) no-repeat;
+	width: auto;
+	margin-right: 45px;
+	float: right;
+}
+
+#google_search div.input {
+	width: 100px;
+}
+
+#google_search input {
+	width: 190px;
+	margin-left: 100px;
+}
+
+#google_search input[type=submit] {
+	width: 50px;
+	margin-left: 0;
+}
+/*
+#logout {
+	display: block;
+	float: left;
+	width: 59px;
+	height: 22px;
+	background: url(img/logout.jpg) no-repeat;
+}
+*/

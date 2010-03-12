@@ -36,18 +36,19 @@
 	<div id="header">
 		<div class="logo">
 			<?php
+				$loggedIn = $session->check('Auth.User');
 				echo $html->image('logo.png', array(
 					'alt'	=> __('Home', true),
 					'title'	=> __('Home', true),
-					'url' 	=> array('controller' => 'sites_users', 'action' => 'index')));
+					'url' 	=> ($loggedIn)?'/home':'/'));
 			?>
 		</div>
 
 
-		<div class="languages">
+		<div id="languages">
 			<?php
 				echo $form->input('language', array(
-					'label'		=> false,
+					'label'		=> __('Select your language', true),
 					'default'	=> Configure::read('Config.language'),
 					'options' 	=> Configure::read('Config.languages'))
 				);
@@ -55,41 +56,48 @@
 		</div>
 
 
-		<div class="addsense top_addsense">
+<!--		<div class="addsense top_addsense">
 			<script type="text/javascript"><!--
 				google_ad_client = "pub-0846414566912792";
-				/* 234x60, creado 10/03/10 */
 				google_ad_slot = "1083049098";
 				google_ad_width = 234;
 				google_ad_height = 60;
-				//-->
 			</script>
 			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-		</div>
+		</div>-->
 
 
-		<div class="search">
-
-
+		<div id="top_bar">
 
 		<?php
-			if (!$session->check('Auth.User')) {
-				$session->flash('auth');
-				echo $form->create('User', array('action' => 'login'));
-				echo $form->input('username');
-				echo $form->input('password');
-				echo $form->end('Login');
-			} else {
+			if ($loggedIn) {
+				echo '<div class="actions">';
 				echo $html->image('add.png', array(
 					'alt'	=> __('Add web site', true),
 					'title'	=> __('Add web site', true),
-					'class'	=> 'add',
 					'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
 				echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
+
+				echo $html->image('logout.jpg', array(
+					'alt'	=> __('Logout', true),
+					'title'	=> __('Logout', true),
+					'url' 	=> array('controller' => 'users', 'action' => 'logout')));
+				echo $html->tag('span', __('Logout from 1000pass.com', true), array('class' => 'label'));
+
+				echo $html->link(' ', array('controller' => 'users', 'action' => 'logout'), array('id' => 'logout'));
+				echo '</div>';
+			} else {
+				echo '<div class="login">';
+				echo $form->create('User', array('action' => 'login'));
+				echo $form->input('username');
+				echo $form->input('password');
+				echo $form->submit(__('enter', true));
+				echo $form->end();
+				echo '</div>';
 			}
 		?>
 
-			<div class="google_search">
+			<div id="google_search">
 				<form method="get" action="http://www.google.com/search">
 					<input type="text" name="q" size="31" maxlength="255" value="" />
 					<input type="submit" value="<?php __('Search'); ?>" />
@@ -103,58 +111,34 @@
 
 <?php
 
-	/** Session Flash */
-	if ($session->check('Message.flash')) {
+	/** Session Flash
+	if ($session->check('Message.flash') || $session->flash('auth')) {
 		ob_start();
 		$session->flash();
 		$out[] = ob_get_clean();
 	}
+ 	*/
 
-
-	$out = null;
+	//$out = null;
 
 
 	/** VIEWS */
-	$out[] = $html->tag('div', $content_for_layout, array('id' => 'container'));
+	echo $html->tag('div', $content_for_layout, array('id' => 'container'));
 
 
-	$out[] = '<ul>';
-	$out[] = '<li>';
-	$out[] = $html->link(__('Home', true), array('controller' => 'sites_users'));
-	$out[] = '</li>';
-	$out[] = '<li>';
-	$out[] = $html->link(__('Sites', true), array('controller' => 'sites'));
-	$out[] = '</li>';
-	$out[] = '<li>';
-	$out[] = $html->link(__('User', true), array('controller' => 'users'));
-	$out[] = '</li>';
-	$out[] = '<li>';
-	$out[] = $html->link(__('User\'s Sites', true), array('controller' => 'sites_users'));
-	$out[] = '</li>';
-	$out[] = '<li>';
-	$out[] = $html->link(__('Sign Up', true), array('controller' => 'users', 'action' => 'register'));
-	$out[] = '</li>';
-	$out[] = '<li>';
-	$out[] = $html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'));
-	$out[] = '</li>';
-	$out[] = '</ul>';
-
-	echo implode('', $out);
 
 
 ?>
 
-	<div class="addsense bottom_addsense">
+<!--	<div class="addsense bottom_addsense">
 		<script type="text/javascript"><!--
 			google_ad_client = "pub-0846414566912792";
-			/* 728x90, creado 10/03/10 */
 			google_ad_slot = "9749307972";
 			google_ad_width = 728;
 			google_ad_height = 90;
-			//-->
 		</script>
 		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-	</div>
+	</div>-->
 
 
 </body>
