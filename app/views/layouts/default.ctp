@@ -7,6 +7,11 @@
 	<?php
 		echo $html->meta('icon');
 
+		
+		//echo $html->meta('description', 'Sports football tennis', array('type'=>'description'));
+		//echo $html->meta('keywords', 'Sports football tennis', array('type'=>'keywords'));
+
+
 		//echo $html->css('cake.generic');
 		echo $html->css('app.generic');
 
@@ -36,7 +41,7 @@
 	<div id="header">
 		<div class="logo">
 			<?php
-				$loggedIn = $session->check('Auth.User');
+				$loggedIn = $session->read('Auth.User');
 				echo $html->image('logo.png', array(
 					'alt'	=> __('Home', true),
 					'title'	=> __('Home', true),
@@ -52,19 +57,28 @@
 					'default'	=> Configure::read('Config.language'),
 					'options' 	=> Configure::read('Config.languages'))
 				);
+
+				if ($loggedIn['username'] === 'root') {
+					$out = null;
+					$out[] = '<div id="menu">';
+					$out[] = $html->link(__('Sites', true), array('controller' => 'sites'));
+					$out[] = $html->link(__('User', true), array('controller' => 'users'));
+					$out[] = '</div>';
+					echo implode('', $out);
+				}
 			?>
 		</div>
 
 
-<!--		<div class="addsense top_addsense">
-			<script type="text/javascript"><!--
+		<div class="addsense top_addsense">
+			<script type="text/javascript">
 				google_ad_client = "pub-0846414566912792";
 				google_ad_slot = "1083049098";
 				google_ad_width = 234;
 				google_ad_height = 60;
 			</script>
 			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-		</div>-->
+		</div>
 
 
 		<div id="top_bar">
@@ -89,8 +103,8 @@
 			} else {
 				echo '<div class="login">';
 				echo $form->create('User', array('action' => 'login'));
-				echo $form->input('username');
-				echo $form->input('password');
+				echo $form->input('username', array('error' => false));
+				echo $form->input('password', array('error' => false));
 				echo $form->submit(__('enter', true));
 				echo $form->end();
 				echo '</div>';
@@ -130,15 +144,15 @@
 
 ?>
 
-<!--	<div class="addsense bottom_addsense">
-		<script type="text/javascript"><!--
+	<div class="addsense bottom_addsense">
+		<script type="text/javascript">
 			google_ad_client = "pub-0846414566912792";
 			google_ad_slot = "9749307972";
 			google_ad_width = 728;
 			google_ad_height = 90;
 		</script>
 		<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-	</div>-->
+	</div>
 
 
 </body>

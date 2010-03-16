@@ -5,7 +5,7 @@ class UsersController extends AppController {
 
 	var $components = array('Email');
 
- 
+
     /**
      *  The AuthComponent provides the needed functionality
      *  for login, so you can leave this function blank.
@@ -81,11 +81,13 @@ class UsersController extends AppController {
 
 
 	function index() {
+		$this->layout = 'admin';
 		$this->User->recursive = 0;
 		$this->set('users', $this->paginate());
 	}
 
 	function view($id = null) {
+		$this->layout = 'admin';
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid User.', true));
 			$this->redirect(array('action'=>'index'));
@@ -94,6 +96,7 @@ class UsersController extends AppController {
 	}
 
 	function add() {
+		$this->layout = 'admin';
 		if (!empty($this->data)) {
 			$this->User->create();
 			if ($this->User->save($this->data)) {
@@ -108,6 +111,7 @@ class UsersController extends AppController {
 	}
 
 	function edit($id = null) {
+		$this->layout = 'admin';
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid User', true));
 			$this->redirect(array('action'=>'index'));

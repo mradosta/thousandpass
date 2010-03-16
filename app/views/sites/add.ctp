@@ -1,10 +1,10 @@
 <div class="sites form">
-<?php echo $form->create('Site');?>
+<?php echo $form->create('Site', array('type' => 'file'));?>
 	<fieldset>
  		<legend><?php __('Add Site');?></legend>
 	<?php
 		echo $form->input('title');
-		echo $form->input('logo');
+		echo $form->input('logo_field', array('type' => 'file'));
 		echo $form->input('login_url');
 		echo $form->input('username_field');
 		echo $form->input('password_field');

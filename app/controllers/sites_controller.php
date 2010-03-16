@@ -3,6 +3,11 @@ class SitesController extends AppController {
 
 	var $name = 'Sites';
 
+	function beforeRender() {
+		$this->layout = 'admin';
+		return parent::beforeRender();
+	}
+
 	function index() {
 		$this->Site->recursive = 0;
 		$this->set('sites', $this->paginate());
@@ -18,7 +23,17 @@ class SitesController extends AppController {
 
 	function add() {
 		if (!empty($this->data)) {
+
 			$this->Site->create();
+
+			if (is_uploaded_file($this->data['Site']['logo_field']['tmp_name'])) {
+				$this->data['Site']['logo'] = $this->data['Site']['logo_field']['name'];
+				$target_path = WWW_ROOT . 'img' . DS . 'logos' . DS . $this->data['Site']['logo'];
+				if (move_uploaded_file($this->data['Site']['logo_field']['tmp_name'], $target_path)) {
+					$this->data['Site']['logo'] = $this->data['Site']['logo_field']['name'];
+				}
+			}
+
 			if ($this->Site->save($this->data)) {
 				$this->Session->setFlash(__('The Site has been saved', true));
 				$this->redirect(array('action'=>'index'));
@@ -26,9 +41,11 @@ class SitesController extends AppController {
 				$this->Session->setFlash(__('The Site could not be saved. Please, try again.', true));
 			}
 		}
+
 		$users = $this->Site->User->find('list');
 		$this->set(compact('users'));
 	}
+
 
 	function edit($id = null) {
 		if (!$id && empty($this->data)) {
@@ -36,6 +53,19 @@ class SitesController extends AppController {
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->data)) {
+
+			if (!empty($this->data['Site']['logo_delete'])) {
+				$this->data['Site']['logo'] = '';
+			}
+
+			if (is_uploaded_file($this->data['Site']['logo_field']['tmp_name'])) {
+				$this->data['Site']['logo'] = $this->data['Site']['logo_field']['name'];
+				$target_path = WWW_ROOT . 'img' . DS . 'logos' . DS . $this->data['Site']['logo'];
+				if (move_uploaded_file($this->data['Site']['logo_field']['tmp_name'], $target_path)) {
+					$this->data['Site']['logo'] = $this->data['Site']['logo_field']['name'];
+				}
+			}
+
 			if ($this->Site->save($this->data)) {
 				$this->Session->setFlash(__('The Site has been saved', true));
 				$this->redirect(array('action'=>'index'));

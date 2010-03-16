@@ -44,7 +44,7 @@
 		<tr<?php echo $class;?>>
 			<td><?php echo $site['id'];?></td>
 			<td><?php echo $site['title'];?></td>
-			<td><?php echo $site['description'];?></td>
+			<td><?php echo $site['login_url'];?></td>
 			<td class="actions">
 				<?php echo $html->link(__('View', true), array('controller' => 'sites', 'action' => 'view', $site['id'])); ?>
 				<?php echo $html->link(__('Edit', true), array('controller' => 'sites', 'action' => 'edit', $site['id'])); ?>
