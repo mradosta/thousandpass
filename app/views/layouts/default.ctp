@@ -50,6 +50,17 @@
 		</div>
 
 
+		<div class="addsense top_addsense">
+			<script type="text/javascript">
+				google_ad_client = "pub-0846414566912792";
+				google_ad_slot = "1083049098";
+				google_ad_width = 234;
+				google_ad_height = 60;
+			</script>
+			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+		</div>
+
+
 		<div id="languages">
 			<?php
 				echo $form->input('language', array(
@@ -70,35 +81,29 @@
 		</div>
 
 
-		<div class="addsense top_addsense">
-			<script type="text/javascript">
-				google_ad_client = "pub-0846414566912792";
-				google_ad_slot = "1083049098";
-				google_ad_width = 234;
-				google_ad_height = 60;
-			</script>
-			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-		</div>
-
-
 		<div id="top_bar">
-
 		<?php
 			if ($loggedIn) {
 				echo '<div class="actions">';
-				echo $html->image('add.png', array(
-					'alt'	=> __('Add web site', true),
-					'title'	=> __('Add web site', true),
-					'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
-				echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
 
-				echo $html->image('logout.jpg', array(
-					'alt'	=> __('Logout', true),
-					'title'	=> __('Logout', true),
-					'url' 	=> array('controller' => 'users', 'action' => 'logout')));
-				echo $html->tag('span', __('Logout from 1000pass.com', true), array('class' => 'label'));
+					echo $html->image('add.png', array(
+						'alt'	=> __('Add web site', true),
+						'title'	=> __('Add web site', true),
+						'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
+					echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
 
-				echo $html->link(' ', array('controller' => 'users', 'action' => 'logout'), array('id' => 'logout'));
+					echo $html->image('logout.jpg', array(
+						'alt'	=> __('Logout', true),
+						'title'	=> __('Logout', true),
+						'url' 	=> array('controller' => 'users', 'action' => 'logout')));
+					echo $html->tag('span', __('Logout', true), array('class' => 'label'));
+
+					echo $html->image('notes.png', array(
+						'alt'	=> __('Notes', true),
+						'title'	=> __('Notes', true),
+						'url' 	=> array('controller' => 'notes', 'action' => 'add')));
+					echo $html->tag('span', __('Notes', true), array('class' => 'label'));
+
 				echo '</div>';
 			} else {
 				echo '<div class="login">';

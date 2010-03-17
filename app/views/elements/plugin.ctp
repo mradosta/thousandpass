@@ -7,12 +7,21 @@
 			'alt'	=> __('Delete', true),
 			'title'	=> __('Delete', true),
 			'url' 	=> array('controller' => 'sites_users', 'action' => 'delete', $data['SitesUser']['id']),
-			'class' => 'action edit'));
+			'class' => 'action'));
 	$toolbar[] = $html->image('edit.png', array(
 			'alt'	=> __('Edit', true),
 			'title'	=> __('Edit', true),
 			'url' 	=> array('controller' => 'sites_users', 'action' => 'edit', $data['SitesUser']['id']),
-			'class' => 'action edit'));
+			'class' => 'action'));
+
+	$domain = array_pop(explode('@', $data['SitesUser']['username']));
+	if (!empty($domain) && in_array($domain, array('hotmail.com', 'yahoo.com', 'gmail.com'))) {
+		$toolbar[] = $html->image('contacts.png', array(
+				'alt'	=> __('Get contacts', true),
+				'title'	=> __('Get contacts', true),
+				'url' 	=> array('controller' => 'sites_users', 'action' => 'get_contacts', $data['SitesUser']['id']),
+				'class' => 'action'));
+	}
 	$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar'));
 
 

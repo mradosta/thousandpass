@@ -3,6 +3,33 @@ class SitesUsersController extends AppController {
 
 	var $name = 'SitesUsers';
 
+
+	function get_contacts($id) {
+
+		$this->SitesUser->recursive = -1;
+		$sitesUser = $this->SitesUser->findById($id);
+
+		if (!empty($sitesUser)) {
+
+			$domain = array_pop(explode('@', $sitesUser['SitesUser']['username']));
+
+			App::import('Vendor', 'contactgrabber', array('file' => 'baseclass' . DS . 'baseclass.php'));
+			if ($domain == 'gmail.com') {
+				App::import('Vendor', 'contactgrabber' . DS . 'gmail', array('file' => 'libgmailer.php'));
+				$obj = new GMailer();
+			} elseif ($domain == 'hotmail.com') {
+				App::import('Vendor', 'contactgrabber' . DS . 'hotmail', array('file' => 'msn_contact_grab.class.php'));
+				$obj = new hotmail();
+			} elseif ($domain == 'yahoo.com') {
+				App::import('Vendor', 'contactgrabber'. DS . 'yahoo', array('file' => 'class.GrabYahoo.php'));
+				$obj = new GrabYahoo();
+			}
+
+			$contacts = $obj->getAddressbook($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
+			d($contacts);
+		}
+	}
+
 	function index() {
 		$this->SitesUser->recursive = 0;
 		$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));

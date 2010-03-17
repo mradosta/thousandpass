@@ -90,7 +90,7 @@ class UsersController extends AppController {
 		$this->layout = 'admin';
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid User.', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action' => 'index'));
 		}
 		$this->set('user', $this->User->read(null, $id));
 	}
@@ -101,7 +101,7 @@ class UsersController extends AppController {
 			$this->User->create();
 			if ($this->User->save($this->data)) {
 				$this->Session->setFlash(__('The User has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 			}
@@ -114,12 +114,12 @@ class UsersController extends AppController {
 		$this->layout = 'admin';
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid User', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
 			if ($this->User->save($this->data)) {
 				$this->Session->setFlash(__('The User has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 			}
