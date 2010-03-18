@@ -21,7 +21,7 @@
 					echo $form->input('description');
 				?>
 			<?php
-				echo $form->end('Add');
+				echo $form->end(__('Add', true));
 				//echo $html->link(__('Back', true), '/home');
 			?>
 			</div>
@@ -32,8 +32,15 @@
 
 <script>
 	$('#SitesUserSiteId').change(function() {
+		var label = '<?php __('Description'); ?>';
+		var parent = $('#SitesUserDescription').parent();
+		$('#SitesUserDescription').remove();
 		if ($(this).val() == 0) {
-			$('#SitesUserDescription').parent().find('label').html('Url');
+			parent.find('label').html('Url');
+			parent.append('<input name="data[SitesUser][description]" type="text" value="" id="SitesUserDescription" />');
+		} else {
+			parent.find('label').html(label);
+			parent.append('<textarea name="data[SitesUser][description]" cols="30" rows="6" id="SitesUserDescription" ></textarea>');
 		}
 	});
 </script>

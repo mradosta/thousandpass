@@ -35,5 +35,19 @@ class SitesUser extends AppModel {
 		return parent::afterFind($results, $primary);
 	}
 
+
+	/**
+	* Prevent empty foreing key error.
+	*/
+	function beforeSave($options = array()) {
+		if (empty($this->data[$this->name]['site_id'])) {
+			unset($this->data[$this->name]['site_id']);
+			$this->data[$this->name]['state'] = 'pending';
+		} else {
+			$this->data[$this->name]['state'] = 'confirmed';
+		}
+		return parent::beforeSave($options);
+	}
+
 }
 ?>
