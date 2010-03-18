@@ -55,8 +55,8 @@ class SitesUsersController extends AppController {
 				$this->Session->setFlash(__('The SitesUser could not be saved. Please, try again.', true));
 			}
 		}
-		$sites = $this->SitesUser->Site->find('list', array('order' => array('Site.title' => 'asc')));
-		$sites[0] = __('Request not listed site', true);
+		$sites[__('Non Existent Site', true)][] = __('Request not listed site', true);
+		$sites[__('Existing Sites', true)] = $this->SitesUser->Site->find('list', array('order' => array('Site.title' => 'asc')));
 		$this->set(compact('sites'));
 	}
 

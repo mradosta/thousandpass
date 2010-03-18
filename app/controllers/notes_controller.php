@@ -47,12 +47,12 @@ class NotesController extends AppController {
 
 	function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for User', true));
-			$this->redirect(array('action'=>'index'));
+			$this->Session->setFlash(__('Invalid id for Note', true));
+			$this->redirect(array('action' => 'index'));
 		}
-		if ($this->User->del($id)) {
-			$this->Session->setFlash(__('User deleted', true));
-			$this->redirect(array('action'=>'index'));
+		if ($this->Note->del($id)) {
+			$this->Session->setFlash(__('Note deleted', true));
+			$this->redirect(array('action' => 'index'));
 		}
 	}
 
