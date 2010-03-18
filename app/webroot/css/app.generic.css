@@ -90,8 +90,8 @@ div.error-message {
 
 div.inner_container_vertical_scroll {
 	width: 895px;
-	height: 288px;
-	overflow-y: auto;
+	height: 280px;
+	overflow-y: scroll;
 	overflow-x: hidden;
 }
 
@@ -99,7 +99,7 @@ div.inner_container_vertical_scroll {
 	background: url(img/plugin_bg.png) no-repeat;
 	float:left;
 	width: 173px;
-	height: 96px;
+	height: 145px;
 	text-align: center;
 }
 
@@ -108,7 +108,7 @@ div.inner_container_vertical_scroll {
 	background: url(img/enabled.png) no-repeat;
 	width: 140px;
 	height: 19px;
-	margin: 2px 0 10px 10px;
+	margin: 12px 0 10px 10px;
 	font-weight: bold;
 	font-size: 12px;
 	padding: 5px 0 0 10px;
@@ -127,10 +127,8 @@ div.inner_container_vertical_scroll {
 }
 
 .plugins .remote_site_logo, .plugins .remote_site_logo_disabled {
-	height: 30px;
+	height: 70px;
 	width: 145px;
-	1margin:0;
-	1padding:0;
 }
 
 .plugins .description {
