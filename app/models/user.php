@@ -86,7 +86,7 @@ class User extends AppModel {
 	* Used to compare the two entered passwords are the same.
 	*/
 	function compareData($data, $field) {
-		return ($data == $this->data[$this->name][$field]);
+		return (Security::hash($data['repassword'], null, true) == $this->data[$this->name][$field]);
 	}
 
 }
