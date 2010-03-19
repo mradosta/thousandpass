@@ -23,7 +23,7 @@ class UsersController extends AppController {
 		/**
 		* Allows a user to sign up for a new account
 		*/
-		$this->Auth->allow('register');
+		$this->Auth->allow(array('register', 'terms_of_service'));
 		return parent::beforeFilter();
 	}
 
@@ -53,12 +53,26 @@ class UsersController extends AppController {
 	}
 
 
+    function terms_of_service() {
+        $this->view = 'Media';
+        $params = array(
+              'id' => Configure::read('Config.language') . '1000pass.pdf',
+              'name' => __('Terms_Of_Service', true),
+              'download' => true,
+              'extension' => 'pdf',
+              'path' => APP . 'files' . DS
+       );
+       $this->set($params);
+    }
+
+
 	function register() {
+
 		// If the user submitted the form.
 		if (!empty($this->data)) {
-				// Turn the supplied password into the correct Hash.
-				// and move into the 'password' field so it will get saved.
-				$this->data['User']['password'] = $this->Auth->password($this->data['User']['password']);
+			if (empty($this->data['User']['term_of_service'])) {
+				$this->User->invalidate('term_of_service', __('Must accept the Terms of Service', true));
+			} else {
 
 				// Always Sanitize any data from users!
 				App::import('core', 'Sanitize');
@@ -72,10 +86,11 @@ class UsersController extends AppController {
 				} else {
 					$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 				}
-
-				// The plain text password supplied has been hashed into the 'password' field so
-				// should now be nulled so it doesn't get render in the HTML if the save() fails
-				$this->data['User']['passwrd'] = null;
+			}
+			// The plain text password supplied has been hashed into the 'password' field so
+			// should now be nulled so it doesn't get render in the HTML if the save() fails
+			$this->data['User']['password'] = null;
+			$this->data['User']['repassword'] = null;
 		}
 	}
 
