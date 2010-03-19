@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-03-02 15:43-0300\n"
+"POT-Creation-Date: 2010-03-19 11:01-0300\n"
 "PO-Revision-Date: \n"
 "Last-Translator: mradosta <martinradosta@gmail.com>\n"
 "Language-Team: \n"
@@ -9,166 +9,288 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: /controllers/sites_controller.php:13
+#: /app_controller.php:56
+msgid "You must be logged in as an admin user to enter this section."
+msgstr "Debe estar logeado como administrador para ingresar a esta sección"
+
+#: /controllers/notes_controller.php:11;30
+msgid "The Note has been saved"
+msgstr "La nota ha sido guardado"
+
+#: /controllers/notes_controller.php:14;33
+msgid "The Note could not be saved. Please, try again."
+msgstr "La Nota no puso guardarse. Por favor intente nuevamente."
+
+#: /controllers/notes_controller.php:25
+msgid "Invalid Note"
+msgstr "Nota Inválida"
+
+#: /controllers/notes_controller.php:50
+msgid "Invalid id for Note"
+msgstr "Nota Inválido"
+
+#: /controllers/notes_controller.php:54
+msgid "Note deleted"
+msgstr "Nota borrada"
+
+#: /controllers/sites_controller.php:18
 msgid "Invalid Site."
 msgstr ""
 
-#: /controllers/sites_controller.php:23;40
+#: /controllers/sites_controller.php:38;70
 msgid "The Site has been saved"
 msgstr "El Sitio ha sido guardado"
 
-#: /controllers/sites_controller.php:26;43
+#: /controllers/sites_controller.php:41;73
 msgid "The Site could not be saved. Please, try again."
-msgstr ""
+msgstr "El sitio no pudo guardarse. Por favor, intente nuevamente."
 
-#: /controllers/sites_controller.php:35
+#: /controllers/sites_controller.php:52
 msgid "Invalid Site"
 msgstr "Sitio Inválido"
 
-#: /controllers/sites_controller.php:55
+#: /controllers/sites_controller.php:85
 msgid "Invalid id for Site"
 msgstr ""
 
-#: /controllers/sites_controller.php:59
+#: /controllers/sites_controller.php:89
 msgid "Site deleted"
 msgstr "Sitio borrado"
 
-#: /controllers/sites_users_controller.php:13
+#: /controllers/sites_users_controller.php:41
 msgid "Invalid SitesUser."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:24;41
+#: /controllers/sites_users_controller.php:52;70
 msgid "The SitesUser has been saved"
 msgstr "El Stio de Usuario ha sido guardado"
 
-#: /controllers/sites_users_controller.php:27;44
+#: /controllers/sites_users_controller.php:55;73
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:36
+#: /controllers/sites_users_controller.php:58
+msgid "Non Existent Site"
+msgstr "Sitio Nuevo"
+
+#: /controllers/sites_users_controller.php:58
+msgid "Request not listed site"
+msgstr "Solicitar un nuevo sitio"
+
+#: /controllers/sites_users_controller.php:59
+msgid "Existing Sites"
+msgstr "Sitios Existentes"
+
+#: /controllers/sites_users_controller.php:65
 msgid "Invalid SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:57
+#: /controllers/sites_users_controller.php:86
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:61
+#: /controllers/sites_users_controller.php:90
 msgid "SitesUser deleted"
 msgstr "Sitio de Usuario Borrado"
 
-#: /controllers/users_controller.php:58
-msgid "Invalid User."
-msgstr ""
+#: /controllers/users_controller.php:60
+msgid "Terms_Of_Service"
+msgstr "Condiciones_De_Uso"
 
-#: /controllers/users_controller.php:68;85
-msgid "The User has been saved"
-msgstr ""
+#: /controllers/users_controller.php:74
+msgid "Must accept the Terms of Service"
+msgstr "Debe aceptar las Condiciones de Uso"
 
-#: /controllers/users_controller.php:71;88
+#: /controllers/users_controller.php:84
+msgid "Thanks for signing up at 1000Pass.com."
+msgstr "Gracias por registrarse en 1000Pass.com."
+
+#: /controllers/users_controller.php:87;121;139
 msgid "The User could not be saved. Please, try again."
-msgstr ""
+msgstr "El usuario no pudo guardarse. Por favor, intente nuevamente."
 
-#: /controllers/users_controller.php:80
+#: /controllers/users_controller.php:107
+msgid "Invalid User."
+msgstr "Usuario Inválido."
+
+#: /controllers/users_controller.php:118;136
+msgid "The User has been saved"
+msgstr "El usuario ha sido guardado"
+
+#: /controllers/users_controller.php:131
 msgid "Invalid User"
 msgstr "Usuario Inválido"
 
-#: /controllers/users_controller.php:100
+#: /controllers/users_controller.php:151
 msgid "Invalid id for User"
 msgstr ""
 
-#: /controllers/users_controller.php:104
+#: /controllers/users_controller.php:155
 msgid "User deleted"
 msgstr "Usuario borrado"
 
-#: /views/elements/plugin.ctp:7;8
-#: /views/sites/edit.ctp:16
+#: /vendors/pragmatia/l10nextended.php:340
+msgid "Unknown country"
+msgstr "País desconocido"
+
+#: /views/elements/plugin.ctp:8;9
+#: /views/sites/edit.ctp:23
 #: /views/sites/index.ctp:41
 #: /views/sites/view.ctp:61
-#: /views/sites_users/edit.ctp:17
-#: /views/users/edit.ctp:15
-#: /views/users/index.ctp:36
+#: /views/users/edit.ctp:19
+#: /views/users/index.ctp:37
 #: /views/users/view.ctp:51
 msgid "Delete"
 msgstr "Borrar"
 
-#: /views/elements/plugin.ctp:12;13
+#: /views/elements/plugin.ctp:13;14
 #: /views/sites/index.ctp:40
 #: /views/sites/view.ctp:60
-#: /views/users/index.ctp:35
+#: /views/users/index.ctp:36
 #: /views/users/view.ctp:50
 msgid "Edit"
 msgstr "Modificar"
 
-#: /views/layouts/default.ctp:24;25;61
+#: /views/elements/plugin.ctp:21;22
+msgid "Get contacts"
+msgstr "Traer contactos"
+
+#: /views/elements/plugin.ctp:28
+msgid "Pending of approval"
+msgstr "Pendiente de revisión"
+
+#: /views/elements/plugin.ctp:29
+msgid "Your new site will approved by our admins within the next 24 hs."
+msgstr "Su nuevo sitio será aprobado por nuestros administradores en las próximas 24 hs."
+
+#: /views/layouts/admin.ctp:46
+#: /views/layouts/default.ctp:46;47
 msgid "Home"
 msgstr "Principal"
 
-#: /views/layouts/default.ctp:33;34
-msgid "Add new site"
-msgstr "Agregar nuevo sitio"
-
-#: /views/layouts/default.ctp:64
+#: /views/layouts/admin.ctp:49
+#: /views/layouts/default.ctp:75
 #: /views/sites/index.ctp:2
 msgid "Sites"
 msgstr "Sitios"
 
-#: /views/layouts/default.ctp:67
+#: /views/layouts/admin.ctp:52
+#: /views/layouts/default.ctp:76
 #: /views/sites_users/view.ctp:19
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr "Usuarios"
 
-#: /views/layouts/default.ctp:70
-msgid "User's Sites"
-msgstr ""
-
-#: /views/layouts/default.ctp:73
-msgid "Sign Up"
-msgstr "Registrate"
-
-#: /views/layouts/default.ctp:76
+#: /views/layouts/admin.ctp:55
+#: /views/layouts/default.ctp:96;97;99
 msgid "Logout"
 msgstr "Salir"
+
+#: /views/layouts/admin.ctp:70
+msgid "CakePHP: the rapid development php framework"
+msgstr ""
+
+#: /views/layouts/default.ctp:67
+msgid "Select your language"
+msgstr "Seleccione su idioma"
+
+#: /views/layouts/default.ctp:90;91;93
+msgid "Add web site"
+msgstr "Agregar nuevo sitio"
+
+#: /views/layouts/default.ctp:102;103;105
+msgid "Notes"
+msgstr "Notas"
+
+#: /views/layouts/default.ctp:113
+msgid "enter"
+msgstr "ingresar"
+
+#: /views/layouts/default.ctp:122
+msgid "Search"
+msgstr "Buscar"
+
+#: /views/notes/add.ctp:9;10;12
+msgid "Add Note"
+msgstr "Agregar Nota"
+
+#: /views/notes/add.ctp:17
+msgid "Date"
+msgstr "Fecha"
+
+#: /views/notes/add.ctp:18;69
+#: /views/sites/view.ctp:9
+#: /views/users/view.ctp:32
+msgid "Title"
+msgstr "Título"
+
+#: /views/notes/add.ctp:19;70
+msgid "Note"
+msgstr "Notas"
+
+#: /views/notes/add.ctp:20
+#: /views/sites/index.ctp:15
+#: /views/sites/view.ctp:44
+#: /views/users/index.ctp:14
+#: /views/users/view.ctp:34
+msgid "Actions"
+msgstr "Acciones"
+
+#: /views/notes/add.ctp:48
+#: /views/sites/edit.ctp:23
+#: /views/sites/index.ctp:41
+#: /views/sites/view.ctp:29;61
+#: /views/sites_users/view.ctp:29
+#: /views/users/edit.ctp:19
+#: /views/users/index.ctp:37
+#: /views/users/view.ctp:19;51
+msgid "Are you sure you want to delete # %s?"
+msgstr "Esta seguro que desea borrar # %s?"
+
+#: /views/notes/add.ctp:60
+#: /views/sites_users/add.ctp:10
+msgid "Add a new web site to"
+msgstr "Agregar nuevo sitio a"
+
+#: /views/notes/add.ctp:63
+#: /views/sites_users/add.ctp:13
+#: /views/sites_users/edit.ctp:13
+#: /views/users/register.ctp:14
+msgid "We order your home page"
+msgstr "Ordenamos tu Página de Inicio"
 
 #: /views/sites/add.ctp:4
 msgid "Add Site"
 msgstr "Agregar Sitio"
 
-#: /views/sites/add.ctp:15
-#: /views/sites/edit.ctp:17
+#: /views/sites/add.ctp:18
+#: /views/sites/edit.ctp:24
 #: /views/sites/view.ctp:30
-#: /views/sites_users/add.ctp:18
-#: /views/sites_users/edit.ctp:19
 #: /views/sites_users/view.ctp:32
-#: /views/users/add.ctp:15
-#: /views/users/edit.ctp:17
-#: /views/users/index.ctp:50
+#: /views/users/add.ctp:320
+#: /views/users/edit.ctp:21
+#: /views/users/index.ctp:51
 #: /views/users/view.ctp:22
 msgid "List Sites"
 msgstr "Mostrar Sitios"
 
-#: /views/sites/add.ctp:16
-#: /views/sites/edit.ctp:18
+#: /views/sites/add.ctp:19
+#: /views/sites/edit.ctp:25
 #: /views/sites/index.ctp:55
 #: /views/sites/view.ctp:32
-#: /views/sites_users/add.ctp:20
-#: /views/sites_users/edit.ctp:21
 #: /views/sites_users/view.ctp:34
-#: /views/users/add.ctp:14
-#: /views/users/edit.ctp:16
+#: /views/users/add.ctp:319
+#: /views/users/edit.ctp:20
 #: /views/users/view.ctp:20
 msgid "List Users"
 msgstr "Mostrar Usuarios"
 
-#: /views/sites/add.ctp:17
-#: /views/sites/edit.ctp:19
+#: /views/sites/add.ctp:20
+#: /views/sites/edit.ctp:26
 #: /views/sites/index.ctp:56
 #: /views/sites/view.ctp:33;70
-#: /views/sites_users/add.ctp:21
-#: /views/sites_users/edit.ctp:22
 #: /views/sites_users/view.ctp:35
-#: /views/users/index.ctp:49
+#: /views/users/index.ctp:50
 #: /views/users/view.ctp:21
 msgid "New User"
 msgstr "Nuevo Usuario"
@@ -178,54 +300,34 @@ msgstr "Nuevo Usuario"
 msgid "Edit Site"
 msgstr "Modificar Sitio"
 
-#: /views/sites/edit.ctp:16
-#: /views/sites/index.ctp:41
-#: /views/sites/view.ctp:29;61
-#: /views/sites_users/edit.ctp:17
-#: /views/sites_users/view.ctp:29
-#: /views/users/edit.ctp:15
-#: /views/users/index.ctp:36
-#: /views/users/view.ctp:19;51
-msgid "Are you sure you want to delete # %s?"
-msgstr "Esta seguro que desea borrar # %s?"
-
 #: /views/sites/index.ctp:6
 #: /views/users/index.ctp:6
 msgid "Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%"
-msgstr "Página %page% de %pages%, mostrando %current% registros de %count%, desde el registro %start%, hasta el registro %end%"
-
-#: /views/sites/index.ctp:15
-#: /views/sites/view.ctp:44
-#: /views/users/index.ctp:13
-#: /views/users/view.ctp:34
-msgid "Actions"
-msgstr "Acciones"
+msgstr "Página %page% de %pages%, mostrando %current% registros de %count%, desde el registro %start% hasta el registro %end%"
 
 #: /views/sites/index.ctp:39
 #: /views/sites/view.ctp:59
-#: /views/users/index.ctp:34
+#: /views/users/index.ctp:35
 #: /views/users/view.ctp:49
 msgid "View"
 msgstr "Ver"
 
 #: /views/sites/index.ctp:48
-#: /views/users/index.ctp:43
+#: /views/users/index.ctp:44
 msgid "previous"
 msgstr "anterior"
 
 #: /views/sites/index.ctp:50
-#: /views/users/index.ctp:45
+#: /views/users/index.ctp:46
 msgid "next"
 msgstr "siguiente"
 
 #: /views/sites/index.ctp:54
 #: /views/sites/view.ctp:31
-#: /views/sites_users/add.ctp:19
-#: /views/sites_users/edit.ctp:20
 #: /views/sites_users/view.ctp:33
-#: /views/users/add.ctp:16
-#: /views/users/edit.ctp:18
-#: /views/users/index.ctp:51
+#: /views/users/add.ctp:321
+#: /views/users/edit.ctp:22
+#: /views/users/index.ctp:52
 #: /views/users/view.ctp:23;60
 msgid "New Site"
 msgstr "Nuevo Sitio"
@@ -241,18 +343,13 @@ msgstr "Sitio"
 msgid "Id"
 msgstr "Id"
 
-#: /views/sites/view.ctp:9
-#: /views/users/view.ctp:32
-msgid "Title"
-msgstr "Título"
-
 #: /views/sites/view.ctp:14
 msgid "Logo"
 msgstr "Logo"
 
 #: /views/sites/view.ctp:19
 msgid "Login Url"
-msgstr ""
+msgstr "Url de Ingreso"
 
 #: /views/sites/view.ctp:29
 msgid "Delete Site"
@@ -263,40 +360,50 @@ msgid "Related Users"
 msgstr ""
 
 #: /views/sites/view.ctp:42
+#: /views/users/add.ctp:282
+#: /views/users/register.ctp:296
 #: /views/users/view.ctp:9
 msgid "Username"
-msgstr "Nombre de Usuario"
+msgstr "Usuario"
 
 #: /views/sites/view.ctp:43
+#: /views/users/add.ctp:290
+#: /views/users/register.ctp:304
 msgid "Password"
 msgstr "Clave"
 
-#: /views/sites_users/add.ctp:4
-msgid "Add SitesUser"
-msgstr "Agregar Sitio de Usuario"
+#: /views/sites_users/add.ctp:24
+msgid "Add"
+msgstr "Agregar"
 
-#: /views/sites_users/add.ctp:17
-#: /views/sites_users/edit.ctp:18
-#: /views/sites_users/view.ctp:30
-msgid "List SitesUsers"
-msgstr ""
-
-#: /views/sites_users/edit.ctp:4
-#: /views/sites_users/view.ctp:28
-msgid "Edit SitesUser"
-msgstr "Modificar Sitio de Usuario"
-
-#: /views/sites_users/view.ctp:2
-msgid "SitesUser"
-msgstr "Sitios de Usuario"
-
+#: /views/sites_users/add.ctp:35
 #: /views/sites_users/view.ctp:9
 #: /views/users/view.ctp:33
 msgid "Description"
 msgstr "Descripción"
 
+#: /views/sites_users/edit.ctp:10
+msgid "Edit web site in"
+msgstr "Modificar Sitio en"
+
+#: /views/sites_users/edit.ctp:26
+msgid "Back"
+msgstr "Atrás"
+
+#: /views/sites_users/view.ctp:2
+msgid "SitesUser"
+msgstr "Sitios de Usuario"
+
+#: /views/sites_users/view.ctp:28
+msgid "Edit SitesUser"
+msgstr "Modificar Sitio de Usuario"
+
 #: /views/sites_users/view.ctp:29
 msgid "Delete SitesUser"
+msgstr ""
+
+#: /views/sites_users/view.ctp:30
+msgid "List SitesUsers"
 msgstr ""
 
 #: /views/sites_users/view.ctp:31
@@ -307,6 +414,106 @@ msgstr "Nuevo Sitio de Usuario"
 msgid "Add User"
 msgstr "Agregar Usuario"
 
+#: /views/users/add.ctp:7
+#: /views/users/register.ctp:21
+msgid "Name"
+msgstr "Nombre"
+
+#: /views/users/add.ctp:10
+#: /views/users/register.ctp:24
+msgid "Must enter the Username."
+msgstr "Debe ingresar su nombre de usuario"
+
+#: /views/users/add.ctp:14
+#: /views/users/register.ctp:28
+msgid "Lastname"
+msgstr "Apellido"
+
+#: /views/users/add.ctp:17
+#: /views/users/register.ctp:31
+msgid "Must enter the Lastname."
+msgstr "Debe ingresar su apellido"
+
+#: /views/users/add.ctp:21
+#: /views/users/register.ctp:35
+msgid "Birth Date"
+msgstr "Fecha de Nacimiento"
+
+#: /views/users/add.ctp:27
+#: /views/users/register.ctp:41
+msgid "Must select the Birth Date."
+msgstr "Debe seleccionar una Fecha de Nacimiento."
+
+#: /views/users/add.ctp:31
+#: /views/users/register.ctp:45
+msgid "Sex"
+msgstr "Sexo"
+
+#: /views/users/add.ctp:33
+#: /views/users/register.ctp:47
+msgid "Male"
+msgstr "Masculino"
+
+#: /views/users/add.ctp:34
+#: /views/users/register.ctp:48
+msgid "Female"
+msgstr "Femenino"
+
+#: /views/users/add.ctp:36
+#: /views/users/register.ctp:50
+msgid "Country"
+msgstr "País"
+
+#: /views/users/add.ctp:284
+#: /views/users/register.ctp:298
+msgid "This username has already been taken."
+msgstr "Este nombre de usuario ya esta en uso."
+
+#: /views/users/add.ctp:285;293
+#: /views/users/register.ctp:299;307
+msgid "Only the letters A-z and digits 0-9 are allowed"
+msgstr "Sólo letras A-z y números estan permitidos"
+
+#: /views/users/add.ctp:286
+#: /views/users/register.ctp:300
+msgid "Your username must be between 4 and 20 characters long"
+msgstr "El nombre de usuario debe tener entre 4 y 20 caracteres"
+
+#: /views/users/add.ctp:294
+#: /views/users/register.ctp:308
+msgid "Your password must be at least 6 characters long"
+msgstr "Su clave debe tener por lo menos 6 caracteres"
+
+#: /views/users/add.ctp:298
+#: /views/users/register.ctp:312
+msgid "Retype Password"
+msgstr "Re-ingrese la Clave"
+
+#: /views/users/add.ctp:301
+#: /views/users/register.ctp:315
+msgid "Passwords do not match"
+msgstr "Las claves no coinciden"
+
+#: /views/users/add.ctp:305
+#: /views/users/register.ctp:319
+msgid "Email"
+msgstr "Email"
+
+#: /views/users/add.ctp:307
+#: /views/users/register.ctp:321
+msgid "Your email is not valid"
+msgstr "Su email no es válido"
+
+#: /views/users/add.ctp:311
+#: /views/users/edit.ctp:11
+msgid "Pending"
+msgstr "Pendiente"
+
+#: /views/users/add.ctp:312
+#: /views/users/edit.ctp:12
+msgid "Approved"
+msgstr "Aprobado"
+
 #: /views/users/edit.ctp:4
 #: /views/users/view.ctp:18
 msgid "Edit User"
@@ -315,6 +522,22 @@ msgstr "Modificar Usuario"
 #: /views/users/index.ctp:2
 msgid "Users"
 msgstr "Usuarios"
+
+#: /views/users/register.ctp:11
+msgid "Sign Up at"
+msgstr "Registrarse"
+
+#: /views/users/register.ctp:325
+msgid "Term of Service"
+msgstr "Condiciones de Uso"
+
+#: /views/users/register.ctp:326
+msgid "I understand and accept the term of service"
+msgstr "Entiendo y acepto las condiciones de uso"
+
+#: /views/users/register.ctp:329
+msgid "Sign Up"
+msgstr "Registrate"
 
 #: /views/users/view.ctp:19
 msgid "Delete User"
@@ -327,4 +550,11 @@ msgstr ""
 #: /webroot/test.php:98
 msgid "Debug setting does not allow access to this url."
 msgstr ""
+
+#~ msgid "Add SitesUser"
+#~ msgstr "Agregar Sitio de Usuario"
+
+#, fuzzy
+#~ msgid "Pick a username"
+#~ msgstr "Nombre de Usuario"
 
