@@ -70,10 +70,9 @@ class UsersController extends AppController {
 
 		// If the user submitted the form.
 		if (!empty($this->data)) {
-			if (empty($this->data['User']['term_of_service'])) {
-				$this->User->invalidate('term_of_service', __('Must accept the Terms of Service', true));
+			if (empty($this->data['User']['terms_of_service'])) {
+				$this->User->invalidate('terms_of_service', __('Must accept the Terms of Service', true));
 			} else {
-
 				// Always Sanitize any data from users!
 				App::import('core', 'Sanitize');
 				$this->User->data = Sanitize::clean($this->data);

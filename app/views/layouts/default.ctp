@@ -131,18 +131,19 @@
 <?php
 
 	/** Session Flash
+ 	*/
+	$out = '';
 	if ($session->check('Message.flash') || $session->flash('auth')) {
 		ob_start();
 		$session->flash();
-		$out[] = ob_get_clean();
+		$out = ob_get_clean();
 	}
- 	*/
 
 	//$out = null;
 
 
 	/** VIEWS */
-	echo $html->tag('div', $content_for_layout, array('id' => 'container'));
+	echo $html->tag('div', $out . $content_for_layout, array('id' => 'container'));
 
 
 
