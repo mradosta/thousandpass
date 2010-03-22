@@ -58,7 +58,7 @@ div.input {
 }
 
 div.date select {
-	width: 70px;
+	width: 63px;
 }
 
 div.textarea {
@@ -257,7 +257,7 @@ div.bottom_addsense {
 
 #top_bar div.login {
 	width: auto;
-	margin: 5px 0 0 0;
+	margin: 2px 0 0 0;
 }
 
 /**Login */

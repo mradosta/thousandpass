@@ -3,7 +3,13 @@ class UsersController extends AppController {
 
 	var $name = 'Users';
 
-	var $components = array('Email');
+	var $components = array('Email', 'Captcha');
+	var $helpers = array('Captcha');
+
+
+	function captcha() {
+		$this->Captcha->show();
+	}
 
 
     /**
@@ -23,33 +29,100 @@ class UsersController extends AppController {
 		/**
 		* Allows a user to sign up for a new account
 		*/
-		$this->Auth->allow(array('register', 'terms_of_service'));
+		$this->Auth->allow(array('get_contacts', 'captcha', 'register', 'recover_password', 'terms_of_service'));
 		return parent::beforeFilter();
 	}
 
 
-	private function __sendConfirmationEmail($user) {
+
+	function get_contacts($id) {
+
+		$this->User->SitesUser->recursive = -1;
+		$sitesUser = $this->User->SitesUser->findById($id);
+
+		if (!empty($sitesUser)) {
+
+			$domain = array_pop(explode('@', $sitesUser['SitesUser']['username']));
+
+			App::import('Vendor', 'contactgrabber', array('file' => 'baseclass' . DS . 'baseclass.php'));
+			if ($domain == 'gmail.com') {
+				App::import('Vendor', 'contactgrabber' . DS . 'gmail', array('file' => 'libgmailer.php'));
+				$obj = new GMailer();
+			} elseif ($domain == 'hotmail.com') {
+				App::import('Vendor', 'contactgrabber' . DS . 'hotmail', array('file' => 'msn_contact_grab.class.php'));
+				$obj = new hotmail();
+			} elseif ($domain == 'yahoo.com') {
+				App::import('Vendor', 'contactgrabber'. DS . 'yahoo', array('file' => 'class.GrabYahoo.php'));
+				$obj = new GrabYahoo();
+			}
+
+			$contacts = $obj->getAddressbook($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
+			d($contacts);
+		}
+	}
+
+
+	/**
+	 * Reset users password and send it by email.
+	 */
+	function recover_password($username = null) {
+
+		if (empty($username)) {
+			$this->Session->setFlash(__('Please enter your username.', true));
+		} else {
+			$user = $this->User->findByUsername($username);
+			if (!empty($user)) {
+				$uppercase  = range('A', 'Z');
+				$numeric    = range(0, 9);
+				$charPool   = array_merge($uppercase, $numeric);
+
+				$poolLength = count($charPool) - 1;
+				$newPassword = '';
+				for ($i = 0; $i < 8; $i++) {
+					$newPassword .= $charPool[mt_rand(0, $poolLength)];
+				}
+
+				App::import('Core', 'Security');
+				$this->User->save(array('User' => array(
+					'id' 			=> $user['User']['id'],
+					'password'		=> Security::hash($newPassword, null, true))));
+
+				$this->__sendEmail(
+					array('template' => 'recover_password', 'subject' => __('1000Pass.com - Password Recovery Service', true)),
+					array($user['User']['username'] => $user['User']['email']),
+					array('newpassword' => $newPassword));
+				$this->Session->setFlash(__('Your password has been send to your email.', true));
+			} else {
+				$this->Session->setFlash(__('Username does not exists.', true));
+			}
+		}
+		$this->redirect('register');
+	}
+
+	private function __sendEmail($mailInfo, $destinations, $data) {
 
 		/* SMTP Options */
 		$this->Email->smtpOptions = array(
-				'port'=>'25',
-				'timeout'=>'30',
-				'host' => 'smtp.pragmatia.com',
-				'username'=>'mradosta@pragmatia.com.ar',
-				'password'=>'NatachaLia0',
-				'client' => 'smtp_helo_hostname'
+				'port'		=> '25',
+				'timeout'	=> '300',
+				'host' 		=> 'smtp.pragmatia.com',
+				'username'	=> 'mradosta@pragmatia.com.ar',
+				'password'	=> 'NatachaLia0',
+				'client' 	=> 'smtp_helo_hostname'
 		);
 		$this->Email->delivery = 'smtp';
 
-		$this->Email->to = $user['User']['email'];
-		$this->Email->subject = 'Welcome to 1000Pass.com';
-		$this->Email->replyTo = 'support@1000pass.com';
-		$this->Email->from = '1000Pass.com <support@1000pass.com>';
-		$this->Email->template = 'sign_up';
-		$this->Email->sendAs = 'both'; // because we like to send pretty mail
-		$this->set('user', $user);
-
-		$this->Email->send();
+		foreach ($destinations as $name => $email) {
+			$this->Email->reset();
+			$this->Email->to = $name . ' <' . $email . '>';
+			$this->Email->subject = $mailInfo['subject'];
+			$this->Email->replyTo = 'support@1000pass.com';
+			$this->Email->from = '1000Pass.com <support@1000pass.com>';
+			$this->Email->template = $mailInfo['template'];
+			$this->Email->sendAs = 'html';
+			$this->set('data', $data);
+			$this->Email->send();
+		}
 	}
 
 
@@ -68,26 +141,26 @@ class UsersController extends AppController {
 
 	function register() {
 
-		// If the user submitted the form.
 		if (!empty($this->data)) {
-			if (empty($this->data['User']['terms_of_service'])) {
+			if (!$this->Captcha->protect()) {
+				$this->User->invalidate('captcha', __('Validation text error. Try again', true));
+			} elseif (empty($this->data['User']['terms_of_service'])) {
 				$this->User->invalidate('terms_of_service', __('Must accept the Terms of Service', true));
 			} else {
-				// Always Sanitize any data from users!
 				App::import('core', 'Sanitize');
 				$this->User->data = Sanitize::clean($this->data);
 				if ($this->User->save()) {
-					// Use a private method to send a confirmation
-					// email to the new user (code not shown)
-					$this->__sendConfirmationEmail($this->data);
+					$this->__sendEmail(
+						array('template' => 'sign_up', 'subject' => __('Welcome to 1000Pass.com', true)),
+						array($this->data['User']['name'] . ' ' . $this->data['User']['lastname'] => $this->data['User']['email']),
+						$this->data);
 					$this->Session->setFlash(__('Thanks for signing up at 1000Pass.com.', true));
 					$this->redirect('/');
 				} else {
 					$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 				}
 			}
-			// The plain text password supplied has been hashed into the 'password' field so
-			// should now be nulled so it doesn't get render in the HTML if the save() fails
+
 			$this->data['User']['password'] = null;
 			$this->data['User']['repassword'] = null;
 		}

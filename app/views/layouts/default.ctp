@@ -109,7 +109,12 @@
 				echo '<div class="login">';
 				echo $form->create('User', array('action' => 'login'));
 				echo $form->input('username', array('error' => false));
-				echo $form->input('password', array('error' => false));
+				echo $form->input('password', array(
+					'error' 	=> false,
+					'after' 	=> $html->link(__('Forgot my password', true),
+					array('controller' => 'users', 'action' => 'recover_password'), array(
+						'onclick' 	=> 'this.href = this.href + "/" + $("#UserUsername").val()',
+					))));
 				echo $form->submit(__('enter', true));
 				echo $form->end();
 				echo '</div>';

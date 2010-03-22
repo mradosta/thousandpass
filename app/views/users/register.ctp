@@ -325,6 +325,10 @@
 				echo $html->link(__('Term of Service', true), array('controller' => 'users', 'action' => 'terms_of_service'), array('target' => '_BLANK'));
 				echo $form->input('terms_of_service', array('label' => __('I understand and accept the term of service', true), 'type' => 'checkbox'));
 
+
+ 				echo $captcha->input();
+
+
 ?>
 		<?php echo $form->end(__('Sign Up', true));?>
 		</div>

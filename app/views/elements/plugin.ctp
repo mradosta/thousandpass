@@ -20,7 +20,7 @@
 			$toolbar[] = $html->image('contacts.png', array(
 					'alt'	=> __('Get contacts', true),
 					'title'	=> __('Get contacts', true),
-					'url' 	=> array('controller' => 'sites_users', 'action' => 'get_contacts', $data['SitesUser']['id']),
+					'url' 	=> array('controller' => 'users', 'action' => 'get_contacts', $data['SitesUser']['id']),
 					'class' => 'action'));
 		}
 		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar'));
