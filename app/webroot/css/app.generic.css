@@ -2,9 +2,8 @@ body {
 	font-family:Arial, Tahoma, Verdana, sans-serif;
 	font-size: 11px;
 	background-color: #fff;
-	margin-left: auto;
-	margin-right: auto;
-	width: 908px;
+	margin: 0;
+	text-align: center;
 }
 
 div {
@@ -19,7 +18,7 @@ img {
 }
 
 .hidden {
-	display: none;	
+	display: none;
 }
 
 label {
@@ -47,7 +46,7 @@ textarea {
 	background: transparent url(img/text_bg.png) repeat-x bottom;
 }
 
-input[type=checkbox] {
+div.checkbox input {
 	clear: left;
 	float: left;
 	width: auto;
@@ -55,6 +54,7 @@ input[type=checkbox] {
 
 div.input {
 	min-height: 40px;
+	width: auto;
 }
 
 div.date select {
@@ -65,7 +65,7 @@ div.textarea {
 	height: 70px;
 }
 
-input[type=submit] {
+div.submit input {
 	padding: 2px 5px;
 	width: auto;
 	margin-top: 5px;
@@ -83,7 +83,11 @@ div#flashMessage {
 	font-weight: bold;
 }
 
-#container {
+div#container {
+	text-align: left;
+	width: 908px;
+	margin: 3px auto 0 auto;
+	float: none;
 }
 
 #header {
@@ -95,8 +99,9 @@ div#flashMessage {
 }
 
 div.inner_container_vertical_scroll {
+	margin: 10px 0 0 0;
 	width: 895px;
-	height: 280px;
+	height: 290px;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -109,10 +114,15 @@ div.inner_container_vertical_scroll {
 	text-align: center;
 }
 
+.plugins .title {
+	width: 89px;
+	overflow: hidden;
+}
+
 .plugins .toolbar {
 	color: #fff;
 	background: url(img/enabled.png) no-repeat;
-	width: 140px;
+	width: 150px;
 	height: 19px;
 	margin: 12px 0 10px 10px;
 	font-weight: bold;
@@ -125,16 +135,25 @@ div.inner_container_vertical_scroll {
 	background: url(img/disabled.png) no-repeat;
 }
 
+.plugins a {
+	float: left;
+}
+
+
 .plugins .action {
-	width: 15px;
-	height: 15px;
-	float: right;
+	width: 12px;
+	height: 14px;
 	margin: 0 5px 0 0;
+	padding:0;
 }
 
 .plugins .remote_site_logo, .plugins .remote_site_logo_disabled {
 	height: 70px;
 	width: 145px;
+}
+
+.plugins .remote_site_logo_disabled {
+	margin-left: 15px;
 }
 
 .plugins .description {
@@ -145,21 +164,13 @@ div.inner_container_vertical_scroll {
 	overflow: hidden;
 }
 
-1div.inner_container_border {
-	height: 354px;
-	1background: url(img/inner_container_border.png) no-repeat;
-	1overflow-y: auto;
-}
-
 div.inner_container {
 	padding: 17px;
 	height: 317px;
 	background: url(img/inner_container_bg.png) no-repeat;
 }
 
-
 div.inner_container div.left {
-	1margin: 50px 0 0 50px;
 	margin: 50px 30px 0 10px;
 	background: url(img/3d_pages.png) no-repeat;
 	width: 460px;
@@ -187,6 +198,10 @@ div.inner_container div.right {
 	margin: 0 0 0 25px;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+
+div.inner_container div.right div.input {
+	width: 300px;
 }
 
 div.inner_container div.no_bg {
@@ -229,7 +244,6 @@ div.bottom_addsense {
 	float: right;
 }
 
-
 /** Top Bar */
 #top_bar {
 	background: url(img/search_bg.jpg) no-repeat;
@@ -271,7 +285,9 @@ div.bottom_addsense {
 }
 
 #UserLoginForm label {
-	width: 40px;
+	width: 50px;
+	margin:0;
+	padding:4px 5px 0 0;
 	float: left;
 }
 
@@ -281,7 +297,7 @@ div.bottom_addsense {
 	background: transparent url(img/input_140_bg.png) no-repeat bottom;
 }
 
-#UserLoginForm input[type=submit] {
+#UserLoginForm input.submit {
 	width: 77px;
 	float: left;
 	margin: 0;
@@ -292,8 +308,8 @@ div.bottom_addsense {
 #google_search {
 	background: url(img/google_logo.jpg) no-repeat;
 	width: auto;
-	margin-right: 45px;
-	float: right;
+	margin-left: 20px;
+	float: left;
 }
 
 #google_search div.input {
@@ -305,7 +321,7 @@ div.bottom_addsense {
 	margin-left: 100px;
 }
 
-#google_search input[type=submit] {
+#google_search input.submit {
 	width: 50px;
 	margin-left: 0;
 }
@@ -319,13 +335,3 @@ div.bottom_addsense {
 	padding: 4px;
 	float: left;
 }
-
-/*
-#logout {
-	display: block;
-	float: left;
-	width: 59px;
-	height: 22px;
-	background: url(img/logout.jpg) no-repeat;
-}
-*/

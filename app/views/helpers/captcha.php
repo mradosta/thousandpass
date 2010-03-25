@@ -32,7 +32,7 @@ class CaptchaHelper extends AppHelper {
 	function input($controller = null) {
 
 		$output = array();
-		$output[] = $this->html->tag('div', $this->html->image('/' . $this->params['controller'] . '/captcha', array('id' => 'captcha_image')), array('div' => 'captcha'));
+		$output[] = $this->html->tag('div', $this->html->image('/' . $this->params['controller'] . '/captcha', array('id' => 'captcha_image')), array('class' => 'captcha'));
 		$output[] = $this->form->input('captcha', array('label' => __('Type the characters you see in the picture', true)));
 
 		return implode("\r\n", $output);

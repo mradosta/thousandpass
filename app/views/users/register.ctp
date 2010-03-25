@@ -35,7 +35,6 @@
 					'label' 		=> __('Birth Date', true),
 					'type'			=> 'date',
 					'separator'		=> '',
-					'dateFormat' 	=> 'D/M/Y',
 					'after'			=> '(*)',
 					'error' => array(
 						'valid'	=> __('Must select the Birth Date.', true),

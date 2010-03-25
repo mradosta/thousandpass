@@ -3,7 +3,7 @@
 	$out = $toolbar = null;
 
 	if ($data['SitesUser']['state'] == 'confirmed') {
-		$toolbar[] = $html->tag('span', $data['Site']['title'], array('class' => 'title'));
+		$toolbar[] = $html->tag('div', $data['Site']['title'], array('class' => 'title'));
 		$toolbar[] = $html->image('delete.png', array(
 				'alt'	=> __('Delete', true),
 				'title'	=> __('Delete', true),

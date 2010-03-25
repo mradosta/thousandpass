@@ -10,10 +10,28 @@ var thousandpass = function () {
 		}, //init
 
 
+		onclick : function () {
+
+			var wm = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+								.getService(Components.interfaces.nsIWindowMediator);
+			var browserEnumerator = wm.getEnumerator("navigator:browser");
+
+			var tabbrowser = browserEnumerator.getNext().gBrowser;
+
+			// Create tab
+			var newTab = tabbrowser.addTab('http://www.1000pass.com');
+
+			// Focus tab
+			tabbrowser.selectedTab = newTab;
+
+			// Focus *this* browser window in case another one is currently focused
+			tabbrowser.ownerDocument.defaultView.focus();
+		}, //onclick
+
+
 		getHostNameFromUrl : function (url) {
 			return url.match(/:\/\/(.[^/]+)/)[1]; //.replace('www.','');
 		},
-		
 
 
 		deleteCookies : function (url) {
@@ -107,8 +125,10 @@ var thousandpass = function () {
 
 
 		bindEvents : function () {
-			//alert(window.content.document.location);
-			//$("div", window.content.document).css('background-color', 'red');
+
+			/** Modify the dom to tell the addon is present */
+			$('div#1000pass_add_on', window.content.document).addClass('installed');
+
 
 			$("img.remote_site_logo", window.content.document).css('cursor', 'pointer');
 			var clickableLogos = window.content.document.getElementsByClassName("remote_site_logo");

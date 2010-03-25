@@ -24,13 +24,12 @@
 				echo $form->end(__('Add', true));
 				//echo $html->link(__('Back', true), '/home');
 			?>
-			</div>
 		</div> <!--right-->
 
 	</div> <!--inner_container-->
 </div> <!--inner_container_border-->
 
-<script>
+<script type="text/javascript">
 	$('#SitesUserSiteId').change(function() {
 		var label = '<?php __('Description'); ?>';
 		var parent = $('#SitesUserDescription').parent();
