@@ -77,7 +77,6 @@ foreach ($notes as $note):
 				}
 				//echo $html->link(__('Back', true), '/home');
 			?>
-			</div>
 		</div> <!--right-->
 
 	</div> <!--inner_container-->
