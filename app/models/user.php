@@ -83,10 +83,22 @@ class User extends AppModel {
 
 
 	/**
-	* Used to compare the two entered passwords are the same.
-	*/
+	 * Used to compare the two entered passwords are the same.
+	 */
 	function compareData($data, $field) {
 		return (Security::hash($data['repassword'], null, true) == $this->data[$this->name][$field]);
+	}
+
+	/**
+	 * Take care of birthdate when saving.
+	 */
+	function beforeSave($options = array()) {
+		if (!empty($this->data['User']['birthdate']['year']) && !empty($this->data['User']['birthdate']['month']) && !empty($this->data['User']['birthdate']['day'])) {
+			$tmp = $this->data['User']['birthdate']['year'] . '-' . $this->data['User']['birthdate']['month'] . '-' . $this->data['User']['birthdate']['day'];
+			$this->data['User']['birthdate'] = null;
+			$this->data['User']['birthdate'] = $tmp;
+		}
+		return parent::beforeSave($options);
 	}
 
 }
