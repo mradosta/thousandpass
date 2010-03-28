@@ -171,9 +171,12 @@ class CaptchaComponent extends Object {
 	function __stringGen() {
 	
 		$results = null;
+		/*
 		$lowercase  = range('a', 'z');
 		$numeric    = range(0, 9);
 		$CharPool   = array_merge($lowercase, $numeric);
+		*/
+		$CharPool   = range(0, 9);	
 	
 		$PoolLength = count($CharPool) - 1;
 		for ($i = 0; $i < $this->length; $i++) {

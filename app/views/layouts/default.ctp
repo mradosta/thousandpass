@@ -54,15 +54,21 @@
 			</div>
 
 
-			<div class="addsense top_addsense">
-				<script type="text/javascript">
-					google_ad_client = "pub-0846414566912792";
-					google_ad_slot = "1083049098";
-					google_ad_width = 234;
-					google_ad_height = 60;
-				</script>
-				<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-			</div>
+			<?php
+				$debugLevel = Configure::read('debug');
+				if ($debugLevel == 0) {
+					echo '
+						<div class="addsense top_addsense">
+							<script type="text/javascript">
+								google_ad_client = "pub-0846414566912792";
+								google_ad_slot = "1083049098";
+								google_ad_width = 234;
+								google_ad_height = 60;
+							</script>
+							<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+						</div>';
+				}
+			?>
 
 
 			<div id="languages">
@@ -97,6 +103,7 @@
 						echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
 
 						echo $html->image('logout.jpg', array(
+							'onclick'	=> 'alert("' . __('You are about to close session at 1000Pass.com, remember to close other sites sessions too', true) . '");',
 							'alt'	=> __('Logout', true),
 							'title'	=> __('Logout', true),
 							'url' 	=> array('controller' => 'users', 'action' => 'logout')));
@@ -122,7 +129,7 @@
 						'error' 	=> false,
 						'after' 	=> $html->link(__('Forgot my password', true),
 						array('controller' => 'users', 'action' => 'recover_password'), array(
-							'onclick' 	=> 'this.href = this.href + "/" + $("#UserUsername").val()',
+							'xonclick' 	=> 'this.href = this.href + "/" + $("#UserUsername").val()',
 						))));
 					echo $form->submit(__('enter', true), array('class' => 'submit'));
 					echo $form->end();
@@ -159,17 +166,20 @@
 			/** VIEWS */
 			//echo $html->tag('div', $out . $content_for_layout, array('id' => 'container'));
 			echo $out . $content_for_layout;
-		?>
 
-		<div class="addsense bottom_addsense">
-			<script type="text/javascript">
-				google_ad_client = "pub-0846414566912792";
-				google_ad_slot = "9749307972";
-				google_ad_width = 728;
-				google_ad_height = 90;
-			</script>
-			<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
-		</div>
+			if ($debugLevel == 0) {
+				echo '
+					<div class="addsense bottom_addsense">
+						<script type="text/javascript">
+							google_ad_client = "pub-0846414566912792";
+							google_ad_slot = "9749307972";
+							google_ad_width = 728;
+							google_ad_height = 90;
+						</script>
+						<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
+					</div>';
+			}
+		?>
 
 	</div><!--container-->
 

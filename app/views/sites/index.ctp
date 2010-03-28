@@ -11,6 +11,7 @@ echo $paginator->counter(array(
 	<th><?php echo $paginator->sort('id');?></th>
 	<th><?php echo $paginator->sort('title');?></th>
 	<th><?php echo $paginator->sort('logo');?></th>
+	<th><?php echo $paginator->sort('state');?></th>
 	<th><?php echo $paginator->sort('login_url');?></th>
 	<th class="actions"><?php __('Actions');?></th>
 </tr>
@@ -31,6 +32,9 @@ foreach ($sites as $site):
 		</td>
 		<td>
 			<?php echo $site['Site']['logo']; ?>
+		</td>
+		<td>
+			<?php echo $site['Site']['state']; ?>
 		</td>
 		<td>
 			<?php echo $site['Site']['login_url']; ?>

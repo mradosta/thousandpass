@@ -15,13 +15,17 @@
 
 			<?php echo $form->create('SitesUser');?>
 				<?php
-					echo $form->input('site_id');
-					echo $form->input('username');
-					echo $form->input('password');
-					echo $form->input('description');
+					echo $form->input('new_site', array('label' => __('New Site', true), 'type' => 'checkbox'));
+					echo $form->input('autocomplete', array('label' => __('Site', true), 'id' => 'autoComplete'));
+					echo $form->input('new_request', array('type' => 'text', 'label' => __('Url', true)));
+					echo $form->input('site_id', array('type' => 'hidden'));
+					echo $form->input('username', array('label' => __('Username', true)));
+					echo $form->input('password', array('label' => __('Password', true)));
+					echo $form->input('description', array('label' => __('Description', true)));
 				?>
 			<?php
 				echo $form->end(__('Add', true));
+				$javascript->link('jquery/jquery.autocomplete', false);
 				//echo $html->link(__('Back', true), '/home');
 			?>
 		</div> <!--right-->
@@ -30,16 +34,82 @@
 </div> <!--inner_container_border-->
 
 <script type="text/javascript">
-	$('#SitesUserSiteId').change(function() {
-		var label = '<?php __('Description'); ?>';
-		var parent = $('#SitesUserDescription').parent();
-		$('#SitesUserDescription').remove();
-		if ($(this).val() == 0) {
-			parent.find('label').html('Url');
-			parent.append('<input name="data[SitesUser][description]" type="text" value="" id="SitesUserDescription" />');
-		} else {
-			parent.find('label').html(label);
-			parent.append('<textarea name="data[SitesUser][description]" cols="30" rows="6" id="SitesUserDescription" ></textarea>');
-		}
+	$(document).ready(function($) {
+
+		var url = '<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'autoComplete')); ?>';
+		$('#autoComplete').autocomplete(url,
+		{
+			minChars: 2,
+			cacheLength: 10,
+			onItemSelect: selectItem,
+			onFindValue: findValue,
+			formatItem: formatItem,
+			autoFill: false
+		});
+
+
+		$('#SitesUserNewRequest').parent().hide();
+
+		$('#SitesUserNewSite').click(
+			function() {
+				if ($(this).attr('checked') == true) {
+					$('#SitesUserNewRequest').parent().show();
+					$('#autoComplete').parent().hide();
+				} else {
+					$('#SitesUserNewRequest').parent().hide();
+					$('#autoComplete').parent().show();
+				}
+			}
+		);
+
+
+		$('#SitesUserAddForm').submit(
+			function () {
+				if ($('#SitesUserNewSite').attr('checked') == true) {
+					if ($('#SitesUserNewRequest').val() == '') {
+						alert('<?php __('Must enter the site url'); ?>');
+						return false;
+					}
+				} else {
+					if ($('#SitesUserSiteId').val() == '') {
+						alert('<?php __('Must select the site'); ?>');
+						return false;
+					}
+				}
+				return true;
+			}
+		);
+
 	});
+
+
+
+
+	function selectItem(li) {
+		findValue(li);
+	}
+
+	function findValue(li) {
+		if( li == null ) {
+			return alert('<?php __('No match!'); ?>');
+		}
+
+		// if coming from an AJAX call, let's use the site id as the value
+		if( !!li.extra )
+			var sValue = li.extra[0];
+			// otherwise, let's just display the value in the text box
+		else {
+			var sValue = li.selectValue;
+		}
+		$('#SitesUserSiteId').val(sValue);
+	}
+
+	function formatItem(row) {
+		if(row[1] == undefined) {
+			return row[0];
+		} else {
+			return row[0];
+		}
+	}
+
 </script>

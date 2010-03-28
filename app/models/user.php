@@ -16,6 +16,18 @@ class User extends AppModel {
 				'rule' 		=> 'notEmpty',
 				'message' 	=> 'Must enter the Lastname.',
 			),
+		),
+		'country' 	=> 	array(
+			'not_empty'	=> array(
+				'rule' 		=> 'notEmpty',
+				'message' 	=> 'Must select the Country.',
+			),
+		),
+		'sex' 	=> 	array(
+			'not_empty'	=> array(
+				'rule' 		=> 'notEmpty',
+				'message' 	=> 'Must select the Sex.',
+			),
 		),/*
 		'birthdate' => 	array(
 			'valid'	=> array(

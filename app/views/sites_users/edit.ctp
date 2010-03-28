@@ -16,14 +16,13 @@
 			<?php echo $form->create('SitesUser');?>
 				<?php
 					echo $form->input('id');
-					echo $form->input('site_id');
 					echo $form->input('username');
 					echo $form->input('password');
 					echo $form->input('description');
 				?>
 			<?php
 				echo $form->end('Save');
-				echo $html->link(__('Back', true), '/home');
+				//echo $html->link(__('Back', true), '/home');
 			?>
 			</div>
 		</div> <!--right-->

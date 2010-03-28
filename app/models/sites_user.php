@@ -3,6 +3,24 @@ class SitesUser extends AppModel {
 
 	var $name = 'SitesUser';
 
+	var $actsAs = array('Containable');
+
+	var $validate = array(
+		'username' 	=> 	array(
+			'not_empty'	=> array(
+				'rule' 		=> 'notEmpty',
+				'message' 	=> 'Must enter the Username.',
+			),
+		),
+		'password' 	=> 	array(
+			'not_empty'	=> array(
+				'rule' 		=> 'notEmpty',
+				'message' 	=> 'Must enter the Password.',
+			),
+		),
+	);
+
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
 		'Site' => array(

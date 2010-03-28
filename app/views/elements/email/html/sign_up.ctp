@@ -1,4 +1,4 @@
-<?php echo $html->image('http://www.1000pass.com/img/' . Configure::read('Config.language') . '_spa_welcome_mail.jpg', array('url' => 'http://www.1000pass.com')); ?>
+<?php echo $html->image('http://www.1000pass.com/img/' . Configure::read('Config.language') . '_welcome_mail.jpg', array('url' => 'http://www.1000pass.com')); ?>
 
 <?php 
 

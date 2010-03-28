@@ -9,7 +9,8 @@ class SitesController extends AppController {
 	}
 
 	function index() {
-		$this->Site->recursive = 0;
+		$this->Site->recursive = -1;
+		$this->paginate['order'] = array('Site.state' => 'desc', 'Site.title');
 		$this->set('sites', $this->paginate());
 	}
 

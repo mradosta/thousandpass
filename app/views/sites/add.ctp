@@ -5,6 +5,7 @@
 	<?php
 		echo $form->input('title');
 		echo $form->input('logo_field', array('type' => 'file'));
+		echo $form->input('state', array('options' => array('pending' => 'Pending', 'approved' => 'Approved', 'blocked' => 'Blocked')));
 		echo $form->input('login_url');
 		echo $form->input('username_field');
 		echo $form->input('password_field');

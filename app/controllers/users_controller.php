@@ -4,7 +4,6 @@ class UsersController extends AppController {
 	var $name = 'Users';
 
 	var $components = array('Email', 'Captcha');
-	var $helpers = array('Captcha');
 
 
 	function captcha() {
@@ -65,12 +64,20 @@ class UsersController extends AppController {
 	/**
 	 * Reset users password and send it by email.
 	 */
-	function recover_password($username = null) {
+	function recover_password() {
 
-		if (empty($username)) {
-			$this->Session->setFlash(__('Please enter your username.', true));
-		} else {
-			$user = $this->User->findByUsername($username);
+		if (!empty($this->data)) {
+			if (!$this->Captcha->protect()) {
+				$this->User->invalidate('captcha', __('Validation text error. Try again', true));
+			} elseif (empty($this->data['User']['username'])) {
+				$this->User->invalidate('username', __('Must enter the username.', true));
+			} elseif (empty($this->data['User']['email'])) {
+				$this->User->invalidate('email', __('Must enter the email.', true));
+			}
+			
+			$user = $this->User->find('first', array('conditions' => array(
+				'User.username' => $this->data['User']['username'],
+				'User.email' 	=> $this->data['User']['email'])));
 			if (!empty($user)) {
 				$uppercase  = range('A', 'Z');
 				$numeric    = range(0, 9);
@@ -93,10 +100,9 @@ class UsersController extends AppController {
 					array('newpassword' => $newPassword));
 				$this->Session->setFlash(__('Your password has been send to your email.', true));
 			} else {
-				$this->Session->setFlash(__('Username does not exists.', true));
+				$this->Session->setFlash(__('Username and/or email does not exists.', true));
 			}
 		}
-		$this->redirect('register');
 	}
 
 	private function __sendEmail($mailInfo, $destinations, $data) {
@@ -155,7 +161,9 @@ class UsersController extends AppController {
 						array($this->data['User']['name'] . ' ' . $this->data['User']['lastname'] => $this->data['User']['email']),
 						$this->data);
 					$this->Session->setFlash(__('Thanks for signing up at 1000Pass.com.', true));
-					$this->redirect('/');
+					$this->data['User']['id'] = $this->User->id;
+					$this->Session->write('Auth', array('User' => $this->data['User']));
+					$this->redirect(array('controller' => 'sites_users', 'action' => 'add'));
 				} else {
 					$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 				}

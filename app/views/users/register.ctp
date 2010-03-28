@@ -34,6 +34,9 @@
 				echo $form->input('birthdate', array(
 					'label' 		=> __('Birth Date', true),
 					'type'			=> 'date',
+					'empty'			=> true,
+					'minYear'		=> 1930,
+					'maxYear'		=> date('Y') - 10,
 					'separator'		=> '',
 					'after'			=> '(*)',
 					'error' => array(
@@ -42,13 +45,28 @@
 				));
 				echo $form->input('sex', array(
 					'label' => __('Sex', true),
+					'empty'	=> true,
+					'error' => array(
+						'not_empty'	=> __('Must select the Sex.', true),
+					),
 					'options' 	=> array(
 						'm' => __('Male', true),
 						'f' => __('Female', true))));
 				echo $form->input('country', array(
 					'label' => __('Country', true),
+					'empty'	=> true,
+					'error' => array(
+						'not_empty'	=> __('Must select the Country.', true),
+					),
 					'options'	=> array(
 						'North America' => array(
+							'Canada' => 'Canada',
+							'Greenland' => 'Greenland',
+							'Mexico' => 'Mexico',
+							'United States' => 'United States',
+							'United States Minor Outlying Islands' => 'United States Minor Outlying Islands',
+							'Virgin Islands, U.S.' => 'Virgin Islands, U.S.'),
+						'Central America' => array(
 							'Anguilla' => 'Anguilla',
 							'Antigua and Barbuda' => 'Antigua and Barbuda',
 							'Aruba' => 'Aruba',
@@ -57,7 +75,6 @@
 							'Belize' => 'Belize',
 							'Bermuda' => 'Bermuda',
 							'Virgin Islands, British' => 'Virgin Islands, British',
-							'Canada' => 'Canada',
 							'Cayman Islands' => 'Cayman Islands',
 							'Costa Rica' => 'Costa Rica',
 							'Cuba' => 'Cuba',
@@ -65,7 +82,6 @@
 							'Dominican Republic' => 'Dominican Republic',
 							'El Salvador' => 'El Salvador',
 							'Falkland Islands (Malvinas)' => 'Falkland Islands (Malvinas)',
-							'Greenland' => 'Greenland',
 							'Grenada' => 'Grenada',
 							'Guadeloupe' => 'Guadeloupe',
 							'Guatemala' => 'Guatemala',
@@ -73,7 +89,6 @@
 							'Honduras' => 'Honduras',
 							'Jamaica' => 'Jamaica',
 							'Martinique' => 'Martinique',
-							'Mexico' => 'Mexico',
 							'Montserrat' => 'Montserrat',
 							'Netherlands Antilles' => 'Netherlands Antilles',
 							'Nicaragua' => 'Nicaragua',
@@ -84,10 +99,7 @@
 							'Saint Pierre and Miquelon' => 'Saint Pierre and Miquelon',
 							'Saint Vincent and The Grenadines' => 'Saint Vincent and The Grenadines',
 							'Trinidad and Tobago' => 'Trinidad and Tobago',
-							'Turks and Caicos Islands' => 'Turks and Caicos Islands',
-							'United States' => 'United States',
-							'United States Minor Outlying Islands' => 'United States Minor Outlying Islands',
-							'Virgin Islands, U.S.' => 'Virgin Islands, U.S.'),
+							'Turks and Caicos Islands' => 'Turks and Caicos Islands'),
 						'South America' => array(
 							'Argentina' => 'Argentina',
 							'Bolivia' => 'Bolivia',
@@ -321,12 +333,11 @@
 					)
 				));
 
+				echo $html->tag('div', $html->image('/' . $this->params['controller'] . '/captcha', array('id' => 'captcha_image')), array('class' => 'captcha'));
+				echo $form->input('captcha', array('label' => __('Type the numbers you see in the picture', true)));
+
 				echo $html->link(__('Term of Service', true), array('controller' => 'users', 'action' => 'terms_of_service'), array('target' => '_BLANK'));
 				echo $form->input('terms_of_service', array('label' => __('I understand and accept the term of service', true), 'type' => 'checkbox'));
-
-
- 				echo $captcha->input();
-
 
 ?>
 		<?php echo $form->end(__('Sign Up', true));?>

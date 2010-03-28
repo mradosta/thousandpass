@@ -45,7 +45,12 @@ foreach ($notes as $note):
 		</td>
 		<td class="actions" width="30px">
 			<?php echo $html->image('edit.png', array('url' => array('action' => 'edit', $note['Note']['id']))); ?>
-			<?php echo $html->image('delete.png', array('url' => array('action' => 'delete', $note['Note']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $note['Note']['id']))); ?>
+			<?php echo $html->link(
+			$html->image('delete.png', array('alt' => __('Delete', true))), 
+			array('controller' => 'notes', 'action' => 'delete', $note['Note']['id']),
+			array('title'	=> __('Delete', true)),
+			sprintf(__('Are you sure you want to delete %s?', true), $note['Note']['title']),
+			false); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
