@@ -1,40 +1,42 @@
 <div class="inner_container_vertical_scroll">
 
-	<div id="1000pass_add_on"></div>
+	<div id="1000pass_add_on" class="not_installed"></div>
 
 	<ul>
-	<?php
-		foreach ($sitesUsers as $sitesUser) {
-			echo '<li>';
-			echo $this->element('plugin', array('data' => $sitesUser));
-			echo '</li>';
-		}
-	?>
+		<?php
+			foreach ($sitesUsers as $sitesUser) {
+				echo '<li>';
+				echo $this->element('plugin', array('data' => $sitesUser));
+				echo '</li>';
+			}
+		?>
 	</ul>
 </div> <!--inner_container_vertical_scroll-->
 
 
 
 <?php
-	$javascript->link('jquery/jquery.dragsort', false);
+	$javascript->link(array('jquery/jquery.dragsort', 'jquery/jquery.browser'), false);
 ?>
 
 <script type="text/javascript">
 
 	jQuery(document).ready(function($) {
 
-		//$("ul:first").dragsort();
 
-		$("ul").dragsort({
-			dragSelector: ".drag_selector",
+		//console.log(navigator.userAgent.toLowerCase());
+		//console.log($.browser);
+
+		$('ul').dragsort({
+			dragSelector: '.title',
 			dragBetween: false,
 			dragEnd: saveOrder,
-			placeHolderTemplate: "<li class='placeHolder'><div></div></li>"
+			placeHolderTemplate: '<li class="placeHolder"><div></div></li>'
 		});
 		
 		function saveOrder() {
 			var newOrder = new Array();
-			$("div.inner_container_vertical_scroll li").each(function(i, elm) {
+			$('div.inner_container_vertical_scroll li').each(function(i, elm) {
 				newOrder.push($('#plugin_identifier', elm).html());
 				}
 			);
@@ -46,8 +48,15 @@
 
 
 		setTimeout(function() {
-			if ($('#1000pass_add_on').attr('class') == 'installed') {
-				
+			if ($('#1000pass_add_on').attr('class') == 'not_installed') {
+				$('.requiere_add_on').css('cursor', 'pointer').click(
+					function() {
+
+						alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
+
+						//window.location.replace('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'download_add_on'), true); ?>/' + $.browser.name);
+					}
+				);
 			}
 		}, 1000);
 	});

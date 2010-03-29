@@ -1,3 +1,9 @@
+.not_installed {
+	background-color: red;
+}
+.installed {
+	background-color: green;
+}
 body {
 	font-family:Arial, Tahoma, Verdana, sans-serif;
 	font-size: 11px;

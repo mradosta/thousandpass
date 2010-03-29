@@ -58,7 +58,12 @@
 	} else {
 		$logo = $html->image('logos/' . $data['Site']['logo'], array('class' => 'remote_site_logo'));
 	}
-	$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));
+
+	$add_on = '';
+	if ($data['Site']['require_add_on'] == 'yes') {
+		$add_on = ' requiere_add_on';
+	}
+	$out[] = $html->tag('div', $logo, array('class' => 'drag_selector' . $add_on));
 
 	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['username']:$data['SitesUser']['description'], array('class' => 'description'));
 

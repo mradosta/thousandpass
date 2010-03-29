@@ -4,6 +4,30 @@ class SitesUsersController extends AppController {
 	var $name = 'SitesUsers';
 
 
+
+    function download_add_on($browser) {
+
+		if ($browser == 'firefox') {
+		} elseif ($browser == 'msie') {
+		} elseif ($browser == 'chrome') {
+		}
+
+        $this->view = 'Media';
+
+        $params = array(
+              'id' => Configure::read('Config.language') . '1000pass.pdf',
+              'name' => __('Terms_Of_Service', true),
+              'download' => true,
+              'extension' => 'pdf',
+              'path' => APP . 'files' . DS
+       );
+       $this->set($params);
+    }
+
+
+	/**
+	 * Saves the order comming from ajax request.
+	 */
 	function reorder($newOrder) {
 
 		$this->autoRender = false;
@@ -20,6 +44,10 @@ class SitesUsersController extends AppController {
 		}
 	}
 
+
+	/**
+	 * 
+	 */
 	function autoComplete() {
 		Configure::write('debug', 0);
 		$this->layout = 'ajax';
@@ -31,24 +59,23 @@ class SitesUsersController extends AppController {
 		$this->set('data', $data);
 	}
 
+
 	function index() {
+
+		$this->pageTitle = __('My sites at 1000Pass.com', true);
+
 		$this->paginate['order'] = array('SitesUser.order' => 'asc');
 		$this->paginate['contain'] = array('Site');
-		$this->paginate['conditions'] = array(
-			'SitesUser.user_id' => $this->Session->read('Auth.User.id'));
+		$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));
 		//$this->paginate['conditions'] = array('SitesUser.user_id' => 1);
 		$this->set('sitesUsers', $this->paginate());
 	}
 
-	function view($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid SitesUser.', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->set('sitesUser', $this->SitesUser->read(null, $id));
-	}
 
 	function add() {
+
+		$this->pageTitle = __('Add new site to 1000Pass.com', true);
+
 		if (!empty($this->data)) {
 
 			if (!empty($this->data['SitesUser']['new_request'])) {
@@ -78,6 +105,8 @@ class SitesUsersController extends AppController {
 	}
 
 	function edit($id = null) {
+
+		$this->pageTitle = __('Edit my site at 1000Pass.com', true);
 
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid SitesUser', true));
