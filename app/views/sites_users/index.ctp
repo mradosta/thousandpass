@@ -1,6 +1,7 @@
 <div class="inner_container_vertical_scroll">
 
 	<div id="1000pass_add_on" class="not_installed"></div>
+	<div id="1000pass_add_on_version" class="0"></div>
 
 	<ul>
 		<?php
@@ -22,10 +23,6 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function($) {
-
-
-		//console.log(navigator.userAgent.toLowerCase());
-		//console.log($.browser);
 
 		$('ul').dragsort({
 			dragSelector: '.title',

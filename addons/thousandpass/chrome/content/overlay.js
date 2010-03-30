@@ -128,6 +128,7 @@ var thousandpass = function () {
 
 			/** Modify the dom to tell the addon is present */
 			$('div#1000pass_add_on', window.content.document).addClass('installed');
+			$('div#1000pass_add_on_version', window.content.document).addClass('1.0');
 
 
 			$("img.remote_site_logo", window.content.document).css('cursor', 'pointer');
@@ -140,7 +141,7 @@ var thousandpass = function () {
 			function openFillFieldsAndSubmit() {
 
 				/** Get necessary data */
-				var plugin = $(this).parent();
+				var plugin = $(this).parent().parent();
 				var data = {
 					id: $('#plugin_identifier', plugin).html(),
 					url: $('#url', plugin).html().replace('&amp;', '&'),

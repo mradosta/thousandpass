@@ -10,6 +10,7 @@
 			array('title'	=> __('Delete', true)),
 			sprintf(__('Are you sure you want to delete %s?', true), $data['Site']['title']),
 			false);
+
 		$toolbar[] = $html->image('edit.png', array(
 				'alt'	=> __('Edit', true),
 				'title'	=> __('Edit', true),

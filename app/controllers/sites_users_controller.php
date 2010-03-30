@@ -66,8 +66,8 @@ class SitesUsersController extends AppController {
 
 		$this->paginate['order'] = array('SitesUser.order' => 'asc');
 		$this->paginate['contain'] = array('Site');
-		$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));
-		//$this->paginate['conditions'] = array('SitesUser.user_id' => 1);
+		//$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));
+		$this->paginate['conditions'] = array('SitesUser.user_id' => 1);
 		$this->set('sitesUsers', $this->paginate());
 	}
 
