@@ -3,7 +3,7 @@ var thousandpass = function () {
 	return {
 		init : function () {
 			gBrowser.addEventListener("load", function () {
-				//if (window.content.document.location == 'http://localhost/epl/sites_users/') {
+				//if (window.content.document.location == 'http://www.1000pass.com/') {
 					thousandpass.bindEvents();
 				//}
 			}, false);

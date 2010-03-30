@@ -336,7 +336,7 @@
 				echo $html->tag('div', $html->image('/' . $this->params['controller'] . '/captcha', array('id' => 'captcha_image')), array('class' => 'captcha'));
 				echo $form->input('captcha', array('label' => __('Type the numbers you see in the picture', true)));
 
-				echo $html->link(__('Term of Service', true), array('controller' => 'users', 'action' => 'terms_of_service'), array('target' => '_BLANK'));
+				echo $html->tag('div', $html->link(__('Term of Service', true), array('controller' => 'users', 'action' => 'terms_of_service'), array('target' => '_BLANK')));
 				echo $form->input('terms_of_service', array('label' => __('I understand and accept the term of service', true), 'type' => 'checkbox'));
 
 ?>

@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?xml-stylesheet href="chrome://thousandpass/skin/overlay.css" type="text/css"?>
-<!DOCTYPE overlay SYSTEM "chrome://thousandpass/locale/overlay.dtd">
 <overlay id="thousandpass-overlay" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
   <script src="jquery.js"/>
   <script src="overlay.js"/>
   <script src="ff-overlay.js"/>
-
-  <script>
-	  //window.addEventListener("load", thousandpass.init, false);
-  </script>
-
-  <stringbundleset id="stringbundleset">
-	  <stringbundle id="thousandpass-strings" src="chrome://thousandpass/locale/overlay.properties"/>
-  </stringbundleset>
 
   <statusbar id="status-bar">
 	  <statusbarpanel id="link-target-finder-status-bar-icon" class="statusbarpanel-menu-iconic" src="chrome://thousandpass/skin/status-bar.png" style="cursor:pointer;" onclick="thousandpass.onclick();"></statusbarpanel>
@@ -40,13 +31,13 @@
 		  <menuitem label="Item 4" oncommand="dothis('4')"/>
 	  </menupopup>
   </popupset>
-  -->
 
   <toolbarpalette id="BrowserToolbarPalette">
   <toolbarbutton id="thousandpass-toolbar-button" class="toolbarbutton-1 chromeclass-toolbar-additional"
     label="&thousandpassToolbarButton.label;" tooltiptext="&thousandpassToolbarButton.tooltip;"
     oncommand="thousandpass.onToolbarButtonCommand()"/>
   </toolbarpalette>
+  -->
 
 
 

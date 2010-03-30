@@ -1,8 +1,0 @@
-<!ENTITY thousandpass.label "Your localized menuitem">
-<!ENTITY thousandpassContext.label "Your Menuitem">
-<!ENTITY thousandpassContext.accesskey "Y">
-<!ENTITY thousandpassToolbarButton.label "Your Toolbar Button">
-<!ENTITY thousandpassToolbarButton.tooltip "This is your toolbar button!">
-<!ENTITY thousandpassSidebar.label "Your Sidebar">
-<!ENTITY thousandpassToolbar.name  "example">
-<!ENTITY thousandpassToolbar.label "This is an example toolbar. You can hide it under View &gt; toolbars &gt; &thousandpassToolbar.name;">

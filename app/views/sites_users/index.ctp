@@ -51,11 +51,21 @@
 
 						alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
 
+						var basePath = '<?php echo Router::url('/'); ?>';
+						var browserName = $.browser.name == 'firefox';
+						if (browserName == 'firefox') {
+							window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
+						} else if (browserName == 'msie') {
+							window.location.replace(basePath + 'files/addons/msie/setup.exe');
+						} else if (browserName == 'chrome') {
+							window.location.replace(basePath + 'files/addons/chrome/xxx.yyy');
+						}
+
 						//window.location.replace('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'download_add_on'), true); ?>/' + $.browser.name);
 					}
 				);
 			}
-		}, 1000);
+		}, 2000);
 	});
 
 </script>
