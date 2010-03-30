@@ -52,7 +52,7 @@
 						alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
 
 						var basePath = '<?php echo Router::url('/'); ?>';
-						var browserName = $.browser.name == 'firefox';
+						var browserName = $.browser.name;
 						if (browserName == 'firefox') {
 							window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
 						} else if (browserName == 'msie') {
