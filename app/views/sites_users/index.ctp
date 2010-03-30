@@ -54,7 +54,17 @@
 						var basePath = '<?php echo Router::url('/'); ?>';
 						var browserName = $.browser.name;
 						if (browserName == 'firefox') {
-							window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
+
+							var params = {
+								'1000pass': {
+									URL: 'http://www.1000pass.com/files/addons/firefox/1000pass.xpi',
+									toString: function () {
+										return this.URL;
+									}
+								}
+							};
+							InstallTrigger.install(params);
+							//window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
 						} else if (browserName == 'msie') {
 							window.location.replace(basePath + 'files/addons/msie/setup.exe');
 						} else if (browserName == 'chrome') {
