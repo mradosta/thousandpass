@@ -9,6 +9,7 @@ echo $paginator->counter(array(
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php echo $paginator->sort('id');?></th>
+	<th><?php echo $paginator->sort('require_add_on');?></th>
 	<th><?php echo $paginator->sort('title');?></th>
 	<th><?php echo $paginator->sort('logo');?></th>
 	<th><?php echo $paginator->sort('state');?></th>
@@ -26,6 +27,9 @@ foreach ($sites as $site):
 	<tr<?php echo $class;?>>
 		<td>
 			<?php echo $site['Site']['id']; ?>
+		</td>
+		<td>
+			<?php echo $site['Site']['require_add_on']; ?>
 		</td>
 		<td>
 			<?php echo $site['Site']['title']; ?>

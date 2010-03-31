@@ -4,6 +4,7 @@
  		<legend><?php __('Add Site');?></legend>
 	<?php
 		echo $form->input('title');
+		echo $form->input('require_add_on', array('options' => array('yes' => 'Yes', 'no' => 'No')));
 		echo $form->input('logo_field', array('type' => 'file'));
 		echo $form->input('state', array('options' => array('pending' => 'Pending', 'approved' => 'Approved', 'blocked' => 'Blocked')));
 		echo $form->input('login_url');

@@ -5,6 +5,7 @@
 	<?php
 		echo $form->input('id');
 		echo $form->input('title');
+		echo $form->input('require_add_on', array('options' => array('yes' => 'Yes', 'no' => 'No')));
 		if (!empty($this->data['Site']['logo'])) {
 			echo $html->image('logos' . DS . $this->data['Site']['logo']);
 			echo $form->input('logo_delete', array('type' => 'checkbox', 'label' => 'Delete Logo'));
