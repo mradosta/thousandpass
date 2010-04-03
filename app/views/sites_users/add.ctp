@@ -15,9 +15,8 @@
 
 			<?php echo $form->create('SitesUser');?>
 				<?php
-					echo $form->input('new_site', array('label' => __('New Site', true), 'type' => 'checkbox'));
+					//echo $form->input('new_site', array('label' => __('New Site', true), 'type' => 'checkbox'));
 					echo $form->input('autocomplete', array('label' => __('Site', true), 'id' => 'autoComplete'));
-					echo $form->input('new_request', array('type' => 'text', 'label' => __('Url', true)));
 					echo $form->input('site_id', array('type' => 'hidden'));
 					echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('password', array('label' => __('Password', true)));
@@ -47,7 +46,7 @@
 			autoFill: false
 		});
 
-
+/*
 		$('#SitesUserNewRequest').parent().hide();
 
 		$('#SitesUserNewSite').click(
@@ -61,10 +60,24 @@
 				}
 			}
 		);
-
+*/
 
 		$('#SitesUserAddForm').submit(
 			function () {
+
+				if (($('#SitesUserSiteId').val() == 'No results' || $('#SitesUserSiteId').val() == '') && $('#autoComplete').val() != '') {
+					if (confirm('<?php __('You are about to request a new site ( '); ?>' + $('#autoComplete').val() + ' ). Are you sure?')) {
+					} else {
+						return false;
+					}
+				} else if ($('#SitesUserSiteId').val() == '') {
+					alert('<?php __('Must select the site'); ?>');
+					return false;
+				}
+
+				/*
+				console.log($('#SitesUserSiteId').val());
+				return false;
 				if ($('#SitesUserNewSite').attr('checked') == true) {
 					if ($('#SitesUserNewRequest').val() == '') {
 						alert('<?php __('Must enter the site url'); ?>');
@@ -77,6 +90,7 @@
 					}
 				}
 				return true;
+				*/
 			}
 		);
 

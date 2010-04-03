@@ -42,12 +42,10 @@ class SitesUser extends AppModel {
 
 	function afterFind($results, $primary = false) {
 		foreach ($results as $k => $v) {
-			if (!empty($v['Site'])) {
-				if (empty($v['Site']['submit'])) {
-					$replaces['##username##'] = $v['SitesUser']['username'];
-					$replaces['##password##'] = $v['SitesUser']['password'];
-					$results[$k]['Site']['login_url'] = str_replace(array_keys($replaces), $replaces, $v['Site']['login_url']);
-				}
+			if (!empty($v['Site']['require_add_on']) && $v['Site']['require_add_on'] == 'no') {
+				$replaces['##username##'] = $v['SitesUser']['username'];
+				$replaces['##password##'] = $v['SitesUser']['password'];
+				$results[$k]['Site']['login_url'] = str_replace(array_keys($replaces), $replaces, $v['Site']['login_url']);
 			}
 		}
 		return parent::afterFind($results, $primary);

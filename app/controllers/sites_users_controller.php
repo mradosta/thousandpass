@@ -7,21 +7,24 @@ class SitesUsersController extends AppController {
 
     function download_add_on($browser) {
 
-		if ($browser == 'firefox') {
-		} elseif ($browser == 'msie') {
-		} elseif ($browser == 'chrome') {
+		/**
+		* firefox
+		* msie
+		* chrome
+		*/
+
+		if ($browser == 'msie') {
+			$params = array(
+				'id' => Configure::read('Config.language') . '_setup.exe',
+				'name' => __('Install', true),
+				'download' => true,
+				'extension' => 'exe',
+				'path' => APP . 'files' . DS
+			);
 		}
 
         $this->view = 'Media';
-
-        $params = array(
-              'id' => Configure::read('Config.language') . '1000pass.pdf',
-              'name' => __('Terms_Of_Service', true),
-              'download' => true,
-              'extension' => 'pdf',
-              'path' => APP . 'files' . DS
-       );
-       $this->set($params);
+		$this->set($params);
     }
 
 
@@ -64,11 +67,11 @@ class SitesUsersController extends AppController {
 
 		$this->pageTitle = __('My sites at 1000Pass.com', true);
 
-		$this->paginate['order'] = array('SitesUser.order' => 'asc');
-		$this->paginate['contain'] = array('Site');
-		$this->paginate['conditions'] = array('SitesUser.user_id' => $this->Session->read('Auth.User.id'));
-		//$this->paginate['conditions'] = array('SitesUser.user_id' => 1);
-		$this->set('sitesUsers', $this->paginate());
+		$this->set('sitesUsers', $this->SitesUser->find('all', array(
+			'order' 		=> array('SitesUser.order' => 'asc'),
+			'contain' 		=> array('Site'),
+			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))))
+		);
 	}
 
 
@@ -78,7 +81,7 @@ class SitesUsersController extends AppController {
 
 		if (!empty($this->data)) {
 
-			if (!empty($this->data['SitesUser']['new_request'])) {
+			if (empty($this->data['SitesUser']['site_id']) && !empty($this->data['SitesUser']['autocomplete'])) {
 				$this->SitesUser->Site->save(
 					array('Site' => array(
 						'state'		=> 'pending',

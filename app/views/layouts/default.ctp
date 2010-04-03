@@ -85,8 +85,9 @@
 						$out[] = $html->link(__('Sites', true), array('controller' => 'sites'));
 						$out[] = $html->link(__('User', true), array('controller' => 'users'));
 						$out[] = '</div>';
-						echo implode('', $out);
 					}
+					$out[] = $html->link(__('Change Password', true), array('controller' => 'users', 'action' => 'change_password'));
+					echo implode('', $out);
 				?>
 			</div>
 

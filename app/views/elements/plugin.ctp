@@ -2,6 +2,7 @@
 
 	$out = $toolbar = null;
 	if ($data['Site']['state'] == 'approved') {
+
 		$toolbar[] = $html->tag('div', $data['Site']['title'], array('class' => 'title'));
 
 		$toolbar[] = $html->link(
@@ -54,16 +55,17 @@
 		$data['Site']['logo'] = 'default.png';
 	}
 
-	if (empty($data['Site']['submit'])) {
-		$logo = $html->image('logos/' . $data['Site']['logo'], array('class' => 'remote_site_logo_disabled'));
-	} else {
-		$logo = $html->image('logos/' . $data['Site']['logo'], array('class' => 'remote_site_logo'));
-	}
 
-	$add_on = '';
-	if ($data['Site']['require_add_on'] == 'yes') {
+	if ($data['Site']['require_add_on'] == 'no') {
+		$imgOptions = array('class' => 'remote_site_logo_disabled', 'url' => $data['Site']['login_url']);
+		$add_on = '';
+	} else {
+		$imgOptions = array('class' => 'remote_site_logo');
 		$add_on = ' requiere_add_on';
 	}
+	$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
+
+	
 	$out[] = $html->tag('div', $logo, array('class' => 'drag_selector' . $add_on));
 
 	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['username']:$data['SitesUser']['description'], array('class' => 'description'));

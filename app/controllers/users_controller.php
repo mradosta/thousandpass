@@ -11,6 +11,31 @@ class UsersController extends AppController {
 	}
 
 
+
+	function change_password() {
+
+		if (!empty($this->data)) {
+
+			App::import('core', 'Sanitize');
+			$user = $this->User->findById($this->Session->read('Auth.User.id'));
+			$data = Sanitize::clean($this->data);
+
+			if ($user['User']['password'] != Security::hash($data['User']['current_password'], null, true)) {
+				$this->User->invalidate('current_password', __('Your current password do not match.', true));
+			} elseif ($data['User']['password'] != $data['User']['repassword']) {
+				$this->User->invalidate('repassword', __('Passwords do not match.', true));
+			}
+
+
+			if ($this->User->updateAll(array('User.password' => "'" . Security::hash($data['User']['password'], null, true) . "'"), array('User.id' => $user['User']['id']))) {
+
+				$this->Session->setFlash(__('Your password has been changed.', true));
+			} else {
+				$this->Session->setFlash(__('Your password could not be changed.', true));
+			}
+		}
+	}
+
     /**
      *  The AuthComponent provides the needed functionality
      *  for login, so you can leave this function blank.

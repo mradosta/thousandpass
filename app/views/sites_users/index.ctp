@@ -24,6 +24,8 @@
 
 	jQuery(document).ready(function($) {
 
+		$('.remote_site_logo_disabled').parent().attr('target', '_BLANK').css('padding-left', '15px');
+
 		$('ul').dragsort({
 			dragSelector: '.title',
 			dragBetween: false,
