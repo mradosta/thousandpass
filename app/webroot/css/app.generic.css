@@ -205,6 +205,15 @@ div.inner_container div.left {
 	overflow-x: hidden;
 }
 
+div.inner_container div.welcome {
+	margin: 10px 30px 0 10px;
+	padding-top: 20px;
+	background: url(img/welcome.png) no-repeat;
+	height: 300px;
+	font-size: 30px;
+	color: #A3A3A3;
+}
+
 div.inner_container div.left table {
 	margin-top: 8px;
 	font-size: 13px;

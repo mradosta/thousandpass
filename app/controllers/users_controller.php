@@ -188,7 +188,7 @@ class UsersController extends AppController {
 					$this->Session->setFlash(__('Thanks for signing up at 1000Pass.com.', true));
 					$this->data['User']['id'] = $this->User->id;
 					$this->Session->write('Auth', array('User' => $this->data['User']));
-					$this->redirect(array('controller' => 'sites_users', 'action' => 'add'));
+					$this->redirect(array('controller' => 'sites_users', 'action' => 'add', 'true'));
 				} else {
 					$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 				}

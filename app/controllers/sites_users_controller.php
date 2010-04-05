@@ -75,7 +75,7 @@ class SitesUsersController extends AppController {
 	}
 
 
-	function add() {
+	function add($first_time = false) {
 
 		$this->pageTitle = __('Add new site to 1000Pass.com', true);
 
@@ -105,6 +105,7 @@ class SitesUsersController extends AppController {
 			'conditions'	=> array('Site.state' => 'approved'),
 			'order' 		=> array('Site.title' => 'asc')));
 		$this->set(compact('sites'));
+		$this->set('first_time', $first_time);
 	}
 
 	function edit($id = null) {

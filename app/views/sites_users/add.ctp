@@ -2,7 +2,13 @@
 
 	<div class="inner_container">
 
-		<div class="left"></div>
+		<?php
+			if ($first_time) {
+				echo '<div class="left welcome">' . __('Welcome to', true). '</div>';
+			} else {
+				echo '<div class="left"></div>';
+			}
+		?>
 
 		<div class="right">
 			<div class="text_and_logo">

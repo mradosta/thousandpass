@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-01 16:30-0300\n"
+"POT-Creation-Date: 2010-04-05 14:47-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -64,51 +64,50 @@ msgid "Site deleted"
 msgstr ""
 
 #: /controllers/sites_users_controller.php:19
-#: /controllers/users_controller.php:164
-msgid "Terms_Of_Service"
+msgid "Install"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:65
+#: /controllers/sites_users_controller.php:68
 msgid "My sites at 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:77
+#: /controllers/sites_users_controller.php:80
 msgid "Add new site to 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:94;118
+#: /controllers/sites_users_controller.php:97;122
 msgid "The SitesUser has been saved"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:97;121
+#: /controllers/sites_users_controller.php:100;125
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:100
+#: /controllers/sites_users_controller.php:103
 msgid "Non Existent Site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:100
+#: /controllers/sites_users_controller.php:103
 msgid "Request not listed site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:101
+#: /controllers/sites_users_controller.php:104
 msgid "Existing Sites"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:109
+#: /controllers/sites_users_controller.php:113
 msgid "Edit my site at 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:112
+#: /controllers/sites_users_controller.php:116
 msgid "Invalid SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:132
+#: /controllers/sites_users_controller.php:136
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:136
+#: /controllers/sites_users_controller.php:140
 msgid "SitesUser deleted"
 msgstr ""
 
@@ -150,6 +149,10 @@ msgstr ""
 
 #: /controllers/users_controller.php:128
 msgid "Username and/or email does not exists."
+msgstr ""
+
+#: /controllers/users_controller.php:164
+msgid "Terms_Of_Service"
 msgstr ""
 
 #: /controllers/users_controller.php:179
@@ -204,7 +207,7 @@ msgstr ""
 msgid "Unknown country"
 msgstr ""
 
-#: /views/elements/plugin.ctp:8;10;40;42
+#: /views/elements/plugin.ctp:9;11;41;43
 #: /views/notes/add.ctp:49;51
 #: /views/sites/edit.ctp:25
 #: /views/sites/index.ctp:49
@@ -215,12 +218,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: /views/elements/plugin.ctp:11;43
+#: /views/elements/plugin.ctp:12;44
 #: /views/notes/add.ctp:52
 msgid "Are you sure you want to delete %s?"
 msgstr ""
 
-#: /views/elements/plugin.ctp:15;16
+#: /views/elements/plugin.ctp:16;17
 #: /views/sites/index.ctp:48
 #: /views/sites/view.ctp:70
 #: /views/users/index.ctp:36
@@ -228,23 +231,23 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: /views/elements/plugin.ctp:23;24
+#: /views/elements/plugin.ctp:24;25
 msgid "Get contacts"
 msgstr ""
 
-#: /views/elements/plugin.ctp:32
+#: /views/elements/plugin.ctp:33
 msgid "Pending of approval"
 msgstr ""
 
-#: /views/elements/plugin.ctp:33
+#: /views/elements/plugin.ctp:34
 msgid "Your new site will approved by our admins within the next 24 hs."
 msgstr ""
 
-#: /views/elements/plugin.ctp:35
+#: /views/elements/plugin.ctp:36
 msgid "Site blocked"
 msgstr ""
 
-#: /views/elements/plugin.ctp:36
+#: /views/elements/plugin.ctp:37
 msgid "Your site is blocked by our admins."
 msgstr ""
 
@@ -300,7 +303,7 @@ msgstr ""
 
 #: /views/layouts/default.ctp:125
 #: /views/sites/view.ctp:52
-#: /views/sites_users/add.ctp:21
+#: /views/sites_users/add.ctp:27
 #: /views/users/add.ctp:282
 #: /views/users/recover_password.ctp:18
 #: /views/users/register.ctp:307
@@ -310,7 +313,7 @@ msgstr ""
 
 #: /views/layouts/default.ctp:129
 #: /views/sites/view.ctp:53
-#: /views/sites_users/add.ctp:22
+#: /views/sites_users/add.ctp:28
 #: /views/users/add.ctp:290
 #: /views/users/register.ctp:315
 msgid "Password"
@@ -355,12 +358,12 @@ msgid "Actions"
 msgstr ""
 
 #: /views/notes/add.ctp:65
-#: /views/sites_users/add.ctp:10
+#: /views/sites_users/add.ctp:16
 msgid "Add a new web site to"
 msgstr ""
 
 #: /views/notes/add.ctp:68
-#: /views/sites_users/add.ctp:13
+#: /views/sites_users/add.ctp:19
 #: /views/sites_users/edit.ctp:13
 #: /views/users/change_password.ctp:13
 #: /views/users/recover_password.ctp:13
@@ -447,7 +450,7 @@ msgid "New Site"
 msgstr ""
 
 #: /views/sites/view.ctp:2
-#: /views/sites_users/add.ctp:19
+#: /views/sites_users/add.ctp:25
 msgid "Site"
 msgstr ""
 
@@ -480,28 +483,32 @@ msgstr ""
 msgid "Related Users"
 msgstr ""
 
-#: /views/sites_users/add.ctp:23
+#: /views/sites_users/add.ctp:7
+msgid "Welcome to"
+msgstr ""
+
+#: /views/sites_users/add.ctp:29
 #: /views/users/view.ctp:33
 msgid "Description"
 msgstr ""
 
-#: /views/sites_users/add.ctp:26
+#: /views/sites_users/add.ctp:32
 msgid "Add"
 msgstr ""
 
-#: /views/sites_users/add.ctp:69
+#: /views/sites_users/add.ctp:75
 msgid "You are about to request a new site ( "
 msgstr ""
 
-#: /views/sites_users/add.ctp:74;88
+#: /views/sites_users/add.ctp:80;94
 msgid "Must select the site"
 msgstr ""
 
-#: /views/sites_users/add.ctp:83
+#: /views/sites_users/add.ctp:89
 msgid "Must enter the site url"
 msgstr ""
 
-#: /views/sites_users/add.ctp:108
+#: /views/sites_users/add.ctp:114
 msgid "No match!"
 msgstr ""
 
@@ -513,7 +520,7 @@ msgstr ""
 msgid "Edit web site in"
 msgstr ""
 
-#: /views/sites_users/index.ctp:52
+#: /views/sites_users/index.ctp:54
 msgid "Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download..."
 msgstr ""
 
