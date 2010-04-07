@@ -31,6 +31,11 @@
 			<?php echo $site['Site']['login_url']; ?>
 			&nbsp;
 		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Cookie Domain'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $site['Site']['cookie_domain']; ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
