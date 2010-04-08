@@ -56,7 +56,8 @@ class SitesUsersController extends AppController {
 		$this->layout = 'ajax';
 
 		$data = $this->SitesUser->Site->find('all', array(
-			'conditions'	=> array('Site.title LIKE' => $this->params['url']['q'] . '%'),
+			'conditions'	=> array(
+				'Site.title LIKE' => preg_replace('/^www./', '', $this->params['url']['q']) . '%'),
 			'fields'		=> array('title', 'id')));
 
 		$this->set('data', $data);
@@ -81,11 +82,11 @@ class SitesUsersController extends AppController {
 
 		if (!empty($this->data)) {
 
-			if (empty($this->data['SitesUser']['site_id']) && !empty($this->data['SitesUser']['autocomplete'])) {
+			if ((empty($this->data['SitesUser']['site_id']) || in_array($this->data['SitesUser']['site_id'], array('No results', 'Sin resultados'))) && !empty($this->data['SitesUser']['autocomplete'])) {
 				$this->SitesUser->Site->save(
 					array('Site' => array(
 						'state'		=> 'pending',
-						'login_url' => $this->data['SitesUser']['new_request']))
+						'login_url' => $this->data['SitesUser']['autocomplete']))
 				, false);
 				$this->data['SitesUser']['site_id'] = $this->SitesUser->Site->id;
 			}

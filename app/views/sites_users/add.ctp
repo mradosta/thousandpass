@@ -21,8 +21,7 @@
 
 			<?php echo $form->create('SitesUser');?>
 				<?php
-					//echo $form->input('new_site', array('label' => __('New Site', true), 'type' => 'checkbox'));
-					echo $form->input('autocomplete', array('label' => __('Site', true), 'id' => 'autoComplete'));
+					echo $form->input('autocomplete', array('value' => 'www.', 'label' => __('Site', true), 'id' => 'autoComplete'));
 					echo $form->input('site_id', array('type' => 'hidden'));
 					echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('password', array('label' => __('Password', true)));
@@ -31,7 +30,6 @@
 			<?php
 				echo $form->end(__('Add', true));
 				$javascript->link('jquery/jquery.autocomplete', false);
-				//echo $html->link(__('Back', true), '/home');
 			?>
 		</div> <!--right-->
 

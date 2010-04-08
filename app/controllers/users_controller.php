@@ -136,9 +136,9 @@ class UsersController extends AppController {
 		$this->Email->smtpOptions = array(
 				'port'		=> '25',
 				'timeout'	=> '300',
-				'host' 		=> '190.137.152.19',
-				'username'	=> 'bienvenido@1000pass.com',
-				'password'	=> 'cacarulo',
+				'host' 		=> 'mail.1000pass.com',
+				'username'	=> 'info@1000pass.com',
+				'password'	=> 'info2010',
 				'client' 	=> 'smtp_helo_hostname'
 		);
 		$this->Email->delivery = 'smtp';
