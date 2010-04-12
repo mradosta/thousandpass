@@ -75,7 +75,7 @@
 	if ($data['Site']['state'] == 'approved') {
 		$out[] = $html->tag('div', $data['Site']['title'], array('id' => 'title'));
 		$out[] = $html->tag('div', $data['Site']['login_url'], array('id' => 'url'));
-		$out[] = $html->tag('div', $data['Site']['cookie_domain'], array('id' => 'cookie_domain'));
+		$out[] = $html->tag('div', $data['Site']['logout_url'], array('id' => 'logout_url'));
 		$out[] = $html->tag('div', $data['SitesUser']['username'], array('id' => 'username', 'class' => $data['Site']['username_field']));
 		$out[] = $html->tag('div', $data['SitesUser']['password'], array('id' => 'password', 'class' => $data['Site']['password_field']));
 		$out[] = $html->tag('div', '', array('id' => 'submit', 'class' => $data['Site']['submit']));
