@@ -95,8 +95,8 @@
 						$out[] = $html->link(__('Sites', true), array('controller' => 'sites'));
 						$out[] = $html->link(__('User', true), array('controller' => 'users'));
 						$out[] = '</div>';
+						echo implode('', $out);
 					}
-					echo implode('', $out);
 				?>
 			</div>
 
@@ -120,26 +120,17 @@
 						echo $html->tag('span', __('Logout', true), array('class' => 'label'));
 					echo '</div>';
 
-					echo '<div class="toolbar">';
-						echo $html->image('notes.png', array(
+					
+						$toolbar[] = $html->image('notes.png', array(
 							'alt'	=> __('Notes', true),
 							'title'	=> __('Notes', true),
 							'url' 	=> array('controller' => 'notes', 'action' => 'add')));
-						//echo $html->tag('span', __('Notes', true), array('class' => 'label'));
 
-						echo $html->image('change_password.png', array(
+						$toolbar[] = $html->image('change_password.png', array(
 							'alt'	=> __('Change Password', true),
 							'title'	=> __('Change Password', true),
 							'url' 	=> array('controller' => 'users', 'action' => 'change_password')));
-						//echo $html->tag('span', __('Change Password', true), array('class' => 'label'));
 
-						echo $html->image('help.png', array(
-							'alt'	=> __('Help', true),
-							'title'	=> __('Help', true),
-							'url' 	=> array('controller' => 'users', 'action' => 'help')));
-						//echo $html->tag('span', __('Help', true), array('class' => 'label'));
-
-					echo '</div>';
 				} else {
 					echo '<div class="login">';
 					echo $form->create('User', array('action' => 'login'));
@@ -150,15 +141,25 @@
 					echo $form->input('password', array(
 						'id'		=> null,
 						'label'		=> __('Password', true),
-						'error' 	=> false,
-						'after' 	=> $html->link(__('Forgot my password', true),
-						array('controller' => 'users', 'action' => 'recover_password'), array(
-							'xonclick' 	=> 'this.href = this.href + "/" + $("#UserUsername").val()',
-						))));
+						'error' 	=> false));
 					echo $form->submit(__('enter', true), array('class' => 'submit'));
 					echo $form->end();
+
+					$toolbar[] = $html->image('change_password.png', array(
+								'alt' 	=> __('Forgot my password', true),
+								'title' => __('Forgot my password', true),
+								'url' 	=> array('controller' => 'users', 'action' => 'recover_password')));
 					echo '</div>';
 				}
+				echo '<div class="toolbar">';
+
+				$toolbar[] = $html->image('help.png', array(
+					'alt'	=> __('Help', true),
+					'title'	=> __('Help', true),
+					'url' 	=> array('controller' => 'users', 'action' => 'help')));
+
+				echo implode('', $toolbar);
+				echo '</div>';
 			?>
 
 			</div> <!--search-->

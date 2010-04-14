@@ -71,7 +71,7 @@ class UsersController extends AppController {
 		/**
 		* Allows a user to sign up for a new account
 		*/
-		$this->Auth->allow(array('get_contacts', 'captcha', 'register', 'recover_password', 'terms_of_service'));
+		$this->Auth->allow(array('get_contacts', 'captcha', 'register', 'recover_password', 'terms_of_service', 'help'));
 		return parent::beforeFilter();
 	}
 
