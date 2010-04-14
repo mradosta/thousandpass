@@ -214,6 +214,15 @@ div.inner_container div.welcome {
 	color: #A3A3A3;
 }
 
+div.inner_container div.help {
+	margin: 10px 30px 0 18px;
+	padding-top: 0;
+	overflow: hidden;
+	height: 300px;
+	font-size: 30px;
+	color: #A3A3A3;
+}
+
 div.inner_container div.left table {
 	margin-top: 8px;
 	font-size: 13px;
@@ -274,9 +283,25 @@ div.bottom_addsense {
 	margin: 15px 10px 0 90px;
 }
 
+
+/** Languages */
 #languages {
-	width: 250px;
-	float: right;
+	width: 60px;
+	float: left;
+	margin-left: 285px;
+}
+
+#languages img {
+	margin: 5px;
+	cursor: pointer;
+	width: 16px;
+	height: 11px;
+}
+
+
+#admin_menus {
+	float: left;
+	width: auto;
 }
 
 /** Top Bar */
@@ -289,6 +314,7 @@ div.bottom_addsense {
 }
 
 #top_bar img {
+	margin:0;
 	float: left;
 }
 
@@ -297,6 +323,12 @@ div.bottom_addsense {
 	color: #A3A3A3;
 	font-size: 14px;
 	padding: 6px 25px 0 4px;
+}
+
+#top_bar div.toolbar {
+	width: auto;
+	float: right;
+	margin-right: 35px;
 }
 
 #top_bar div.actions {
@@ -341,24 +373,24 @@ div.bottom_addsense {
 }
 
 #google_search {
+	height: 30px;
 	background: url(img/google_logo.jpg) no-repeat;
 	width: auto;
-	margin-left: 20px;
+	margin: 20px 0 0 20px;
 	float: left;
-}
-
-#google_search div.input {
-	width: 100px;
 }
 
 #google_search input {
 	width: 190px;
-	margin-left: 100px;
+	margin: 5px 0 0 100px;
+	padding: 0;
+	float: left;
 }
 
 #google_search input.submit {
+	background: url(img/button_bg_small.png) no-repeat;
 	width: 50px;
-	margin-left: 0;
+	margin: 5px 0 0 5px;
 }
 
 #menu {
@@ -376,7 +408,11 @@ div.captcha {
 	margin-top: 10px;
 }
 
-
+a.help {
+	display: block;
+	width: 250px;
+	padding-top: 10px;
+}
 
 /* Autocomplete */
 .ac_results {

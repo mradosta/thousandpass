@@ -12,6 +12,24 @@ class UsersController extends AppController {
 
 
 
+	function help($what = null) {
+
+		if (!empty($what)) {
+			$links = null;
+			$links['spa']['register'] = 'http://www.youtube.com/v/XQ35djMbjWs';
+			$links['spa']['add_site'] = 'http://www.youtube.com/v/9ZGi-oa-MLQ';
+			$links['spa']['add_note'] = 'http://www.youtube.com/v/PXcotlz8we8';
+			$links['eng']['register'] = 'http://www.youtube.com/v/q-lUjh3hzyA';
+			$links['eng']['add_site'] = 'http://www.youtube.com/v/9P_LBEPOCao';
+			$links['eng']['add_note'] = 'http://www.youtube.com/v/5p_jCCCmbfU';
+			$selectedLanguage = Configure::read('Config.language');
+
+			$this->set('movie', $links[$selectedLanguage][$what]);
+		}
+	}
+
+
+
 	function change_password() {
 
 		if (!empty($this->data)) {

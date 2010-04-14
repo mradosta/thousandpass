@@ -57,13 +57,14 @@
 
 
 	if ($data['Site']['require_add_on'] == 'no') {
-		$imgOptions = array('class' => 'remote_site_logo_disabled', 'url' => $data['Site']['login_url']);
+		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$add_on = '';
+		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_BLANK'), null, false);
 	} else {
-		$imgOptions = array('class' => 'remote_site_logo');
+		$imgOptions = array('class' => 'remote_site_logo', 'title' => $data['Site']['title']);
 		$add_on = ' requiere_add_on';
+		$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
 	}
-	$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
 
 	
 	$out[] = $html->tag('div', $logo, array('class' => 'drag_selector' . $add_on));

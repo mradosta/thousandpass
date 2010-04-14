@@ -24,9 +24,9 @@
 		echo $javascript->codeBlock("
 
 			$(document).ready(function($) {
-				$('#language').bind('change', function() {
+				$('#languages img').bind('click', function() {
 					var options = {  path: '/', expires: 1000 };
-					$.cookie('CakeCookie[language]', $(this).val(), options);
+					$.cookie('CakeCookie[language]', $(this).attr('class'), options);
 					location.reload(true);
 					return false;
 				});
@@ -51,7 +51,15 @@
 						'title'	=> __('Home', true),
 						'url' 	=> ($loggedIn)?'/home':'/'));
 				?>
-			</div>
+			</div> <!--logo-->
+
+
+			<div id="google_search">
+				<form method="get" action="http://www.google.com/search">
+					<input type="text" name="q" size="31" maxlength="255" value="" />
+					<input class="submit" type="submit" value="<?php __('Search'); ?>" />
+				</form>
+			</div> <!--google_search-->
 
 
 			<?php
@@ -73,12 +81,14 @@
 
 			<div id="languages">
 				<?php
-					echo $form->input('language', array(
-						'label'		=> __('Select your language', true),
-						'default'	=> Configure::read('Config.language'),
-						'options' 	=> Configure::read('Config.languages'))
-					);
+					echo $html->image('eng.png', array('class' => 'eng'));
+					echo $html->image('spa.png', array('class' => 'spa'));
+				?>
+			</div>
 
+
+			<div id="admin_menus">
+				<?php
 					if ($loggedIn['username'] === 'root') {
 						$out = null;
 						$out[] = '<div id="menu">';
@@ -86,7 +96,6 @@
 						$out[] = $html->link(__('User', true), array('controller' => 'users'));
 						$out[] = '</div>';
 					}
-					$out[] = $html->link(__('Change Password', true), array('controller' => 'users', 'action' => 'change_password'));
 					echo implode('', $out);
 				?>
 			</div>
@@ -109,12 +118,26 @@
 							'title'	=> __('Logout', true),
 							'url' 	=> array('controller' => 'users', 'action' => 'logout')));
 						echo $html->tag('span', __('Logout', true), array('class' => 'label'));
+					echo '</div>';
 
+					echo '<div class="toolbar">';
 						echo $html->image('notes.png', array(
 							'alt'	=> __('Notes', true),
 							'title'	=> __('Notes', true),
 							'url' 	=> array('controller' => 'notes', 'action' => 'add')));
-						echo $html->tag('span', __('Notes', true), array('class' => 'label'));
+						//echo $html->tag('span', __('Notes', true), array('class' => 'label'));
+
+						echo $html->image('change_password.png', array(
+							'alt'	=> __('Change Password', true),
+							'title'	=> __('Change Password', true),
+							'url' 	=> array('controller' => 'users', 'action' => 'change_password')));
+						//echo $html->tag('span', __('Change Password', true), array('class' => 'label'));
+
+						echo $html->image('help.png', array(
+							'alt'	=> __('Help', true),
+							'title'	=> __('Help', true),
+							'url' 	=> array('controller' => 'users', 'action' => 'help')));
+						//echo $html->tag('span', __('Help', true), array('class' => 'label'));
 
 					echo '</div>';
 				} else {
@@ -137,13 +160,6 @@
 					echo '</div>';
 				}
 			?>
-
-				<div id="google_search">
-					<form method="get" action="http://www.google.com/search">
-						<input type="text" name="q" size="31" maxlength="255" value="" />
-						<input class="submit" type="submit" value="<?php __('Search'); ?>" />
-					</form>
-				</div> <!--google_search-->
 
 			</div> <!--search-->
 		</div> <!--header-->
