@@ -59,7 +59,7 @@
 	if ($data['Site']['require_add_on'] == 'no') {
 		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$add_on = '';
-		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_BLANK'), null, false);
+		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
 	} else {
 		$imgOptions = array('class' => 'remote_site_logo', 'title' => $data['Site']['title']);
 		$add_on = ' requiere_add_on';
