@@ -60,7 +60,7 @@
 						var basePath = '<?php echo Router::url('/'); ?>';
 						var browserName = $.browser.name;
 						if (browserName == 'firefox') {
-							window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail');
+							window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail&confirmed');
 						} else if (browserName == 'msie') {
 							window.location.replace(basePath + 'files/addons/msie/<?php echo Configure::read('Config.language'); ?>_1000pass.exe');
 						} else if (browserName == 'chrome') {
