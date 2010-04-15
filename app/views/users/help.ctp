@@ -1,3 +1,8 @@
+<?php
+	$this->pageTitle = '1000Pass.com - ' . __('Help', true);
+?>
+
+
 <div class="inner_container_border">
 
 	<div class="inner_container">

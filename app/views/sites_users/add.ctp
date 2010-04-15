@@ -1,3 +1,7 @@
+<?php
+	$this->pageTitle = '1000Pass.com - ' . __('Add new site', true);
+?>
+
 <div class="inner_container_border">
 
 	<div class="inner_container">
@@ -13,7 +17,7 @@
 		<div class="right">
 			<div class="text_and_logo">
 				<?php
-					echo $html->tag('span', __('Add a new web site to', true));
+					echo $html->tag('span', __('Add new site to', true));
 					echo $html->image('logo_black.png');
 				?>
 				<span class="subtitle"><?php __('We order your home page') ?></span>

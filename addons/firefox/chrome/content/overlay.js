@@ -3,9 +3,11 @@ var thousandpass = function () {
 	return {
 		init : function () {
 			gBrowser.addEventListener("load", function () {
-				//if (window.content.document.location == 'http://www.1000pass.com/') {
-					thousandpass.bindEvents();
-				//}
+				var location = window.content.document.location.toString();
+				if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/') {
+					return;
+				}
+				thousandpass.bindEvents();
 			}, false);
 		}, //init
 
@@ -34,39 +36,9 @@ var thousandpass = function () {
 		},
 
 
-		deleteCookies : function (url) {
+		openAndReuseOneTabPerAttributeValue : function (data) {
 
-			/** TODO: Remove cookies for only current domain */
-
-			var cookieManager = Components.classes["@mozilla.org/cookiemanager;1"]
-								.getService(Components.interfaces.nsICookieManager);
-
-
-			cookieManager.removeAll();
-
-			/*
-			return;
-
-			var iter = cookieManager.enumerator;
-			while (iter.hasMoreElements()){
-				var cookie = iter.getNext();
-				if (cookie instanceof Components.interfaces.nsICookie){
-					//if (cookie.host == host) {
-						alert('in ' + cookie.host);
-						//alert(cookie.name);
-						//alert(cookie.value);
-					//}
-				}
-			}
-			*/
-
-		}, //deleteCookies
-
-
-		openAndReuseOneTabPerAttributeValue : function (attrValue, url) {
-
-			
-			var domain = thousandpass.getHostNameFromUrl(url);
+			var domain = thousandpass.getHostNameFromUrl(data.url);
 
 			var attrName = 'my-attribute-mark';
 
@@ -83,20 +55,47 @@ var thousandpass = function () {
 					if (currentTab.hasAttribute(attrName)) {
 
 						var attrData = currentTab.getAttribute(attrName).split('|');
+
 						if (attrData[0] == domain) {
 
-							// Yes--select and focus it.
 							tabbrowser.selectedTab = currentTab;
 
-							if (attrData[1] != attrValue) {
-								thousandpass.deleteCookies(url);
-								gBrowser.removeCurrentTab();
+							if (attrData[1] != data.id) {
+								
+								/** Must close previous session from first site before continue */
+								if (data.logout_type == 'scrap') {
+
+									var logout_url = data.logout_url + tabbrowser.contentDocument.body.innerHTML.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
+								} else {
+									var logout_url = data.logout_url;
+								}
+
+								$.get(logout_url, function() {
+
+									gBrowser.removeCurrentTab();
+
+									// Our tab isn't open. Open it now.
+									var browserEnumerator = wm.getEnumerator("navigator:browser");
+									var tabbrowser = browserEnumerator.getNext().gBrowser;
+
+									// Create tab
+									var newTab = tabbrowser.addTab(data.url);
+									newTab.setAttribute(attrName, domain + '|' + data.id);
+
+									// Focus tab
+									tabbrowser.selectedTab = newTab;
+									
+									// Focus *this* browser window in case another one is currently focused
+									tabbrowser.ownerDocument.defaultView.focus();
+
+								});
+
 							} else {
 
 								// Focus *this* browser window in case another one is currently focused
 								tabbrowser.ownerDocument.defaultView.focus();
-								found = true;
 							}
+							found = true;
 							break;
 						}
 					}
@@ -110,8 +109,8 @@ var thousandpass = function () {
 				var tabbrowser = browserEnumerator.getNext().gBrowser;
 
 				// Create tab
-				var newTab = tabbrowser.addTab(url);
-				newTab.setAttribute(attrName, domain + '|' + attrValue);
+				var newTab = tabbrowser.addTab(data.url);
+				newTab.setAttribute(attrName, domain + '|' + data.id);
 
 				// Focus tab
 				tabbrowser.selectedTab = newTab;
@@ -145,6 +144,8 @@ var thousandpass = function () {
 				var data = {
 					id: $('#plugin_identifier', plugin).html(),
 					url: $('#url', plugin).html().replace('&amp;', '&'),
+					logout_url: $('#logout_url', plugin).html().replace('&amp;', '&'),
+					logout_type: $('#logout_url', plugin).attr('class'),
 					username: $('#username', plugin).html(),
 					usernameField: $('#username', plugin).attr('class'),
 					password: $('#password', plugin).html(),
@@ -210,7 +211,7 @@ var thousandpass = function () {
 					this.removeEventListener('load', onLoadTabListener, true);
 				};
 
-				var myTab = thousandpass.openAndReuseOneTabPerAttributeValue(data.id, data.url);
+				var myTab = thousandpass.openAndReuseOneTabPerAttributeValue(data);
 				if (data.form != '') {
 					myTab.addEventListener('load', onLoadTabListener, true);
 				}

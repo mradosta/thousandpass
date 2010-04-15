@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-05 14:47-0300\n"
+"POT-Creation-Date: 2010-04-14 20:47-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -67,127 +67,127 @@ msgstr ""
 msgid "Install"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:68
+#: /controllers/sites_users_controller.php:69
 msgid "My sites at 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:80
+#: /controllers/sites_users_controller.php:81
 msgid "Add new site to 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:97;122
+#: /controllers/sites_users_controller.php:98;123
 msgid "The SitesUser has been saved"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:100;125
+#: /controllers/sites_users_controller.php:101;126
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:103
+#: /controllers/sites_users_controller.php:104
 msgid "Non Existent Site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:103
+#: /controllers/sites_users_controller.php:104
 msgid "Request not listed site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:104
+#: /controllers/sites_users_controller.php:105
 msgid "Existing Sites"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:113
+#: /controllers/sites_users_controller.php:114
 msgid "Edit my site at 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:116
+#: /controllers/sites_users_controller.php:117
 msgid "Invalid SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:136
+#: /controllers/sites_users_controller.php:137
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:140
+#: /controllers/sites_users_controller.php:141
 msgid "SitesUser deleted"
 msgstr ""
 
-#: /controllers/users_controller.php:24
+#: /controllers/users_controller.php:42
 msgid "Your current password do not match."
 msgstr ""
 
-#: /controllers/users_controller.php:26
+#: /controllers/users_controller.php:44
 msgid "Passwords do not match."
 msgstr ""
 
-#: /controllers/users_controller.php:32
+#: /controllers/users_controller.php:50
 msgid "Your password has been changed."
 msgstr ""
 
-#: /controllers/users_controller.php:34
+#: /controllers/users_controller.php:52
 msgid "Your password could not be changed."
 msgstr ""
 
-#: /controllers/users_controller.php:96;177
+#: /controllers/users_controller.php:114;195
 msgid "Validation text error. Try again"
 msgstr ""
 
-#: /controllers/users_controller.php:98
+#: /controllers/users_controller.php:116
 msgid "Must enter the username."
 msgstr ""
 
-#: /controllers/users_controller.php:100
+#: /controllers/users_controller.php:118
 msgid "Must enter the email."
 msgstr ""
 
-#: /controllers/users_controller.php:123
+#: /controllers/users_controller.php:141
 msgid "1000Pass.com - Password Recovery Service"
 msgstr ""
 
-#: /controllers/users_controller.php:126
+#: /controllers/users_controller.php:144
 msgid "Your password has been send to your email."
 msgstr ""
 
-#: /controllers/users_controller.php:128
+#: /controllers/users_controller.php:146
 msgid "Username and/or email does not exists."
 msgstr ""
 
-#: /controllers/users_controller.php:164
+#: /controllers/users_controller.php:182
 msgid "Terms_Of_Service"
 msgstr ""
 
-#: /controllers/users_controller.php:179
+#: /controllers/users_controller.php:197
 msgid "Must accept the Terms of Service"
 msgstr ""
 
-#: /controllers/users_controller.php:185
+#: /controllers/users_controller.php:203
 msgid "Welcome to 1000Pass.com"
 msgstr ""
 
-#: /controllers/users_controller.php:188
+#: /controllers/users_controller.php:206
 msgid "Thanks for signing up at 1000Pass.com."
 msgstr ""
 
-#: /controllers/users_controller.php:193;226;244
+#: /controllers/users_controller.php:211;244;262
 msgid "The User could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/users_controller.php:212
+#: /controllers/users_controller.php:230
 msgid "Invalid User."
 msgstr ""
 
-#: /controllers/users_controller.php:223;241
+#: /controllers/users_controller.php:241;259
 msgid "The User has been saved"
 msgstr ""
 
-#: /controllers/users_controller.php:236
+#: /controllers/users_controller.php:254
 msgid "Invalid User"
 msgstr ""
 
-#: /controllers/users_controller.php:256
+#: /controllers/users_controller.php:274
 msgid "Invalid id for User"
 msgstr ""
 
-#: /controllers/users_controller.php:260
+#: /controllers/users_controller.php:278
 msgid "User deleted"
 msgstr ""
 
@@ -208,10 +208,10 @@ msgid "Unknown country"
 msgstr ""
 
 #: /views/elements/plugin.ctp:9;11;41;43
-#: /views/notes/add.ctp:49;51
-#: /views/sites/edit.ctp:25
+#: /views/notes/add.ctp:53;55
+#: /views/sites/edit.ctp:26
 #: /views/sites/index.ctp:49
-#: /views/sites/view.ctp:71
+#: /views/sites/view.ctp:76
 #: /views/users/edit.ctp:19
 #: /views/users/index.ctp:37
 #: /views/users/view.ctp:51
@@ -219,13 +219,13 @@ msgid "Delete"
 msgstr ""
 
 #: /views/elements/plugin.ctp:12;44
-#: /views/notes/add.ctp:52
+#: /views/notes/add.ctp:56
 msgid "Are you sure you want to delete %s?"
 msgstr ""
 
 #: /views/elements/plugin.ctp:16;17
 #: /views/sites/index.ctp:48
-#: /views/sites/view.ctp:70
+#: /views/sites/view.ctp:75
 #: /views/users/index.ctp:36
 #: /views/users/view.ctp:50
 msgid "Edit"
@@ -261,19 +261,19 @@ msgid "Home"
 msgstr ""
 
 #: /views/layouts/admin.ctp:49
-#: /views/layouts/default.ctp:85
+#: /views/layouts/default.ctp:95
 #: /views/sites/index.ctp:2
 msgid "Sites"
 msgstr ""
 
 #: /views/layouts/admin.ctp:52
-#: /views/layouts/default.ctp:86
+#: /views/layouts/default.ctp:96
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr ""
 
 #: /views/layouts/admin.ctp:55
-#: /views/layouts/default.ctp:108;109;111
+#: /views/layouts/default.ctp:117;118;120
 msgid "Logout"
 msgstr ""
 
@@ -281,93 +281,99 @@ msgstr ""
 msgid "CakePHP: the rapid development php framework"
 msgstr ""
 
-#: /views/layouts/default.ctp:77
-msgid "Select your language"
+#: /views/layouts/default.ctp:60
+msgid "Search"
 msgstr ""
 
-#: /views/layouts/default.ctp:89
-msgid "Change Password"
-msgstr ""
-
-#: /views/layouts/default.ctp:101;102;104
+#: /views/layouts/default.ctp:110;111;113
 msgid "Add web site"
 msgstr ""
 
-#: /views/layouts/default.ctp:107
+#: /views/layouts/default.ctp:116
 msgid "You are about to close session at 1000Pass.com, remember to close other sites sessions too"
 msgstr ""
 
-#: /views/layouts/default.ctp:114;115;117
+#: /views/layouts/default.ctp:125;126
 msgid "Notes"
 msgstr ""
 
-#: /views/layouts/default.ctp:125
-#: /views/sites/view.ctp:52
-#: /views/sites_users/add.ctp:27
+#: /views/layouts/default.ctp:130;131
+#: /views/users/change_password.ctp:2
+msgid "Change Password"
+msgstr ""
+
+#: /views/layouts/default.ctp:139
+#: /views/sites/view.ctp:57
+#: /views/sites_users/add.ctp:30
 #: /views/users/add.ctp:282
-#: /views/users/recover_password.ctp:18
-#: /views/users/register.ctp:307
+#: /views/users/recover_password.ctp:22
+#: /views/users/register.ctp:311
 #: /views/users/view.ctp:9
 msgid "Username"
 msgstr ""
 
-#: /views/layouts/default.ctp:129
-#: /views/sites/view.ctp:53
-#: /views/sites_users/add.ctp:28
+#: /views/layouts/default.ctp:143
+#: /views/sites/view.ctp:58
+#: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
-#: /views/users/register.ctp:315
+#: /views/users/register.ctp:319
 msgid "Password"
 msgstr ""
 
-#: /views/layouts/default.ctp:131
-msgid "Forgot my password"
-msgstr ""
-
-#: /views/layouts/default.ctp:135
+#: /views/layouts/default.ctp:145
 msgid "enter"
 msgstr ""
 
-#: /views/layouts/default.ctp:144
-msgid "Search"
+#: /views/layouts/default.ctp:149;150
+msgid "Forgot my password"
 msgstr ""
 
-#: /views/notes/add.ctp:9;10;12
+#: /views/layouts/default.ctp:157;158
+#: /views/users/help.ctp:2;27
+msgid "Help"
+msgstr ""
+
+#: /views/notes/add.ctp:2
+msgid "My Notes"
+msgstr ""
+
+#: /views/notes/add.ctp:13;14;16
 msgid "Add Note"
 msgstr ""
 
-#: /views/notes/add.ctp:17
+#: /views/notes/add.ctp:21
 msgid "Date"
 msgstr ""
 
-#: /views/notes/add.ctp:18;74
+#: /views/notes/add.ctp:22;78
 #: /views/sites/view.ctp:9
 #: /views/users/view.ctp:32
 msgid "Title"
 msgstr ""
 
-#: /views/notes/add.ctp:19;75
+#: /views/notes/add.ctp:23;79
 msgid "Note"
 msgstr ""
 
-#: /views/notes/add.ctp:20
+#: /views/notes/add.ctp:24
 #: /views/sites/index.ctp:17
-#: /views/sites/view.ctp:54
+#: /views/sites/view.ctp:59
 #: /views/users/index.ctp:14
 #: /views/users/view.ctp:34
 msgid "Actions"
 msgstr ""
 
-#: /views/notes/add.ctp:65
-#: /views/sites_users/add.ctp:16
+#: /views/notes/add.ctp:69
 msgid "Add a new web site to"
 msgstr ""
 
-#: /views/notes/add.ctp:68
-#: /views/sites_users/add.ctp:19
-#: /views/sites_users/edit.ctp:13
-#: /views/users/change_password.ctp:13
-#: /views/users/recover_password.ctp:13
-#: /views/users/register.ctp:14
+#: /views/notes/add.ctp:72
+#: /views/sites_users/add.ctp:23
+#: /views/sites_users/edit.ctp:18
+#: /views/users/change_password.ctp:17
+#: /views/users/help.ctp:30
+#: /views/users/recover_password.ctp:17
+#: /views/users/register.ctp:2;18
 msgid "We order your home page"
 msgstr ""
 
@@ -375,9 +381,9 @@ msgstr ""
 msgid "Add Site"
 msgstr ""
 
-#: /views/sites/add.ctp:20
-#: /views/sites/edit.ctp:26
-#: /views/sites/view.ctp:40
+#: /views/sites/add.ctp:21
+#: /views/sites/edit.ctp:27
+#: /views/sites/view.ctp:45
 #: /views/users/add.ctp:320
 #: /views/users/edit.ctp:21
 #: /views/users/index.ctp:51
@@ -385,33 +391,33 @@ msgstr ""
 msgid "List Sites"
 msgstr ""
 
-#: /views/sites/add.ctp:21
-#: /views/sites/edit.ctp:27
+#: /views/sites/add.ctp:22
+#: /views/sites/edit.ctp:28
 #: /views/sites/index.ctp:63
-#: /views/sites/view.ctp:42
+#: /views/sites/view.ctp:47
 #: /views/users/add.ctp:319
 #: /views/users/edit.ctp:20
 #: /views/users/view.ctp:20
 msgid "List Users"
 msgstr ""
 
-#: /views/sites/add.ctp:22
-#: /views/sites/edit.ctp:28
+#: /views/sites/add.ctp:23
+#: /views/sites/edit.ctp:29
 #: /views/sites/index.ctp:64
-#: /views/sites/view.ctp:43;80
+#: /views/sites/view.ctp:48;85
 #: /views/users/index.ctp:50
 #: /views/users/view.ctp:21
 msgid "New User"
 msgstr ""
 
 #: /views/sites/edit.ctp:4
-#: /views/sites/view.ctp:38
+#: /views/sites/view.ctp:43
 msgid "Edit Site"
 msgstr ""
 
-#: /views/sites/edit.ctp:25
+#: /views/sites/edit.ctp:26
 #: /views/sites/index.ctp:49
-#: /views/sites/view.ctp:39;71
+#: /views/sites/view.ctp:44;76
 #: /views/users/edit.ctp:19
 #: /views/users/index.ctp:37
 #: /views/users/view.ctp:19;51
@@ -424,7 +430,7 @@ msgid "Page %page% of %pages%, showing %current% records out of %count% total, s
 msgstr ""
 
 #: /views/sites/index.ctp:47
-#: /views/sites/view.ctp:69
+#: /views/sites/view.ctp:74
 #: /views/users/index.ctp:35
 #: /views/users/view.ctp:49
 msgid "View"
@@ -441,7 +447,7 @@ msgid "next"
 msgstr ""
 
 #: /views/sites/index.ctp:62
-#: /views/sites/view.ctp:41
+#: /views/sites/view.ctp:46
 #: /views/users/add.ctp:321
 #: /views/users/edit.ctp:22
 #: /views/users/index.ctp:52
@@ -450,11 +456,11 @@ msgid "New Site"
 msgstr ""
 
 #: /views/sites/view.ctp:2
-#: /views/sites_users/add.ctp:25
+#: /views/sites_users/add.ctp:28
 msgid "Site"
 msgstr ""
 
-#: /views/sites/view.ctp:4;51
+#: /views/sites/view.ctp:4;56
 #: /views/users/view.ctp:4;31
 msgid "Id"
 msgstr ""
@@ -475,40 +481,52 @@ msgstr ""
 msgid "Login Url"
 msgstr ""
 
-#: /views/sites/view.ctp:39
+#: /views/sites/view.ctp:34
+msgid "Cookie Domain"
+msgstr ""
+
+#: /views/sites/view.ctp:44
 msgid "Delete Site"
 msgstr ""
 
-#: /views/sites/view.ctp:47
+#: /views/sites/view.ctp:52
 msgid "Related Users"
 msgstr ""
 
-#: /views/sites_users/add.ctp:7
+#: /views/sites_users/add.ctp:2
+msgid "Add new site"
+msgstr ""
+
+#: /views/sites_users/add.ctp:11
 msgid "Welcome to"
 msgstr ""
 
-#: /views/sites_users/add.ctp:29
+#: /views/sites_users/add.ctp:20
+msgid "Add new site to"
+msgstr ""
+
+#: /views/sites_users/add.ctp:32
 #: /views/users/view.ctp:33
 msgid "Description"
 msgstr ""
 
-#: /views/sites_users/add.ctp:32
+#: /views/sites_users/add.ctp:35
 msgid "Add"
 msgstr ""
 
-#: /views/sites_users/add.ctp:75
+#: /views/sites_users/add.ctp:77
 msgid "You are about to request a new site ( "
 msgstr ""
 
-#: /views/sites_users/add.ctp:80;94
+#: /views/sites_users/add.ctp:82;96
 msgid "Must select the site"
 msgstr ""
 
-#: /views/sites_users/add.ctp:89
+#: /views/sites_users/add.ctp:91
 msgid "Must enter the site url"
 msgstr ""
 
-#: /views/sites_users/add.ctp:114
+#: /views/sites_users/add.ctp:116
 msgid "No match!"
 msgstr ""
 
@@ -516,11 +534,19 @@ msgstr ""
 msgid "No results"
 msgstr ""
 
-#: /views/sites_users/edit.ctp:10
-msgid "Edit web site in"
+#: /views/sites_users/edit.ctp:2
+msgid "Edit existing site"
 msgstr ""
 
-#: /views/sites_users/index.ctp:54
+#: /views/sites_users/edit.ctp:15
+msgid "Edit existing site in"
+msgstr ""
+
+#: /views/sites_users/index.ctp:2
+msgid "My Sites"
+msgstr ""
+
+#: /views/sites_users/index.ctp:58
 msgid "Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download..."
 msgstr ""
 
@@ -529,95 +555,95 @@ msgid "Add User"
 msgstr ""
 
 #: /views/users/add.ctp:7
-#: /views/users/register.ctp:21
+#: /views/users/register.ctp:25
 msgid "Name"
 msgstr ""
 
 #: /views/users/add.ctp:10
-#: /views/users/register.ctp:24
+#: /views/users/register.ctp:28
 msgid "Must enter the Username."
 msgstr ""
 
 #: /views/users/add.ctp:14
-#: /views/users/register.ctp:28
+#: /views/users/register.ctp:32
 msgid "Lastname"
 msgstr ""
 
 #: /views/users/add.ctp:17
-#: /views/users/register.ctp:31
+#: /views/users/register.ctp:35
 msgid "Must enter the Lastname."
 msgstr ""
 
 #: /views/users/add.ctp:21
-#: /views/users/register.ctp:35
+#: /views/users/register.ctp:39
 msgid "Birth Date"
 msgstr ""
 
 #: /views/users/add.ctp:27
-#: /views/users/register.ctp:43
+#: /views/users/register.ctp:47
 msgid "Must select the Birth Date."
 msgstr ""
 
 #: /views/users/add.ctp:31
-#: /views/users/register.ctp:47
+#: /views/users/register.ctp:51
 msgid "Sex"
 msgstr ""
 
 #: /views/users/add.ctp:33
-#: /views/users/register.ctp:53
+#: /views/users/register.ctp:57
 msgid "Male"
 msgstr ""
 
 #: /views/users/add.ctp:34
-#: /views/users/register.ctp:54
+#: /views/users/register.ctp:58
 msgid "Female"
 msgstr ""
 
 #: /views/users/add.ctp:36
-#: /views/users/register.ctp:56
+#: /views/users/register.ctp:60
 msgid "Country"
 msgstr ""
 
 #: /views/users/add.ctp:284
-#: /views/users/register.ctp:309
+#: /views/users/register.ctp:313
 msgid "This username has already been taken."
 msgstr ""
 
 #: /views/users/add.ctp:285;293
-#: /views/users/change_password.ctp:22;30
-#: /views/users/register.ctp:310;318
+#: /views/users/change_password.ctp:26;34
+#: /views/users/register.ctp:314;322
 msgid "Only the letters A-z and digits 0-9 are allowed"
 msgstr ""
 
 #: /views/users/add.ctp:286
-#: /views/users/register.ctp:311
+#: /views/users/register.ctp:315
 msgid "Your username must be between 4 and 20 characters long"
 msgstr ""
 
 #: /views/users/add.ctp:294
-#: /views/users/change_password.ctp:23;31
-#: /views/users/register.ctp:319
+#: /views/users/change_password.ctp:27;35
+#: /views/users/register.ctp:323
 msgid "Your password must be at least 6 characters long"
 msgstr ""
 
 #: /views/users/add.ctp:298
-#: /views/users/register.ctp:323
+#: /views/users/register.ctp:327
 msgid "Retype Password"
 msgstr ""
 
 #: /views/users/add.ctp:301
-#: /views/users/change_password.ctp:38
-#: /views/users/register.ctp:326
+#: /views/users/change_password.ctp:42
+#: /views/users/register.ctp:330
 msgid "Passwords do not match"
 msgstr ""
 
 #: /views/users/add.ctp:305
-#: /views/users/register.ctp:330
+#: /views/users/register.ctp:334
 msgid "Email"
 msgstr ""
 
 #: /views/users/add.ctp:307
-#: /views/users/register.ctp:332
+#: /views/users/register.ctp:336
 msgid "Your email is not valid"
 msgstr ""
 
@@ -631,23 +657,23 @@ msgstr ""
 msgid "Approved"
 msgstr ""
 
-#: /views/users/change_password.ctp:10
+#: /views/users/change_password.ctp:14
 msgid "Change Password for"
 msgstr ""
 
-#: /views/users/change_password.ctp:19
+#: /views/users/change_password.ctp:23
 msgid "Current Password"
 msgstr ""
 
-#: /views/users/change_password.ctp:27
+#: /views/users/change_password.ctp:31
 msgid "New Password"
 msgstr ""
 
-#: /views/users/change_password.ctp:35
+#: /views/users/change_password.ctp:39
 msgid "Retype New Password"
 msgstr ""
 
-#: /views/users/change_password.ctp:44
+#: /views/users/change_password.ctp:48
 msgid "Change"
 msgstr ""
 
@@ -656,48 +682,64 @@ msgstr ""
 msgid "Edit User"
 msgstr ""
 
+#: /views/users/help.ctp:36
+msgid "How to register?"
+msgstr ""
+
+#: /views/users/help.ctp:37
+msgid "How to add a site?"
+msgstr ""
+
+#: /views/users/help.ctp:38
+msgid "How to add a note?"
+msgstr ""
+
 #: /views/users/index.ctp:2
 msgid "Users"
 msgstr ""
 
-#: /views/users/recover_password.ctp:10
+#: /views/users/recover_password.ctp:2
+msgid "Recover your pass"
+msgstr ""
+
+#: /views/users/recover_password.ctp:14
 msgid "Recover your pass for"
 msgstr ""
 
-#: /views/users/recover_password.ctp:19
+#: /views/users/recover_password.ctp:23
 msgid "email"
 msgstr ""
 
-#: /views/users/recover_password.ctp:22
-#: /views/users/register.ctp:337
+#: /views/users/recover_password.ctp:26
+#: /views/users/register.ctp:341
 msgid "Type the numbers you see in the picture"
 msgstr ""
 
-#: /views/users/recover_password.ctp:26
+#: /views/users/recover_password.ctp:30
 msgid "Recover"
 msgstr ""
 
-#: /views/users/register.ctp:11
+#: /views/users/register.ctp:15
 msgid "Sign Up at"
 msgstr ""
 
-#: /views/users/register.ctp:50
+#: /views/users/register.ctp:54
 msgid "Must select the Sex."
 msgstr ""
 
-#: /views/users/register.ctp:59
+#: /views/users/register.ctp:63
 msgid "Must select the Country."
 msgstr ""
 
-#: /views/users/register.ctp:339
+#: /views/users/register.ctp:343
 msgid "Term of Service"
 msgstr ""
 
-#: /views/users/register.ctp:340
+#: /views/users/register.ctp:344
 msgid "I understand and accept the term of service"
 msgstr ""
 
-#: /views/users/register.ctp:343
+#: /views/users/register.ctp:347
 msgid "Sign Up"
 msgstr ""
 

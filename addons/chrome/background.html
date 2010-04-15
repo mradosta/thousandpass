@@ -1,0 +1,108 @@
+<html>
+	<head>
+
+	<script>
+
+		chrome.browserAction.onClicked.addListener(
+			function(tab) {
+				chrome.tabs.create({'url':'http://www.1000pass.com'});
+			}
+		);
+
+		var openedTabs = new Array();
+
+		chrome.extension.onConnect.addListener(function(port) {
+			if (port.name == '1000pass') {
+				port.onMessage.addListener(function(data) {
+
+
+					/** Find already opened tabs */
+					var toCloseTab = false;
+					var toFocusTab = false;
+					for (var i = 0; i < openedTabs.length; i++) {
+						if (openedTabs[i].id == data.id) {
+							toFocusTab = openedTabs[i].tab_id;
+							break;
+						} else if (openedTabs[i].url == data.url) {
+							toCloseTab = openedTabs[i].tab_id;
+							break;
+						}
+					}
+
+
+					/** If logout url is given, call this to close session before starting a new one */
+					if (toCloseTab && data.logout_url != '') {
+
+						if (data.logout_type == 'scrap') {
+
+							chrome.tabs.sendRequest(openedTabs[i].tab_id, {}, function(response) {
+								var logout_url = data.logout_url + response.html.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
+
+								var xhr = new XMLHttpRequest();
+								xhr.open('GET', logout_url, true);
+								xhr.onreadystatechange = function() {
+									if (xhr.readyState == 4) {
+
+										chrome.tabs.remove(toCloseTab);
+										openedTabs.splice(i, 1);
+
+										chrome.tabs.create({'url':data.url}, function(tab) {
+											data.tab_id = tab.id;
+											openedTabs.push(data);
+										});
+									}
+								}
+								xhr.send();
+							});
+
+						} else {
+							var xhr = new XMLHttpRequest();
+							xhr.open('GET', data.logout_url, true);
+							xhr.onreadystatechange = function() {
+								if (xhr.readyState == 4) {
+
+									chrome.tabs.remove(toCloseTab);
+									openedTabs.splice(i, 1);
+
+									chrome.tabs.create({'url':data.url}, function(tab) {
+										data.tab_id = tab.id;
+										openedTabs.push(data);
+									});
+								}
+							}
+							xhr.send();
+
+						}
+					} else if (toFocusTab) {
+						chrome.tabs.update(toFocusTab, {selected : true});
+					} else {
+						chrome.tabs.create({'url':data.url}, function(tab) {
+							data.tab_id = tab.id;
+							openedTabs.push(data);
+						});
+					}
+				});
+			}
+		});
+
+
+		chrome.tabs.onUpdated.addListener(function (tabId, info, tab) {
+			if (info.status == 'complete') {
+				for (var i = 0; i < openedTabs.length; i++) {
+					if (openedTabs[i].tab_id == tabId) {
+						var port = chrome.tabs.connect(tabId);
+						port.postMessage(openedTabs[i]);
+					}
+				}
+			}
+		});
+		</script>
+		
+		<script src="jquery.js" type="text/javascript"></script>
+		<script src="1000pass.js" type="text/javascript"></script>
+
+
+	</head>
+
+	<body></body>
+</html>

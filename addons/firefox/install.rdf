@@ -10,9 +10,6 @@
     <em:description>Autocomplete password forms - 1000pass.com</em:description>
 	<em:aboutURL>chrome://thousandpass/content/about.xul</em:aboutURL>
 	<em:optionsURL>chrome://thousandpass/content/options.xul</em:optionsURL>
-	<em:updateURL>http://www.1000pass.com/files/addons/firefox/update.rdf</em:updateURL>
-	<em:updateURL>http://www.1000pass.com/files/addons/firefox/update.rdf</em:updateURL>
-	<em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDHAoicvXM5pLZjGHoUFMlsV1VWqdAMO1nWpcpnRVVNTrcMdf2ktvPhK1FdAF7GxTarmGw9tD9ycbVadnq24z6vnl0SaNexEzP/VGAYxGlyS0hEn+dGE/MK8mJDxygtHQfg9dgTg+7oOVTox0v18yijCwonU8g1Dy4D2vDo40HtvQIDAQAB</em:updateKey>
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>

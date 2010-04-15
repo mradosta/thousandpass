@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+  <app appid='lbgdihaninnfhagjdakoifionpmccbgj'>
+    <updatecheck codebase='http://www.1000pass.com/files/addons/chrome/1000pass.crx' version='2.0' />
+  </app>
+</gupdate>

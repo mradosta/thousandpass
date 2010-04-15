@@ -1,3 +1,7 @@
+<?php
+	$this->pageTitle = '1000Pass.com - ' . __('Change Password', true);
+?>
+
 <div class="inner_container_border">
 
 	<div class="inner_container">

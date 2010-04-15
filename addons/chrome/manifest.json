@@ -1,0 +1,21 @@
+{
+  "name": "1000Pass.com",
+  "version": "1.0",
+  "description": "Autocomplete password forms - 1000pass.com.",
+  "icons": { "48": "icon_48.png",
+          	"128": "icon_128.png" },
+  "background_page": "background.html",
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["jquery.js", "1000pass.js"]
+    }
+  ],
+  "permissions": [
+    "tabs", "http://*/*", "https://*/*"
+  ],
+  "update_url": "http://www.1000pass.com/files/addons/chrome/updates.xml"
+}

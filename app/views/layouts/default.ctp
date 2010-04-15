@@ -55,10 +55,16 @@
 
 
 			<div id="google_search">
-				<form method="get" action="http://www.google.com/search">
-					<input type="text" name="q" size="31" maxlength="255" value="" />
-					<input class="submit" type="submit" value="<?php __('Search'); ?>" />
+
+				<form action="http://www.google.com/cse" id="cse-search-box" target="_blank">
+				<div>
+					<input type="hidden" name="cx" value="partner-pub-0846414566912792:dd6r74-vs90" />
+					<input type="hidden" name="ie" value="ISO-8859-1" />
+					<input type="text" name="q" size="31" />
+					<input class="submit" type="submit" name="sa" value="<?php __('Search'); ?>" />
+				</div>
 				</form>
+
 			</div> <!--google_search-->
 
 

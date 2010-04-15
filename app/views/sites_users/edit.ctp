@@ -1,3 +1,8 @@
+<?php
+	$this->pageTitle = '1000Pass.com - ' . __('Edit existing site', true);
+?>
+
+
 <div class="inner_container_border">
 
 	<div class="inner_container">
@@ -7,7 +12,7 @@
 		<div class="right">
 			<div class="text_and_logo">
 				<?php
-					echo $html->tag('span', __('Edit web site in', true));
+					echo $html->tag('span', __('Edit existing site in', true));
 					echo $html->image('logo_black.png');
 				?>
 				<span class="subtitle"><?php __('We order your home page') ?></span>

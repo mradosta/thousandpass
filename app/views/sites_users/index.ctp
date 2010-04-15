@@ -1,3 +1,7 @@
+<?php
+	$this->pageTitle = '1000Pass.com - ' . __('My Sites', true);
+?>
+
 <div class="inner_container_vertical_scroll">
 
 	<div id="1000pass_add_on" class="not_installed"></div>
@@ -56,21 +60,11 @@
 						var basePath = '<?php echo Router::url('/'); ?>';
 						var browserName = $.browser.name;
 						if (browserName == 'firefox') {
-
-							var params = {
-								'1000pass': {
-									URL: 'http://www.1000pass.com/files/addons/firefox/1000pass.xpi',
-									toString: function () {
-										return this.URL;
-									}
-								}
-							};
-							InstallTrigger.install(params);
-							//window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
+							window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail');
 						} else if (browserName == 'msie') {
-							window.location.replace(basePath + 'files/addons/msie/setup.exe');
+							window.location.replace(basePath + 'files/addons/msie/<?php echo Configure::read('Config.language'); ?>_1000pass.exe');
 						} else if (browserName == 'chrome') {
-							window.location.replace(basePath + 'files/addons/chrome/xxx.yyy');
+							window.location.replace(basePath + 'files/addons/chrome/1000pass.crx');
 						}
 
 						//window.location.replace('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'download_add_on'), true); ?>/' + $.browser.name);

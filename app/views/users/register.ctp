@@ -1,3 +1,7 @@
+<?php
+	$this->pageTitle = '1000Pass.com - ' . __('We order your home page', true);
+?>
+
 <div class="inner_container_border">
 
 	<div class="inner_container">
