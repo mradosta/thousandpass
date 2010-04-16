@@ -4,7 +4,7 @@
 
 <div class="inner_container_vertical_scroll">
 
-	<div id="1000pass_add_on" class="not_installed"></div>
+	<div id="1000pass_add_on" class="checking"></div>
 	<div id="1000pass_add_on_version" class="0"></div>
 
 	<ul>
@@ -50,8 +50,20 @@
 		};
 
 
+		$('.requiere_add_on').css('cursor', 'pointer').click(
+			function() {
+				if ($('#1000pass_add_on').attr('class') == 'checking') {
+					alert('<?php __('We are checking is the requiered Add-On is installed. Wait a few seconds and try again please...');?>');
+				}
+			}
+		);
+
+		var timeOut = 2000;
+		if ($.browser.name == 'chrome') {
+			timeOut = 1000;
+		}
 		setTimeout(function() {
-			if ($('#1000pass_add_on').attr('class') == 'not_installed') {
+			if ($('#1000pass_add_on').attr('class') == 'checking') {
 				$('.requiere_add_on').css('cursor', 'pointer').click(
 					function() {
 
@@ -70,8 +82,10 @@
 						//window.location.replace('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'download_add_on'), true); ?>/' + $.browser.name);
 					}
 				);
+
+				$('#1000pass_add_on').attr('class', 'not_installed');
 			}
-		}, 2000);
+		}, timeOut);
 	});
 
 </script>
