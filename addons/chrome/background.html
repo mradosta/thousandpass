@@ -11,6 +11,17 @@
 
 		var openedTabs = new Array();
 
+
+		chrome.tabs.onRemoved.addListener(function(tabId) {
+			for (var i = 0; i < openedTabs.length; i++) {
+				if (openedTabs[i].tab_id == tabId) {
+					openedTabs.splice(i, 1);
+					break;
+				}
+			}
+		});
+
+
 		chrome.extension.onConnect.addListener(function(port) {
 			if (port.name == '1000pass') {
 				port.onMessage.addListener(function(data) {
