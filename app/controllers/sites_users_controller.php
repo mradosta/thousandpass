@@ -55,12 +55,19 @@ class SitesUsersController extends AppController {
 		Configure::write('debug', 0);
 		$this->layout = 'ajax';
 
-		$data = $this->SitesUser->Site->find('all', array(
-			'conditions'	=> array(
-				'Site.title LIKE' => preg_replace('/^www./', '', $this->params['url']['q']) . '%'),
-			'fields'		=> array('title', 'id')));
+		if (!empty($this->params['url']['q'])) {
+			$q = '%' . preg_replace('/^www./', '', $this->params['url']['q']) . '%';
 
-		$this->set('data', $data);
+			$data = $this->SitesUser->Site->find('all', array(
+				'recursive'		=> -1,
+				'conditions'	=> array(
+					'OR' => array(
+						'Site.login_url LIKE' 	=> $q,
+						'Site.title LIKE' 		=> $q)),
+				'fields'		=> array('title', 'id')));
+
+			$this->set('data', $data);
+		}
 	}
 
 
@@ -72,6 +79,7 @@ class SitesUsersController extends AppController {
 			'order' 		=> array('SitesUser.order' => 'asc'),
 			'contain' 		=> array('Site'),
 			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))))
+			//'conditions' 	=> array('SitesUser.user_id' => 1)))
 		);
 	}
 

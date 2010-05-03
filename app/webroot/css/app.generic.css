@@ -461,3 +461,22 @@ a.help {
 	background-color: Highlight;
 	color: HighlightText;
 }
+
+
+div.checking {
+	width: 15px;
+	height: 31px;
+	background-color: yellow;
+}
+
+div.installed {
+	width: 15px;
+	height: 31px;
+	background-color: green;
+}
+
+div.not_installed {
+	width: 15px;
+	height: 31px;
+	background-color: red;
+}

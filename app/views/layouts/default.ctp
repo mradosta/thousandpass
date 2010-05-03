@@ -164,6 +164,9 @@
 					'title'	=> __('Help', true),
 					'url' 	=> array('controller' => 'users', 'action' => 'help')));
 
+				$toolbar[] = '<div id="1000pass_add_on" class="checking"></div>';
+				$toolbar[] = '<div id="1000pass_add_on_version" class="0"></div>';
+
 				echo implode('', $toolbar);
 				echo '</div>';
 			?>

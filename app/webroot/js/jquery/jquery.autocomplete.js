@@ -432,6 +432,7 @@ jQuery.autocomplete = function(input, options) {
 	}
 
 	function addToCache(q, data) {
+console.log(options.cacheLength);
 		if (!data || !q || !options.cacheLength) return;
 		if (!cache.length || cache.length > options.cacheLength) {
 			flushCache();
@@ -471,7 +472,7 @@ jQuery.fn.autocomplete = function(url, options, data) {
 	options.matchCase = options.matchCase || 0;
 	options.matchSubset = options.matchSubset || 1;
 	options.matchContains = options.matchContains || 0;
-	options.cacheLength = options.cacheLength || 1;
+	options.cacheLength = options.cacheLength || 0;
 	options.mustMatch = options.mustMatch || 0;
 	options.extraParams = options.extraParams || {};
 	options.loadingClass = options.loadingClass || "ac_loading";

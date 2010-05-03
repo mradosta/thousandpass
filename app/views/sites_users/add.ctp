@@ -46,12 +46,10 @@
 		var url = '<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'autoComplete')); ?>';
 		$('#autoComplete').autocomplete(url,
 		{
-			minChars: 2,
-			cacheLength: 10,
+			delay: 100,
 			onItemSelect: selectItem,
 			onFindValue: findValue,
-			formatItem: formatItem,
-			autoFill: false
+			formatItem: formatItem
 		});
 
 /*

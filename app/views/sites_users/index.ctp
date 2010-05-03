@@ -3,10 +3,6 @@
 ?>
 
 <div class="inner_container_vertical_scroll">
-
-	<div id="1000pass_add_on" class="checking"></div>
-	<div id="1000pass_add_on_version" class="0"></div>
-
 	<ul>
 		<?php
 			foreach ($sitesUsers as $sitesUser) {
@@ -53,7 +49,7 @@
 		$('.requiere_add_on').css('cursor', 'pointer').click(
 			function() {
 				if ($('#1000pass_add_on').attr('class') == 'checking') {
-					alert('<?php __('We are checking is the requiered Add-On is installed. Wait a few seconds and try again please...');?>');
+					alert('<?php __('We are checking if the requiered Add-On is installed. Wait a few seconds and try again please...');?>');
 				}
 			}
 		);

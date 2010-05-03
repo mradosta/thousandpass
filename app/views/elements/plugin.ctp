@@ -18,8 +18,7 @@
 				'url' 	=> array('controller' => 'sites_users', 'action' => 'edit', $data['SitesUser']['id']),
 				'class' => 'action'));
 
-		$domain = array_pop(explode('@', $data['SitesUser']['username']));
-		if (!empty($domain) && in_array($domain, array('hotmail.com', 'yahoo.com', 'gmail.com'))) {
+		if (in_array($data['Site']['title'], array('Hotmail', 'Yahoo', 'Gmail'))) {
 			$toolbar[] = $html->image('contacts.png', array(
 					'alt'	=> __('Get contacts', true),
 					'title'	=> __('Get contacts', true),

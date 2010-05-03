@@ -72,6 +72,12 @@ class UsersController extends AppController {
 		* Allows a user to sign up for a new account
 		*/
 		$this->Auth->allow(array('get_contacts', 'captcha', 'register', 'recover_password', 'terms_of_service', 'help'));
+
+		if (!empty($this->params['action']) && $this->params['action'] == 'login' && !empty($this->data['User']['username'])) {
+			$sql = 'DELETE FROM cake_sessions WHERE data LIKE \'%' . 's:8:"username";s:' . strlen($this->data['User']['username']) . ':"' . $this->data['User']['username'] . '"' . '%\'';
+			$this->User->query($sql);
+		}
+
 		return parent::beforeFilter();
 	}
 
@@ -100,6 +106,31 @@ class UsersController extends AppController {
 
 			$contacts = $obj->getAddressbook($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
 			d($contacts);
+
+			$this->__sendEmail(
+				array('template' => 'invite', 'subject' => $this->Session->read('Auth.User.name') . ' ' . $this->Session->read('Auth.User.lastname') . ' ' . __('Invites you to 1000Pass.com', true)),
+				$contacts);
+
+		}
+	}
+
+
+	function check_password($password) {
+
+		Configure::write('debug', 0);
+		$this->layout = 'ajax';
+
+		App::import('Core', 'Security');
+		$user = $this->User->find('first', array(
+			'recursive' 	=> -1,
+			'conditions' 	=> array(
+				'User.username' => $this->Session->read('Auth.User.username'),
+				'User.password' => Security::hash($password, null, true))));
+
+		if (empty($user)) {
+			$this->set('data', 'err');
+		} else {
+			$this->set('data', 'ok');
 		}
 	}
 
@@ -140,7 +171,7 @@ class UsersController extends AppController {
 				$this->__sendEmail(
 					array('template' => 'recover_password', 'subject' => __('1000Pass.com - Password Recovery Service', true)),
 					array($user['User']['username'] => $user['User']['email']),
-					array('newpassword' => $newPassword));
+					array('username' => $user['User']['username'], 'newpassword' => $newPassword));
 				$this->Session->setFlash(__('Your password has been send to your email.', true));
 			} else {
 				$this->Session->setFlash(__('Username and/or email does not exists.', true));
@@ -148,7 +179,7 @@ class UsersController extends AppController {
 		}
 	}
 
-	private function __sendEmail($mailInfo, $destinations, $data) {
+	private function __sendEmail($mailInfo, $destinations, $data = null) {
 
 		/* SMTP Options */
 		$this->Email->smtpOptions = array(

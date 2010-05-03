@@ -22,7 +22,7 @@
 				<?php
 					echo $form->input('id');
 					echo $form->input('username');
-					echo $form->input('password');
+					echo $form->input('password', array('after' => '<span title="' . __('Show hidden password', true) . '" id="show">' . __('Show', true) . '</span>'));
 					echo $form->input('description');
 				?>
 			<?php
@@ -34,3 +34,25 @@
 
 	</div> <!--inner_container-->
 </div> <!--inner_container_border-->
+
+<script type="text/javascript">
+
+	$(document).ready(function($) {
+		$('#show').css('cursor', 'pointer').click(function() {
+			var password = prompt('<?php __('Please, verify your password'); ?>');
+			$.get('<?php echo Router::url(array('controller' => 'users', 'action' => 'check_password')); ?>' + '/' + password, function(data) {
+				if (data == 'ok') {
+					$('#SitesUserPassword').parent().append(
+						$('<input/>').attr('name', 'data[SitesUser][password]').attr('type', 'text').attr('id', 'SitesUserPassword').val($('#SitesUserPassword').val())
+					);
+					$('#SitesUserPassword').remove();
+					$('#show').remove();
+				} else {
+					alert('<?php __('Could not verify current password. Please, try again.'); ?>');
+				}
+			});
+			
+		});
+	});
+
+</script>

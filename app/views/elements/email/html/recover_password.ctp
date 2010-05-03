@@ -1,8 +1,6 @@
-<?php echo $html->image('http://www.1000pass.com/img/' . Configure::read('Config.language') . '_recover_password_mail.jpg', array('url' => 'http://www.1000pass.com')); ?>
-
-<div style="margin-top: 600px;">
+<div style="background: url(<?php echo 'http://www.1000pass.com/img/' . Configure::read('Config.language') . '_recover_password_mail.jpg'; ?>) no-repeat; font-size: 80%; padding: 281px 0 0 100px;">
 	<?php
-		__('Your new password is: ');
-		echo '<b>' . $data['newpassword'] . '</b>';
+		echo $data['username'] . '<br/>';
+		echo $data['newpassword'] . '<br/><br/><br/>';
 	?>
 </div>
