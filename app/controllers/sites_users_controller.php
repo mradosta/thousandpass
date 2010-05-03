@@ -5,7 +5,7 @@ class SitesUsersController extends AppController {
 
 
 
-    function download_add_on($browser) {
+    function download($browser) {
 
 		/**
 		* firefox
@@ -15,16 +15,16 @@ class SitesUsersController extends AppController {
 
 		if ($browser == 'msie') {
 			$params = array(
-				'id' => Configure::read('Config.language') . '_setup.exe',
-				'name' => __('Install', true),
-				'download' => true,
+				'id' 		=> Configure::read('Config.language') . '_1000pass.exe',
+				'name' 		=> __('Install', true),
+				'download' 	=> true,
 				'extension' => 'exe',
-				'path' => APP . 'files' . DS
+				'path' 		=> APP . 'files' . DS
 			);
 		}
 
-        $this->view = 'Media';
 		$this->set($params);
+        $this->view = 'Media';
     }
 
 

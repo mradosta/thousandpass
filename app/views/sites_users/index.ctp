@@ -15,7 +15,6 @@
 </div> <!--inner_container_vertical_scroll-->
 
 
-
 <?php
 	$javascript->link(array('jquery/jquery.dragsort', 'jquery/jquery.browser'), false);
 ?>
@@ -70,7 +69,7 @@
 						if (browserName == 'firefox') {
 							window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail&confirmed');
 						} else if (browserName == 'msie') {
-							window.location.replace(basePath + 'files/addons/msie/<?php echo Configure::read('Config.language'); ?>_1000pass.exe');
+							window.location.replace(basePath + 'files/addons/msie/<?php echo substr( strtolower(Configure::read('Config.language')), 0, 3); ?>_1000pass.exe');
 						} else if (browserName == 'chrome') {
 							window.location.replace(basePath + 'files/addons/chrome/1000pass.crx');
 						}

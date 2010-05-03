@@ -1,0 +1,8 @@
+C:\1000pass\csharp\bin\Release\Interop.SHDocVw.dll
+C:\1000pass\csharp\obj\Release\ResolveAssemblyReference.cache
+C:\1000pass\csharp\obj\Release\Interop.SHDocVw.dll
+C:\1000pass\csharp\obj\Release\1000Pass.csproj.ResolveComReference.cache
+C:\1000pass\csharp\bin\Release\1000Pass.dll
+C:\1000pass\csharp\bin\Release\1000Pass.pdb
+C:\1000pass\csharp\obj\Release\1000Pass.dll
+C:\1000pass\csharp\obj\Release\1000Pass.pdb

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="BHO HelloWorld">
+</Property><Property Name="Archivo de la solución" Value="C:\1000pass\c#\BHO HelloWorld.sln">
+</Property><Property Name="Date" Value="miércoles, 28 de abril de 2010">
+</Property><Property Name="Time" Value="21:38:11">
+</Property></Properties><Event ErrorLevel="0" Project="BHO HelloWorld" Source="BHO HelloWorld.csproj" Description="Proyecto convertido correctamente">
+</Event><Event ErrorLevel="3" Project="BHO HelloWorld" Source="BHO HelloWorld.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="BHO HelloWorld" Source="BHO HelloWorld.csproj" Description="Examen completo: no es necesario actualizar los archivos de proyecto.">
+</Event></UpgradeLog>

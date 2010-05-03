@@ -1,0 +1,17 @@
+C:\1000pass\c#\bin\Debug\BHOHelloWorld.dll
+C:\1000pass\c#\bin\Debug\BHOHelloWorld.pdb
+C:\1000pass\c#\bin\Debug\Interop.SHDocVw.dll
+C:\1000pass\c#\obj\Debug\ResolveAssemblyReference.cache
+C:\1000pass\c#\obj\Debug\Interop.SHDocVw.dll
+C:\1000pass\c#\obj\Debug\BHO HelloWorld.csproj.ResolveComReference.cache
+C:\1000pass\c#\obj\Debug\BHOHelloWorld.dll
+C:\1000pass\c#\obj\Debug\BHOHelloWorld.pdb
+C:\1000pass\csharp\bin\Debug\BHOHelloWorld.dll
+C:\1000pass\csharp\bin\Debug\BHOHelloWorld.pdb
+C:\1000pass\csharp\bin\Debug\BHOHelloWorld.tlb
+C:\1000pass\csharp\bin\Debug\Interop.SHDocVw.dll
+C:\1000pass\csharp\obj\Debug\ResolveAssemblyReference.cache
+C:\1000pass\csharp\obj\Debug\Interop.SHDocVw.dll
+C:\1000pass\csharp\obj\Debug\BHO HelloWorld.csproj.ResolveComReference.cache
+C:\1000pass\csharp\obj\Debug\BHOHelloWorld.dll
+C:\1000pass\csharp\obj\Debug\BHOHelloWorld.pdb

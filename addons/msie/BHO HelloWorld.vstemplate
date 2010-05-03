@@ -1,0 +1,15 @@
+<VSTemplate Type="Project" Version="2.0.0"
+    xmlns="http://www.horizonideas.com/">
+    <TemplateData>
+        <Name>BHO HelloWorld</Name>
+        <Description>A BHO HelloWorld program</Description>
+        <ProjectType>CSharp</ProjectType>
+    </TemplateData>
+    <TemplateContent>
+        <Project File="BHO HelloWorld.csproj">
+            <ProjectItem>BHO\BHO.cs<ProjectItem>
+            <ProjectItem>BHO\IObjectWithSite.cs</ProjectItem>
+            <ProjectItem>Properties\AssemblyInfo.cs</ProjectItem>
+        </Project>
+    </TemplateContent>
+</VSTemplate>
