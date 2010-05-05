@@ -39,7 +39,7 @@
 
 	$(document).ready(function($) {
 		$('#show').css('cursor', 'pointer').click(function() {
-			var password = prompt('<?php __('Please, verify your password'); ?>');
+			var password = prompt('<?php __('Please, verify your 1000pass.com password'); ?>');
 			$.get('<?php echo Router::url(array('controller' => 'users', 'action' => 'check_password')); ?>' + '/' + password, function(data) {
 				if (data == 'ok') {
 					$('#SitesUserPassword').parent().append(

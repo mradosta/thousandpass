@@ -53,10 +53,6 @@
 			}
 		);
 
-		var timeOut = 2000;
-		if ($.browser.name == 'chrome') {
-			timeOut = 1000;
-		}
 		setTimeout(function() {
 			if ($('#1000pass_add_on').attr('class') == 'checking') {
 				$('.requiere_add_on').css('cursor', 'pointer').click(
@@ -79,8 +75,10 @@
 				);
 
 				$('#1000pass_add_on').attr('class', 'not_installed');
+				$('.remote_site_logo_disabled').parent().show();
+				$('.remote_site_logo_to_hide').remove();
 			}
-		}, timeOut);
+		}, 2000);
 	});
 
 </script>

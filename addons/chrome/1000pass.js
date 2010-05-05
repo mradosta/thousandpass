@@ -63,37 +63,42 @@ chrome.extension.onConnect.addListener(function(port) {
 });
 
 
-$(document).ready(
-	function() {
+var bind_events = function() {
 
-		var location = window.location.toString();
-		if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/') {
-			return;
-		}
-
-		/** Modify the dom to tell the addon is present */
-		$('div#1000pass_add_on').addClass('installed');
-		$('div#1000pass_add_on_version').addClass('1.0');
-
-
-		$("img.remote_site_logo").css('cursor', 'pointer');
-		$("img.remote_site_logo").click(function() {
-
-			var plugin = $(this).parent().parent();
-			var data = {
-				id: $('#plugin_identifier', plugin).html(),
-				url: $('#url', plugin).html().replace('&amp;', '&'),
-				logout_url: $('#logout_url', plugin).html().replace('&amp;', '&'),
-				logout_type: $('#logout_url', plugin).attr('class'),
-				username: $('#username', plugin).html(),
-				usernameField: $('#username', plugin).attr('class'),
-				password: $('#password', plugin).html(),
-				passwordField: $('#password', plugin).attr('class'),
-				form: $('#submit', plugin).attr('class')
-			};
-
-			var port = chrome.extension.connect({name: "1000pass"});
-			port.postMessage(data);
-		});
+	var location = window.location.toString();
+	if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/' && location.substr(0, 25) != 'https://www.1000pass.com/') {
+		return;
 	}
-);
+
+	/** Modify the dom to tell the addon is present */
+	$('div#1000pass_add_on').addClass('installed');
+	$('div#1000pass_add_on_version').addClass('1.0');
+
+
+	$("img.remote_site_logo").css('cursor', 'pointer');
+	$("img.remote_site_logo").click(function() {
+
+		var plugin = $(this).parent().parent();
+		var data = {
+			id: $('#plugin_identifier', plugin).html(),
+			title: $('#title', plugin).html(),
+			url: $('#url', plugin).html().replace('&amp;', '&'),
+			logout_url: $('#logout_url', plugin).html().replace('&amp;', '&'),
+			logout_type: $('#logout_url', plugin).attr('class'),
+			username: $('#username', plugin).html(),
+			usernameField: $('#username', plugin).attr('class'),
+			password: $('#password', plugin).html(),
+			passwordField: $('#password', plugin).attr('class'),
+			form: $('#submit', plugin).attr('class')
+		};
+		var port = chrome.extension.connect({name: "1000pass"});
+		port.postMessage(data);
+	});
+}
+
+
+if (document.readyState == "complete") {
+	bind_events();
+} else {
+	window.addEventListener("load", bind_events, false);
+}

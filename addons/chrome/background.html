@@ -44,13 +44,34 @@
 					/** If logout url is given, call this to close session before starting a new one */
 					if (toCloseTab && data.logout_url != '') {
 
-						if (data.logout_type == 'scrap') {
+						//"There is an already opened " + data.title + ". Do you want to continue and close it?
+						var answer = confirm ('Existe un sitio abierto para ' + data.title + '. Desea continuar y cerrarlo?.')
+						if (answer) {
+							if (data.logout_type == 'scrap') {
 
-							chrome.tabs.sendRequest(openedTabs[i].tab_id, {}, function(response) {
-								var logout_url = data.logout_url + response.html.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
+								chrome.tabs.sendRequest(openedTabs[i].tab_id, {}, function(response) {
+									var logout_url = data.logout_url + response.html.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
 
+									var xhr = new XMLHttpRequest();
+									xhr.open('GET', logout_url, true);
+									xhr.onreadystatechange = function() {
+										if (xhr.readyState == 4) {
+
+											chrome.tabs.remove(toCloseTab);
+											openedTabs.splice(i, 1);
+
+											chrome.tabs.create({'url':data.url}, function(tab) {
+												data.tab_id = tab.id;
+												openedTabs.push(data);
+											});
+										}
+									}
+									xhr.send();
+								});
+
+							} else {
 								var xhr = new XMLHttpRequest();
-								xhr.open('GET', logout_url, true);
+								xhr.open('GET', data.logout_url, true);
 								xhr.onreadystatechange = function() {
 									if (xhr.readyState == 4) {
 
@@ -64,25 +85,7 @@
 									}
 								}
 								xhr.send();
-							});
-
-						} else {
-							var xhr = new XMLHttpRequest();
-							xhr.open('GET', data.logout_url, true);
-							xhr.onreadystatechange = function() {
-								if (xhr.readyState == 4) {
-
-									chrome.tabs.remove(toCloseTab);
-									openedTabs.splice(i, 1);
-
-									chrome.tabs.create({'url':data.url}, function(tab) {
-										data.tab_id = tab.id;
-										openedTabs.push(data);
-									});
-								}
 							}
-							xhr.send();
-
 						}
 					} else if (toFocusTab) {
 						chrome.tabs.update(toFocusTab, {selected : true});

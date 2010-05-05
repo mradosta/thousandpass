@@ -55,17 +55,18 @@
 	}
 
 
+	$extraClass = '';
 	if ($data['Site']['require_add_on'] == 'no') {
+		$extraClass = ' remote_site_logo_to_hide';
 		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$add_on = '';
-		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
-	} else {
-		$imgOptions = array('class' => 'remote_site_logo', 'title' => $data['Site']['title']);
-		$add_on = ' requiere_add_on';
-		$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
+		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}', 'style' => 'display:none;'), null, false);
+		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector' . $add_on));
 	}
 
-	
+	$imgOptions = array('class' => 'remote_site_logo' . $extraClass, 'title' => $data['Site']['title']);
+	$add_on = ' requiere_add_on';
+	$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
 	$out[] = $html->tag('div', $logo, array('class' => 'drag_selector' . $add_on));
 
 	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['username']:$data['SitesUser']['description'], array('class' => 'description'));
