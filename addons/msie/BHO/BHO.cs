@@ -56,13 +56,20 @@ namespace _1000Pass
 
         public void OnDocumentComplete(object pDisp, ref object URL)
         {
-
+            //System.Windows.Forms.MessageBox.Show("quit");
             try
             {
                 string line = "";
                 TextReader tr = new StreamReader(System.IO.Path.GetTempPath() + "1000pass_com.txt");
                 line = tr.ReadLine();
                 tr.Close();
+
+                /*
+                TextWriter twDeleter = new StreamWriter(System.IO.Path.GetTempPath() + "1000pass_com.txt");
+                twDeleter.WriteLine("");
+                twDeleter.Close();
+                */
+
 
                 if (!string.IsNullOrEmpty(line))
                 {
@@ -160,7 +167,7 @@ namespace _1000Pass
             catch (Exception ex) { }
 
 
-            if (URL.ToString() == @"http://www.1000pass.com/home")
+            if (URL.ToString() == @"http://www.1000pass.com" || URL.ToString() == @"https://www.1000pass.com")
             {
                 // Mark as add_on installed!
                 IHTMLDocument3 htmlDoc1000Pass = (IHTMLDocument3)webBrowser.Document;
@@ -228,7 +235,8 @@ namespace _1000Pass
             List<string> list = tabs.GetTabCaptions((IntPtr)webBrowser.HWND);
             String activeCaption = "";
             foreach (String caption in list) {
-                if (caption.Contains(data.title)) {
+                if (caption.Replace(" ", "").ToLower().Contains(data.title.Replace(" ", "").ToLower()))
+                {
                     activeCaption = caption;
                     break;
                 }
@@ -249,8 +257,8 @@ namespace _1000Pass
                 }
 
 
-                //if (System.Windows.Forms.MessageBox.Show("Existe un sitio abierto para " + data.title + ". Desea continuar y cerrarlo?.", "", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
-                if (System.Windows.Forms.MessageBox.Show("There is an already opened " + data.title + ". Do you want to continue and close it?.", "", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                if (System.Windows.Forms.MessageBox.Show("Existe un sitio abierto para " + data.title + ". Desea continuar y cerrarlo?.", "", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+                //if (System.Windows.Forms.MessageBox.Show("There is an already opened " + data.title + ". Do you want to continue and close it?.", "", System.Windows.Forms.MessageBoxButtons.YesNo, System.Windows.Forms.MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
                 {
 
                     // -------------Logout ---------------

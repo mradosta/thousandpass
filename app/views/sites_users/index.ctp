@@ -5,9 +5,14 @@
 <div class="inner_container_vertical_scroll">
 	<ul>
 		<?php
+			if ($session->read('add_on.state') == 'installed') {
+				$add_on = true;
+			} else {
+				$add_on = false;
+			}
 			foreach ($sitesUsers as $sitesUser) {
 				echo '<li>';
-				echo $this->element('plugin', array('data' => $sitesUser));
+				echo $this->element('plugin', array('data' => $sitesUser, 'add_on' => $add_on));
 				echo '</li>';
 			}
 		?>
@@ -22,8 +27,6 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function($) {
-
-		$('.remote_site_logo_disabled').parent().attr('target', '_BLANK').css('padding-left', '15px');
 
 		$('ul').dragsort({
 			dragSelector: '.title',
@@ -45,40 +48,23 @@
 		};
 
 
-		$('.requiere_add_on').css('cursor', 'pointer').click(
+		$('.add_on_not_installed').css('cursor', 'pointer').click(
 			function() {
-				if ($('#1000pass_add_on').attr('class') == 'checking') {
-					alert('<?php __('We are checking if the requiered Add-On is installed. Wait a few seconds and try again please...');?>');
+
+				alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
+
+				var basePath = '<?php echo Router::url('/'); ?>';
+				var browserName = $.browser.name;
+				if (browserName == 'firefox') {
+					window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail&confirmed');
+				} else if (browserName == 'msie') {
+					window.location.replace(basePath + 'files/addons/msie/<?php echo substr( strtolower(Configure::read('Config.language')), 0, 3); ?>_1000pass.exe');
+				} else if (browserName == 'chrome') {
+					window.location.replace(basePath + 'files/addons/chrome/1000pass.crx');
 				}
 			}
 		);
 
-		setTimeout(function() {
-			if ($('#1000pass_add_on').attr('class') == 'checking') {
-				$('.requiere_add_on').css('cursor', 'pointer').click(
-					function() {
-
-						alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
-
-						var basePath = '<?php echo Router::url('/'); ?>';
-						var browserName = $.browser.name;
-						if (browserName == 'firefox') {
-							window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail&confirmed');
-						} else if (browserName == 'msie') {
-							window.location.replace(basePath + 'files/addons/msie/<?php echo substr( strtolower(Configure::read('Config.language')), 0, 3); ?>_1000pass.exe');
-						} else if (browserName == 'chrome') {
-							window.location.replace(basePath + 'files/addons/chrome/1000pass.crx');
-						}
-
-						//window.location.replace('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'download_add_on'), true); ?>/' + $.browser.name);
-					}
-				);
-
-				$('#1000pass_add_on').attr('class', 'not_installed');
-				$('.remote_site_logo_disabled').parent().show();
-				$('.remote_site_logo_to_hide').remove();
-			}
-		}, 2000);
 	});
 
 </script>

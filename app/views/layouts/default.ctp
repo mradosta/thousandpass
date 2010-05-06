@@ -24,6 +24,20 @@
 		echo $javascript->codeBlock("
 
 			$(document).ready(function($) {
+
+				setInterval(function() {
+					if ($('#1000pass_add_on').hasClass('installed')) {
+						$('#1000pass_add_on').removeClass('not_installed');
+					}
+				}, 10);
+
+
+				$('#login_button').bind('click', function() {
+					$('#User1000passAddOn').val($('#1000pass_add_on').attr('class'));
+					$('#User1000passAddOnVersion').val($('#1000pass_add_on_version').attr('class'));
+				});
+
+
 				$('#languages img').bind('click', function() {
 					var options = {  path: '/', expires: 1000 };
 					$.cookie('CakeCookie[language]', $(this).attr('class'), options);
@@ -148,9 +162,18 @@
 						'id'		=> null,
 						'label'		=> __('Password', true),
 						'error' 	=> false));
-					echo $form->submit(__('enter', true), array('class' => 'submit'));
+
+					echo $form->input('1000pass_add_on', array(
+						'type'		=> 'hidden'));
+					echo $form->input('1000pass_add_on_version', array(
+						'type'		=> 'hidden'));
+
+					echo $form->submit(__('enter', true), array('id' => 'login_button', 'class' => 'submit'));
 					echo $form->end();
 
+
+					//$toolbar[] = '<div id="1000pass_add_on" class="not_installed"></div>';
+					//$toolbar[] = '<div id="1000pass_add_on_version" class="0"></div>';
 					$toolbar[] = $html->image('change_password.png', array(
 								'alt' 	=> __('Forgot my password', true),
 								'title' => __('Forgot my password', true),
@@ -164,7 +187,7 @@
 					'title'	=> __('Help', true),
 					'url' 	=> array('controller' => 'users', 'action' => 'help')));
 
-				$toolbar[] = '<div id="1000pass_add_on" class="checking"></div>';
+				$toolbar[] = '<div id="1000pass_add_on" class="not_installed"></div>';
 				$toolbar[] = '<div id="1000pass_add_on_version" class="0"></div>';
 
 				echo implode('', $toolbar);

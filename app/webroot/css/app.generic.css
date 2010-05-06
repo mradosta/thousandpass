@@ -148,7 +148,7 @@ div.inner_container_vertical_scroll {
 .plugins .toolbar {
 	color: #fff;
 	background: url(img/enabled.png) no-repeat;
-	width: 150px;
+	width: 142px;
 	height: 19px;
 	margin: 12px 0 10px 10px;
 	font-weight: bold;
@@ -167,7 +167,7 @@ div.inner_container_vertical_scroll {
 }
 
 .plugins a {
-	float: left;
+	float: right;
 }
 
 .plugins .action {
@@ -180,6 +180,10 @@ div.inner_container_vertical_scroll {
 .plugins .remote_site_logo, .plugins .remote_site_logo_disabled {
 	height: 70px;
 	width: 145px;
+}
+
+.remote_site_logo_disabled {
+	padding-left: 15px;
 }
 
 .plugins .description {
@@ -314,7 +318,6 @@ div.bottom_addsense {
 }
 
 #top_bar img {
-	margin:0;
 	float: left;
 }
 
@@ -463,20 +466,24 @@ a.help {
 }
 
 
-div.checking {
-	width: 15px;
-	height: 31px;
-	background-color: yellow;
+div.installed {
+	float: left;
+	width: 32px;
+	height: 32px;
+	background: url(img/green_ball.png) no-repeat;
 }
 
-div.installed {
-	width: 15px;
-	height: 31px;
-	background-color: green;
+div.installed img {
+	float: right;
 }
 
 div.not_installed {
-	width: 15px;
-	height: 31px;
-	background-color: red;
+	float: left;
+	width: 32px;
+	height: 32px;
+	background: url(img/orange_ball.png) no-repeat;
+}
+
+#top_bar div.toolbar img {
+	float: none;
 }
