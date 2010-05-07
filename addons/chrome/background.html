@@ -23,7 +23,7 @@
 
 
 		chrome.extension.onConnect.addListener(function(port) {
-			if (port.name == '1000pass') {
+			if (port.name == 'go') {
 				port.onMessage.addListener(function(data) {
 
 
@@ -92,8 +92,17 @@
 					} else {
 						chrome.tabs.create({'url':data.url}, function(tab) {
 							data.tab_id = tab.id;
+							data.state = 'opening';
 							openedTabs.push(data);
 						});
+					}
+				});
+			} else if (port.name == 'done') {
+				port.onMessage.addListener(function(data) {
+					for (var i = 0; i < openedTabs.length; i++) {
+						if (openedTabs[i].id == data.id) {
+							openedTabs[i].state = 'opened';
+						}
 					}
 				});
 			}

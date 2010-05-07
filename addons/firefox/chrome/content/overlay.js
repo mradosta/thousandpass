@@ -4,7 +4,7 @@ var thousandpass = function () {
 		init : function () {
 			gBrowser.addEventListener("load", function () {
 				var location = window.content.document.location.toString();
-				if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/') {
+				if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/' && location.substr(0, 25) != 'https://www.1000pass.com/') {
 					return;
 				}
 				thousandpass.bindEvents();

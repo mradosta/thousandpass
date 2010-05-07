@@ -8,6 +8,11 @@ chrome.extension.onRequest.addListener(
 chrome.extension.onConnect.addListener(function(port) {
 	port.onMessage.addListener(function(data) {
 
+		if (data.state == 'opened') {
+			return;
+		}
+
+
 		/** Username */
 		var tmpUsernameField = data.usernameField.split('|');
 		if (tmpUsernameField[0] == 'id') {
@@ -57,6 +62,10 @@ chrome.extension.onConnect.addListener(function(port) {
 			var myForms = document.getElementsByClassName(tmpForm[1]);
 			var myForm = myForms[0];
 		}
+
+		var port = chrome.extension.connect({name: "done"});
+		port.postMessage(data);
+
 		setTimeout(function(){myForm.submit();}, 2000);
 
 	});
@@ -91,7 +100,7 @@ var bind_events = function() {
 			passwordField: $('#password', plugin).attr('class'),
 			form: $('#submit', plugin).attr('class')
 		};
-		var port = chrome.extension.connect({name: "1000pass"});
+		var port = chrome.extension.connect({name: "go"});
 		port.postMessage(data);
 	});
 }
