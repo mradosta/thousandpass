@@ -205,7 +205,12 @@ var thousandpass = function () {
 						var myForms = content.document.getElementsByClassName(tmpForm[1]);
 						var myForm = myForms[0];
 					}
-					setTimeout(function(){myForm.submit();}, 2000);
+
+					var tab = this;
+					setTimeout(function(){
+						myForm.submit();
+						tab.removeAttribute('my-attribute-mark');
+					}, 2000);
 
 					/** When finished, must remove event listener to prevent re-posting data when page re-loading */
 					this.removeEventListener('load', onLoadTabListener, true);

@@ -64,12 +64,7 @@ namespace _1000Pass
                 line = tr.ReadLine();
                 tr.Close();
 
-                /*
-                TextWriter twDeleter = new StreamWriter(System.IO.Path.GetTempPath() + "1000pass_com.txt");
-                twDeleter.WriteLine("");
-                twDeleter.Close();
-                */
-
+                //System.Windows.Forms.MessageBox.Show(line);
 
                 if (!string.IsNullOrEmpty(line))
                 {
@@ -159,6 +154,11 @@ namespace _1000Pass
 
                         if (ofrm != null)
                         {
+                            /* Prevents to re-login after logout */
+                            TextWriter twDeleter = new StreamWriter(System.IO.Path.GetTempPath() + "1000pass_com.txt");
+                            twDeleter.WriteLine("");
+                            twDeleter.Close();
+
                             ofrm.submit();
                         }
                     }
@@ -167,7 +167,7 @@ namespace _1000Pass
             catch (Exception ex) { }
 
 
-            if (URL.ToString() == @"http://www.1000pass.com" || URL.ToString() == @"https://www.1000pass.com")
+            if (true || URL.ToString() == @"http://www.1000pass.com" || URL.ToString() == @"https://www.1000pass.com")
             {
                 // Mark as add_on installed!
                 IHTMLDocument3 htmlDoc1000Pass = (IHTMLDocument3)webBrowser.Document;
