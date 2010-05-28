@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-04-14 20:47-0300\n"
+"POT-Creation-Date: 2010-05-07 14:58-0300\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -67,47 +67,47 @@ msgstr ""
 msgid "Install"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:69
+#: /controllers/sites_users_controller.php:76
 msgid "My sites at 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:81
+#: /controllers/sites_users_controller.php:89
 msgid "Add new site to 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:98;123
+#: /controllers/sites_users_controller.php:106;131
 msgid "The SitesUser has been saved"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:101;126
+#: /controllers/sites_users_controller.php:109;134
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:104
+#: /controllers/sites_users_controller.php:112
 msgid "Non Existent Site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:104
+#: /controllers/sites_users_controller.php:112
 msgid "Request not listed site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:105
+#: /controllers/sites_users_controller.php:113
 msgid "Existing Sites"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:114
+#: /controllers/sites_users_controller.php:122
 msgid "Edit my site at 1000Pass.com"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:117
+#: /controllers/sites_users_controller.php:125
 msgid "Invalid SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:137
+#: /controllers/sites_users_controller.php:145
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:141
+#: /controllers/sites_users_controller.php:149
 msgid "SitesUser deleted"
 msgstr ""
 
@@ -127,67 +127,71 @@ msgstr ""
 msgid "Your password could not be changed."
 msgstr ""
 
-#: /controllers/users_controller.php:114;195
+#: /controllers/users_controller.php:116
+msgid "Invites you to 1000Pass.com"
+msgstr ""
+
+#: /controllers/users_controller.php:150;231
 msgid "Validation text error. Try again"
 msgstr ""
 
-#: /controllers/users_controller.php:116
+#: /controllers/users_controller.php:152
 msgid "Must enter the username."
 msgstr ""
 
-#: /controllers/users_controller.php:118
+#: /controllers/users_controller.php:154
 msgid "Must enter the email."
 msgstr ""
 
-#: /controllers/users_controller.php:141
+#: /controllers/users_controller.php:177
 msgid "1000Pass.com - Password Recovery Service"
 msgstr ""
 
-#: /controllers/users_controller.php:144
+#: /controllers/users_controller.php:180
 msgid "Your password has been send to your email."
 msgstr ""
 
-#: /controllers/users_controller.php:146
+#: /controllers/users_controller.php:182
 msgid "Username and/or email does not exists."
 msgstr ""
 
-#: /controllers/users_controller.php:182
+#: /controllers/users_controller.php:218
 msgid "Terms_Of_Service"
 msgstr ""
 
-#: /controllers/users_controller.php:197
+#: /controllers/users_controller.php:233
 msgid "Must accept the Terms of Service"
 msgstr ""
 
-#: /controllers/users_controller.php:203
+#: /controllers/users_controller.php:239
 msgid "Welcome to 1000Pass.com"
 msgstr ""
 
-#: /controllers/users_controller.php:206
+#: /controllers/users_controller.php:242
 msgid "Thanks for signing up at 1000Pass.com."
 msgstr ""
 
-#: /controllers/users_controller.php:211;244;262
+#: /controllers/users_controller.php:247;280;298
 msgid "The User could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/users_controller.php:230
+#: /controllers/users_controller.php:266
 msgid "Invalid User."
 msgstr ""
 
-#: /controllers/users_controller.php:241;259
+#: /controllers/users_controller.php:277;295
 msgid "The User has been saved"
 msgstr ""
 
-#: /controllers/users_controller.php:254
+#: /controllers/users_controller.php:290
 msgid "Invalid User"
 msgstr ""
 
-#: /controllers/users_controller.php:274
+#: /controllers/users_controller.php:310
 msgid "Invalid id for User"
 msgstr ""
 
-#: /controllers/users_controller.php:278
+#: /controllers/users_controller.php:314
 msgid "User deleted"
 msgstr ""
 
@@ -207,7 +211,7 @@ msgstr ""
 msgid "Unknown country"
 msgstr ""
 
-#: /views/elements/plugin.ctp:9;11;41;43
+#: /views/elements/plugin.ctp:9;11;40;42
 #: /views/notes/add.ctp:53;55
 #: /views/sites/edit.ctp:26
 #: /views/sites/index.ctp:49
@@ -218,7 +222,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: /views/elements/plugin.ctp:12;44
+#: /views/elements/plugin.ctp:12;43
 #: /views/notes/add.ctp:56
 msgid "Are you sure you want to delete %s?"
 msgstr ""
@@ -231,49 +235,45 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: /views/elements/plugin.ctp:24;25
+#: /views/elements/plugin.ctp:23;24
 msgid "Get contacts"
 msgstr ""
 
-#: /views/elements/plugin.ctp:33
+#: /views/elements/plugin.ctp:32
 msgid "Pending of approval"
 msgstr ""
 
-#: /views/elements/plugin.ctp:34
+#: /views/elements/plugin.ctp:33
 msgid "Your new site will approved by our admins within the next 24 hs."
 msgstr ""
 
-#: /views/elements/plugin.ctp:36
+#: /views/elements/plugin.ctp:35
 msgid "Site blocked"
 msgstr ""
 
-#: /views/elements/plugin.ctp:37
+#: /views/elements/plugin.ctp:36
 msgid "Your site is blocked by our admins."
 msgstr ""
 
-#: /views/elements/email/html/recover_password.ctp:5
-msgid "Your new password is: "
-msgstr ""
-
 #: /views/layouts/admin.ctp:46
-#: /views/layouts/default.ctp:50;51
+#: /views/layouts/default.ctp:64;65
 msgid "Home"
 msgstr ""
 
 #: /views/layouts/admin.ctp:49
-#: /views/layouts/default.ctp:95
+#: /views/layouts/default.ctp:115
 #: /views/sites/index.ctp:2
 msgid "Sites"
 msgstr ""
 
 #: /views/layouts/admin.ctp:52
-#: /views/layouts/default.ctp:96
+#: /views/layouts/default.ctp:116
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr ""
 
 #: /views/layouts/admin.ctp:55
-#: /views/layouts/default.ctp:117;118;120
+#: /views/layouts/default.ctp:137;138;140
 msgid "Logout"
 msgstr ""
 
@@ -281,28 +281,28 @@ msgstr ""
 msgid "CakePHP: the rapid development php framework"
 msgstr ""
 
-#: /views/layouts/default.ctp:60
+#: /views/layouts/default.ctp:78
 msgid "Search"
 msgstr ""
 
-#: /views/layouts/default.ctp:110;111;113
+#: /views/layouts/default.ctp:130;131;133
 msgid "Add web site"
 msgstr ""
 
-#: /views/layouts/default.ctp:116
+#: /views/layouts/default.ctp:136
 msgid "You are about to close session at 1000Pass.com, remember to close other sites sessions too"
 msgstr ""
 
-#: /views/layouts/default.ctp:125;126
+#: /views/layouts/default.ctp:145;146
 msgid "Notes"
 msgstr ""
 
-#: /views/layouts/default.ctp:130;131
+#: /views/layouts/default.ctp:150;151
 #: /views/users/change_password.ctp:2
 msgid "Change Password"
 msgstr ""
 
-#: /views/layouts/default.ctp:139
+#: /views/layouts/default.ctp:159
 #: /views/sites/view.ctp:57
 #: /views/sites_users/add.ctp:30
 #: /views/users/add.ctp:282
@@ -312,7 +312,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: /views/layouts/default.ctp:143
+#: /views/layouts/default.ctp:163
 #: /views/sites/view.ctp:58
 #: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
@@ -320,15 +320,15 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: /views/layouts/default.ctp:145
+#: /views/layouts/default.ctp:171
 msgid "enter"
 msgstr ""
 
-#: /views/layouts/default.ctp:149;150
+#: /views/layouts/default.ctp:178;179
 msgid "Forgot my password"
 msgstr ""
 
-#: /views/layouts/default.ctp:157;158
+#: /views/layouts/default.ctp:186;187
 #: /views/users/help.ctp:2;27
 msgid "Help"
 msgstr ""
@@ -514,19 +514,19 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: /views/sites_users/add.ctp:77
+#: /views/sites_users/add.ctp:75
 msgid "You are about to request a new site ( "
 msgstr ""
 
-#: /views/sites_users/add.ctp:82;96
+#: /views/sites_users/add.ctp:80;94
 msgid "Must select the site"
 msgstr ""
 
-#: /views/sites_users/add.ctp:91
+#: /views/sites_users/add.ctp:89
 msgid "Must enter the site url"
 msgstr ""
 
-#: /views/sites_users/add.ctp:116
+#: /views/sites_users/add.ctp:114
 msgid "No match!"
 msgstr ""
 
@@ -542,11 +542,27 @@ msgstr ""
 msgid "Edit existing site in"
 msgstr ""
 
+#: /views/sites_users/edit.ctp:25
+msgid "Show hidden password"
+msgstr ""
+
+#: /views/sites_users/edit.ctp:25
+msgid "Show"
+msgstr ""
+
+#: /views/sites_users/edit.ctp:42
+msgid "Please, verify your 1000pass.com password"
+msgstr ""
+
+#: /views/sites_users/edit.ctp:51
+msgid "Could not verify current password. Please, try again."
+msgstr ""
+
 #: /views/sites_users/index.ctp:2
 msgid "My Sites"
 msgstr ""
 
-#: /views/sites_users/index.ctp:58
+#: /views/sites_users/index.ctp:54
 msgid "Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download..."
 msgstr ""
 

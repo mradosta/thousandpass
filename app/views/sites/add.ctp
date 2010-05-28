@@ -11,6 +11,8 @@
 		echo $form->input('logout_url');
 		echo $form->input('username_field');
 		echo $form->input('password_field');
+		echo $form->input('test_username');
+		echo $form->input('test_password');
 		echo $form->input('submit');
 	?>
 	</fieldset>

@@ -1,6 +1,17 @@
 <div class="sites view">
 <h2><?php  __('Site');?></h2>
-	<dl><?php $i = 0; $class = ' class="altrow"';?>
+
+	<dl>
+		<dd>
+			<?php
+				$site['SitesUser'] = array(
+					'id' 		=> 10000,
+					'username' 	=> $site['Site']['test_username'],
+					'password' 	=> $site['Site']['test_password']);
+				echo $this->element('plugin', array('data' => $site, 'add_on' => true));
+			?>
+		</dd>
+		<?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $site['Site']['id']; ?>
@@ -31,9 +42,14 @@
 			<?php echo $site['Site']['login_url']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Cookie Domain'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Test Username'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $site['Site']['logout_url']; ?>
+			<?php echo $site['Site']['test_username']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Test Password'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $site['Site']['test_password']; ?>
 			&nbsp;
 		</dd>
 	</dl>
