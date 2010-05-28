@@ -95,27 +95,37 @@ class UsersController extends AppController {
 
 		if (!empty($sitesUser)) {
 
+
 			$domain = array_pop(explode('@', $sitesUser['SitesUser']['username']));
 
-			App::import('Vendor', 'contactgrabber', array('file' => 'baseclass' . DS . 'baseclass.php'));
+			//App::import('Vendor', 'contactgrabber', array('file' => 'baseclass' . DS . 'baseclass.php'));
 			if ($domain == 'gmail.com') {
-				App::import('Vendor', 'contactgrabber' . DS . 'gmail', array('file' => 'libgmailer.php'));
-				$obj = new GMailer();
+				$obj = 'gmail';
 			} elseif ($domain == 'hotmail.com') {
-				App::import('Vendor', 'contactgrabber' . DS . 'hotmail', array('file' => 'msn_contact_grab.class.php'));
-				$obj = new hotmail();
-			} elseif ($domain == 'yahoo.com') {
-				App::import('Vendor', 'contactgrabber'. DS . 'yahoo', array('file' => 'class.GrabYahoo.php'));
-				$obj = new GrabYahoo();
+				$obj = 'hotmail';
+			} elseif (strpos($domain, 'yahoo') !== false) {
+				$obj = 'yahoo';
 			}
 
-			$contacts = $obj->getAddressbook($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
-			d($contacts);
+			App::import('Vendor', 'OpenInviter', array('file' => 'openinviter.php'));
+			$inviter=new OpenInviter();
+			$inviter->getPlugins();
+			$inviter->startPlugin($obj);
+			$inviter->login($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
+			$errs = $inviter->getInternalError();
+			if (!empty($errs)) {
+				$this->Session->setFlash($errs, true);
+				$this->redirect(array('controller' => 'sites_users', 'action' => 'index', 'true'));
+			} else {
+				$contacts = $inviter->getMyContacts();
+			}
 
 			$this->__sendEmail(
 				array('template' => 'invite', 'subject' => $this->Session->read('Auth.User.name') . ' ' . $this->Session->read('Auth.User.lastname') . ' ' . __('Invites you to 1000Pass.com', true)),
 				$contacts);
 
+			$this->Session->setFlash(__('Thanks for inviting your friends to 1000pass.com!', true), true);
+			$this->redirect(array('controller' => 'sites_users', 'action' => 'index', 'true'));
 		}
 	}
 
@@ -201,8 +211,8 @@ class UsersController extends AppController {
 			$this->Email->reset();
 			$this->Email->to = $name . ' <' . $email . '>';
 			$this->Email->subject = $mailInfo['subject'];
-			$this->Email->replyTo = 'support@1000pass.com';
-			$this->Email->from = '1000Pass.com <support@1000pass.com>';
+			$this->Email->replyTo = 'info@1000pass.com';
+			$this->Email->from = '1000Pass.com <info@1000pass.com>';
 			$this->Email->template = $mailInfo['template'];
 			$this->Email->sendAs = 'html';
 			$this->set('data', $data);
