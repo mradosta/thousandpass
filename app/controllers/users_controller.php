@@ -98,21 +98,22 @@ class UsersController extends AppController {
 
 			$domain = array_pop(explode('@', $sitesUser['SitesUser']['username']));
 
-			//App::import('Vendor', 'contactgrabber', array('file' => 'baseclass' . DS . 'baseclass.php'));
 			if ($domain == 'gmail.com') {
-				$obj = 'gmail';
+				$plugin = 'gmail';
 			} elseif ($domain == 'hotmail.com') {
-				$obj = 'hotmail';
+				$plugin = 'hotmail';
 			} elseif (strpos($domain, 'yahoo') !== false) {
-				$obj = 'yahoo';
+				$plugin = 'yahoo';
 			}
 
 			App::import('Vendor', 'OpenInviter', array('file' => 'openinviter.php'));
 			$inviter=new OpenInviter();
 			$inviter->getPlugins();
+			$inviter->settings['cookie_path'] = TMP;
 			$inviter->startPlugin($obj);
 			$inviter->login($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
 			$errs = $inviter->getInternalError();
+
 			if (!empty($errs)) {
 				$this->Session->setFlash($errs, true);
 				$this->redirect(array('controller' => 'sites_users', 'action' => 'index', 'true'));
