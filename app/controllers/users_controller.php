@@ -109,8 +109,7 @@ class UsersController extends AppController {
 			App::import('Vendor', 'OpenInviter', array('file' => 'openinviter.php'));
 			$inviter=new OpenInviter();
 			$inviter->getPlugins();
-			$inviter->settings['cookie_path'] = TMP;
-			$inviter->startPlugin($obj);
+			$inviter->startPlugin($plugin);
 			$inviter->login($sitesUser['SitesUser']['username'], $sitesUser['SitesUser']['password']);
 			$errs = $inviter->getInternalError();
 
