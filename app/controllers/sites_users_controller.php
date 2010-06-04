@@ -4,6 +4,17 @@ class SitesUsersController extends AppController {
 	var $name = 'SitesUsers';
 
 
+	function reassign($oldSiteId, $newSiteId, $userId) {
+		$sitesUser = $this->SitesUser->find('first', array('conditions' => array(
+			'SitesUser.site_id' => $oldSiteId,
+			'SitesUser.user_id' => $userId
+		)));
+		if (!empty($sitesUser)) {
+			$sitesUser['SitesUser']['site_id'] = $newSiteId;
+			$this->SitesUser->save($sitesUser);
+		}
+		$this->autoRender = false;
+	}
 
     function download($browser) {
 
@@ -79,7 +90,6 @@ class SitesUsersController extends AppController {
 			'order' 		=> array('SitesUser.order' => 'asc'),
 			'contain' 		=> array('Site'),
 			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))))
-			//'conditions' 	=> array('SitesUser.user_id' => 1)))
 		);
 	}
 

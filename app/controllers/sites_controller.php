@@ -19,6 +19,7 @@ class SitesController extends AppController {
 			$this->Session->setFlash(__('Invalid Site.', true));
 			$this->redirect(array('action'=>'index'));
 		}
+		$this->set('sites', $this->Site->find('list'));
 		$this->set('site', $this->Site->read(null, $id));
 	}
 

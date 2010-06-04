@@ -8,13 +8,12 @@ echo $paginator->counter(array(
 ?></p>
 <table cellpadding="0" cellspacing="0">
 <tr>
+	<th class="actions"><?php __('Actions');?></th>
 	<th><?php echo $paginator->sort('id');?></th>
-	<th><?php echo $paginator->sort('require_add_on');?></th>
+	<th><?php echo $paginator->sort(__('Add On', true), 'require_add_on');?></th>
 	<th><?php echo $paginator->sort('title');?></th>
-	<th><?php echo $paginator->sort('logo');?></th>
 	<th><?php echo $paginator->sort('state');?></th>
 	<th><?php echo $paginator->sort('login_url');?></th>
-	<th class="actions"><?php __('Actions');?></th>
 </tr>
 <?php
 $i = 0;
@@ -25,6 +24,11 @@ foreach ($sites as $site):
 	}
 ?>
 	<tr<?php echo $class;?>>
+		<td class="actions">
+			<?php echo $html->link(__('View', true), array('action' => 'view', $site['Site']['id'])); ?>
+			<?php echo $html->link(__('Edit', true), array('action' => 'edit', $site['Site']['id'])); ?>
+			<?php echo $html->link(__('Delete', true), array('action' => 'delete', $site['Site']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $site['Site']['id'])); ?>
+		</td>
 		<td>
 			<?php echo $site['Site']['id']; ?>
 		</td>
@@ -35,18 +39,10 @@ foreach ($sites as $site):
 			<?php echo $site['Site']['title']; ?>
 		</td>
 		<td>
-			<?php echo $site['Site']['logo']; ?>
-		</td>
-		<td>
 			<?php echo $site['Site']['state']; ?>
 		</td>
 		<td>
-			<?php echo $site['Site']['login_url']; ?>
-		</td>
-		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action' => 'view', $site['Site']['id'])); ?>
-			<?php echo $html->link(__('Edit', true), array('action' => 'edit', $site['Site']['id'])); ?>
-			<?php echo $html->link(__('Delete', true), array('action' => 'delete', $site['Site']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $site['Site']['id'])); ?>
+			<?php echo substr($site['Site']['login_url'], 0, 50); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
