@@ -12,6 +12,7 @@ namespace _1000Pass
         public string username { get; set; }
         public string usernameField { get; set; }
         public string password { get; set; }
+        public string extra { get; set; }
         public string passwordField { get; set; }
         public string submit { get; set; }
         public string logout { get; set; }
@@ -27,11 +28,12 @@ namespace _1000Pass
             this.url = options[2];
             this.username = options[3];
             this.password = options[4];
-            this.usernameField = options[5];
-            this.passwordField = options[6];
-            this.submit = options[7];
-            this.logout = options[8];
-            this.logoutMethod = options[9];
+            this.extra = options[5];
+            this.usernameField = options[6];
+            this.passwordField = options[7];
+            this.submit = options[8];
+            this.logout = options[9];
+            this.logoutMethod = options[10];
         }
     }
 

@@ -118,6 +118,19 @@ namespace _1000Pass
                         if (otxtPassword != null)
                             otxtPassword.value = data.password;
 
+                        // -------------Extra ---------------
+                        if (data.extra.Length > 0)
+                        {
+                            foreach (string tmpExtra in data.extra.Split('|'))
+                            {
+                                string[] tmpExtraInfo = tmpExtra.Split(':');
+                                IHTMLInputElement otxtExtra = (IHTMLInputElement)htmlDoc.getElementById(tmpExtraInfo[1]);
+                                if (otxtExtra != null)
+                                    otxtExtra.value = tmpExtraInfo[2];
+                            }
+                        }
+
+
                         // -------------Submit ---------------
                         string[] tmpForm = data.submit.Split('|');
                         IHTMLFormElement ofrm = (IHTMLFormElement)null;
@@ -167,7 +180,7 @@ namespace _1000Pass
             catch (Exception ex) { }
 
 
-            if (true || URL.ToString() == @"http://www.1000pass.com" || URL.ToString() == @"https://www.1000pass.com")
+            if (URL.ToString() == @"http://localhost/" || URL.ToString() == @"http://www.1000pass.com" || URL.ToString() == @"https://www.1000pass.com")
             {
                 // Mark as add_on installed!
                 IHTMLDocument3 htmlDoc1000Pass = (IHTMLDocument3)webBrowser.Document;
@@ -219,6 +232,7 @@ namespace _1000Pass
             line += url + "#*#";
             line += webControl.Document.GetElementById("username").InnerText + "#*#";
             line += webControl.Document.GetElementById("password").InnerText + "#*#";
+            line += webControl.Document.GetElementById("extra").InnerText + "#*#";
             line += GetAttributeValue((IHTMLDOMNode)webControl.Document.GetElementById("username").DomElement, "class") + "#*#";
             line += GetAttributeValue((IHTMLDOMNode)webControl.Document.GetElementById("password").DomElement, "class") + "#*#";
             line += GetAttributeValue((IHTMLDOMNode)webControl.Document.GetElementById("submit").DomElement, "class") + "#*#";

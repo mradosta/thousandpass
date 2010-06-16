@@ -58,7 +58,7 @@
 		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));
-	} else {
+	} elseif ($data['Site']['state'] == 'approved') {
 		$class = '';
 		if (!$add_on) {
 			$class = ' add_on_not_installed';
@@ -66,6 +66,15 @@
 		$imgOptions = array('class' => 'remote_site_logo', 'title' => $data['Site']['title']);
 		$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector requiere_add_on' . $class));
+	} else {
+		if (preg_match('/^http:\/\//', $data['Site']['login_url']) || preg_match('/^https:\/\//', $data['Site']['login_url'])) {
+			$url = $data['Site']['login_url'];
+		} else {
+			$url = 'http://' . $data['Site']['login_url'];
+		}
+		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
+		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $url, array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
+		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));
 	}
 
 	$out[] = $html->tag('div', (empty($data['SitesUser']['description']))?$data['SitesUser']['username']:$data['SitesUser']['description'], array('class' => 'description'));
@@ -83,6 +92,7 @@
 		$out[] = $html->tag('div', $logoutUrl[1], array('id' => 'logout_url', 'class' => $logoutUrl[0]));
 		$out[] = $html->tag('div', $data['SitesUser']['username'], array('id' => 'username', 'class' => $data['Site']['username_field']));
 		$out[] = $html->tag('div', $data['SitesUser']['password'], array('id' => 'password', 'class' => $data['Site']['password_field']));
+		$out[] = $html->tag('div', $data['Site']['extra'], array('id' => 'extra'));
 		$out[] = $html->tag('div', '', array('id' => 'submit', 'class' => $data['Site']['submit']));
 	}
 	$out[] = '</div>';

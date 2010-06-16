@@ -13,6 +13,7 @@
 		echo $form->input('password_field');
 		echo $form->input('test_username');
 		echo $form->input('test_password');
+		echo $form->input('extra');
 		echo $form->input('submit');
 	?>
 	</fieldset>

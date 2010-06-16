@@ -97,12 +97,12 @@ class SitesUsersController extends AppController {
 	function add($first_time = false) {
 
 		$this->pageTitle = __('Add new site to 1000Pass.com', true);
-
 		if (!empty($this->data)) {
 
 			if ((empty($this->data['SitesUser']['site_id']) || in_array($this->data['SitesUser']['site_id'], array('No results', 'Sin resultados'))) && !empty($this->data['SitesUser']['autocomplete'])) {
 				$this->SitesUser->Site->save(
 					array('Site' => array(
+						'title'		=> $this->data['SitesUser']['autocomplete'],
 						'state'		=> 'pending',
 						'login_url' => $this->data['SitesUser']['autocomplete']))
 				, false);

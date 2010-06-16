@@ -19,7 +19,7 @@ chrome.extension.onConnect.addListener(function(port) {
 			var myUsername = document.getElementById(tmpUsernameField[1]);
 		} else if (tmpUsernameField[0] == 'name') {
 			var myUsernames = document.getElementsByTagName('input');
-			for(var i=0; i<myUsernames.length; i++) {
+			for (var i=0; i<myUsernames.length; i++) {
 				if (myUsernames[i].name == tmpUsernameField[1]) {
 					var myUsername = myUsernames[i];
 					break;
@@ -35,7 +35,7 @@ chrome.extension.onConnect.addListener(function(port) {
 			var myPassword = document.getElementById(tmpPasswordField[1]);
 		} else if (tmpPasswordField[0] == 'name') {
 			var myPasswords = document.getElementsByTagName('input');
-			for(var i=0; i<myPasswords.length; i++) {
+			for (var i=0; i<myPasswords.length; i++) {
 				if (myPasswords[i].type == 'password' && myPasswords[i].name == tmpPasswordField[1]) {
 					var myPassword = myPasswords[i];
 					break;
@@ -45,13 +45,31 @@ chrome.extension.onConnect.addListener(function(port) {
 		myPassword.value = data.password;
 
 
+		/** Extra Fields Info */
+		var tmpExtra = data.extraField.split('|');
+		for (var i=0; i<tmpExtra.length; i++) {
+			var tmpExtraInfo = tmpExtra[i].split(':');
+			if (tmpExtraInfo[0] == 'id') {
+				document.getElementById(tmpExtraInfo[1]).value = tmpExtraInfo[2];
+			} else if (tmpExtraInfo[0] == 'name') {
+				var myExtras = document.getElementsByTagName('input');
+				for (var i=0; i<myExtras.length; i++) {
+					if ((myExtras[i].type == 'password' || myExtras[i].type == 'text') && myExtras[i].name == tmpExtraInfo[1]) {
+						myExtras[i].value = tmpExtraInfo[2];
+						break;
+					}
+				}
+			}
+		}
+
+
 		/** Submit the form */
 		var tmpForm = data.form.split('|');
 		if (tmpForm[0] == 'id') {
 			var myForm = document.getElementById(tmpForm[1]);
 		} else if (tmpForm[0] == 'name' || tmpForm[0] == 'action') {
 			var myForms = document.getElementsByTagName('form');
-			for(var i=0; i<myForms.length; i++) {
+			for (var i=0; i<myForms.length; i++) {
 				if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
 					|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
 					var myForm = myForms[i];
@@ -98,6 +116,7 @@ var bind_events = function() {
 			usernameField: $('#username', plugin).attr('class'),
 			password: $('#password', plugin).html(),
 			passwordField: $('#password', plugin).attr('class'),
+			extraField: $('#extra', plugin).html(),
 			form: $('#submit', plugin).attr('class')
 		};
 		var port = chrome.extension.connect({name: "go"});

@@ -150,6 +150,7 @@ var thousandpass = function () {
 					usernameField: $('#username', plugin).attr('class'),
 					password: $('#password', plugin).html(),
 					passwordField: $('#password', plugin).attr('class'),
+					extraField: $('#extra', plugin).html(),
 					form: $('#submit', plugin).attr('class')
 				};
 
@@ -186,6 +187,24 @@ var thousandpass = function () {
 						}
 					}
 					myPassword.value = data.password;
+
+
+					/** Extra Fields Info */
+					var tmpExtra = data.extraField.split('|');
+					for (var i=0; i<tmpExtra.length; i++) {
+						var tmpExtraInfo = tmpExtra[i].split(':');
+						if (tmpExtraInfo[0] == 'id') {
+							content.document.getElementById(tmpExtraInfo[1]).value = tmpExtraInfo[2];
+						} else if (tmpExtraInfo[0] == 'name') {
+							var myExtras = content.document.getElementsByTagName('input');
+							for (var i=0; i<myExtras.length; i++) {
+								if ((myExtras[i].type == 'password' || myExtras[i].type == 'text') && myExtras[i].name == tmpExtraInfo[1]) {
+									myExtras[i].value = tmpExtraInfo[2];
+									break;
+								}
+							}
+						}
+					}
 
 
 					/** Submit the form */
