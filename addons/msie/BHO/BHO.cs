@@ -179,8 +179,7 @@ namespace _1000Pass
             }
             catch (Exception ex) { }
 
-
-            if (URL.ToString() == @"http://localhost/" || URL.ToString() == @"http://www.1000pass.com" || URL.ToString() == @"https://www.1000pass.com")
+            if (URL.ToString().Substring(0, 17) == @"http://localhost/" || URL.ToString().Substring(0, 24) == @"http://www.1000pass.com" || URL.ToString().Substring(0, 25) == @"https://www.1000pass.com")
             {
                 // Mark as add_on installed!
                 IHTMLDocument3 htmlDoc1000Pass = (IHTMLDocument3)webBrowser.Document;
