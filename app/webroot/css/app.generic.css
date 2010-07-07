@@ -141,8 +141,9 @@ div.inner_container_vertical_scroll {
 }
 
 .plugins .title {
-	width: 89px;
+	width: 76px;
 	overflow: hidden;
+	height: 15px;
 }
 
 .plugins .toolbar {

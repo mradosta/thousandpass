@@ -96,7 +96,6 @@ class SitesUsersController extends AppController {
 
 	function add($first_time = false) {
 
-		$this->pageTitle = __('Add new site to 1000Pass.com', true);
 		if (!empty($this->data)) {
 
 			if ((empty($this->data['SitesUser']['site_id']) || in_array($this->data['SitesUser']['site_id'], array('No results', 'Sin resultados'))) && !empty($this->data['SitesUser']['autocomplete'])) {
@@ -129,23 +128,58 @@ class SitesUsersController extends AppController {
 
 	function edit($id = null) {
 
-		$this->pageTitle = __('Edit my site at 1000Pass.com', true);
-
 		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid SitesUser', true));
+			$this->Session->setFlash(__('Invalid Site', true));
 			$this->redirect(array('action' => 'index'));
 		}
 
 		if (!empty($this->data)) {
 			if ($this->SitesUser->save($this->data)) {
-				$this->Session->setFlash(__('The SitesUser has been saved', true));
+				$this->Session->setFlash(__('The Site has been saved', true));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The SitesUser could not be saved. Please, try again.', true));
+				$this->Session->setFlash(__('The Site could not be saved. Please, try again.', true));
 			}
+		} else {
+			$this->data = $this->SitesUser->read(null, $id);
+		}
+	}
+
+	function share($id = null) {
+
+		if (!$id && empty($this->data)) {
+			$this->Session->setFlash(__('Invalid Site', true));
+			$this->redirect(array('action' => 'index'));
 		}
 
-		if (empty($this->data)) {
+		if (!empty($this->data)) {
+
+			$this->SitesUser->recursive = -1;
+			$siteUser = $this->SitesUser->findById($this->data['SitesUser']['id']);
+			$this->SitesUser->User->recursive = -1;
+			$user = $this->SitesUser->User->findByUsername($this->data['SitesUser']['user']);
+			if (!empty($user)) {
+
+				$saved = $this->SitesUser->save(
+					array(
+						'SitesUser' => array(
+							'id'			=> null,
+							'user_id'		=> $user['User']['id'],
+							'site_id'		=> $siteUser['SitesUser']['site_id'],
+							'username'		=> $siteUser['SitesUser']['username'],
+							'password'		=> $siteUser['SitesUser']['password']
+						)
+					)
+				);
+
+				if ($saved) {
+					$this->Session->setFlash(__('The site has been shared', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The site could not be shared. Please, try again.', true));
+				}
+			}
+		} else {
 			$this->data = $this->SitesUser->read(null, $id);
 		}
 	}

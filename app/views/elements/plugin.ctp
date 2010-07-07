@@ -5,6 +5,12 @@
 
 		$toolbar[] = $html->tag('div', $data['Site']['title'], array('class' => 'title'));
 
+		$toolbar[] = $html->image('share.png', array(
+				'alt'	=> __('Share', true),
+				'title'	=> __('Share', true),
+				'url' 	=> array('controller' => 'sites_users', 'action' => 'share', $data['SitesUser']['id']),
+				'class' => 'action'));
+
 		$toolbar[] = $html->link(
 			$html->image('delete.png', array('alt' => __('Delete', true))),
 			array('controller' => 'sites_users', 'action' => 'delete', $data['SitesUser']['id']),
@@ -25,7 +31,7 @@
 					'url' 	=> array('controller' => 'users', 'action' => 'get_contacts', $data['SitesUser']['id']),
 					'class' => 'action'));
 		}
-		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar'));
+		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar', 'title' => $data['Site']['title']));
 
 	} else {
 		if ($data['Site']['state'] == 'pending') {
