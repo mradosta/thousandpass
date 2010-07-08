@@ -84,13 +84,50 @@ class SitesUsersController extends AppController {
 
 	function index() {
 
-		$this->pageTitle = __('My sites at 1000Pass.com', true);
-
-		$this->set('sitesUsers', $this->SitesUser->find('all', array(
+		$mySites = $this->SitesUser->find('all', array(
 			'order' 		=> array('SitesUser.order' => 'asc'),
-			'contain' 		=> array('Site'),
-			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))))
+			'contain' 		=> array('Site', 'ParentSitesUser'),
+			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))));
+
+		$myShares = $this->SitesUser->find('all',
+			array(
+				'contain' 		=> array('User', 'ParentSitesUser'),
+				'conditions' 	=> array(
+					array(
+						'SitesUser.sites_user_id' => Set::extract('/SitesUser/id', $mySites)
+					)
+				)
+			)
 		);
+
+		$sites = $this->SitesUser->Site->find('all',
+			array(
+				'recursive' 	=> -1,
+				'conditions' 	=>
+				array(
+					array(
+						'Site.id' => Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites))
+					)
+				)
+			)
+		);
+		$users = $this->SitesUser->User->find('all',
+			array(
+				'recursive' 	=> -1,
+				'conditions' 	=>
+				array(
+					array(
+						'User.id' => Set::filter(Set::extract('/ParentSitesUser/user_id', $mySites))
+					)
+				)
+			)
+		);
+
+
+		$this->set('shares', Set::extract('/ParentSitesUser/id', $myShares));
+		$this->set('sitesUsers', $mySites);
+		$this->set('sites', Set::combine($sites, '{n}.Site.id', '{n}.Site'));
+		$this->set('users', Set::combine($users, '{n}.User.id', '{n}.User'));
 	}
 
 
@@ -141,21 +178,54 @@ class SitesUsersController extends AppController {
 				$this->Session->setFlash(__('The Site could not be saved. Please, try again.', true));
 			}
 		} else {
+			//$this->Session->read('Auth.User.id')
 			$this->data = $this->SitesUser->read(null, $id);
 		}
 	}
 
-	function share($id = null) {
+	function shares($id = null) {
+
+
+		$mySites = $this->SitesUser->find('all',
+			array(
+				'contain' 		=> array('Site'),
+				'conditions' 	=> array(
+					'SitesUser.user_id' => $this->Session->read('Auth.User.id')
+				)
+			)
+		);
+		
+		$myShares = $this->SitesUser->find('all',
+			array(
+				'contain' 		=> array('User', 'ParentSitesUser.Site'),
+				'conditions' 	=>
+				array(
+					array(
+						'SitesUser.sites_user_id' => Set::extract('/SitesUser/id', $mySites)
+					)
+				)
+			)
+		);
+/*
 
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid Site', true));
 			$this->redirect(array('action' => 'index'));
 		}
+*/
 
 		if (!empty($this->data)) {
 
-			$this->SitesUser->recursive = -1;
-			$siteUser = $this->SitesUser->findById($this->data['SitesUser']['id']);
+			$siteUser = $this->SitesUser->find('first',
+				array(
+					'recursive'	 => -1,
+					'conditions' => array(
+						'SitesUser.user_id' => $this->Session->read('Auth.User.id'),
+						'SitesUser.id' 		=> $this->data['SitesUser']['site_id']
+					)
+				)
+			);
+
 			$this->SitesUser->User->recursive = -1;
 			$user = $this->SitesUser->User->findByUsername($this->data['SitesUser']['user']);
 			if (!empty($user)) {
@@ -165,16 +235,14 @@ class SitesUsersController extends AppController {
 						'SitesUser' => array(
 							'id'			=> null,
 							'user_id'		=> $user['User']['id'],
-							'site_id'		=> $siteUser['SitesUser']['site_id'],
-							'username'		=> $siteUser['SitesUser']['username'],
-							'password'		=> $siteUser['SitesUser']['password']
+							'sites_user_id'	=> $siteUser['SitesUser']['id']
 						)
 					)
 				);
 
 				if ($saved) {
 					$this->Session->setFlash(__('The site has been shared', true));
-					$this->redirect(array('action' => 'index'));
+					$this->redirect(array('action' => 'shares'));
 				} else {
 					$this->Session->setFlash(__('The site could not be shared. Please, try again.', true));
 				}
@@ -182,6 +250,9 @@ class SitesUsersController extends AppController {
 		} else {
 			$this->data = $this->SitesUser->read(null, $id);
 		}
+
+		$this->set('mySites', $mySites);
+		$this->set('myShares', $myShares);
 	}
 
 	function delete($id = null) {
@@ -194,6 +265,44 @@ class SitesUsersController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 	}
+
+
+	function delete_share($shreId = null, $id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for SitesUser', true));
+			$this->redirect(array('action' => 'index'));
+		}
+
+		$siteUser = $this->SitesUser->find('first',
+			array(
+				'recursive'	 => -1,
+				'conditions' => array(
+					'SitesUser.id' 			=> $id,
+					'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id')
+				)
+			)
+		);
+
+		if (!empty($siteUser['SitesUser']['id'])) {
+			$share = $this->SitesUser->find('first',
+				array(
+					'recursive'	 => -1,
+					'conditions' => array(
+						'SitesUser.id' 				=> $shreId,
+						'SitesUser.sites_user_id' 	=> $id
+					)
+				)
+			);
+
+
+			if (!empty($share['SitesUser']['id']) && $this->SitesUser->del($shreId)) {
+				$this->Session->setFlash(__('Share deleted', true));
+				$this->redirect(array('action' => 'shares'));
+			}
+
+		}
+	}
+
 
 }
 ?>

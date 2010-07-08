@@ -23,6 +23,13 @@ class SitesUser extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
+		'ParentSitesUser' => array(
+			'className' => 'SitesUser',
+			'foreignKey' => 'sites_user_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'Site' => array(
 			'className' => 'Site',
 			'foreignKey' => 'site_id',
@@ -41,8 +48,9 @@ class SitesUser extends AppModel {
 
 
 	function afterFind($results, $primary = false) {
+
 		foreach ($results as $k => $v) {
-			if (!empty($v['Site']['require_add_on']) && $v['Site']['require_add_on'] == 'no') {
+			if (!empty($v['Site']) && !empty($v['Site']['require_add_on']) && $v['Site']['require_add_on'] == 'no') {
 				$replaces['##username##'] = $v['SitesUser']['username'];
 				$replaces['##password##'] = $v['SitesUser']['password'];
 				$results[$k]['Site']['login_url'] = str_replace(array_keys($replaces), $replaces, $v['Site']['login_url']);

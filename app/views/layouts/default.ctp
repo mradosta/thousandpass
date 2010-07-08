@@ -141,6 +141,11 @@
 					echo '</div>';
 
 					
+						$toolbar[] = $html->image('shares.png', array(
+							'alt'	=> __('My Shares', true),
+							'title'	=> __('My Shares', true),
+							'url' 	=> array('controller' => 'sites_users', 'action' => 'shares')));
+
 						$toolbar[] = $html->image('notes.png', array(
 							'alt'	=> __('Notes', true),
 							'title'	=> __('Notes', true),

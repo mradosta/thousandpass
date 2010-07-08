@@ -1,15 +1,28 @@
 <?php
 
 	$out = $toolbar = null;
-	if ($data['Site']['state'] == 'approved') {
+	if (empty($data['Site']['state']) || $data['Site']['state'] == 'approved') {
 
-		$toolbar[] = $html->tag('div', $data['Site']['title'], array('class' => 'title'));
+		if (empty($data['ParentSitesUser']['id'])) {
+			$toolbar[] = $html->tag('div', $data['Site']['title'], array('class' => 'title'));
+		} else {
 
-		$toolbar[] = $html->image('share.png', array(
-				'alt'	=> __('Share', true),
-				'title'	=> __('Share', true),
-				'url' 	=> array('controller' => 'sites_users', 'action' => 'share', $data['SitesUser']['id']),
-				'class' => 'action'));
+			$data['Site']['title'] = $sites[$data['ParentSitesUser']['site_id']]['title'];
+			$data['Site']['logo'] = $sites[$data['ParentSitesUser']['site_id']]['logo'];
+			$data['SitesUser']['description'] = __('Shared Site by ', true) . $users[$data['ParentSitesUser']['user_id']]['username'];
+			$data['SitesUser']['username'] = $data['ParentSitesUser']['username'];
+			$data['SitesUser']['password'] = $data['ParentSitesUser']['password'];
+
+			$toolbar[] = $html->tag('div', $sites[$data['ParentSitesUser']['site_id']]['title'], array('class' => 'title'));
+		}
+
+		if (in_array($data['SitesUser']['id'], $shares)) {
+			$toolbar[] = $html->image('share.png', array(
+					'alt'	=> __('Shared', true),
+					'title'	=> __('Shared', true),
+					'url' 	=> array('controller' => 'sites_users', 'action' => 'shares'),
+					'class' => 'action'));
+		}
 
 		$toolbar[] = $html->link(
 			$html->image('delete.png', array('alt' => __('Delete', true))),
@@ -18,19 +31,24 @@
 			sprintf(__('Are you sure you want to delete %s?', true), $data['Site']['title']),
 			false);
 
-		$toolbar[] = $html->image('edit.png', array(
-				'alt'	=> __('Edit', true),
-				'title'	=> __('Edit', true),
-				'url' 	=> array('controller' => 'sites_users', 'action' => 'edit', $data['SitesUser']['id']),
-				'class' => 'action'));
+		if (empty($data['ParentSitesUser']['id'])) {
 
-		if (in_array($data['Site']['title'], array('Hotmail', 'Yahoo', 'Gmail'))) {
+			$toolbar[] = $html->image('edit.png', array(
+					'alt'	=> __('Edit', true),
+					'title'	=> __('Edit', true),
+					'url' 	=> array('controller' => 'sites_users', 'action' => 'edit', $data['SitesUser']['id']),
+					'class' => 'action'));
+		}
+
+		if (empty($data['ParentSitesUser']['id']) &&
+			in_array($data['Site']['title'], array('Hotmail', 'Yahoo', 'Gmail'))) {
 			$toolbar[] = $html->image('contacts.png', array(
 					'alt'	=> __('Get contacts', true),
 					'title'	=> __('Get contacts', true),
 					'url' 	=> array('controller' => 'users', 'action' => 'get_contacts', $data['SitesUser']['id']),
 					'class' => 'action'));
 		}
+
 		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar', 'title' => $data['Site']['title']));
 
 	} else {
@@ -60,11 +78,12 @@
 		$data['Site']['logo'] = 'default.png';
 	}
 
+
 	if ($data['Site']['require_add_on'] == 'no' && !$add_on) {
 		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));
-	} elseif ($data['Site']['state'] == 'approved') {
+	} elseif ($data['Site']['state'] == 'approved' || (!empty($sites[$data['ParentSitesUser']['site_id']]['state']) && $sites[$data['ParentSitesUser']['site_id']]['state'] == 'approved' )) {
 		$class = '';
 		if (!$add_on) {
 			$class = ' add_on_not_installed';
