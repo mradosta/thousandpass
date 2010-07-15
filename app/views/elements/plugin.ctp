@@ -7,9 +7,8 @@
 			$toolbar[] = $html->tag('div', $data['Site']['title'], array('class' => 'title'));
 		} else {
 
-			$data['Site']['title'] = $sites[$data['ParentSitesUser']['site_id']]['title'];
-			$data['Site']['logo'] = $sites[$data['ParentSitesUser']['site_id']]['logo'];
-			$data['SitesUser']['description'] = __('Shared Site by ', true) . $users[$data['ParentSitesUser']['user_id']]['username'];
+			$data['Site'] = $sites[$data['ParentSitesUser']['site_id']];
+			$data['SitesUser']['description'] = __('Shared Site by ', true) . $html->tag('span', $users[$data['ParentSitesUser']['user_id']]['username'], array('class' => 'sharer_user'));
 			$data['SitesUser']['username'] = $data['ParentSitesUser']['username'];
 			$data['SitesUser']['password'] = $data['ParentSitesUser']['password'];
 
@@ -103,6 +102,7 @@
 		} else {
 			$url = 'http://' . $data['Site']['login_url'];
 		}
+
 		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $url, array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));

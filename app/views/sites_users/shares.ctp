@@ -88,7 +88,7 @@ foreach ($sharedToMe as $share):
 
 			echo $html->link(
 				$html->image('delete.png', array('alt' => __('Delete', true))),
-				array('controller' => 'sites_users', 'action' => 'delete_share', $share['SitesUser']['id'], $share['SitesUser']['sites_user_id']),
+				array('controller' => 'sites_users', 'action' => 'delete_share', $share['SitesUser']['id']),
 				array('title'	=> __('Delete', true)),
 				sprintf(__('Are you sure you want to remove share of %s?', true), $share['ParentSitesUser']['Site']['title']),
 				false);

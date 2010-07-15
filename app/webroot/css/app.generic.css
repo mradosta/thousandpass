@@ -172,6 +172,11 @@ div.inner_container_vertical_scroll {
 	background: url(img/shared.png) no-repeat;
 }
 
+.plugins .sharer_user {
+	color: #80AD60;
+	font-weight: bold;
+}
+
 .plugins .disabled .title {
 	width: 125px;
 	overflow: hidden;

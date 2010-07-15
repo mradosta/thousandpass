@@ -293,39 +293,52 @@ class SitesUsersController extends AppController {
 	}
 
 	function delete_share($shreId = null, $id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for SitesUser', true));
-			$this->redirect(array('action' => 'index'));
-		}
 
-		$siteUser = $this->SitesUser->find('first',
-			array(
-				'recursive'	 => -1,
-				'conditions' => array(
-					'SitesUser.id' 			=> $id,
-					'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id')
-				)
-			)
-		);
-
-		if (!empty($siteUser['SitesUser']['id'])) {
-			$share = $this->SitesUser->find('first',
+		if (!empty($id)) {
+			$siteUser = $this->SitesUser->find('first',
 				array(
 					'recursive'	 => -1,
 					'conditions' => array(
-						'SitesUser.id' 				=> $shreId,
-						'SitesUser.sites_user_id' 	=> $id
+						'SitesUser.id' 			=> $id,
+						'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id')
 					)
 				)
 			);
 
+			if (!empty($siteUser['SitesUser']['id'])) {
+				$share = $this->SitesUser->find('first',
+					array(
+						'recursive'	 => -1,
+						'conditions' => array(
+							'SitesUser.id' 				=> $shreId,
+							'SitesUser.sites_user_id' 	=> $id
+						)
+					)
+				);
+
+
+				if (!empty($share['SitesUser']['id']) && $this->SitesUser->del($shreId)) {
+					$this->Session->setFlash(__('Share deleted', true));
+				}
+			}
+		} else {
+			$share = $this->SitesUser->find('first',
+				array(
+					'recursive'	 => -1,
+					'conditions' => array(
+						'SitesUser.id' 			=> $shreId,
+						'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id')
+					)
+				)
+			);
 
 			if (!empty($share['SitesUser']['id']) && $this->SitesUser->del($shreId)) {
 				$this->Session->setFlash(__('Share deleted', true));
-				$this->redirect(array('action' => 'shares'));
 			}
-
 		}
+
+		$this->redirect(array('action' => 'shares'));
+
 	}
 
 
