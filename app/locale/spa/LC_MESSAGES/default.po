@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-07-07 04:35+0000\n"
+"POT-Creation-Date: 2010-07-15 01:22+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: mradosta <martinradosta@gmail.com>\n"
 "Language-Team: \n"
@@ -38,17 +38,17 @@ msgid "Invalid Site."
 msgstr "Sitio Inválido."
 
 #: /controllers/sites_controller.php:40;72
-#: /controllers/sites_users_controller.php:138
+#: /controllers/sites_users_controller.php:176
 msgid "The Site has been saved"
 msgstr "El Sitio ha sido guardado"
 
 #: /controllers/sites_controller.php:43;75
-#: /controllers/sites_users_controller.php:141
+#: /controllers/sites_users_controller.php:179
 msgid "The Site could not be saved. Please, try again."
 msgstr "El sitio no pudo guardarse. Por favor, intente nuevamente."
 
 #: /controllers/sites_controller.php:54
-#: /controllers/sites_users_controller.php:132;151
+#: /controllers/sites_users_controller.php:170
 msgid "Invalid Site"
 msgstr "Sitio Inválido"
 
@@ -64,45 +64,49 @@ msgstr "Sitio borrado"
 msgid "Install"
 msgstr "Instalar"
 
-#: /controllers/sites_users_controller.php:87
-msgid "My sites at 1000Pass.com"
-msgstr "Mis sitios en 1000Pass.com."
-
-#: /controllers/sites_users_controller.php:115
+#: /controllers/sites_users_controller.php:153
 msgid "The SitesUser has been saved"
 msgstr "El Stio de Usuario ha sido guardado"
 
-#: /controllers/sites_users_controller.php:118
+#: /controllers/sites_users_controller.php:156
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr "El sitio no pudo ser guardado. Por favor, intente nuevamente."
 
-#: /controllers/sites_users_controller.php:121
+#: /controllers/sites_users_controller.php:159
 msgid "Non Existent Site"
 msgstr "Sitio Nuevo"
 
-#: /controllers/sites_users_controller.php:121
+#: /controllers/sites_users_controller.php:159
 msgid "Request not listed site"
 msgstr "Solicitar un nuevo sitio"
 
-#: /controllers/sites_users_controller.php:122
+#: /controllers/sites_users_controller.php:160
 msgid "Existing Sites"
 msgstr "Sitios Existentes"
 
-#: /controllers/sites_users_controller.php:176
+#: /controllers/sites_users_controller.php:249
 msgid "The site has been shared"
 msgstr "El Sitio ha sido compartido"
 
-#: /controllers/sites_users_controller.php:179
+#: /controllers/sites_users_controller.php:252
 msgid "The site could not be shared. Please, try again."
 msgstr "El sitio no pudo compartirse. Por favor, intente nuevamente."
 
-#: /controllers/sites_users_controller.php:189
+#: /controllers/sites_users_controller.php:267;279;299
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:193
+#: /controllers/sites_users_controller.php:271
 msgid "SitesUser deleted"
 msgstr "Sitio de Usuario Borrado"
+
+#: /controllers/sites_users_controller.php:292
+msgid "Share accepted"
+msgstr "Sitio compartido aceptado"
+
+#: /controllers/sites_users_controller.php:326
+msgid "Share deleted"
+msgstr "Sitio descompartido"
 
 #: /controllers/users_controller.php:42
 msgid "Your current password do not match."
@@ -208,27 +212,32 @@ msgstr "Verificación de la imagen incorrecte. Por favor intente nuevamente!"
 msgid "Unknown country"
 msgstr "País desconocido"
 
-#: /views/elements/plugin.ctp:9;10
-msgid "Share"
-msgstr "Compartir"
+#: /views/elements/plugin.ctp:12
+msgid "Shared Site by "
+msgstr "Sitio compartido por "
 
-#: /views/elements/plugin.ctp:15;17;46;48
+#: /views/elements/plugin.ctp:21;22
+msgid "Shared"
+msgstr "Compartido"
+
+#: /views/elements/plugin.ctp:28;30;70;72
 #: /views/notes/add.ctp:53;55
 #: /views/sites/edit.ctp:29
 #: /views/sites/index.ctp:30
 #: /views/sites/view.ctp:103
+#: /views/sites_users/shares.ctp:39;41;90;92
 #: /views/users/edit.ctp:19
 #: /views/users/index.ctp:28
 #: /views/users/view.ctp:51
 msgid "Delete"
 msgstr "Borrar"
 
-#: /views/elements/plugin.ctp:18;49
+#: /views/elements/plugin.ctp:31;73
 #: /views/notes/add.ctp:56
 msgid "Are you sure you want to delete %s?"
 msgstr "Esta seguro que desea borrar # %s?"
 
-#: /views/elements/plugin.ctp:22;23
+#: /views/elements/plugin.ctp:37;38
 #: /views/sites/index.ctp:29
 #: /views/sites/view.ctp:102
 #: /views/users/index.ctp:27
@@ -236,23 +245,23 @@ msgstr "Esta seguro que desea borrar # %s?"
 msgid "Edit"
 msgstr "Modificar"
 
-#: /views/elements/plugin.ctp:29;30
+#: /views/elements/plugin.ctp:46;47
 msgid "Get contacts"
 msgstr "Traer contactos"
 
-#: /views/elements/plugin.ctp:38
+#: /views/elements/plugin.ctp:62
 msgid "Pending of approval"
 msgstr "Pendiente de revisión"
 
-#: /views/elements/plugin.ctp:39
+#: /views/elements/plugin.ctp:63
 msgid "Your new site will approved by our admins within the next 24 hs."
 msgstr "Su nuevo sitio será aprobado por nuestros administradores en las próximas 24 hs."
 
-#: /views/elements/plugin.ctp:41
+#: /views/elements/plugin.ctp:65
 msgid "Site blocked"
 msgstr "Sitio bloqueado"
 
-#: /views/elements/plugin.ctp:42
+#: /views/elements/plugin.ctp:66
 msgid "Your site is blocked by our admins."
 msgstr "Su nuevo ha sido bloqueado por nuestros administradores."
 
@@ -269,6 +278,7 @@ msgstr "Sitios"
 
 #: /views/layouts/admin.ctp:52
 #: /views/layouts/default.ctp:116
+#: /views/sites_users/shares.ctp:16;58
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr "Usuarios"
@@ -295,15 +305,23 @@ msgid "You are about to close session at 1000Pass.com, remember to close other s
 msgstr "Esta acción cerrará su sesión de 1000Pass.com, recuerde cerrar sesión en los otros sitios"
 
 #: /views/layouts/default.ctp:145;146
+msgid "You have news"
+msgstr "Hay novedades"
+
+#: /views/layouts/default.ctp:151;152
+msgid "My Shares"
+msgstr "Mis Sitios Compartidos"
+
+#: /views/layouts/default.ctp:158;159
 msgid "Notes"
 msgstr "Notas"
 
-#: /views/layouts/default.ctp:150;151
+#: /views/layouts/default.ctp:163;164
 #: /views/users/change_password.ctp:2
 msgid "Change Password"
 msgstr "Cambiar Clave"
 
-#: /views/layouts/default.ctp:159
+#: /views/layouts/default.ctp:172
 #: /views/sites/view.ctp:84
 #: /views/sites_users/add.ctp:30
 #: /views/users/add.ctp:282
@@ -313,22 +331,22 @@ msgstr "Cambiar Clave"
 msgid "Username"
 msgstr "Usuario"
 
-#: /views/layouts/default.ctp:163
+#: /views/layouts/default.ctp:176
 #: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
 #: /views/users/register.ctp:319
 msgid "Password"
 msgstr "Clave"
 
-#: /views/layouts/default.ctp:171
+#: /views/layouts/default.ctp:184
 msgid "enter"
 msgstr "ingresar"
 
-#: /views/layouts/default.ctp:178;179
+#: /views/layouts/default.ctp:191;192
 msgid "Forgot my password"
 msgstr "Olvide mi Clave"
 
-#: /views/layouts/default.ctp:186;187
+#: /views/layouts/default.ctp:199;200
 #: /views/users/help.ctp:2;27
 msgid "Help"
 msgstr "Ayuda"
@@ -358,6 +376,7 @@ msgstr "Notas"
 #: /views/notes/add.ctp:24
 #: /views/sites/index.ctp:11
 #: /views/sites/view.ctp:86
+#: /views/sites_users/shares.ctp:17;59
 #: /views/users/index.ctp:11
 #: /views/users/view.ctp:34
 msgid "Actions"
@@ -370,7 +389,7 @@ msgstr "Agregar nuevo sitio a"
 #: /views/notes/add.ctp:72
 #: /views/sites_users/add.ctp:23
 #: /views/sites_users/edit.ctp:18
-#: /views/sites_users/share.ctp:18
+#: /views/sites_users/shares.ctp:114
 #: /views/users/change_password.ctp:17
 #: /views/users/help.ctp:30
 #: /views/users/recover_password.ctp:17
@@ -458,6 +477,7 @@ msgstr "Nuevo Sitio"
 
 #: /views/sites/view.ctp:2
 #: /views/sites_users/add.ctp:28
+#: /views/sites_users/shares.ctp:14;56
 msgid "Site"
 msgstr "Sitio"
 
@@ -507,6 +527,7 @@ msgid "Add new site to"
 msgstr "Agregar nuevo sitio a"
 
 #: /views/sites_users/add.ctp:32
+#: /views/sites_users/shares.ctp:15;57
 #: /views/users/view.ctp:33
 msgid "Description"
 msgstr "Descripción"
@@ -552,12 +573,10 @@ msgid "Show"
 msgstr "Mostrar"
 
 #: /views/sites_users/edit.ctp:42
-#: /views/sites_users/share.ctp:40
 msgid "Please, verify your 1000pass.com password"
 msgstr "Por favor, verifique su clave de 1000pass.com"
 
 #: /views/sites_users/edit.ctp:51
-#: /views/sites_users/share.ctp:49
 msgid "Could not verify current password. Please, try again."
 msgstr "No puedo verificarse su clave actual. Por favor intente nuevamente."
 
@@ -565,15 +584,31 @@ msgstr "No puedo verificarse su clave actual. Por favor intente nuevamente."
 msgid "My Sites"
 msgstr "Mis Sitios"
 
-#: /views/sites_users/index.ctp:54
+#: /views/sites_users/index.ctp:59
 msgid "Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download..."
 msgstr "El acceso a este sitio requiere que la extensión 1000Pass.com para su browser este instalada. Sera redireccionado a la descarga..."
 
-#: /views/sites_users/share.ctp:2
+#: /views/sites_users/shares.ctp:2
 msgid "Share my site"
 msgstr "Compartir mi sitio"
 
-#: /views/sites_users/share.ctp:15
+#: /views/sites_users/shares.ctp:11
+msgid "What do I share:"
+msgstr "Lo que yo comparto con otros:"
+
+#: /views/sites_users/shares.ctp:42;93
+msgid "Are you sure you want to remove share of %s?"
+msgstr "Esta seguro que desea descompartir %s?"
+
+#: /views/sites_users/shares.ctp:53
+msgid "What do others share to me:"
+msgstr "Lo que otros me comparten:"
+
+#: /views/sites_users/shares.ctp:84;86
+msgid "Accept"
+msgstr "Aceptar"
+
+#: /views/sites_users/shares.ctp:111
 msgid "Share my site at"
 msgstr "Compartir mi sitio en"
 
@@ -782,6 +817,8 @@ msgstr "Sitios Relaciononados"
 msgid "Debug setting does not allow access to this url."
 msgstr ""
 
+#~ msgid "My sites at 1000Pass.com"
+#~ msgstr "Mis sitios en 1000Pass.com."
 #~ msgid "Add new site to 1000Pass.com"
 #~ msgstr "Agregar nuevo sitio a"
 #~ msgid "Edit my site at 1000Pass.com"

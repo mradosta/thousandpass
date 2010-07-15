@@ -62,7 +62,6 @@ class SitesUser extends AppModel {
 
 	/**
 	* Prevent empty foreing key error.
-	*/
 	function beforeSave($options = array()) {
 		if (empty($this->data[$this->name]['site_id'])) {
 			unset($this->data[$this->name]['site_id']);
@@ -72,6 +71,7 @@ class SitesUser extends AppModel {
 		}
 		return parent::beforeSave($options);
 	}
+	*/
 
 }
 ?>

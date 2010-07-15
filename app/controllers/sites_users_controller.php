@@ -234,18 +234,17 @@ class SitesUsersController extends AppController {
 			$this->SitesUser->User->recursive = -1;
 			$user = $this->SitesUser->User->findByUsername($this->data['SitesUser']['user']);
 			if (!empty($user)) {
-
 				$saved = $this->SitesUser->save(
 					array(
 						'SitesUser' => array(
 							'id'			=> null,
-							'state'			=> 'pendding',
+							'state'			=> 'penddingxxx',
 							'user_id'		=> $user['User']['id'],
 							'sites_user_id'	=> $siteUser['SitesUser']['id']
 						)
 					)
 				);
-
+d('pendding');
 				if ($saved) {
 					$this->Session->setFlash(__('The site has been shared', true));
 					$this->redirect(array('action' => 'shares'));
