@@ -238,13 +238,13 @@ class SitesUsersController extends AppController {
 					array(
 						'SitesUser' => array(
 							'id'			=> null,
-							'state'			=> 'penddingxxx',
+							'state'			=> 'pendding',
 							'user_id'		=> $user['User']['id'],
 							'sites_user_id'	=> $siteUser['SitesUser']['id']
 						)
 					)
 				);
-d('pendding');
+
 				if ($saved) {
 					$this->Session->setFlash(__('The site has been shared', true));
 					$this->redirect(array('action' => 'shares'));
