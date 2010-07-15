@@ -280,16 +280,16 @@ class SitesUsersController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 
-		$this->SitesUser->save(
+		if ($this->SitesUser->save(
 			array(
 				'SitesUser'		=> array(
 					'SitesUser.id' 		=> $id,
 					'SitesUser.state' 	=> 'accepted',
 				)
-			)
-		);
+			), false)) {
 
-		$this->Session->setFlash(__('Share accepted', true));
+			$this->Session->setFlash(__('Share accepted', true));
+		}
 		$this->redirect(array('action' => 'shares'));
 
 	}
