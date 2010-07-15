@@ -140,11 +140,19 @@
 						echo $html->tag('span', __('Logout', true), array('class' => 'label'));
 					echo '</div>';
 
-					
-						$toolbar[] = $html->image('shares.png', array(
-							'alt'	=> __('My Shares', true),
-							'title'	=> __('My Shares', true),
-							'url' 	=> array('controller' => 'sites_users', 'action' => 'shares')));
+						if (!empty($news)) {
+							$toolbar[] = $html->image('shares_news.png', array(
+								'alt'	=> __('You have news', true),
+								'title'	=> __('You have news', true),
+								'id'	=> 'share',
+								'url' 	=> array('controller' => 'sites_users', 'action' => 'shares')));
+						} else {
+							$toolbar[] = $html->image('shares.png', array(
+								'alt'	=> __('My Shares', true),
+								'title'	=> __('My Shares', true),
+								'id'	=> 'share',
+								'url' 	=> array('controller' => 'sites_users', 'action' => 'shares')));
+						}
 
 						$toolbar[] = $html->image('notes.png', array(
 							'alt'	=> __('Notes', true),

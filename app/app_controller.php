@@ -82,6 +82,22 @@ class AppController extends Controller {
 			}
 		}
 		Configure::write('Config.language', $language);
+
+
+		$sharedToMe = ClassRegistry::init('SitesUser')->find('all',
+			array(
+				'contain' 		=> array('ParentSitesUser' => array('User', 'Site')),
+				'conditions' 	=> array(
+					'SitesUser.state' 				=> 'pendding',
+					'SitesUser.sites_user_id !=' 	=> null,
+					'SitesUser.user_id' 			=> $this->Session->read('Auth.User.id')
+				)
+			)
+		);
+		if (!empty($sharedToMe)) {
+			$this->set('news', true);
+		}
+
 	}
 
 

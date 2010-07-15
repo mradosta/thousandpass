@@ -8,6 +8,7 @@
 
 		<div class="left no_bg">
 
+<?php echo $html->tag('span', __('What do I share:', true), array('class' => 'label')); ?>
 <table cellpadding="0" cellspacing="0">
 <tr>
 	<th><?php __('Site'); ?></th>
@@ -44,6 +45,62 @@ foreach ($myShares as $share):
 	</tr>
 <?php endforeach; ?>
 </table>
+
+
+
+<br/>
+
+<?php echo $html->tag('span', __('What do others share to me:', true), array('class' => 'label')); ?>
+<table cellpadding="0" cellspacing="0">
+<tr>
+	<th><?php __('Site'); ?></th>
+	<th><?php __('Description'); ?></th>
+	<th><?php __('User'); ?></th>
+	<th class="actions"><?php __('Actions');?></th>
+</tr>
+<?php
+$i = 0;
+foreach ($sharedToMe as $share):
+	$class = null;
+	if ($i++ % 2 == 0) {
+		$class = ' class="altrow"';
+	}
+?>
+	<tr<?php echo $class;?>>
+		<td width="80px">
+			<?php echo $share['ParentSitesUser']['Site']['title']; ?>
+		</td>
+		<td width="200px">
+			<?php echo $share['ParentSitesUser']['description']; ?>
+		</td>
+		<td width="100px">
+			<?php echo $share['ParentSitesUser']['User']['username']; ?>
+		</td>
+		<td class="actions" width="30px">
+			<?php
+
+			if ($share['SitesUser']['state'] == 'pendding') {
+				echo $html->link(
+					$html->image('accept.png', array('alt' => __('Accept', true))),
+					array('controller' => 'sites_users', 'action' => 'accept_share', $share['SitesUser']['id']),
+					array('title'	=> __('Accept', true)), null, false) . '&nbsp;';
+			}
+
+			echo $html->link(
+				$html->image('delete.png', array('alt' => __('Delete', true))),
+				array('controller' => 'sites_users', 'action' => 'delete_share', $share['SitesUser']['id'], $share['SitesUser']['sites_user_id']),
+				array('title'	=> __('Delete', true)),
+				sprintf(__('Are you sure you want to remove share of %s?', true), $share['ParentSitesUser']['Site']['title']),
+				false);
+
+			?>
+
+
+		</td>
+	</tr>
+<?php endforeach; ?>
+</table>
+
 
 
 		</div> <!--left-->

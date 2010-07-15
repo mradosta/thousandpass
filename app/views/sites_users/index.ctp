@@ -11,6 +11,11 @@
 				$add_on = false;
 			}
 			foreach ($sitesUsers as $sitesUser) {
+
+				if ($sitesUser['SitesUser']['state'] == 'pendding') {
+					continue;
+				}
+
 				echo '<li>';
 				echo $this->element('plugin', array('data' => $sitesUser, 'add_on' => $add_on));
 				echo '</li>';

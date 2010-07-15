@@ -104,6 +104,12 @@ div#container {
 }
 
 
+div.inner_container .label {
+	padding-left: 4px;
+	font-size: 14px;
+	text-decoration: underline;
+}
+
 /** Drag & drop */
 div.inner_container_vertical_scroll .placeHolder div {
 	background-color:white !important;
@@ -160,6 +166,10 @@ div.inner_container_vertical_scroll {
 
 .plugins .disabled {
 	background: url(img/disabled.png) no-repeat;
+}
+
+.plugins .shared {
+	background: url(img/shared.png) no-repeat;
 }
 
 .plugins .disabled .title {

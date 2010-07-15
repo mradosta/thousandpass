@@ -128,6 +128,7 @@ class SitesUsersController extends AppController {
 		$this->set('sitesUsers', $mySites);
 		$this->set('sites', Set::combine($sites, '{n}.Site.id', '{n}.Site'));
 		$this->set('users', Set::combine($users, '{n}.User.id', '{n}.User'));
+		
 	}
 
 
@@ -185,6 +186,16 @@ class SitesUsersController extends AppController {
 
 	function shares($id = null) {
 
+		$sharedToMe = $this->SitesUser->find('all',
+			array(
+				'contain' 		=> array('ParentSitesUser' => array('User', 'Site')),
+				'conditions' 	=> array(
+					'SitesUser.sites_user_id !=' => null,
+					'SitesUser.user_id' => $this->Session->read('Auth.User.id')
+				)
+			)
+		);
+
 
 		$mySites = $this->SitesUser->find('all',
 			array(
@@ -206,13 +217,7 @@ class SitesUsersController extends AppController {
 				)
 			)
 		);
-/*
 
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid Site', true));
-			$this->redirect(array('action' => 'index'));
-		}
-*/
 
 		if (!empty($this->data)) {
 
@@ -234,6 +239,7 @@ class SitesUsersController extends AppController {
 					array(
 						'SitesUser' => array(
 							'id'			=> null,
+							'state'			=> 'pendding',
 							'user_id'		=> $user['User']['id'],
 							'sites_user_id'	=> $siteUser['SitesUser']['id']
 						)
@@ -253,6 +259,8 @@ class SitesUsersController extends AppController {
 
 		$this->set('mySites', $mySites);
 		$this->set('myShares', $myShares);
+		$this->set('sharedToMe', $sharedToMe);
+
 	}
 
 	function delete($id = null) {
@@ -266,6 +274,26 @@ class SitesUsersController extends AppController {
 		}
 	}
 
+
+	function accept_share($id = null) {
+		if (!$id) {
+			$this->Session->setFlash(__('Invalid id for SitesUser', true));
+			$this->redirect(array('action' => 'index'));
+		}
+
+		$this->SitesUser->save(
+			array(
+				'SitesUser'		=> array(
+					'SitesUser.id' 		=> $id,
+					'SitesUser.state' 	=> 'accepted',
+				)
+			)
+		);
+
+		$this->Session->setFlash(__('Share accepted', true));
+		$this->redirect(array('action' => 'shares'));
+
+	}
 
 	function delete_share($shreId = null, $id = null) {
 		if (!$id) {

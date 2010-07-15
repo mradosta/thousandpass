@@ -49,7 +49,13 @@
 					'class' => 'action'));
 		}
 
-		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar', 'title' => $data['Site']['title']));
+
+		$extraClass = '';
+		if (!empty($data['ParentSitesUser']['id'])) {
+			$extraClass = ' shared';
+		}
+
+		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar' . $extraClass, 'title' => $data['Site']['title']));
 
 	} else {
 		if ($data['Site']['state'] == 'pending') {
