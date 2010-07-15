@@ -179,8 +179,7 @@ class SitesUsersController extends AppController {
 				$this->Session->setFlash(__('The Site could not be saved. Please, try again.', true));
 			}
 		} else {
-			//$this->Session->read('Auth.User.id')
-			$this->data = $this->SitesUser->read(null, $id);
+			$this->data = $this->SitesUser->find('first', array('conditions' => array('SitesUser.user_id' => $this->Session->read('Auth.User.id'), 'SitesUser.id' => $id )));
 		}
 	}
 
@@ -283,11 +282,10 @@ class SitesUsersController extends AppController {
 		if ($this->SitesUser->save(
 			array(
 				'SitesUser'		=> array(
-					'SitesUser.id' 		=> $id,
-					'SitesUser.state' 	=> 'accepted',
+					'id' 		=> $id,
+					'state' 	=> 'accepted',
 				)
 			), false)) {
-
 			$this->Session->setFlash(__('Share accepted', true));
 		}
 		$this->redirect(array('action' => 'shares'));
