@@ -36,17 +36,9 @@ class User extends AppModel {
 			),
 		),*/
 		'username' 	=> 	array(
-			'unique'	=> array(
-				'rule' 		=> 'isUnique',
-				'message' 	=> 'This username has already been taken.',
-			),
-			'alphanumeric' => array(
-				'rule' 		=> 'alphaNumeric',
-				'message' 	=> 'Only the letters A-z and digits 0-9 are allowed',
-			),
-			'length' 	=> array(
-				'rule' 		=> array('between', 4, 20),
-				'message' 	=> 'Your username must be between 4 and 20 characters long',
+			'valid' 	=> array(
+				'rule' 		=> 'email',
+				'message' 	=> 'Your email is not valid',
 			),
 		),
 		'passwrd' 		=> 	array(
@@ -65,12 +57,14 @@ class User extends AppModel {
 				'message' 	=> 'Passwords do not match',
 			),
 		),
+/*
 		'email'	=> array(
 			'valid' 	=> array(
 				'rule' 		=> 'email',
 				'message' 	=> 'Your email is not valid',
 			),
 		),
+*/
 	);
 
 

@@ -42,10 +42,6 @@
 					'minYear'		=> 1930,
 					'maxYear'		=> date('Y') - 10,
 					'separator'		=> '',
-					'after'			=> '(*)',
-					'error' => array(
-						'valid'	=> __('Must select the Birth Date.', true),
-					)
 				));
 				echo $form->input('sex', array(
 					'label' => __('Sex', true),
@@ -306,7 +302,7 @@
 							'French Southern Territories' => 'French Southern Territories',
 							'Heard Island and Mcdonald Islands' => 'Heard Island and Mcdonald Islands',
 							'South Georgia and The South Sandwich Islands' => 'South Georgia and The South Sandwich Islands'))));
-
+/*
 				echo $form->input('username', array(
 					'label' => __('Username', true),
 					'error' => array(
@@ -315,6 +311,14 @@
 						'length'		=> __('Your username must be between 4 and 20 characters long', true),
 					)
 				));
+*/
+				echo $form->input('username', array(
+					'label' => __('Username', true) . ' / ' . __('Email', true),
+					'error' => array(
+						'valid'		=> __('Your email is not valid', true),
+					)
+				));
+
 				echo $form->input('password', array(
 					'label' => __('Password', true),
 					'type' => 'password',
@@ -330,13 +334,14 @@
 						'repeated'	=> __('Passwords do not match', true),
 					)
 				));
+/*
 				echo $form->input('email', array(
 					'label' => __('Email', true),
 					'error' => array(
 						'valid'		=> __('Your email is not valid', true),
 					)
 				));
-
+*/
 				echo $html->tag('div', $html->image('/' . $this->params['controller'] . '/captcha', array('id' => 'captcha_image')), array('class' => 'captcha'));
 				echo $form->input('captcha', array('label' => __('Type the numbers you see in the picture', true)));
 

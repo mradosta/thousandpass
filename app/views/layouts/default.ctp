@@ -169,7 +169,7 @@
 					echo $form->create('User', array('action' => 'login'));
 					echo $form->input('username', array(
 						'id'		=> null,
-						'label'		=> __('Username', true),
+						'label'		=> __('Email', true),
 						'error' 	=> false));
 					echo $form->input('password', array(
 						'id'		=> null,
