@@ -172,6 +172,12 @@ div.inner_container_vertical_scroll {
 	background: url(img/shared.png) no-repeat;
 }
 
+.plugins .unshared {
+	background: url(img/unshared.png) no-repeat;
+	height: 95px;
+	margin-bottom:-67px;
+}
+
 .plugins .sharer_user {
 	color: #80AD60;
 	font-weight: bold;
@@ -223,6 +229,12 @@ div.inner_container div.left {
 	height: 251px;
 	overflow-y: auto;
 	overflow-x: hidden;
+}
+
+div.inner_container div.add {
+	margin: 5px 30px 0 10px;
+	height: 310px;
+	background: url(img/add.png) no-repeat;
 }
 
 div.inner_container div.welcome {

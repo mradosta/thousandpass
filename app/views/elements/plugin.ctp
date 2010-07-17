@@ -9,9 +9,14 @@
 
 			$data['Site'] = $sites[$data['ParentSitesUser']['site_id']];
 			$data['SitesUser']['description'] = __('Shared Site by ', true) . $html->tag('span', $users[$data['ParentSitesUser']['user_id']]['username'], array('class' => 'sharer_user'));
-			$data['SitesUser']['username'] = $data['ParentSitesUser']['username'];
-			$data['SitesUser']['password'] = $data['ParentSitesUser']['password'];
 
+			if ($data['SitesUser']['state'] == 'unshared') {
+				$data['SitesUser']['username'] = '';
+				$data['SitesUser']['password'] = '';
+			} else {
+				$data['SitesUser']['username'] = $data['ParentSitesUser']['username'];
+				$data['SitesUser']['password'] = $data['ParentSitesUser']['password'];
+			}
 			$toolbar[] = $html->tag('div', $sites[$data['ParentSitesUser']['site_id']]['title'], array('class' => 'title'));
 		}
 
@@ -52,6 +57,9 @@
 		$extraClass = '';
 		if (!empty($data['ParentSitesUser']['id'])) {
 			$extraClass = ' shared';
+			if ($data['SitesUser']['state'] == 'unshared') {
+				$extraClass = ' unshared';
+			}
 		}
 
 		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar' . $extraClass, 'title' => $data['Site']['title']));

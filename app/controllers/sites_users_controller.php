@@ -200,7 +200,7 @@ class SitesUsersController extends AppController {
 			array(
 				'contain' 		=> array('Site'),
 				'conditions' 	=> array(
-					'SitesUser.user_id' => $this->Session->read('Auth.User.id')
+					'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id')
 				)
 			)
 		);
@@ -209,11 +209,10 @@ class SitesUsersController extends AppController {
 			array(
 				'contain' 		=> array('User', 'ParentSitesUser.Site'),
 				'conditions' 	=>
-				array(
 					array(
+						'SitesUser.state !=' 	=> 'unshared',
 						'SitesUser.sites_user_id' => Set::extract('/SitesUser/id', $mySites)
 					)
-				)
 			)
 		);
 
@@ -233,10 +232,26 @@ class SitesUsersController extends AppController {
 			$this->SitesUser->User->recursive = -1;
 			$user = $this->SitesUser->User->findByUsername($this->data['SitesUser']['user']);
 			if (!empty($user)) {
+
+				$id = null;
+				$alreadyShared = $this->SitesUser->find('first',
+					array(
+						'recursive'		=> 1,
+						'condirions'	=> array(
+							'SitesUser.state'			=> 'unshared',
+							'SitesUser.user_id'			=> $user['User']['id'],
+							'SitesUser.sites_user_id'	=> $siteUser['SitesUser']['id']
+						)
+					)
+				);
+				if (!empty($alreadyShared['SitesUser']['id'])) {
+					$id = $alreadyShared['SitesUser']['id'];
+				}
+
 				$saved = $this->SitesUser->save(
 					array(
 						'SitesUser' => array(
-							'id'			=> null,
+							'id'			=> $id,
 							'state'			=> 'pendding',
 							'user_id'		=> $user['User']['id'],
 							'sites_user_id'	=> $siteUser['SitesUser']['id']
@@ -317,8 +332,17 @@ class SitesUsersController extends AppController {
 				);
 
 
-				if (!empty($share['SitesUser']['id']) && $this->SitesUser->del($shreId)) {
-					$this->Session->setFlash(__('Share deleted', true));
+				if (!empty($share['SitesUser']['id'])) {
+					if ($this->SitesUser->save(
+						array(
+							'SitesUser'		=> array(
+								'id' 		=> $shreId,
+								'state' 	=> 'unshared',
+							)
+						), false)) {
+
+						$this->Session->setFlash(__('Share deleted', true));
+					}
 				}
 			}
 		} else {

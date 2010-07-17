@@ -10,7 +10,7 @@
 			if ($first_time) {
 				echo '<div class="left welcome">' . __('Welcome to', true). '</div>';
 			} else {
-				echo '<div class="left"></div>';
+				echo '<div class="left add"></div>';
 			}
 		?>
 
