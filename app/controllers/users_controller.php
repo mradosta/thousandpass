@@ -158,14 +158,14 @@ class UsersController extends AppController {
 		if (!empty($this->data)) {
 			if (!$this->Captcha->protect()) {
 				$this->User->invalidate('captcha', __('Validation text error. Try again', true));
-			} elseif (empty($this->data['User']['username'])) {
-				$this->User->invalidate('username', __('Must enter the username.', true));
+			//} elseif (empty($this->data['User']['username'])) {
+			//	$this->User->invalidate('username', __('Must enter the username.', true));
 			} elseif (empty($this->data['User']['email'])) {
 				$this->User->invalidate('email', __('Must enter the email.', true));
 			}
 			
 			$user = $this->User->find('first', array('conditions' => array(
-				'User.username' => $this->data['User']['username'],
+				//'User.username' => $this->data['User']['username'],
 				'User.email' 	=> $this->data['User']['email'])));
 			if (!empty($user)) {
 				$uppercase  = range('A', 'Z');
@@ -185,7 +185,7 @@ class UsersController extends AppController {
 
 				$this->__sendEmail(
 					array('template' => 'recover_password', 'subject' => __('1000Pass.com - Password Recovery Service', true)),
-					array($user['User']['username'] => $user['User']['email']),
+					array($user['User']['username'] => $user['User']['username']),
 					array('username' => $user['User']['username'], 'newpassword' => $newPassword));
 				$this->Session->setFlash(__('Your password has been send to your email.', true));
 			} else {
@@ -247,7 +247,7 @@ class UsersController extends AppController {
 				if ($this->User->save()) {
 					$this->__sendEmail(
 						array('template' => 'sign_up', 'subject' => __('Welcome to 1000Pass.com', true)),
-						array($this->data['User']['name'] . ' ' . $this->data['User']['lastname'] => $this->data['User']['email']),
+						array($this->data['User']['name'] . ' ' . $this->data['User']['lastname'] => $this->data['User']['username']),
 						$this->data);
 					$this->Session->setFlash(__('Thanks for signing up at 1000Pass.com.', true));
 					$this->data['User']['id'] = $this->User->id;

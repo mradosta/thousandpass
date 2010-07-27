@@ -19,7 +19,7 @@
 
 			<?php echo $form->create('User', array('action' => 'recover_password'));
 
-					echo $form->input('username', array('label' => __('Username', true)));
+					//echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('email', array('label' => __('email', true)));
 
 					echo $html->tag('div', $html->image('/' . $this->params['controller'] . '/captcha', array('id' => 'captcha_image')), array('class' => 'captcha'));
