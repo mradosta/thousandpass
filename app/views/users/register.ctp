@@ -302,20 +302,12 @@
 							'French Southern Territories' => 'French Southern Territories',
 							'Heard Island and Mcdonald Islands' => 'Heard Island and Mcdonald Islands',
 							'South Georgia and The South Sandwich Islands' => 'South Georgia and The South Sandwich Islands'))));
-/*
-				echo $form->input('username', array(
-					'label' => __('Username', true),
-					'error' => array(
-						'unique' 		=> __('This username has already been taken.', true),
-						'alphanumeric'	=> __('Only the letters A-z and digits 0-9 are allowed', true),
-						'length'		=> __('Your username must be between 4 and 20 characters long', true),
-					)
-				));
-*/
+
 				echo $form->input('username', array(
 					'label' => __('Username', true) . ' / ' . __('Email', true),
 					'error' => array(
 						'valid'		=> __('Your email is not valid', true),
+						'isUnique'	=> __('This username has already been taken', true)
 					)
 				));
 

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-07-15 01:22+0000\n"
+"POT-Creation-Date: 2010-08-01 21:58+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: mradosta <martinradosta@gmail.com>\n"
 "Language-Team: \n"
@@ -84,27 +84,31 @@ msgstr "Solicitar un nuevo sitio"
 msgid "Existing Sites"
 msgstr "Sitios Existentes"
 
-#: /controllers/sites_users_controller.php:249
+#: /controllers/sites_users_controller.php:264
 msgid "The site has been shared"
 msgstr "El Sitio ha sido compartido"
 
-#: /controllers/sites_users_controller.php:252
+#: /controllers/sites_users_controller.php:267
 msgid "The site could not be shared. Please, try again."
 msgstr "El sitio no pudo compartirse. Por favor, intente nuevamente."
 
-#: /controllers/sites_users_controller.php:267;279;299
+#: /controllers/sites_users_controller.php:270
+msgid "Can't find the specified user. Please, try again."
+msgstr "No se encontro el usuario especificado. Por favor intente nuevamente."
+
+#: /controllers/sites_users_controller.php:284;296
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:271
+#: /controllers/sites_users_controller.php:288
 msgid "SitesUser deleted"
 msgstr "Sitio de Usuario Borrado"
 
-#: /controllers/sites_users_controller.php:292
+#: /controllers/sites_users_controller.php:307
 msgid "Share accepted"
 msgstr "Sitio compartido aceptado"
 
-#: /controllers/sites_users_controller.php:326
+#: /controllers/sites_users_controller.php:347;363
 msgid "Share deleted"
 msgstr "Sitio descompartido"
 
@@ -135,10 +139,6 @@ msgstr "Gracias por invitar tus amigos a 1000Pass.com!"
 #: /controllers/users_controller.php:160;241
 msgid "Validation text error. Try again"
 msgstr "Error en la validación del text. Intente nuevamente"
-
-#: /controllers/users_controller.php:162
-msgid "Must enter the username."
-msgstr "Debe ingresar su nombre de usuario"
 
 #: /controllers/users_controller.php:164
 msgid "Must enter the email."
@@ -212,15 +212,15 @@ msgstr "Verificación de la imagen incorrecte. Por favor intente nuevamente!"
 msgid "Unknown country"
 msgstr "País desconocido"
 
-#: /views/elements/plugin.ctp:12
+#: /views/elements/plugin.ctp:11
 msgid "Shared Site by "
 msgstr "Sitio compartido por "
 
-#: /views/elements/plugin.ctp:21;22
+#: /views/elements/plugin.ctp:25;26
 msgid "Shared"
 msgstr "Compartido"
 
-#: /views/elements/plugin.ctp:28;30;70;72
+#: /views/elements/plugin.ctp:32;34;77;79
 #: /views/notes/add.ctp:53;55
 #: /views/sites/edit.ctp:29
 #: /views/sites/index.ctp:30
@@ -232,12 +232,12 @@ msgstr "Compartido"
 msgid "Delete"
 msgstr "Borrar"
 
-#: /views/elements/plugin.ctp:31;73
+#: /views/elements/plugin.ctp:35;80
 #: /views/notes/add.ctp:56
 msgid "Are you sure you want to delete %s?"
 msgstr "Esta seguro que desea borrar # %s?"
 
-#: /views/elements/plugin.ctp:37;38
+#: /views/elements/plugin.ctp:41;42
 #: /views/sites/index.ctp:29
 #: /views/sites/view.ctp:102
 #: /views/users/index.ctp:27
@@ -245,23 +245,23 @@ msgstr "Esta seguro que desea borrar # %s?"
 msgid "Edit"
 msgstr "Modificar"
 
-#: /views/elements/plugin.ctp:46;47
+#: /views/elements/plugin.ctp:50;51
 msgid "Get contacts"
 msgstr "Traer contactos"
 
-#: /views/elements/plugin.ctp:62
+#: /views/elements/plugin.ctp:69
 msgid "Pending of approval"
 msgstr "Pendiente de revisión"
 
-#: /views/elements/plugin.ctp:63
+#: /views/elements/plugin.ctp:70
 msgid "Your new site will approved by our admins within the next 24 hs."
 msgstr "Su nuevo sitio será aprobado por nuestros administradores en las próximas 24 hs."
 
-#: /views/elements/plugin.ctp:65
+#: /views/elements/plugin.ctp:72
 msgid "Site blocked"
 msgstr "Sitio bloqueado"
 
-#: /views/elements/plugin.ctp:66
+#: /views/elements/plugin.ctp:73
 msgid "Your site is blocked by our admins."
 msgstr "Su nuevo ha sido bloqueado por nuestros administradores."
 
@@ -322,19 +322,15 @@ msgid "Change Password"
 msgstr "Cambiar Clave"
 
 #: /views/layouts/default.ctp:172
-#: /views/sites/view.ctp:84
-#: /views/sites_users/add.ctp:30
-#: /views/users/add.ctp:282
-#: /views/users/recover_password.ctp:22
-#: /views/users/register.ctp:311
-#: /views/users/view.ctp:9
-msgid "Username"
-msgstr "Usuario"
+#: /views/users/add.ctp:305
+#: /views/users/register.ctp:307
+msgid "Email"
+msgstr "Email"
 
 #: /views/layouts/default.ctp:176
 #: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
-#: /views/users/register.ctp:319
+#: /views/users/register.ctp:315
 msgid "Password"
 msgstr "Clave"
 
@@ -514,6 +510,14 @@ msgstr "Clave de Pruebas"
 msgid "Related Users"
 msgstr "Usuarios Relacionados"
 
+#: /views/sites/view.ctp:84
+#: /views/sites_users/add.ctp:30
+#: /views/users/add.ctp:282
+#: /views/users/register.ctp:307
+#: /views/users/view.ctp:9
+msgid "Username"
+msgstr "Usuario"
+
 #: /views/sites_users/add.ctp:2
 msgid "Add new site"
 msgstr "Agregar nuevo sitio"
@@ -642,70 +646,62 @@ msgid "Birth Date"
 msgstr "Fecha de Nacimiento"
 
 #: /views/users/add.ctp:27
-#: /views/users/register.ctp:47
 msgid "Must select the Birth Date."
 msgstr "Debe seleccionar una Fecha de Nacimiento."
 
 #: /views/users/add.ctp:31
-#: /views/users/register.ctp:51
+#: /views/users/register.ctp:47
 msgid "Sex"
 msgstr "Sexo"
 
 #: /views/users/add.ctp:33
-#: /views/users/register.ctp:57
+#: /views/users/register.ctp:53
 msgid "Male"
 msgstr "Masculino"
 
 #: /views/users/add.ctp:34
-#: /views/users/register.ctp:58
+#: /views/users/register.ctp:54
 msgid "Female"
 msgstr "Femenino"
 
 #: /views/users/add.ctp:36
-#: /views/users/register.ctp:60
+#: /views/users/register.ctp:56
 msgid "Country"
 msgstr "País"
 
 #: /views/users/add.ctp:284
-#: /views/users/register.ctp:313
 msgid "This username has already been taken."
 msgstr "Este nombre de usuario ya esta en uso."
 
 #: /views/users/add.ctp:285;293
 #: /views/users/change_password.ctp:26;34
-#: /views/users/register.ctp:314;322
+#: /views/users/register.ctp:318
 msgid "Only the letters A-z and digits 0-9 are allowed"
 msgstr "Sólo letras A-z y números estan permitidos"
 
 #: /views/users/add.ctp:286
-#: /views/users/register.ctp:315
 msgid "Your username must be between 4 and 20 characters long"
 msgstr "El nombre de usuario debe tener entre 4 y 20 caracteres"
 
 #: /views/users/add.ctp:294
 #: /views/users/change_password.ctp:27;35
-#: /views/users/register.ctp:323
+#: /views/users/register.ctp:319
 msgid "Your password must be at least 6 characters long"
 msgstr "Su clave debe tener por lo menos 6 caracteres"
 
 #: /views/users/add.ctp:298
-#: /views/users/register.ctp:327
+#: /views/users/register.ctp:323
 msgid "Retype Password"
 msgstr "Re-ingrese la Clave"
 
 #: /views/users/add.ctp:301
 #: /views/users/change_password.ctp:42
-#: /views/users/register.ctp:330
+#: /views/users/register.ctp:326
 msgid "Passwords do not match"
 msgstr "Las claves no coinciden"
 
-#: /views/users/add.ctp:305
-#: /views/users/register.ctp:334
-msgid "Email"
-msgstr "Email"
-
 #: /views/users/add.ctp:307
-#: /views/users/register.ctp:336
+#: /views/users/register.ctp:309
 msgid "Your email is not valid"
 msgstr "Su email no es válido"
 
@@ -773,7 +769,7 @@ msgid "email"
 msgstr "Email"
 
 #: /views/users/recover_password.ctp:26
-#: /views/users/register.ctp:341
+#: /views/users/register.ctp:338
 msgid "Type the numbers you see in the picture"
 msgstr "Ingrese los números que se ven en la imagen"
 
@@ -785,23 +781,27 @@ msgstr "Recupere"
 msgid "Sign Up at"
 msgstr "Registrarse"
 
-#: /views/users/register.ctp:54
+#: /views/users/register.ctp:50
 msgid "Must select the Sex."
 msgstr "Debe seleccionar el Sexo."
 
-#: /views/users/register.ctp:63
+#: /views/users/register.ctp:59
 msgid "Must select the Country."
 msgstr "Debe seleccionar un País."
 
-#: /views/users/register.ctp:343
+#: /views/users/register.ctp:310
+msgid "This username has already been taken"
+msgstr "Este nombre de usuario ya esta en uso"
+
+#: /views/users/register.ctp:340
 msgid "Term of Service"
 msgstr "Condiciones de Uso"
 
-#: /views/users/register.ctp:344
+#: /views/users/register.ctp:341
 msgid "I understand and accept the term of service"
 msgstr "Entiendo y acepto las condiciones de uso"
 
-#: /views/users/register.ctp:347
+#: /views/users/register.ctp:344
 msgid "Sign Up"
 msgstr "Registrate"
 
@@ -817,6 +817,8 @@ msgstr "Sitios Relaciononados"
 msgid "Debug setting does not allow access to this url."
 msgstr ""
 
+#~ msgid "Must enter the username."
+#~ msgstr "Debe ingresar su nombre de usuario"
 #~ msgid "My sites at 1000Pass.com"
 #~ msgstr "Mis sitios en 1000Pass.com."
 #~ msgid "Add new site to 1000Pass.com"

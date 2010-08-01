@@ -231,6 +231,7 @@ class SitesUsersController extends AppController {
 
 			$this->SitesUser->User->recursive = -1;
 			$user = $this->SitesUser->User->findByUsername($this->data['SitesUser']['user']);
+
 			if (!empty($user)) {
 
 				$id = null;
@@ -265,6 +266,8 @@ class SitesUsersController extends AppController {
 				} else {
 					$this->Session->setFlash(__('The site could not be shared. Please, try again.', true));
 				}
+			} else {
+				$this->Session->setFlash(__("Can't find the specified user. Please, try again.", true));
 			}
 		} else {
 			$this->data = $this->SitesUser->read(null, $id);

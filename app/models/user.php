@@ -40,6 +40,10 @@ class User extends AppModel {
 				'rule' 		=> 'email',
 				'message' 	=> 'Your email is not valid',
 			),
+			'isUnique' 	=> array(
+				'rule' 		=> 'isUnique',
+				'message' 	=> 'This username has already been taken',
+			),
 		),
 		'passwrd' 		=> 	array(
 			'length' => array(
@@ -57,14 +61,6 @@ class User extends AppModel {
 				'message' 	=> 'Passwords do not match',
 			),
 		),
-/*
-		'email'	=> array(
-			'valid' 	=> array(
-				'rule' 		=> 'email',
-				'message' 	=> 'Your email is not valid',
-			),
-		),
-*/
 	);
 
 

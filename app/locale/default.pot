@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-07-15 01:22+0000\n"
+"POT-Creation-Date: 2010-08-01 21:58+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -90,27 +90,31 @@ msgstr ""
 msgid "Existing Sites"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:249
+#: /controllers/sites_users_controller.php:264
 msgid "The site has been shared"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:252
+#: /controllers/sites_users_controller.php:267
 msgid "The site could not be shared. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:267;279;299
+#: /controllers/sites_users_controller.php:270
+msgid "Can't find the specified user. Please, try again."
+msgstr ""
+
+#: /controllers/sites_users_controller.php:284;296
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:271
+#: /controllers/sites_users_controller.php:288
 msgid "SitesUser deleted"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:292
+#: /controllers/sites_users_controller.php:307
 msgid "Share accepted"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:326
+#: /controllers/sites_users_controller.php:347;363
 msgid "Share deleted"
 msgstr ""
 
@@ -140,10 +144,6 @@ msgstr ""
 
 #: /controllers/users_controller.php:160;241
 msgid "Validation text error. Try again"
-msgstr ""
-
-#: /controllers/users_controller.php:162
-msgid "Must enter the username."
 msgstr ""
 
 #: /controllers/users_controller.php:164
@@ -218,15 +218,15 @@ msgstr ""
 msgid "Unknown country"
 msgstr ""
 
-#: /views/elements/plugin.ctp:12
+#: /views/elements/plugin.ctp:11
 msgid "Shared Site by "
 msgstr ""
 
-#: /views/elements/plugin.ctp:21;22
+#: /views/elements/plugin.ctp:25;26
 msgid "Shared"
 msgstr ""
 
-#: /views/elements/plugin.ctp:28;30;70;72
+#: /views/elements/plugin.ctp:32;34;77;79
 #: /views/notes/add.ctp:53;55
 #: /views/sites/edit.ctp:29
 #: /views/sites/index.ctp:30
@@ -238,12 +238,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: /views/elements/plugin.ctp:31;73
+#: /views/elements/plugin.ctp:35;80
 #: /views/notes/add.ctp:56
 msgid "Are you sure you want to delete %s?"
 msgstr ""
 
-#: /views/elements/plugin.ctp:37;38
+#: /views/elements/plugin.ctp:41;42
 #: /views/sites/index.ctp:29
 #: /views/sites/view.ctp:102
 #: /views/users/index.ctp:27
@@ -251,23 +251,23 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: /views/elements/plugin.ctp:46;47
+#: /views/elements/plugin.ctp:50;51
 msgid "Get contacts"
 msgstr ""
 
-#: /views/elements/plugin.ctp:62
+#: /views/elements/plugin.ctp:69
 msgid "Pending of approval"
 msgstr ""
 
-#: /views/elements/plugin.ctp:63
+#: /views/elements/plugin.ctp:70
 msgid "Your new site will approved by our admins within the next 24 hs."
 msgstr ""
 
-#: /views/elements/plugin.ctp:65
+#: /views/elements/plugin.ctp:72
 msgid "Site blocked"
 msgstr ""
 
-#: /views/elements/plugin.ctp:66
+#: /views/elements/plugin.ctp:73
 msgid "Your site is blocked by our admins."
 msgstr ""
 
@@ -328,19 +328,15 @@ msgid "Change Password"
 msgstr ""
 
 #: /views/layouts/default.ctp:172
-#: /views/sites/view.ctp:84
-#: /views/sites_users/add.ctp:30
-#: /views/users/add.ctp:282
-#: /views/users/recover_password.ctp:22
-#: /views/users/register.ctp:311
-#: /views/users/view.ctp:9
-msgid "Username"
+#: /views/users/add.ctp:305
+#: /views/users/register.ctp:307
+msgid "Email"
 msgstr ""
 
 #: /views/layouts/default.ctp:176
 #: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
-#: /views/users/register.ctp:319
+#: /views/users/register.ctp:315
 msgid "Password"
 msgstr ""
 
@@ -520,6 +516,14 @@ msgstr ""
 msgid "Related Users"
 msgstr ""
 
+#: /views/sites/view.ctp:84
+#: /views/sites_users/add.ctp:30
+#: /views/users/add.ctp:282
+#: /views/users/register.ctp:307
+#: /views/users/view.ctp:9
+msgid "Username"
+msgstr ""
+
 #: /views/sites_users/add.ctp:2
 msgid "Add new site"
 msgstr ""
@@ -648,70 +652,62 @@ msgid "Birth Date"
 msgstr ""
 
 #: /views/users/add.ctp:27
-#: /views/users/register.ctp:47
 msgid "Must select the Birth Date."
 msgstr ""
 
 #: /views/users/add.ctp:31
-#: /views/users/register.ctp:51
+#: /views/users/register.ctp:47
 msgid "Sex"
 msgstr ""
 
 #: /views/users/add.ctp:33
-#: /views/users/register.ctp:57
+#: /views/users/register.ctp:53
 msgid "Male"
 msgstr ""
 
 #: /views/users/add.ctp:34
-#: /views/users/register.ctp:58
+#: /views/users/register.ctp:54
 msgid "Female"
 msgstr ""
 
 #: /views/users/add.ctp:36
-#: /views/users/register.ctp:60
+#: /views/users/register.ctp:56
 msgid "Country"
 msgstr ""
 
 #: /views/users/add.ctp:284
-#: /views/users/register.ctp:313
 msgid "This username has already been taken."
 msgstr ""
 
 #: /views/users/add.ctp:285;293
 #: /views/users/change_password.ctp:26;34
-#: /views/users/register.ctp:314;322
+#: /views/users/register.ctp:318
 msgid "Only the letters A-z and digits 0-9 are allowed"
 msgstr ""
 
 #: /views/users/add.ctp:286
-#: /views/users/register.ctp:315
 msgid "Your username must be between 4 and 20 characters long"
 msgstr ""
 
 #: /views/users/add.ctp:294
 #: /views/users/change_password.ctp:27;35
-#: /views/users/register.ctp:323
+#: /views/users/register.ctp:319
 msgid "Your password must be at least 6 characters long"
 msgstr ""
 
 #: /views/users/add.ctp:298
-#: /views/users/register.ctp:327
+#: /views/users/register.ctp:323
 msgid "Retype Password"
 msgstr ""
 
 #: /views/users/add.ctp:301
 #: /views/users/change_password.ctp:42
-#: /views/users/register.ctp:330
+#: /views/users/register.ctp:326
 msgid "Passwords do not match"
 msgstr ""
 
-#: /views/users/add.ctp:305
-#: /views/users/register.ctp:334
-msgid "Email"
-msgstr ""
-
 #: /views/users/add.ctp:307
-#: /views/users/register.ctp:336
+#: /views/users/register.ctp:309
 msgid "Your email is not valid"
 msgstr ""
 
@@ -779,7 +775,7 @@ msgid "email"
 msgstr ""
 
 #: /views/users/recover_password.ctp:26
-#: /views/users/register.ctp:341
+#: /views/users/register.ctp:338
 msgid "Type the numbers you see in the picture"
 msgstr ""
 
@@ -791,23 +787,27 @@ msgstr ""
 msgid "Sign Up at"
 msgstr ""
 
-#: /views/users/register.ctp:54
+#: /views/users/register.ctp:50
 msgid "Must select the Sex."
 msgstr ""
 
-#: /views/users/register.ctp:63
+#: /views/users/register.ctp:59
 msgid "Must select the Country."
 msgstr ""
 
-#: /views/users/register.ctp:343
+#: /views/users/register.ctp:310
+msgid "This username has already been taken"
+msgstr ""
+
+#: /views/users/register.ctp:340
 msgid "Term of Service"
 msgstr ""
 
-#: /views/users/register.ctp:344
+#: /views/users/register.ctp:341
 msgid "I understand and accept the term of service"
 msgstr ""
 
-#: /views/users/register.ctp:347
+#: /views/users/register.ctp:344
 msgid "Sign Up"
 msgstr ""
 
