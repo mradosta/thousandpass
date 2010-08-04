@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2010-08-01 21:58+0000\n"
+"POT-Creation-Date: 2010-08-04 03:33+0000\n"
 "PO-Revision-Date: \n"
 "Last-Translator: mradosta <martinradosta@gmail.com>\n"
 "Language-Team: \n"
@@ -38,17 +38,17 @@ msgid "Invalid Site."
 msgstr "Sitio Inválido."
 
 #: /controllers/sites_controller.php:40;72
-#: /controllers/sites_users_controller.php:176
+#: /controllers/sites_users_controller.php:198
 msgid "The Site has been saved"
 msgstr "El Sitio ha sido guardado"
 
 #: /controllers/sites_controller.php:43;75
-#: /controllers/sites_users_controller.php:179
+#: /controllers/sites_users_controller.php:201
 msgid "The Site could not be saved. Please, try again."
 msgstr "El sitio no pudo guardarse. Por favor, intente nuevamente."
 
 #: /controllers/sites_controller.php:54
-#: /controllers/sites_users_controller.php:170
+#: /controllers/sites_users_controller.php:192
 msgid "Invalid Site"
 msgstr "Sitio Inválido"
 
@@ -64,51 +64,51 @@ msgstr "Sitio borrado"
 msgid "Install"
 msgstr "Instalar"
 
-#: /controllers/sites_users_controller.php:153
+#: /controllers/sites_users_controller.php:175
 msgid "The SitesUser has been saved"
 msgstr "El Stio de Usuario ha sido guardado"
 
-#: /controllers/sites_users_controller.php:156
+#: /controllers/sites_users_controller.php:178
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr "El sitio no pudo ser guardado. Por favor, intente nuevamente."
 
-#: /controllers/sites_users_controller.php:159
+#: /controllers/sites_users_controller.php:181
 msgid "Non Existent Site"
 msgstr "Sitio Nuevo"
 
-#: /controllers/sites_users_controller.php:159
+#: /controllers/sites_users_controller.php:181
 msgid "Request not listed site"
 msgstr "Solicitar un nuevo sitio"
 
-#: /controllers/sites_users_controller.php:160
+#: /controllers/sites_users_controller.php:182
 msgid "Existing Sites"
 msgstr "Sitios Existentes"
 
-#: /controllers/sites_users_controller.php:264
+#: /controllers/sites_users_controller.php:286
 msgid "The site has been shared"
 msgstr "El Sitio ha sido compartido"
 
-#: /controllers/sites_users_controller.php:267
+#: /controllers/sites_users_controller.php:289
 msgid "The site could not be shared. Please, try again."
 msgstr "El sitio no pudo compartirse. Por favor, intente nuevamente."
 
-#: /controllers/sites_users_controller.php:270
+#: /controllers/sites_users_controller.php:292
 msgid "Can't find the specified user. Please, try again."
 msgstr "No se encontro el usuario especificado. Por favor intente nuevamente."
 
-#: /controllers/sites_users_controller.php:284;296
+#: /controllers/sites_users_controller.php:306;318
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:288
+#: /controllers/sites_users_controller.php:310
 msgid "SitesUser deleted"
 msgstr "Sitio de Usuario Borrado"
 
-#: /controllers/sites_users_controller.php:307
+#: /controllers/sites_users_controller.php:329
 msgid "Share accepted"
 msgstr "Sitio compartido aceptado"
 
-#: /controllers/sites_users_controller.php:347;363
+#: /controllers/sites_users_controller.php:369;385
 msgid "Share deleted"
 msgstr "Sitio descompartido"
 
@@ -136,7 +136,7 @@ msgstr "Te invita a conocer 1000Pass.com"
 msgid "Thanks for inviting your friends to 1000pass.com!"
 msgstr "Gracias por invitar tus amigos a 1000Pass.com!"
 
-#: /controllers/users_controller.php:160;241
+#: /controllers/users_controller.php:160;252
 msgid "Validation text error. Try again"
 msgstr "Error en la validación del text. Intente nuevamente"
 
@@ -156,43 +156,43 @@ msgstr "Su clave a sido enviada a su email."
 msgid "Username and/or email does not exists."
 msgstr "Usuario y/o email no existen."
 
-#: /controllers/users_controller.php:228
+#: /controllers/users_controller.php:239
 msgid "Terms_Of_Service"
 msgstr "Condiciones_De_Uso"
 
-#: /controllers/users_controller.php:243
+#: /controllers/users_controller.php:254
 msgid "Must accept the Terms of Service"
 msgstr "Debe aceptar las Condiciones de Uso"
 
-#: /controllers/users_controller.php:249
+#: /controllers/users_controller.php:260
 msgid "Welcome to 1000Pass.com"
 msgstr "Bienvenido a 1000Pass.com"
 
-#: /controllers/users_controller.php:252
+#: /controllers/users_controller.php:263
 msgid "Thanks for signing up at 1000Pass.com."
 msgstr "Gracias por registrarse en 1000Pass.com."
 
-#: /controllers/users_controller.php:257;290;308
+#: /controllers/users_controller.php:268;301;319
 msgid "The User could not be saved. Please, try again."
 msgstr "El usuario no pudo guardarse. Por favor, intente nuevamente."
 
-#: /controllers/users_controller.php:276
+#: /controllers/users_controller.php:287
 msgid "Invalid User."
 msgstr "Usuario Inválido."
 
-#: /controllers/users_controller.php:287;305
+#: /controllers/users_controller.php:298;316
 msgid "The User has been saved"
 msgstr "El usuario ha sido guardado"
 
-#: /controllers/users_controller.php:300
+#: /controllers/users_controller.php:311
 msgid "Invalid User"
 msgstr "Usuario Inválido"
 
-#: /controllers/users_controller.php:320
+#: /controllers/users_controller.php:331
 msgid "Invalid id for User"
 msgstr ""
 
-#: /controllers/users_controller.php:324
+#: /controllers/users_controller.php:335
 msgid "User deleted"
 msgstr "Usuario borrado"
 
@@ -266,25 +266,25 @@ msgid "Your site is blocked by our admins."
 msgstr "Su nuevo ha sido bloqueado por nuestros administradores."
 
 #: /views/layouts/admin.ctp:46
-#: /views/layouts/default.ctp:64;65
+#: /views/layouts/default.ctp:100;101
 msgid "Home"
 msgstr "Principal"
 
 #: /views/layouts/admin.ctp:49
-#: /views/layouts/default.ctp:115
+#: /views/layouts/default.ctp:151
 #: /views/sites/index.ctp:2
 msgid "Sites"
 msgstr "Sitios"
 
 #: /views/layouts/admin.ctp:52
-#: /views/layouts/default.ctp:116
-#: /views/sites_users/shares.ctp:16;58
+#: /views/layouts/default.ctp:152
+#: /views/sites_users/shares.ctp:16;58;133
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr "Usuarios"
 
 #: /views/layouts/admin.ctp:55
-#: /views/layouts/default.ctp:137;138;140
+#: /views/layouts/default.ctp:173;174;176
 msgid "Logout"
 msgstr "Salir"
 
@@ -292,57 +292,65 @@ msgstr "Salir"
 msgid "CakePHP: the rapid development php framework"
 msgstr ""
 
-#: /views/layouts/default.ctp:78
+#: /views/layouts/default.ctp:114
 msgid "Search"
 msgstr "Buscar"
 
-#: /views/layouts/default.ctp:130;131;133
+#: /views/layouts/default.ctp:166;167;169
 msgid "Add web site"
 msgstr "Agregar nuevo sitio"
 
-#: /views/layouts/default.ctp:136
+#: /views/layouts/default.ctp:172
 msgid "You are about to close session at 1000Pass.com, remember to close other sites sessions too"
 msgstr "Esta acción cerrará su sesión de 1000Pass.com, recuerde cerrar sesión en los otros sitios"
 
-#: /views/layouts/default.ctp:145;146
+#: /views/layouts/default.ctp:181;182
 msgid "You have news"
 msgstr "Hay novedades"
 
-#: /views/layouts/default.ctp:151;152
+#: /views/layouts/default.ctp:187;188
 msgid "My Shares"
 msgstr "Mis Sitios Compartidos"
 
-#: /views/layouts/default.ctp:158;159
+#: /views/layouts/default.ctp:194;195
 msgid "Notes"
 msgstr "Notas"
 
-#: /views/layouts/default.ctp:163;164
+#: /views/layouts/default.ctp:199;200
 #: /views/users/change_password.ctp:2
 msgid "Change Password"
 msgstr "Cambiar Clave"
 
-#: /views/layouts/default.ctp:172
+#: /views/layouts/default.ctp:209
 #: /views/users/add.ctp:305
-#: /views/users/register.ctp:307
+#: /views/users/register.ctp:308
 msgid "Email"
 msgstr "Email"
 
-#: /views/layouts/default.ctp:176
+#: /views/layouts/default.ctp:214
 #: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
-#: /views/users/register.ctp:315
+#: /views/users/register.ctp:316
 msgid "Password"
 msgstr "Clave"
 
-#: /views/layouts/default.ctp:184
+#: /views/layouts/default.ctp:222
 msgid "enter"
 msgstr "ingresar"
 
-#: /views/layouts/default.ctp:191;192
+#: /views/layouts/default.ctp:223
+msgid "Remember Email"
+msgstr "Recordar Email"
+
+#: /views/layouts/default.ctp:225
+msgid "Remember Password"
+msgstr "Recordar Clave"
+
+#: /views/layouts/default.ctp:233;234
 msgid "Forgot my password"
 msgstr "Olvide mi Clave"
 
-#: /views/layouts/default.ctp:199;200
+#: /views/layouts/default.ctp:241;242
 #: /views/users/help.ctp:2;27
 msgid "Help"
 msgstr "Ayuda"
@@ -513,7 +521,7 @@ msgstr "Usuarios Relacionados"
 #: /views/sites/view.ctp:84
 #: /views/sites_users/add.ctp:30
 #: /views/users/add.ctp:282
-#: /views/users/register.ctp:307
+#: /views/users/register.ctp:308
 #: /views/users/view.ctp:9
 msgid "Username"
 msgstr "Usuario"
@@ -553,10 +561,12 @@ msgid "Must enter the site url"
 msgstr "Debe ingresar la url del sitio"
 
 #: /views/sites_users/add.ctp:114
+#: /views/sites_users/shares.ctp:164
 msgid "No match!"
 msgstr "No hay coincidencias"
 
 #: /views/sites_users/auto_complete.ctp:7
+#: /views/sites_users/auto_complete_user.ctp:10
 msgid "No results"
 msgstr "Sin resultados"
 
@@ -615,6 +625,10 @@ msgstr "Aceptar"
 #: /views/sites_users/shares.ctp:111
 msgid "Share my site at"
 msgstr "Compartir mi sitio en"
+
+#: /views/sites_users/shares.ctp:133
+msgid "Enter 1000pass.com username of the user to share with"
+msgstr "Ingrese el usuario 1000pass.com con el que desea compartir"
 
 #: /views/users/add.ctp:4
 msgid "Add User"
@@ -675,7 +689,7 @@ msgstr "Este nombre de usuario ya esta en uso."
 
 #: /views/users/add.ctp:285;293
 #: /views/users/change_password.ctp:26;34
-#: /views/users/register.ctp:318
+#: /views/users/register.ctp:319
 msgid "Only the letters A-z and digits 0-9 are allowed"
 msgstr "Sólo letras A-z y números estan permitidos"
 
@@ -685,23 +699,23 @@ msgstr "El nombre de usuario debe tener entre 4 y 20 caracteres"
 
 #: /views/users/add.ctp:294
 #: /views/users/change_password.ctp:27;35
-#: /views/users/register.ctp:319
+#: /views/users/register.ctp:320
 msgid "Your password must be at least 6 characters long"
 msgstr "Su clave debe tener por lo menos 6 caracteres"
 
 #: /views/users/add.ctp:298
-#: /views/users/register.ctp:323
+#: /views/users/register.ctp:324
 msgid "Retype Password"
 msgstr "Re-ingrese la Clave"
 
 #: /views/users/add.ctp:301
 #: /views/users/change_password.ctp:42
-#: /views/users/register.ctp:326
+#: /views/users/register.ctp:327
 msgid "Passwords do not match"
 msgstr "Las claves no coinciden"
 
 #: /views/users/add.ctp:307
-#: /views/users/register.ctp:309
+#: /views/users/register.ctp:310
 msgid "Your email is not valid"
 msgstr "Su email no es válido"
 
@@ -769,7 +783,7 @@ msgid "email"
 msgstr "Email"
 
 #: /views/users/recover_password.ctp:26
-#: /views/users/register.ctp:338
+#: /views/users/register.ctp:339
 msgid "Type the numbers you see in the picture"
 msgstr "Ingrese los números que se ven en la imagen"
 
@@ -785,23 +799,23 @@ msgstr "Registrarse"
 msgid "Must select the Sex."
 msgstr "Debe seleccionar el Sexo."
 
-#: /views/users/register.ctp:59
+#: /views/users/register.ctp:60
 msgid "Must select the Country."
 msgstr "Debe seleccionar un País."
 
-#: /views/users/register.ctp:310
+#: /views/users/register.ctp:311
 msgid "This username has already been taken"
 msgstr "Este nombre de usuario ya esta en uso"
 
-#: /views/users/register.ctp:340
+#: /views/users/register.ctp:341
 msgid "Term of Service"
 msgstr "Condiciones de Uso"
 
-#: /views/users/register.ctp:341
+#: /views/users/register.ctp:342
 msgid "I understand and accept the term of service"
 msgstr "Entiendo y acepto las condiciones de uso"
 
-#: /views/users/register.ctp:344
+#: /views/users/register.ctp:345
 msgid "Sign Up"
 msgstr "Registrate"
 

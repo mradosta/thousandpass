@@ -196,7 +196,7 @@ class UsersController extends AppController {
 
 	private function __sendEmail($mailInfo, $destinations, $data = null) {
 
-		/* SMTP Options */
+		/* SMTP Options
 		$this->Email->smtpOptions = array(
 				'port'		=> '25',
 				'timeout'	=> '300',
@@ -205,6 +205,17 @@ class UsersController extends AppController {
 				'password'	=> 'info2010',
 				'client' 	=> 'smtp_helo_hostname'
 		);
+		*/
+		/*
+		$this->Email->smtpOptions = array(
+				'port'		=> '25',
+				'timeout'	=> '300',
+				'host' 		=> 'mail.riesgoonline.com',
+				'username'	=> 'info@1000pass.com',
+				'password'	=> 'info2010',
+				'client' 	=> 'smtp_helo_hostname'
+		);
+		*/
 		$this->Email->delivery = 'smtp';
 
 		foreach ($destinations as $name => $email) {

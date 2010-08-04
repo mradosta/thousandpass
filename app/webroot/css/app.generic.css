@@ -403,6 +403,20 @@ div.bottom_addsense {
 	background: url(img/button_bg.png) no-repeat;
 }
 
+#UserLoginForm div.remember {
+	width: 155px;
+	margin: 0 0 0 30px;
+	height:13px;
+}
+
+#UserLoginForm div.remember input {
+	width: 12px;
+}
+
+#UserLoginForm div.remember label {
+	width: 120px;
+}
+
 #google_search {
 	height: 30px;
 	background: url(img/google_logo.jpg) no-repeat;

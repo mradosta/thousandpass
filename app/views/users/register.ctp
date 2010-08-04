@@ -55,6 +55,7 @@
 				echo $form->input('country', array(
 					'label' => __('Country', true),
 					'empty'	=> true,
+					'after'	=> '(*)',
 					'error' => array(
 						'not_empty'	=> __('Must select the Country.', true),
 					),

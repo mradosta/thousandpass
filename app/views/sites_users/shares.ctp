@@ -129,10 +129,58 @@ foreach ($sharedToMe as $share):
 					}
 				}
 				echo $form->input('site_id', array('options' => $options));
-				echo $form->input('user', array('label' => 'UserName', 'after' => '<br/>Enter 1000pass.com username of the user to share with'));
+				echo $form->input('user', array('type' => 'hidden'));
+				echo $form->input('autocomplete', array('label' => __('User', true), 'id' => 'autoCompleteUser', 'after' => '<br/>' . __('Enter 1000pass.com username of the user to share with', true)));
 				echo $form->end('Add');
+
+				$javascript->link('jquery/jquery.autocomplete', false);
 			?>
 		</div> <!--right-->
 
 	</div> <!--inner_container-->
 </div> <!--inner_container_border-->
+
+
+<script type="text/javascript">
+	$(document).ready(function($) {
+
+		var url = '<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'autoCompleteUser')); ?>';
+		$('#autoCompleteUser').autocomplete(url,
+		{
+			delay: 100,
+			onItemSelect: selectItem,
+			onFindValue: findValue,
+			formatItem: formatItem
+		});
+	});
+
+
+	function selectItem(li) {
+		findValue(li);
+	}
+
+	function findValue(li) {
+		if( li == null ) {
+			return alert('<?php __('No match!'); ?>');
+		}
+
+		// if coming from an AJAX call, let's use the site id as the value
+		if( !!li.extra )
+			var sValue = li.extra[0];
+			// otherwise, let's just display the value in the text box
+		else {
+			var sValue = li.selectValue;
+		}
+		$('#SitesUserUser').val(sValue);
+	}
+
+	function formatItem(row) {
+		if(row[1] == undefined) {
+			return row[0];
+		} else {
+			return row[0];
+		}
+	}
+
+
+</script>

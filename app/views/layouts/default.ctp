@@ -25,6 +25,42 @@
 
 			$(document).ready(function($) {
 
+				$('.login_email').focus();
+				if ($.cookie('1000passEmail') != null) {
+					$('.login_email').val($.cookie('1000passEmail'));
+					$('#remember_email').attr('checked', true);
+				} else {
+					$('.login_email').val('');
+					$('#remember_email').attr('checked', false);
+				}
+
+				if ($.cookie('1000passPassword') != null) {
+					$('.login_password').val($.cookie('1000passPassword'));
+					$('#remember_password').attr('checked', true);
+				} else {
+					$('.login_password').val('');
+					$('#remember_password').attr('checked', false);
+				}
+
+				$('#UserLoginForm').submit(function() {
+
+					var options = {  path: '/', expires: 1000 };
+					if ($('#remember_email').attr('checked')) {
+						$.cookie('1000passEmail', $('.login_email').val(), options);
+					} else {
+						$.cookie('1000passEmail', null, options);
+					}
+
+					if ($('#remember_password').attr('checked')) {
+						$.cookie('1000passPassword', $('.login_password').val(), options);
+					} else {
+						$.cookie('1000passPassword', null, options);
+					}
+
+					return true;
+				});
+
+
 				setInterval(function() {
 					if ($('#1000pass_add_on').hasClass('installed')) {
 						$('#1000pass_add_on').removeClass('not_installed');
@@ -168,10 +204,12 @@
 					echo '<div class="login">';
 					echo $form->create('User', array('action' => 'login'));
 					echo $form->input('username', array(
+						'class'		=> 'login_email',
 						'id'		=> null,
 						'label'		=> __('Email', true),
 						'error' 	=> false));
 					echo $form->input('password', array(
+						'class'		=> 'login_password',
 						'id'		=> null,
 						'label'		=> __('Password', true),
 						'error' 	=> false));
@@ -182,6 +220,10 @@
 						'type'		=> 'hidden'));
 
 					echo $form->submit(__('enter', true), array('id' => 'login_button', 'class' => 'submit'));
+					echo $form->input(__('Remember Email', true), array('div' => array('class' => 'remember'), 'type' => 'checkbox', 'id' => 'remember_email'));
+					echo '<br/>';
+					echo $form->input(__('Remember Password', true), array('div' => array('class' => 'remember'), 'type' => 'checkbox', 'id' => 'remember_password'));
+
 					echo $form->end();
 
 

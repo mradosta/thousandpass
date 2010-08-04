@@ -23,18 +23,6 @@ class User extends AppModel {
 				'message' 	=> 'Must select the Country.',
 			),
 		),
-		'sex' 	=> 	array(
-			'not_empty'	=> array(
-				'rule' 		=> 'notEmpty',
-				'message' 	=> 'Must select the Sex.',
-			),
-		),/*
-		'birthdate' => 	array(
-			'valid'	=> array(
-				'rule' 		=> 'date',
-				'message' 	=> 'Must select the Birth Date.',
-			),
-		),*/
 		'username' 	=> 	array(
 			'valid' 	=> array(
 				'rule' 		=> 'email',

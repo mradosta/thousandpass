@@ -432,7 +432,7 @@ jQuery.autocomplete = function(input, options) {
 	}
 
 	function addToCache(q, data) {
-console.log(options.cacheLength);
+
 		if (!data || !q || !options.cacheLength) return;
 		if (!cache.length || cache.length > options.cacheLength) {
 			flushCache();

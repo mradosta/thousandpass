@@ -82,6 +82,28 @@ class SitesUsersController extends AppController {
 	}
 
 
+	function autoCompleteUser() {
+		Configure::write('debug', 0);
+		$this->layout = 'ajax';
+
+		if (!empty($this->params['url']['q'])) {
+			$q = '%' . $this->params['url']['q'] . '%';
+
+			$data = $this->SitesUser->User->find('all', array(
+				'recursive'		=> -1,
+				'conditions'	=> array(
+					'OR' => array(
+						'User.name LIKE' 	 => $q,
+						'User.lastname LIKE' => $q,
+						'User.username LIKE' => $q))
+				)
+			);
+
+			$this->set('data', $data);
+		}
+	}
+
+
 	function index() {
 
 		$mySites = $this->SitesUser->find('all', array(
@@ -230,21 +252,21 @@ class SitesUsersController extends AppController {
 			);
 
 			$this->SitesUser->User->recursive = -1;
-			$user = $this->SitesUser->User->findByUsername($this->data['SitesUser']['user']);
-
+			$user = $this->SitesUser->User->findById($this->data['SitesUser']['user']);
 			if (!empty($user)) {
 
 				$id = null;
 				$alreadyShared = $this->SitesUser->find('first',
 					array(
-						'recursive'		=> 1,
-						'condirions'	=> array(
+						'recursive'		=> -1,
+						'conditions'	=> array(
 							'SitesUser.state'			=> 'unshared',
 							'SitesUser.user_id'			=> $user['User']['id'],
 							'SitesUser.sites_user_id'	=> $siteUser['SitesUser']['id']
 						)
 					)
 				);
+
 				if (!empty($alreadyShared['SitesUser']['id'])) {
 					$id = $alreadyShared['SitesUser']['id'];
 				}
