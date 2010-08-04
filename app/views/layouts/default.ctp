@@ -9,11 +9,10 @@
 		echo $html->meta('icon');
 
 		
-		//echo $html->meta('description', 'Sports football tennis', array('type'=>'description'));
-		//echo $html->meta('keywords', 'Sports football tennis', array('type'=>'keywords'));
+		echo $html->meta('description', 'Remember passwords automatically. Autofill web forms', array('type'=>'description'));
+		echo $html->meta('keywords', 'password remember automatically fill forms', array('type'=>'keywords'));
 
 
-		//echo $html->css('cake.generic');
 		echo $html->css('app.generic');
 
 		$js = null;
@@ -168,12 +167,6 @@
 							'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
 						echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
 
-						echo $html->image('logout.jpg', array(
-							'onclick'	=> 'alert("' . __('You are about to close session at 1000Pass.com, remember to close other sites sessions too', true) . '");',
-							'alt'	=> __('Logout', true),
-							'title'	=> __('Logout', true),
-							'url' 	=> array('controller' => 'users', 'action' => 'logout')));
-						echo $html->tag('span', __('Logout', true), array('class' => 'label'));
 					echo '</div>';
 
 						if (!empty($news)) {
@@ -199,6 +192,12 @@
 							'alt'	=> __('Change Password', true),
 							'title'	=> __('Change Password', true),
 							'url' 	=> array('controller' => 'users', 'action' => 'change_password')));
+
+						$toolbar[] = $html->image('logout.png', array(
+								'onclick'	=> 'alert("' . __('You are about to close session at 1000Pass.com, remember to close other sites sessions too', true) . '");',
+								'alt'	=> __('Logout', true),
+								'title'	=> __('Logout', true),
+								'url' 	=> array('controller' => 'users', 'action' => 'logout')));
 
 				} else {
 					echo '<div class="login">';
@@ -227,12 +226,11 @@
 					echo $form->end();
 
 
-					//$toolbar[] = '<div id="1000pass_add_on" class="not_installed"></div>';
-					//$toolbar[] = '<div id="1000pass_add_on_version" class="0"></div>';
 					$toolbar[] = $html->image('change_password.png', array(
 								'alt' 	=> __('Forgot my password', true),
 								'title' => __('Forgot my password', true),
 								'url' 	=> array('controller' => 'users', 'action' => 'recover_password')));
+
 					echo '</div>';
 				}
 				echo '<div class="toolbar">';
