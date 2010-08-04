@@ -8,7 +8,7 @@
 		} else {
 
 			$data['Site'] = $sites[$data['ParentSitesUser']['site_id']];
-			$data['SitesUser']['description'] = __('Shared Site by ', true) . $html->tag('span', $users[$data['ParentSitesUser']['user_id']]['username'], array('class' => 'sharer_user'));
+			$data['SitesUser']['description'] = __('Shared by ', true) . $html->tag('span', $text->truncate($users[$data['ParentSitesUser']['user_id']]['username'], 11), array('class' => 'sharer_user', 'title' => $users[$data['ParentSitesUser']['user_id']]['username']));
 
 			if ($data['SitesUser']['state'] == 'unshared') {
 				$data['SitesUser']['username'] = '';

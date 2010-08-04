@@ -2,6 +2,7 @@
 class SitesUsersController extends AppController {
 
 	var $name = 'SitesUsers';
+	var $helpers = array('Text');
 
 
 	function reassign($oldSiteId, $newSiteId, $userId) {

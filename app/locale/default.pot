@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-08-04 03:33+0000\n"
+"POT-Creation-Date: 2010-08-04 22:28+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -44,17 +44,17 @@ msgid "Invalid Site."
 msgstr ""
 
 #: /controllers/sites_controller.php:40;72
-#: /controllers/sites_users_controller.php:198
+#: /controllers/sites_users_controller.php:199
 msgid "The Site has been saved"
 msgstr ""
 
 #: /controllers/sites_controller.php:43;75
-#: /controllers/sites_users_controller.php:201
+#: /controllers/sites_users_controller.php:202
 msgid "The Site could not be saved. Please, try again."
 msgstr ""
 
 #: /controllers/sites_controller.php:54
-#: /controllers/sites_users_controller.php:192
+#: /controllers/sites_users_controller.php:193
 msgid "Invalid Site"
 msgstr ""
 
@@ -66,43 +66,43 @@ msgstr ""
 msgid "Site deleted"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:30
+#: /controllers/sites_users_controller.php:31
 msgid "Install"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:175
+#: /controllers/sites_users_controller.php:176
 msgid "The SitesUser has been saved"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:178
+#: /controllers/sites_users_controller.php:179
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:181
+#: /controllers/sites_users_controller.php:182
 msgid "Non Existent Site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:181
+#: /controllers/sites_users_controller.php:182
 msgid "Request not listed site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:182
+#: /controllers/sites_users_controller.php:183
 msgid "Existing Sites"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:286
+#: /controllers/sites_users_controller.php:287
 msgid "The site has been shared"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:289
+#: /controllers/sites_users_controller.php:290
 msgid "The site could not be shared. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:292
+#: /controllers/sites_users_controller.php:293
 msgid "Can't find the specified user. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:306;318
+#: /controllers/sites_users_controller.php:307;318
 msgid "Invalid id for SitesUser"
 msgstr ""
 
@@ -219,7 +219,7 @@ msgid "Unknown country"
 msgstr ""
 
 #: /views/elements/plugin.ctp:11
-msgid "Shared Site by "
+msgid "Shared by "
 msgstr ""
 
 #: /views/elements/plugin.ctp:25;26
@@ -272,25 +272,25 @@ msgid "Your site is blocked by our admins."
 msgstr ""
 
 #: /views/layouts/admin.ctp:46
-#: /views/layouts/default.ctp:100;101
+#: /views/layouts/default.ctp:99;100
 msgid "Home"
 msgstr ""
 
 #: /views/layouts/admin.ctp:49
-#: /views/layouts/default.ctp:151
+#: /views/layouts/default.ctp:150
 #: /views/sites/index.ctp:2
 msgid "Sites"
 msgstr ""
 
 #: /views/layouts/admin.ctp:52
-#: /views/layouts/default.ctp:152
+#: /views/layouts/default.ctp:151
 #: /views/sites_users/shares.ctp:16;58;133
 #: /views/users/view.ctp:2
 msgid "User"
 msgstr ""
 
 #: /views/layouts/admin.ctp:55
-#: /views/layouts/default.ctp:173;174;176
+#: /views/layouts/default.ctp:198;199
 msgid "Logout"
 msgstr ""
 
@@ -298,65 +298,65 @@ msgstr ""
 msgid "CakePHP: the rapid development php framework"
 msgstr ""
 
-#: /views/layouts/default.ctp:114
+#: /views/layouts/default.ctp:113
 msgid "Search"
 msgstr ""
 
-#: /views/layouts/default.ctp:166;167;169
+#: /views/layouts/default.ctp:165;166;168
 msgid "Add web site"
 msgstr ""
 
-#: /views/layouts/default.ctp:172
-msgid "You are about to close session at 1000Pass.com, remember to close other sites sessions too"
-msgstr ""
-
-#: /views/layouts/default.ctp:181;182
+#: /views/layouts/default.ctp:174;175
 msgid "You have news"
 msgstr ""
 
-#: /views/layouts/default.ctp:187;188
+#: /views/layouts/default.ctp:180;181
 msgid "My Shares"
 msgstr ""
 
-#: /views/layouts/default.ctp:194;195
+#: /views/layouts/default.ctp:187;188
 msgid "Notes"
 msgstr ""
 
-#: /views/layouts/default.ctp:199;200
+#: /views/layouts/default.ctp:192;193
 #: /views/users/change_password.ctp:2
 msgid "Change Password"
 msgstr ""
 
-#: /views/layouts/default.ctp:209
+#: /views/layouts/default.ctp:197
+msgid "You are about to close session at 1000Pass.com, remember to close other sites sessions too"
+msgstr ""
+
+#: /views/layouts/default.ctp:208
 #: /views/users/add.ctp:305
 #: /views/users/register.ctp:308
 msgid "Email"
 msgstr ""
 
-#: /views/layouts/default.ctp:214
+#: /views/layouts/default.ctp:213
 #: /views/sites_users/add.ctp:31
 #: /views/users/add.ctp:290
 #: /views/users/register.ctp:316
 msgid "Password"
 msgstr ""
 
-#: /views/layouts/default.ctp:222
+#: /views/layouts/default.ctp:221
 msgid "enter"
 msgstr ""
 
-#: /views/layouts/default.ctp:223
+#: /views/layouts/default.ctp:222
 msgid "Remember Email"
 msgstr ""
 
-#: /views/layouts/default.ctp:225
+#: /views/layouts/default.ctp:224
 msgid "Remember Password"
 msgstr ""
 
-#: /views/layouts/default.ctp:233;234
+#: /views/layouts/default.ctp:230;231
 msgid "Forgot my password"
 msgstr ""
 
-#: /views/layouts/default.ctp:241;242
+#: /views/layouts/default.ctp:239;240
 #: /views/users/help.ctp:2;27
 msgid "Help"
 msgstr ""
@@ -554,20 +554,20 @@ msgstr ""
 msgid "Add"
 msgstr ""
 
-#: /views/sites_users/add.ctp:75
+#: /views/sites_users/add.ctp:59
 msgid "You are about to request a new site ( "
 msgstr ""
 
-#: /views/sites_users/add.ctp:80;94
+#: /views/sites_users/add.ctp:64;78
 msgid "Must select the site"
 msgstr ""
 
-#: /views/sites_users/add.ctp:89
+#: /views/sites_users/add.ctp:73
 msgid "Must enter the site url"
 msgstr ""
 
-#: /views/sites_users/add.ctp:114
-#: /views/sites_users/shares.ctp:164
+#: /views/sites_users/add.ctp:98
+#: /views/sites_users/shares.ctp:165
 msgid "No match!"
 msgstr ""
 
