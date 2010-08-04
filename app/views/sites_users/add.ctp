@@ -52,22 +52,6 @@
 			formatItem: formatItem
 		});
 
-/*
-		$('#SitesUserNewRequest').parent().hide();
-
-		$('#SitesUserNewSite').click(
-			function() {
-				if ($(this).attr('checked') == true) {
-					$('#SitesUserNewRequest').parent().show();
-					$('#autoComplete').parent().hide();
-				} else {
-					$('#SitesUserNewRequest').parent().hide();
-					$('#autoComplete').parent().show();
-				}
-			}
-		);
-*/
-
 		$('#SitesUserAddForm').submit(
 			function () {
 

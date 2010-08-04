@@ -304,12 +304,11 @@ class SitesUsersController extends AppController {
 	function delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for SitesUser', true));
-			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->SitesUser->del($id)) {
 			$this->Session->setFlash(__('SitesUser deleted', true));
-			$this->redirect(array('action' => 'index'));
 		}
+		$this->redirect(array('action' => 'index'));
 	}
 
 

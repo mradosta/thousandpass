@@ -148,6 +148,7 @@ foreach ($sharedToMe as $share):
 		$('#autoCompleteUser').autocomplete(url,
 		{
 			delay: 100,
+			minChars: 3,
 			onItemSelect: selectItem,
 			onFindValue: findValue,
 			formatItem: formatItem

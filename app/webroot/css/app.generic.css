@@ -498,6 +498,8 @@ a.help {
 	font: menu;
 	font-size: 12px;
 	overflow: hidden;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
 }
 
 .ac_loading {
