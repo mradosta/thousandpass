@@ -15,6 +15,7 @@
 		?>
 
 		<div class="right">
+
 			<div class="text_and_logo">
 				<?php
 					echo $html->tag('span', __('Add new site to', true));
@@ -23,10 +24,27 @@
 				<span class="subtitle"><?php __('We order your home page') ?></span>
 			</div>
 
+		<div class="right_logos">
+		<?php
+			$logos = array('1' => 'hotmail', '2' => 'gmail', '3' => 'yahoo', '4' => 'facebook', '5' => 'youtube', '6' => 'twitter');
+			foreach ($logos as $k => $logo) {
+				echo $html->image('logos/' . $logo . '.png', array('url' => array('action' => 'add', $k)));
+			}
+		?>
+		</div> <!--right_logos-->
+
+		<div style="float:left;width:200px;">
 			<?php echo $form->create('SitesUser');?>
 				<?php
-					echo $form->input('autocomplete', array('value' => 'www.', 'label' => __('Site', true), 'id' => 'autoComplete'));
-					echo $form->input('site_id', array('type' => 'hidden'));
+					$value = 'www.';
+					$hiddenValue = null;
+					if (!empty($site)) {
+						$value = $site['Site']['title'];
+						$hiddenValue = $site['Site']['id'];
+					}
+
+					echo $form->input('autocomplete', array('value' => $value, 'label' => __('Site', true), 'id' => 'autoComplete'));
+					echo $form->input('site_id', array('type' => 'hidden', 'value' => $hiddenValue));
 					echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('password', array('label' => __('Password', true)));
 					echo $form->input('description', array('label' => __('Description', true)));
@@ -35,6 +53,8 @@
 				echo $form->end(__('Add', true));
 				$javascript->link('jquery/jquery.autocomplete', false);
 			?>
+		</div>
+
 		</div> <!--right-->
 
 	</div> <!--inner_container-->
@@ -64,23 +84,6 @@
 					alert('<?php __('Must select the site'); ?>');
 					return false;
 				}
-
-				/*
-				console.log($('#SitesUserSiteId').val());
-				return false;
-				if ($('#SitesUserNewSite').attr('checked') == true) {
-					if ($('#SitesUserNewRequest').val() == '') {
-						alert('<?php __('Must enter the site url'); ?>');
-						return false;
-					}
-				} else {
-					if ($('#SitesUserSiteId').val() == '') {
-						alert('<?php __('Must select the site'); ?>');
-						return false;
-					}
-				}
-				return true;
-				*/
 			}
 		);
 

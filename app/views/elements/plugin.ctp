@@ -16,6 +16,9 @@
 			} else {
 				$data['SitesUser']['username'] = $data['ParentSitesUser']['username'];
 				$data['SitesUser']['password'] = $data['ParentSitesUser']['password'];
+				$replaces['##username##'] = $data['SitesUser']['username'];
+				$replaces['##password##'] = $data['SitesUser']['password'];
+				$data['Site']['login_url'] = str_replace(array_keys($replaces), $replaces, $data['Site']['login_url']);
 			}
 			$toolbar[] = $html->tag('div', $sites[$data['ParentSitesUser']['site_id']]['title'], array('class' => 'title'));
 		}

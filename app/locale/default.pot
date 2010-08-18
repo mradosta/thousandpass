@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2010-08-04 22:28+0000\n"
+"POT-Creation-Date: 2010-08-18 01:07+0000\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -44,17 +44,17 @@ msgid "Invalid Site."
 msgstr ""
 
 #: /controllers/sites_controller.php:40;72
-#: /controllers/sites_users_controller.php:199
+#: /controllers/sites_users_controller.php:205
 msgid "The Site has been saved"
 msgstr ""
 
 #: /controllers/sites_controller.php:43;75
-#: /controllers/sites_users_controller.php:202
+#: /controllers/sites_users_controller.php:208
 msgid "The Site could not be saved. Please, try again."
 msgstr ""
 
 #: /controllers/sites_controller.php:54
-#: /controllers/sites_users_controller.php:193
+#: /controllers/sites_users_controller.php:199
 msgid "Invalid Site"
 msgstr ""
 
@@ -70,51 +70,51 @@ msgstr ""
 msgid "Install"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:176
+#: /controllers/sites_users_controller.php:178
 msgid "The SitesUser has been saved"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:179
+#: /controllers/sites_users_controller.php:181
 msgid "The SitesUser could not be saved. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:182
+#: /controllers/sites_users_controller.php:188
 msgid "Non Existent Site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:182
+#: /controllers/sites_users_controller.php:188
 msgid "Request not listed site"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:183
+#: /controllers/sites_users_controller.php:189
 msgid "Existing Sites"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:287
+#: /controllers/sites_users_controller.php:293
 msgid "The site has been shared"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:290
+#: /controllers/sites_users_controller.php:296
 msgid "The site could not be shared. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:293
+#: /controllers/sites_users_controller.php:299
 msgid "Can't find the specified user. Please, try again."
 msgstr ""
 
-#: /controllers/sites_users_controller.php:307;318
+#: /controllers/sites_users_controller.php:313;324
 msgid "Invalid id for SitesUser"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:310
+#: /controllers/sites_users_controller.php:316
 msgid "SitesUser deleted"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:329
+#: /controllers/sites_users_controller.php:335
 msgid "Share accepted"
 msgstr ""
 
-#: /controllers/sites_users_controller.php:369;385
+#: /controllers/sites_users_controller.php:375;391
 msgid "Share deleted"
 msgstr ""
 
@@ -222,11 +222,11 @@ msgstr ""
 msgid "Shared by "
 msgstr ""
 
-#: /views/elements/plugin.ctp:25;26
+#: /views/elements/plugin.ctp:28;29
 msgid "Shared"
 msgstr ""
 
-#: /views/elements/plugin.ctp:32;34;77;79
+#: /views/elements/plugin.ctp:35;37;80;82
 #: /views/notes/add.ctp:53;55
 #: /views/sites/edit.ctp:29
 #: /views/sites/index.ctp:30
@@ -238,12 +238,12 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: /views/elements/plugin.ctp:35;80
+#: /views/elements/plugin.ctp:38;83
 #: /views/notes/add.ctp:56
 msgid "Are you sure you want to delete %s?"
 msgstr ""
 
-#: /views/elements/plugin.ctp:41;42
+#: /views/elements/plugin.ctp:44;45
 #: /views/sites/index.ctp:29
 #: /views/sites/view.ctp:102
 #: /views/users/index.ctp:27
@@ -251,23 +251,23 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: /views/elements/plugin.ctp:50;51
+#: /views/elements/plugin.ctp:53;54
 msgid "Get contacts"
 msgstr ""
 
-#: /views/elements/plugin.ctp:69
+#: /views/elements/plugin.ctp:72
 msgid "Pending of approval"
 msgstr ""
 
-#: /views/elements/plugin.ctp:70
+#: /views/elements/plugin.ctp:73
 msgid "Your new site will approved by our admins within the next 24 hs."
 msgstr ""
 
-#: /views/elements/plugin.ctp:72
+#: /views/elements/plugin.ctp:75
 msgid "Site blocked"
 msgstr ""
 
-#: /views/elements/plugin.ctp:73
+#: /views/elements/plugin.ctp:76
 msgid "Your site is blocked by our admins."
 msgstr ""
 
@@ -334,7 +334,7 @@ msgid "Email"
 msgstr ""
 
 #: /views/layouts/default.ctp:213
-#: /views/sites_users/add.ctp:31
+#: /views/sites_users/add.ctp:38
 #: /views/users/add.ctp:290
 #: /views/users/register.ctp:316
 msgid "Password"
@@ -486,7 +486,7 @@ msgid "New Site"
 msgstr ""
 
 #: /views/sites/view.ctp:2
-#: /views/sites_users/add.ctp:28
+#: /views/sites_users/add.ctp:35
 #: /views/sites_users/shares.ctp:14;56
 msgid "Site"
 msgstr ""
@@ -525,7 +525,7 @@ msgid "Related Users"
 msgstr ""
 
 #: /views/sites/view.ctp:84
-#: /views/sites_users/add.ctp:30
+#: /views/sites_users/add.ctp:37
 #: /views/users/add.ctp:282
 #: /views/users/register.ctp:308
 #: /views/users/view.ctp:9
@@ -544,29 +544,29 @@ msgstr ""
 msgid "Add new site to"
 msgstr ""
 
-#: /views/sites_users/add.ctp:32
+#: /views/sites_users/add.ctp:39
 #: /views/sites_users/shares.ctp:15;57
 #: /views/users/view.ctp:33
 msgid "Description"
 msgstr ""
 
-#: /views/sites_users/add.ctp:35
+#: /views/sites_users/add.ctp:42
 msgid "Add"
 msgstr ""
 
-#: /views/sites_users/add.ctp:59
+#: /views/sites_users/add.ctp:66
 msgid "You are about to request a new site ( "
 msgstr ""
 
-#: /views/sites_users/add.ctp:64;78
+#: /views/sites_users/add.ctp:71;85
 msgid "Must select the site"
 msgstr ""
 
-#: /views/sites_users/add.ctp:73
+#: /views/sites_users/add.ctp:80
 msgid "Must enter the site url"
 msgstr ""
 
-#: /views/sites_users/add.ctp:98
+#: /views/sites_users/add.ctp:105
 #: /views/sites_users/shares.ctp:165
 msgid "No match!"
 msgstr ""
@@ -604,7 +604,11 @@ msgstr ""
 msgid "My Sites"
 msgstr ""
 
-#: /views/sites_users/index.ctp:59
+#: /views/sites_users/index.ctp:30
+msgid "Enable now!"
+msgstr ""
+
+#: /views/sites_users/index.ctp:82
 msgid "Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download..."
 msgstr ""
 

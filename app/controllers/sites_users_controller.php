@@ -111,6 +111,8 @@ class SitesUsersController extends AppController {
 			'order' 		=> array('SitesUser.order' => 'asc'),
 			'contain' 		=> array('Site', 'ParentSitesUser'),
 			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))));
+		$defaults = range(1, 6);
+		$missingDefaults = array_diff($defaults, Set::extract('/Site/id', $mySites));
 
 		$myShares = $this->SitesUser->find('all',
 			array(
@@ -129,7 +131,7 @@ class SitesUsersController extends AppController {
 				'conditions' 	=>
 				array(
 					array(
-						'Site.id' => Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites))
+						'Site.id' => array_merge($defaults, Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites)))
 					)
 				)
 			)
@@ -151,7 +153,7 @@ class SitesUsersController extends AppController {
 		$this->set('sitesUsers', $mySites);
 		$this->set('sites', Set::combine($sites, '{n}.Site.id', '{n}.Site'));
 		$this->set('users', Set::combine($users, '{n}.User.id', '{n}.User'));
-		
+		$this->set('missingDefaults', $missingDefaults);
 	}
 
 
@@ -178,7 +180,11 @@ class SitesUsersController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The SitesUser could not be saved. Please, try again.', true));
 			}
+		} elseif (is_numeric($first_time)) {
+			$this->SitesUser->Site->recursive = -1;
+			$this->set('site', $this->SitesUser->Site->findById($first_time));
 		}
+
 		$sites[__('Non Existent Site', true)][] = __('Request not listed site', true);
 		$sites[__('Existing Sites', true)] = $this->SitesUser->Site->find('list', array(
 			'conditions'	=> array('Site.state' => 'approved'),
