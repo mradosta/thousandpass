@@ -23,6 +23,9 @@
 			}
 
 
+			array_unshift($missingDefaults, 0);
+			$sites[0]['title'] = __('Add web site', true);
+			$sites[0]['logo'] = 'other_sites.png';
 			foreach ($missingDefaults as $missingDefault) {
 				echo '<li>';
 				echo sprintf('
