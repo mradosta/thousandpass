@@ -169,6 +169,11 @@
 
 					echo '</div>';
 
+						$toolbar[] = $html->image('home.png', array(
+							'alt'	=> __('Home', true),
+							'title'	=> __('Home', true),
+							'url' 	=> '/home'));
+
 						if (!empty($news)) {
 							$toolbar[] = $html->image('shares_news.png', array(
 								'alt'	=> __('You have news', true),

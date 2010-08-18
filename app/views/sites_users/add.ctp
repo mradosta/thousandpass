@@ -7,11 +7,7 @@
 	<div class="inner_container">
 
 		<?php
-			if ($first_time) {
-				echo '<div class="left welcome">' . __('Welcome to', true). '</div>';
-			} else {
-				echo '<div class="left add"></div>';
-			}
+			echo '<div class="left add"></div>';
 		?>
 
 		<div class="right">
@@ -26,6 +22,7 @@
 
 		<div class="right_logos">
 		<?php
+			echo $html->image('logos/' . Configure::read('Config.language') . '_other_sites.png', array('url' => array('action' => 'add')));
 			$logos = array('1' => 'hotmail', '2' => 'gmail', '3' => 'yahoo', '4' => 'facebook', '5' => 'youtube', '6' => 'twitter');
 			foreach ($logos as $k => $logo) {
 				echo $html->image('logos/' . $logo . '.png', array('url' => array('action' => 'add', $k)));
@@ -38,16 +35,18 @@
 				<?php
 					$value = 'www.';
 					$hiddenValue = null;
+					$disabled = false;
 					if (!empty($site)) {
 						$value = $site['Site']['title'];
 						$hiddenValue = $site['Site']['id'];
+						$disabled = true;
 					}
 
-					echo $form->input('autocomplete', array('value' => $value, 'label' => __('Site', true), 'id' => 'autoComplete'));
+					echo $form->input('autocomplete', array('value' => $value, 'label' => __('Site', true), 'id' => 'autoComplete', 'disabled' => $disabled));
 					echo $form->input('site_id', array('type' => 'hidden', 'value' => $hiddenValue));
 					echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('password', array('label' => __('Password', true)));
-					echo $form->input('description', array('label' => __('Description', true)));
+					echo $form->input('description', array('type' => 'text', 'label' => __('Description', true)));
 				?>
 			<?php
 				echo $form->end(__('Add', true));

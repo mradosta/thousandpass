@@ -131,11 +131,12 @@ class SitesUsersController extends AppController {
 				'conditions' 	=>
 				array(
 					array(
-						'Site.id' => array_merge($defaults, Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites)))
+						'Site.id' => array_merge($defaults, (array)Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites)))
 					)
 				)
 			)
 		);
+
 		$users = $this->SitesUser->User->find('all',
 			array(
 				'recursive' 	=> -1,
@@ -157,7 +158,7 @@ class SitesUsersController extends AppController {
 	}
 
 
-	function add($first_time = false) {
+	function add($siteId = null) {
 
 		if (!empty($this->data)) {
 
@@ -180,9 +181,9 @@ class SitesUsersController extends AppController {
 			} else {
 				$this->Session->setFlash(__('The SitesUser could not be saved. Please, try again.', true));
 			}
-		} elseif (is_numeric($first_time)) {
+		} elseif (is_numeric($siteId)) {
 			$this->SitesUser->Site->recursive = -1;
-			$this->set('site', $this->SitesUser->Site->findById($first_time));
+			$this->set('site', $this->SitesUser->Site->findById($siteId));
 		}
 
 		$sites[__('Non Existent Site', true)][] = __('Request not listed site', true);
@@ -190,7 +191,6 @@ class SitesUsersController extends AppController {
 			'conditions'	=> array('Site.state' => 'approved'),
 			'order' 		=> array('Site.title' => 'asc')));
 		$this->set(compact('sites'));
-		$this->set('first_time', $first_time);
 	}
 
 	function edit($id = null) {
@@ -233,18 +233,20 @@ class SitesUsersController extends AppController {
 				)
 			)
 		);
-		
-		$myShares = $this->SitesUser->find('all',
-			array(
-				'contain' 		=> array('User', 'ParentSitesUser.Site'),
-				'conditions' 	=>
-					array(
-						'SitesUser.state !=' 	=> 'unshared',
-						'SitesUser.sites_user_id' => Set::extract('/SitesUser/id', $mySites)
-					)
-			)
-		);
-
+		if (!empty($mySites)) {
+			$myShares = $this->SitesUser->find('all',
+				array(
+					'contain' 		=> array('User', 'ParentSitesUser.Site'),
+					'conditions' 	=>
+						array(
+							'SitesUser.state !=' 	=> 'unshared',
+							'SitesUser.sites_user_id' => Set::extract('/SitesUser/id', $mySites)
+						)
+				)
+			);
+		} else {
+			$myShares = array();
+		}
 
 		if (!empty($this->data)) {
 

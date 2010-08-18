@@ -168,6 +168,10 @@ div.inner_container_vertical_scroll {
 	background: url(img/disabled.png) no-repeat;
 }
 
+.plugins .to_enable {
+	background: url(img/to_enable.png) no-repeat;
+}
+
 .plugins .shared {
 	background: url(img/shared.png) no-repeat;
 }

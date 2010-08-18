@@ -339,10 +339,20 @@
 				echo $form->input('captcha', array('label' => __('Type the numbers you see in the picture', true)));
 
 				echo $html->tag('div', $html->link(__('Term of Service', true), array('controller' => 'users', 'action' => 'terms_of_service'), array('target' => '_BLANK')));
-				echo $form->input('terms_of_service', array('label' => __('I understand and accept the term of service', true), 'type' => 'checkbox'));
+				echo $form->input('terms_of_service', array('label' => __('I understand and accept the term of service', true), 'type' => 'checkbox', 'checked' => true));
 
 ?>
 		<?php echo $form->end(__('Sign Up', true));?>
 		</div>
 	</div> <!--right-->
 </div> <!--inner_container_border-->
+
+<script>
+$(document).ready(function($) {
+	$('#UserTermsOfService').click(function() {
+		if (!$('#UserTermsOfService').attr('checked')) {
+			alert('Para continuar debe aceptar el contrato');
+		}
+	});
+});
+</script>

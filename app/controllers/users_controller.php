@@ -248,7 +248,9 @@ class UsersController extends AppController {
 	function register() {
 
 		if (!empty($this->data)) {
-			if (!$this->Captcha->protect()) {
+			// relax validation
+			if (strlen($this->data['User']['captcha']) != 6) {
+			//if (!$this->Captcha->protect()) {
 				$this->User->invalidate('captcha', __('Validation text error. Try again', true));
 			} elseif (empty($this->data['User']['terms_of_service'])) {
 				$this->User->invalidate('terms_of_service', __('Must accept the Terms of Service', true));
@@ -263,7 +265,7 @@ class UsersController extends AppController {
 					$this->Session->setFlash(__('Thanks for signing up at 1000Pass.com.', true));
 					$this->data['User']['id'] = $this->User->id;
 					$this->Session->write('Auth', array('User' => $this->data['User']));
-					$this->redirect(array('controller' => 'sites_users', 'action' => 'add', 'true'));
+					$this->redirect(array('controller' => 'sites_users', 'action' => 'index'));
 				} else {
 					$this->Session->setFlash(__('The User could not be saved. Please, try again.', true));
 				}
