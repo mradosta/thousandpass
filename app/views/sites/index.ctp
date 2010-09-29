@@ -25,9 +25,10 @@ foreach ($sites as $site):
 ?>
 	<tr<?php echo $class;?>>
 		<td class="actions">
-			<?php echo $html->link(__('View', true), array('action' => 'view', $site['Site']['id'])); ?>
-			<?php echo $html->link(__('Edit', true), array('action' => 'edit', $site['Site']['id'])); ?>
-			<?php echo $html->link(__('Delete', true), array('action' => 'delete', $site['Site']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $site['Site']['id'])); ?>
+			<?php echo $html->link(__('I', true), array('action' => 'info', $site['Site']['id']), array('target' => '_BLANK', 'title' => __('Info', true))); ?>
+			<?php echo $html->link(__('V', true), array('action' => 'view', $site['Site']['id']), array('title' => __('View', true))); ?>
+			<?php echo $html->link(__('E', true), array('action' => 'edit', $site['Site']['id']), array('title' => __('Edit', true))); ?>
+			<?php echo $html->link(__('D', true), array('action' => 'delete', $site['Site']['id']), array('title' => __('Delete', true)), sprintf(__('Are you sure you want to delete # %s?', true), $site['Site']['id'])); ?>
 		</td>
 		<td>
 			<?php echo $site['Site']['id']; ?>

@@ -14,6 +14,72 @@ class SitesController extends AppController {
 		$this->set('sites', $this->paginate());
 	}
 
+	function info($id = null) {
+
+		$data = $_GET + $_POST;
+
+		if (is_numeric($id)) {
+
+			$site = $this->Site->findById($id);
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $site['Site']['login_url']);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+			$html = curl_exec($ch);
+
+
+			preg_match('/<form([a-zA-Z0-9\s\.\_\=\/\?\:\'\"]+)>/', $html, $matches);
+			foreach (explode(' ', str_replace('\'', '"', str_replace('  ', ' ', $matches[0]))) as $v) {
+				if (substr($v, 0, 2) == 'id') {
+					$tmp = explode('"', $v);
+					$formId = $tmp[1];
+				}
+				if (substr($v, 0, 4) == 'name') {
+					$tmp = explode('"', $v);
+					$formName = $tmp[1];
+				}
+				if (substr($v, 0, 6) == 'action') {
+					$tmp = explode('"', $v);
+					$formAction = $tmp[1];
+				}
+			}
+
+			if (!empty($formId)) {
+				$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'id|' . $formId)));
+			} elseif (!empty($formName)) {
+				$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'name|' . $formName)));
+			} elseif (!empty($formAction)) {
+				$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'action|' . $formAction)));
+			}
+
+			$this->set('data',
+				preg_replace('/action=["\']([a-z0-9\.\_\=\/\?\:]+)["\']/', 'action="info/'.$id.'"', $html)
+			);
+
+			$this->render('info', 'ajax');
+		} else {
+
+			$id = array_pop(explode('/', $data['url']));
+
+			foreach (array_flip($data) as $k => $v) {
+				if ($k == '##USER##') {
+					$data['username_field'] = $v;
+				} elseif ($k == '##PASS##') {
+					$data['password_field'] = $v;
+				}
+			}
+
+			if (!empty($data)) {
+				$data['id'] = $id;
+				$this->Site->save(array('Site' => $data));
+			}
+
+			$this->redirect(array('action' => 'index'));
+		}
+	}
+
 	function view($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid Site.', true));
