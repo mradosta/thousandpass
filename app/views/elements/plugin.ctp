@@ -80,7 +80,7 @@
 			$html->image('delete.png', array('alt' => __('Delete', true))),
 			array('controller' => 'sites_users', 'action' => 'delete', $data['SitesUser']['id']),
 			array('title'	=> __('Delete', true)),
-			sprintf(__('Are you sure you want to delete %s?', true), $data['SitesUser']['description']),
+			sprintf(__('Are you sure you want to delete %s?', true), (empty($data['SitesUser']['description'])?'':$data['SitesUser']['description'])),
 			false);
 
 		$out[] = $html->tag('div', implode("\n", $toolbar), array(
@@ -99,7 +99,7 @@
 		$imgOptions = array('class' => 'remote_site_logo_disabled', 'title' => $data['Site']['title']);
 		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));
-	} elseif ($data['Site']['state'] == 'approved' || (!empty($sites[$data['ParentSitesUser']['site_id']]['state']) && $sites[$data['ParentSitesUser']['site_id']]['state'] == 'approved' )) {
+	} elseif ($data['Site']['state'] == 'approved' || (!empty($data['ParentSitesUser']) && !empty($sites[$data['ParentSitesUser']['site_id']]['state']) && $sites[$data['ParentSitesUser']['site_id']]['state'] == 'approved' )) {
 		$class = '';
 		if (!$add_on) {
 			$class = ' add_on_not_installed';
