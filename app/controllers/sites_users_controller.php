@@ -48,10 +48,12 @@ class SitesUsersController extends AppController {
 		$this->autoRender = false;
 
 		foreach(explode('|', $newOrder) as $k => $id) {
-			$data = null;
-			$data['SitesUser']['order'] = $k;
-			$data['SitesUser']['id'] = $id;
-			$saveAll[] = $data;
+			if (!empty($id)) {
+				$data = null;
+				$data['SitesUser']['order'] = $k;
+				$data['SitesUser']['id'] = $id;
+				$saveAll[] = $data;
+			}
 		}
 
 		if (!empty($saveAll)) {
