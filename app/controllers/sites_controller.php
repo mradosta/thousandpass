@@ -30,50 +30,67 @@ class SitesController extends AppController {
 			$html = curl_exec($ch);
 
 
-			preg_match('/<form([a-zA-Z0-9\s\.\_\=\/\?\:\'\"]+)>/', $html, $matches);
-			foreach (explode(' ', str_replace('\'', '"', str_replace('  ', ' ', $matches[0]))) as $v) {
-				if (substr($v, 0, 2) == 'id') {
-					$tmp = explode('"', $v);
-					$formId = $tmp[1];
-				}
-				if (substr($v, 0, 4) == 'name') {
-					$tmp = explode('"', $v);
-					$formName = $tmp[1];
-				}
-				if (substr($v, 0, 6) == 'action') {
-					$tmp = explode('"', $v);
-					$formAction = $tmp[1];
+			if (preg_match_all('/<form([a-zA-Z0-9\s\.\_\=\/\?\:\'\"]+)>/', $html, $matches)) {
+
+				foreach ($matches[0] as $form) {
+
+					foreach (explode(' ', str_replace('\'', '"', str_replace('  ', ' ', $form))) as $v) {
+
+						if (substr($v, 0, 2) == 'id') {
+							$tmp = explode('"', $v);
+							$formId = $tmp[1];
+						}
+						if (substr($v, 0, 4) == 'name') {
+							$tmp = explode('"', $v);
+							$formName = $tmp[1];
+						}
+						if (substr($v, 0, 6) == 'action') {
+							$tmp = explode('"', $v);
+							$formAction = $tmp[1];
+						}
+					}
+
+					$f = null;
+					if (!empty($formId)) {
+						$f = 'id|' . $formId;
+						//$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'id|' . $formId)));
+					} elseif (!empty($formName)) {
+						$f = 'name|' . $formName;
+						//$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'name|' . $formName)));
+					} elseif (!empty($formAction)) {
+						$f = 'action|' . $formAction;
+						//$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'action|' . $formAction)));
+					}
+
+					if (!empty($f)) {
+						$html = str_replace($form, '<form action="info/' . $id . '"><input value="##FORM##" type="hidden" name="' . $f . '">', $html);
+					}
 				}
 			}
+			$html = preg_replace('@<script[^>]*?>.*?</script>@si', '', $html);
 
-			if (!empty($formId)) {
-				$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'id|' . $formId)));
-			} elseif (!empty($formName)) {
-				$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'name|' . $formName)));
-			} elseif (!empty($formAction)) {
-				$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'action|' . $formAction)));
-			}
-
-			$this->set('data',
-				preg_replace('/action=["\']([a-z0-9\.\_\=\/\?\:]+)["\']/', 'action="info/'.$id.'"', $html)
-			);
-
+			$this->set('data', $html);
 			$this->render('info', 'ajax');
 		} else {
 
 			$id = array_pop(explode('/', $data['url']));
 
 			foreach (array_flip($data) as $k => $v) {
-				if ($k == '##USER##') {
-					$data['username_field'] = $v;
-				} elseif ($k == '##PASS##') {
-					$data['password_field'] = $v;
+				if ($k === '##USER##') {
+					$toSave['username_field'] = $v;
+				} elseif ($k === '##PASS##') {
+					$toSave['password_field'] = $v;
+				} elseif ($k === '##FORM##') {
+					$toSave['submit'] = $v;
 				}
 			}
 
-			if (!empty($data)) {
-				$data['id'] = $id;
-				$this->Site->save(array('Site' => $data));
+			if (!empty($toSave)) {
+				$toSave['id'] = $id;
+				if (count($toSave) == 4) {
+					$toSave['state'] = 'approved';
+				}
+				$this->Site->save(array('Site' => $toSave));
 			}
 
 			$this->redirect(array('action' => 'index'));
