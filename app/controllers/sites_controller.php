@@ -21,10 +21,17 @@ class SitesController extends AppController {
 		$id = array_pop(explode('/', $data['url']));
 
 		foreach (array_flip($data) as $k => $v) {
+
+			$tmp = explode('|', $k);
+			$k = array_pop($tmp);
+			$prefix = array_shift($tmp);
+			if (empty($prefix)) {
+				$prefix = 'name';
+			}
 			if ($k === '##USER##') {
-				$toSave['username_field'] = $v;
+				$toSave['username_field'] = $prefix . '|' . $v;
 			} elseif ($k === '##PASS##') {
-				$toSave['password_field'] = $v;
+				$toSave['password_field'] = $prefix . '|' . $v;
 			} elseif ($k === '##FORM##') {
 				$toSave['submit'] = $v;
 			}
@@ -55,40 +62,50 @@ class SitesController extends AppController {
 		$html = curl_exec($ch);
 
 
-		if (preg_match_all('/<form([a-zA-Z0-9\s\.\_\=\/\?\:\;\(\)\'\"]+)>/', $html, $matches)) {
+		if (preg_match_all('/<(form|input)([a-zA-Z0-9\s\.\_\=\/\?\:\;\(\)\'\"]+)>/', $html, $matches)) {
 
-			foreach ($matches[0] as $form) {
+			foreach ($matches[0] as $k => $element) {
 
-				foreach (explode(' ', str_replace('\'', '"', str_replace('  ', ' ', $form))) as $v) {
+				$elementId = $elementName = $elementAction = null;
+				foreach (explode(' ', str_replace('\'', '"', str_replace('  ', ' ', $element))) as $v) {
 
 					if (substr($v, 0, 2) == 'id') {
 						$tmp = explode('"', $v);
-						$formId = $tmp[1];
+						$elementId = $tmp[1];
 					}
 					if (substr($v, 0, 4) == 'name') {
 						$tmp = explode('"', $v);
-						$formName = $tmp[1];
+						$elementName = $tmp[1];
 					}
 					if (substr($v, 0, 6) == 'action') {
 						$tmp = explode('"', $v);
-						$formAction = $tmp[1];
+						$elementAction = $tmp[1];
 					}
 				}
 
 				$f = null;
-				if (!empty($formId)) {
-					$f = 'id|' . $formId;
-					//$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'id|' . $formId)));
-				} elseif (!empty($formName)) {
-					$f = 'name|' . $formName;
-					//$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'name|' . $formName)));
-				} elseif (!empty($formAction)) {
-					$f = 'action|' . $formAction;
-					//$this->Site->save(array('Site' => array('id' => $id, 'submit' => 'action|' . $formAction)));
+				if (!empty($elementId)) {
+					$f = 'id|' . $elementId;
+				} elseif (!empty($elementName)) {
+					$f = 'name|' . $elementName;
+				} elseif (!empty($elementAction)) {
+					$f = 'action|' . $elementAction;
 				}
 
 				if (!empty($f)) {
-					$html = str_replace($form, '<form method="post" action="../save_info/' . $id . '"><input type="submit" value="1000pass" /><input value="##FORM##" type="hidden" name="' . $f . '">', $html);
+					if ($matches[1][$k] == 'form') {
+						$html = str_replace(
+							$element,
+							'<form method="post" action="../save_info/' . $id . '"><input type="submit" value="1000pass" /><input value="##FORM##" type="hidden" name="' . $f . '">',
+							$html
+						);
+					} else {
+						$html = str_replace(
+							$element,
+							str_replace('<input', '<input value="' . $f . '|"', $element),
+							$html
+						);
+					}
 				}
 			}
 		}
