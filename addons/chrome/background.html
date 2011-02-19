@@ -3,6 +3,26 @@
 
 	<script>
 
+
+		var stopSelection = function(info, tab) {
+			chrome.tabs.sendRequest(tab.id, 'stop_selection', function(response) {});
+			chrome.contextMenus.update(contextMenuId, {'title' : 'Iniciar seleccion', 'onclick' : startSelection});
+		};
+
+		var startSelection = function(info, tab) {
+			chrome.tabs.sendRequest(tab.id, 'start_selection');
+			chrome.contextMenus.update(contextMenuId, {'title' : 'Detener seleccion', 'onclick' : stopSelection});
+		};
+
+		var contextMenuId = chrome.contextMenus.create({
+			"title"		: 'Iniciar seleccion',
+			"type" 		: 'normal',
+			"contexts" 	: ['all'],
+			"onclick"	: startSelection
+		});
+
+
+
 		chrome.browserAction.onClicked.addListener(
 			function(tab) {
 				chrome.tabs.create({'url':'http://www.1000pass.com'});
@@ -23,9 +43,33 @@
 
 
 		chrome.extension.onConnect.addListener(function(port) {
-			if (port.name == 'go') {
-				port.onMessage.addListener(function(data) {
 
+			port.onMessage.addListener(function(data) {
+
+				if (port.name == 'finish_selection') {
+
+					var xhr = new XMLHttpRequest();
+					xhr.open('POST', 'http://localhost/thousandpass/sites_users/extension_add', true);
+					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
+					xhr.onreadystatechange = function() {
+						if (xhr.readyState == 4) {
+							if (xhr.responseText == 'ok') {
+								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');
+							} else {
+								alert('No fue posible agregar el nuevo sitio a su cuenta 1000pass.com. Verifique que su sesion en 1000pass.com este activa');
+							}
+						}
+					}
+					var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&password_field=' + data[1] + '&submit=' + data[2];
+					xhr.send(d);
+
+					chrome.contextMenus.update(contextMenuId, {'title' : 'Iniciar seleccion', 'onclick' : startSelection});
+
+				} else if (port.name == 'cancel_selection') {
+
+					chrome.contextMenus.update(contextMenuId, {'title' : 'Iniciar seleccion', 'onclick' : startSelection});
+
+				} else if (port.name == 'go') {
 
 					/** Find already opened tabs */
 					var toCloseTab = false;
@@ -49,25 +93,27 @@
 						if (answer) {
 							if (data.logout_type == 'scrap') {
 
-								chrome.tabs.sendRequest(openedTabs[i].tab_id, {}, function(response) {
-									var logout_url = data.logout_url + response.html.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
+								chrome.tabs.sendRequest(openedTabs[i].tab_id, {},
+									function(response) {
+										var logout_url = data.logout_url + response.html.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
 
-									var xhr = new XMLHttpRequest();
-									xhr.open('GET', logout_url, true);
-									xhr.onreadystatechange = function() {
-										if (xhr.readyState == 4) {
+										var xhr = new XMLHttpRequest();
+										xhr.open('GET', logout_url, true);
+										xhr.onreadystatechange = function() {
+											if (xhr.readyState == 4) {
 
-											chrome.tabs.remove(toCloseTab);
-											openedTabs.splice(i, 1);
+												chrome.tabs.remove(toCloseTab);
+												openedTabs.splice(i, 1);
 
-											chrome.tabs.create({'url':data.url}, function(tab) {
-												data.tab_id = tab.id;
-												openedTabs.push(data);
-											});
+												chrome.tabs.create({'url':data.url}, function(tab) {
+													data.tab_id = tab.id;
+													openedTabs.push(data);
+												});
+											}
 										}
+										xhr.send();
 									}
-									xhr.send();
-								});
+								);
 
 							} else {
 								var xhr = new XMLHttpRequest();
@@ -96,17 +142,16 @@
 							openedTabs.push(data);
 						});
 					}
-				});
-			} else if (port.name == 'done') {
-				port.onMessage.addListener(function(data) {
+				} else if (port.name == 'done') {
 					for (var i = 0; i < openedTabs.length; i++) {
 						if (openedTabs[i].id == data.id) {
 							openedTabs[i].state = 'opened';
 						}
 					}
-				});
-			}
+				}
+			});
 		});
+
 
 
 		chrome.tabs.onUpdated.addListener(function (tabId, info, tab) {

@@ -15,7 +15,7 @@
     }
   ],
   "permissions": [
-    "tabs", "http://*/*", "https://*/*"
+	"contextMenus", "tabs", "http://*/*", "https://*/*"
   ],
   "update_url": "http://www.1000pass.com/files/addons/chrome/updates.xml"
 }

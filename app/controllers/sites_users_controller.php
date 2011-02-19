@@ -160,6 +160,56 @@ class SitesUsersController extends AppController {
 	}
 
 
+	function extension_add() {
+
+		$ok = false;
+
+		$tmp = explode('|', $_POST['username_field']);
+		$username_field = $tmp[0] . '|' . $tmp[1];
+		$username = $tmp[2];
+
+		$tmp = explode('|', $_POST['password_field']);
+		$password_field = $tmp[0] . '|' . $tmp[1];
+		$password = $tmp[2];
+
+		$exists = $this->SitesUser->Site->findByLoginUrl($_POST['login_url']);
+		if (empty($exists)) {
+
+			$data['login_url'] = $_POST['login_url'];
+			$data['logo'] = $_POST['logo'];
+			$data['username_field'] = $username_field;
+			$data['password_field'] = $password_field;
+			$data['submit'] = $_POST['submit'];
+			$data['title'] = $_POST['title'];
+			$data['state'] = 'approved';
+
+			if ($this->SitesUser->Site->save(array('Site' => $data))) {
+				$siteId = $this->SitesUser->Site->id;
+			}
+		} else {
+			$siteId = $exists['Site']['id'];
+		}
+
+
+		if (!empty($siteId)) {
+
+			$data = array();
+			$data['user_id'] = $this->Session->read('Auth.User.id');
+			$data['order'] = 1000;
+			$data['site_id'] = $siteId;
+			$data['username'] = $username;
+			$data['password'] = $password;
+
+			if ($this->SitesUser->save(array('SitesUser' => $data))) {
+				$ok = true;
+			}
+		}
+
+		Configure::write('debug', 0);
+		$this->layout = 'ajax';
+		$this->set('data', $ok);
+	}
+
 	function add($siteId = null) {
 
 		if (!empty($this->data)) {
