@@ -210,6 +210,10 @@ div.inner_container_vertical_scroll {
 	width: 145px;
 }
 
+.plugins .favicon {
+	width: 80px;
+}
+
 .remote_site_logo_disabled {
 	padding-left: 15px;
 }

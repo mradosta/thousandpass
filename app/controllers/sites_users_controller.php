@@ -172,7 +172,10 @@ class SitesUsersController extends AppController {
 		$password_field = $tmp[0] . '|' . $tmp[1];
 		$password = $tmp[2];
 
+		$_POST['login_url'] = str_replace('&amp;', '&', str_replace('**||**', '&', $_POST['login_url']));
+
 		$exists = $this->SitesUser->Site->findByLoginUrl($_POST['login_url']);
+
 		if (empty($exists)) {
 
 			$data['login_url'] = $_POST['login_url'];

@@ -90,8 +90,16 @@
 	}
 	
 
-	if (empty($data['Site']['logo']) || !file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
+	$logoClass = null;
+	if (empty($data['Site']['logo'])) {
 		$data['Site']['logo'] = 'default.png';
+	} else {
+		if (substr($data['Site']['logo'], -11) == 'favicon.ico') {
+			$logoClass = 'favicon';
+		} else if (!file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
+			$data['Site']['logo'] = 'default.png';
+		}
+
 	}
 
 
@@ -100,12 +108,19 @@
 		$logo = $html->link($html->image('logos/' . $data['Site']['logo'], $imgOptions), $data['Site']['login_url'], array('target' => '_blank', 'onclick' => 'if($.browser.name == "chrome") {window.open (this.href, ""); return false;} else {return true;}'), null, false);
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector'));
 	} elseif ($data['Site']['state'] == 'approved' || (!empty($data['ParentSitesUser']) && !empty($sites[$data['ParentSitesUser']['site_id']]['state']) && $sites[$data['ParentSitesUser']['site_id']]['state'] == 'approved' )) {
+
 		$class = '';
 		if (!$add_on) {
 			$class = ' add_on_not_installed';
 		}
+
 		$imgOptions = array('class' => 'remote_site_logo', 'title' => $data['Site']['title']);
-		$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
+		if (empty($logoClass)) {
+			$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
+		} else {
+			$imgOptions['class'] .= ' ' . $logoClass;
+			$logo = $html->image($data['Site']['logo'], $imgOptions);
+		}
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector requiere_add_on' . $class));
 	} else {
 		if (preg_match('/^http:\/\//', $data['Site']['login_url']) || preg_match('/^https:\/\//', $data['Site']['login_url'])) {

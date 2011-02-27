@@ -1,23 +1,96 @@
-var selections;
-var selectionsForm;
-
 chrome.extension.onRequest.addListener(
 	function(request, sender, sendResponse) {
-		if (request == 'start_selection') {
-			selections = new Array();
-			selectionsForm = new Array();
-			document.body.addEventListener('mousedown', mdown, false);
-			document.body.addEventListener('mouseover', mover, false);
-			document.body.addEventListener('mouseout', mout, false);
-		} else if (request == 'stop_selection') {
-			document.body.removeEventListener('mousedown', mdown, false);
-			document.body.removeEventListener('mouseover', mover, false);
-			document.body.removeEventListener('mouseout', mout, false);
+
+		if (request == 'add_to_1000pass') {
+
+
+			//var form = $('input[type="password"]').attr('form');
+			//var formChildren = $("> *", $(form));
+
+			var passwordFields = $('input[type="password"]');
+			if (passwordFields.length == 0) {
+				alert('No es posible encontrar los campos de usuario y contraseña en esta pagina. Verifique');
+			} else if (passwordFields.length == 1) {
+				saveLoginInfo(passwordFields[0].form);
+			} else {
+
+				var rightForm = null;
+				var foundRightForm = 0;
+				passwordFields.each(
+					function(i, elem) {
+						if ($('input[type="text"]', $(elem.form)).length == 1) {
+							rightForm = elem.form;
+							foundRightForm++;
+						}
+					}
+				);
+
+				// just one, got it
+				if (foundRightForm == 1) {
+					saveLoginInfo(rightForm);
+				} else {
+					// TODO: find criterias
+				}
+			}
+
+
 		} else {
 			sendResponse({html: $('body').html()});
 		}
 	}
 );
+
+
+var saveLoginInfo = function (form) {
+
+	var loginInput = $('input[type="text"]', $(form));
+	var passwordInput = $('input[type="password"]', $(form));
+	var submitInput = $('input[type="submit"]', $(form));
+
+	$(loginInput).addClass('tp_selected');
+	$(passwordInput).addClass('tp_selected');
+	if (typeof(submitInput) == 'object') {
+		$(submitInput).addClass('tp_selected');
+	}	
+
+
+	if ($(loginInput).val().trim().length == 0) {
+		alert('Debe ingresar nombre de usuario antes de agregar el sitio a 1000pass.com');
+		return;
+	}
+
+	if ($(passwordInput).val().trim().length == 0) {
+		alert('Debe ingrear su clave antes de agregar el sitio a 1000pass.com');
+		return;
+	}
+
+
+	var resp = confirm('Confirma que desea agregar el nuevo sitio a 1000pass.com?');
+	if (resp == true) {
+
+		var selections = new Array();
+		selections.push(getIdentifier($(loginInput)) + '|' + $(loginInput).val());
+		selections.push(getIdentifier($(passwordInput)) + '|' + $(passwordInput).val());
+
+		if (typeof(submitInput) == 'object') {
+			selections.push(getIdentifier(submitInput));
+		} else {
+			selections.push('');
+		}
+
+		var port = chrome.extension.connect({name: 'finish_adding'});
+		port.postMessage(selections);
+
+	} else {
+		$('.tp_selected').each(
+			function() {
+				$(this).removeClass('tp_selected');
+			}
+		);
+
+	}
+
+}
 
 
 chrome.extension.onConnect.addListener(function(port) {
@@ -79,131 +152,55 @@ chrome.extension.onConnect.addListener(function(port) {
 
 
 		/** Submit the form */
-		var tmpForm = data.form.split('|');
-		if (tmpForm[0] == 'id') {
-			var myForm = document.getElementById(tmpForm[1]);
-		} else if (tmpForm[0] == 'name' || tmpForm[0] == 'action') {
-			var myForms = document.getElementsByTagName('form');
-			for (var i=0; i<myForms.length; i++) {
-				if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
-					|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
-					var myForm = myForms[i];
-					break;
+		if (data.form == '') {
+
+			var myForm = myUsername.form;
+			setTimeout(function(){myForm.submit();}, 2000);
+
+		} else {
+			var tmpForm = data.form.split('|');
+			if (tmpForm[0] == 'id') {
+				var mySubmitter= document.getElementById(tmpForm[1]);
+			} else if (tmpForm[0] == 'name' || tmpForm[0] == 'action') {
+				var mySubmitter = document.getElementsByTagName('form');
+				for (var i=0; i<myForms.length; i++) {
+					if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
+						|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
+						var mySubmitter = myForms[i];
+						break;
+					}
 				}
+			} else if (tmpForm[0] == 'class') {
+				var myForms = document.getElementsByClassName(tmpForm[1]);
+				var mySubmitter = myForms[0];
 			}
-		} else if (tmpForm[0] == 'class') {
-			var myForms = document.getElementsByClassName(tmpForm[1]);
-			var myForm = myForms[0];
+
+			setTimeout(
+				function(){
+
+					// try with the param, but also old fashion if the first does not work
+					if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
+						var evt = document.createEvent('HTMLEvents');
+						evt.initEvent('click', true, true ); // event type,bubbling,cancelable
+						mySubmitter.dispatchEvent(evt);
+					} else {
+						var myForm = myUsername.form;
+						myForm.submit();
+					}
+
+
+				},
+			2000);
+
 		}
 
 		var port = chrome.extension.connect({name: "done"});
 		port.postMessage(data);
 
-		setTimeout(function(){myForm.submit();}, 2000);
 
 	});
 });
 
-
-var mover = function(event) {
-	$(event.target).addClass('tp_over');
-}
-
-var mout = function(event) {
-	$(event.target).removeClass('tp_over');
-}
-
-var mdown = function(event) {
-
-	if (selections.length == 0) {
-		if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'text') {
-			alert('Debe seleccionar un campo para el ingreso del nombre de usuario');
-			return;
-		} else if ($(event.target).val().trim().length == 0) {
-			alert('Debe completar el campo nombre de usuario antes de continuar con la seleccion');
-			$(event.target).focus();
-			return;
-		}
-	}
-
-	if (selections.length == 1) {
-		if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'password') {
-			alert('Debe seleccionar un campo para el ingreso de la clave');
-			return;
-		} else if ($(event.target).val().trim().length == 0) {
-			alert('Debe completar el campo clave antes de continuar con la seleccion');
-			$(event.target).focus();
-			return;
-		}
-
-	}
-
-
-	var text = getIdentifier(event.target);
-	if (text.length > 0) {
-		text += '|' + $(event.target).val();
-	} else {
-		return;
-	}
-
-
-	selections.push(text);
-	selectionsForm.push(getIdentifier(event.target.form));
-
-	if ($(event.target).hasClass('tp_selected')) {
-		$(event.target).removeClass('tp_selected');
-	} else {
-		$(event.target).addClass('tp_selected');
-	}
-
-
-	if (selections.length == 2) {
-
-
-		if (selectionsForm[0] != selectionsForm[1]) {
-			alert('No fue posible recolectar los datos necesarios para agregar el sitio a 1000pass.com. Por favor, informe al administrador.');
-			return;
-		}
-		selections.push(selectionsForm[0]);
-
-		var resp = confirm('Confirma que desea agregar el nuevo sitio a 1000pass.com?');
-		if (resp == true) {
-
-			document.body.removeEventListener('mousedown', mdown, false);
-			document.body.removeEventListener('mouseover', mover, false);
-			document.body.removeEventListener('mouseout', mout, false);
-
-			var port = chrome.extension.connect({name: 'finish_selection'});
-			port.postMessage(selections);
-
-		} else {
-			$('.tp_selected').each(
-				function() {
-					$(this).removeClass('tp_selected');
-				}
-			);
-
-			var port = chrome.extension.connect({name: 'cancel_selection'});
-			port.postMessage(selections);
-
-		}
-
-		selections = new Array();
-		selectionsForm = new Array();
-
-		document.body.removeEventListener('mousedown', mdown, false);
-		document.body.removeEventListener('mouseover', mover, false);
-		document.body.removeEventListener('mouseout', mout, false);
-
-
-		$('.tp_over').each(
-			function() {
-				$(this).removeClass('tp_over');
-			}
-		);
-
-	}
-}
 
 
 var getIdentifier = function(elem) {
@@ -211,14 +208,12 @@ var getIdentifier = function(elem) {
 	var text = '';
 
 	if ($(elem).attr('id') != undefined && $(elem).attr('id') != '') {
-		text = 'id|' + $(event.target).attr('id');
+		text = 'id|' + $(elem).attr('id');
 	} else if ($(elem).attr('name') != undefined && $(elem).attr('name') != '') {
 		text = 'name|' + $(elem).attr('name');
-	} else if ($(elemt).attr('class') != undefined &&  $(elem).attr('class') != '') {
+	} else if ($(elem).attr('class') != undefined &&  $(elem).attr('class') != '') {
 		text = 'class|' + $(elem).attr('class');
-	}/* else if ($(elem).attr('src') != undefined &&  $(elem).attr('src') != '') {
-		text = 'src|' + $(event.target).attr('src');
-	}*/
+	}
 
 	return text;
 
@@ -227,7 +222,7 @@ var getIdentifier = function(elem) {
 
 var bind_events = function() {
 
-	$('head').append('<style type="text/css"> .tp_over { border:1px solid red; } .tp_selected { border:5px dotted green; }</style>');
+	$('head').append('<style type="text/css"> .tp_over { border:1px solid red; } .tp_selected { border:10px dotted green; }</style>');
 
 
 	var location = window.location.toString();
@@ -247,8 +242,8 @@ var bind_events = function() {
 		var data = {
 			id: $('#plugin_identifier', plugin).html(),
 			title: $('#title', plugin).html(),
-			url: $('#url', plugin).html().replace('&amp;', '&'),
-			logout_url: $('#logout_url', plugin).html().replace('&amp;', '&'),
+			url: $('#url', plugin).html().replace(/&amp;/g, '&'),
+			logout_url: $('#logout_url', plugin).html().replace(/&amp;/g, '&'),
 			logout_type: $('#logout_url', plugin).attr('class'),
 			username: $('#username', plugin).html(),
 			usernameField: $('#username', plugin).attr('class'),
