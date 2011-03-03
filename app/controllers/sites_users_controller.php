@@ -168,6 +168,15 @@ class SitesUsersController extends AppController {
 		$username_field = $tmp[0] . '|' . $tmp[1];
 		$username = $tmp[2];
 
+		if (!empty($_POST['extra_field'])) {
+			$tmp = explode('|', $_POST['extra_field']);
+			$extra_field = $tmp[0] . '|' . $tmp[1];
+			$extra = $tmp[2];
+		} else {
+			$extra_field = '';
+			$extra = '';
+		}
+
 		$tmp = explode('|', $_POST['password_field']);
 		$password_field = $tmp[0] . '|' . $tmp[1];
 		$password = $tmp[2];
@@ -182,6 +191,7 @@ class SitesUsersController extends AppController {
 			$data['logo'] = $_POST['logo'];
 			$data['username_field'] = $username_field;
 			$data['password_field'] = $password_field;
+			$data['extra_field'] = $extra_field;
 			$data['submit'] = $_POST['submit'];
 			$data['title'] = $_POST['title'];
 			$data['state'] = 'approved';
@@ -202,6 +212,7 @@ class SitesUsersController extends AppController {
 			$data['site_id'] = $siteId;
 			$data['username'] = $username;
 			$data['password'] = $password;
+			$data['extra'] = $extra;
 
 			if ($this->SitesUser->save(array('SitesUser' => $data))) {
 				$ok = true;

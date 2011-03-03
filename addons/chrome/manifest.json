@@ -11,7 +11,8 @@
   "content_scripts": [
     {
       "matches": ["http://*/*", "https://*/*"],
-      "js": ["jquery.js", "1000pass.js"]
+      "js": ["jquery.js", "1000pass.js"],
+	"all_frames": true
     }
   ],
   "permissions": [

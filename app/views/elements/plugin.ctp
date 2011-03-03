@@ -149,7 +149,8 @@
 		$out[] = $html->tag('div', $logoutUrl[1], array('id' => 'logout_url', 'class' => $logoutUrl[0]));
 		$out[] = $html->tag('div', $data['SitesUser']['username'], array('id' => 'username', 'class' => $data['Site']['username_field']));
 		$out[] = $html->tag('div', $data['SitesUser']['password'], array('id' => 'password', 'class' => $data['Site']['password_field']));
-		$out[] = $html->tag('div', $data['Site']['extra'], array('id' => 'extra'));
+		//$out[] = $html->tag('div', $data['Site']['extra'], array('id' => 'extra'));
+		$out[] = $html->tag('div', $data['SitesUser']['extra'], array('id' => 'extra', 'class' => $data['Site']['extra_field']));
 		$out[] = $html->tag('div', '', array('id' => 'submit', 'class' => $data['Site']['submit']));
 	}
 	$out[] = '</div>';

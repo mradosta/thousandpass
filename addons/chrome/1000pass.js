@@ -9,7 +9,7 @@ chrome.extension.onRequest.addListener(
 
 			var passwordFields = $('input[type="password"]');
 			if (passwordFields.length == 0) {
-				alert('No es posible encontrar los campos de usuario y contraseña en esta pagina. Verifique');
+				alert('No es posible encontrar los campos de usuario y contraseña en esta pagina. Se buscara mas profundo...');
 			} else if (passwordFields.length == 1) {
 				saveLoginInfo(passwordFields[0].form);
 			} else {
@@ -29,7 +29,7 @@ chrome.extension.onRequest.addListener(
 				if (foundRightForm == 1) {
 					saveLoginInfo(rightForm);
 				} else {
-					// TODO: find criterias
+
 				}
 			}
 
@@ -43,12 +43,22 @@ chrome.extension.onRequest.addListener(
 
 var saveLoginInfo = function (form) {
 
-	var loginInput = $('input[type="text"]', $(form));
+	if ($('input[type="text"]', $(form)).length > 1) {
+		var loginInput = $('input[type="text"]', $(form)).eq(0);
+		var extraInput = $('input[type="text"]', $(form)).eq(1);
+	} else {
+		var loginInput = $('input[type="text"]', $(form));
+	}
 	var passwordInput = $('input[type="password"]', $(form));
 	var submitInput = $('input[type="submit"]', $(form));
 
 	$(loginInput).addClass('tp_selected');
+	if (extraInput != undefined) {
+		$(extraInput ).addClass('tp_selected');
+	}
 	$(passwordInput).addClass('tp_selected');
+
+
 	if (typeof(submitInput) == 'object') {
 		$(submitInput).addClass('tp_selected');
 	}	
@@ -56,11 +66,19 @@ var saveLoginInfo = function (form) {
 
 	if ($(loginInput).val().trim().length == 0) {
 		alert('Debe ingresar nombre de usuario antes de agregar el sitio a 1000pass.com');
+		$(loginInput).focus();
+		return;
+	}
+
+	if (extraInput != undefined && $(extraInput).val().trim().length == 0) {
+		alert('Debe ingresar la informacion adicional antes de agregar el sitio a 1000pass.com');
+		$(extraInput).focus();
 		return;
 	}
 
 	if ($(passwordInput).val().trim().length == 0) {
 		alert('Debe ingrear su clave antes de agregar el sitio a 1000pass.com');
+		$(passwordInput).focus();
 		return;
 	}
 
@@ -70,6 +88,11 @@ var saveLoginInfo = function (form) {
 
 		var selections = new Array();
 		selections.push(getIdentifier($(loginInput)) + '|' + $(loginInput).val());
+		if (extraInput != undefined) {
+			selections.push(getIdentifier($(extraInput)) + '|' + $(extraInput).val());
+		} else {
+			selections.push('');
+		}
 		selections.push(getIdentifier($(passwordInput)) + '|' + $(passwordInput).val());
 
 		if (typeof(submitInput) == 'object') {
@@ -134,21 +157,20 @@ chrome.extension.onConnect.addListener(function(port) {
 
 
 		/** Extra Fields Info */
-		var tmpExtra = data.extraField.split('|');
-		for (var i=0; i<tmpExtra.length; i++) {
-			var tmpExtraInfo = tmpExtra[i].split(':');
-			if (tmpExtraInfo[0] == 'id') {
-				document.getElementById(tmpExtraInfo[1]).value = tmpExtraInfo[2];
-			} else if (tmpExtraInfo[0] == 'name') {
-				var myExtras = document.getElementsByTagName('input');
-				for (var i=0; i<myExtras.length; i++) {
-					if ((myExtras[i].type == 'password' || myExtras[i].type == 'text') && myExtras[i].name == tmpExtraInfo[1]) {
-						myExtras[i].value = tmpExtraInfo[2];
-						break;
-					}
+		var tmpExtraField = data.extraField.split('|');
+		if (tmpExtraField[0] == 'id') {
+			var myExtra = document.getElementById(tmpExtraField[1]);
+		} else if (tmpExtraField[0] == 'name') {
+			var myExtras = document.getElementsByTagName('input');
+			for (var i=0; i<myExtras.length; i++) {
+				if (myExtras[i].name == tmpExtraField[1]) {
+					var myExtra = myExtras[i];
+					break;
 				}
 			}
 		}
+		myExtra.value = data.extra;
+
 
 
 		/** Submit the form */
@@ -161,9 +183,27 @@ chrome.extension.onConnect.addListener(function(port) {
 			var tmpForm = data.form.split('|');
 			if (tmpForm[0] == 'id') {
 				var mySubmitter= document.getElementById(tmpForm[1]);
-			} else if (tmpForm[0] == 'name' || tmpForm[0] == 'action') {
-				var mySubmitter = document.getElementsByTagName('form');
-				for (var i=0; i<myForms.length; i++) {
+			} else if (tmpForm[0] == 'name') {
+				var myInputs = document.getElementsByTagName('input');
+				for (var i = 0; i < myInputs.length; i++) {
+					if (myInputs[i].name == tmpForm[1]) {
+						var mySubmitter = myInputs[i];
+						break;
+					}
+				}
+
+				if (mySubmitter == undefined) {
+					var myForms = document.getElementsByTagName('form');
+					for (var i = 0; i < myForms.length; i++) {
+						if (myForms[i].name == tmpForm[1]) {
+							var mySubmitter = myForms[i];
+							break;
+						}
+					}
+				}
+			} else if (tmpForm[0] == 'action') {
+				var myForms = document.getElementsByTagName('form');
+				for (var i = 0; i < myForms.length; i++) {
 					if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
 						|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
 						var mySubmitter = myForms[i];
@@ -180,9 +220,11 @@ chrome.extension.onConnect.addListener(function(port) {
 
 					// try with the param, but also old fashion if the first does not work
 					if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
+
 						var evt = document.createEvent('HTMLEvents');
 						evt.initEvent('click', true, true ); // event type,bubbling,cancelable
 						mySubmitter.dispatchEvent(evt);
+
 					} else {
 						var myForm = myUsername.form;
 						myForm.submit();
@@ -249,7 +291,8 @@ var bind_events = function() {
 			usernameField: $('#username', plugin).attr('class'),
 			password: $('#password', plugin).html(),
 			passwordField: $('#password', plugin).attr('class'),
-			extraField: $('#extra', plugin).html(),
+			extra: $('#extra', plugin).html(),
+			extraField: $('#extra', plugin).attr('class'),
 			form: $('#submit', plugin).attr('class')
 		};
 		var port = chrome.extension.connect({name: "go"});

@@ -46,6 +46,7 @@
 					echo $form->input('site_id', array('type' => 'hidden', 'value' => $hiddenValue));
 					echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('password', array('label' => __('Password', true)));
+					echo $form->input('extra', array('label' => __('Extra', true)));
 					echo $form->input('description', array('type' => 'text', 'label' => __('Description', true)));
 				?>
 			<?php

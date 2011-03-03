@@ -41,7 +41,8 @@
 				if (port.name == 'finish_adding') {
 
 					var xhr = new XMLHttpRequest();
-					xhr.open('POST', 'http://www.1000pass.com/sites_users/extension_add', true);
+					//xhr.open('POST', 'http://www.1000pass.com/sites_users/extension_add', true);
+					xhr.open('POST', 'http://localhost/thousandpass/sites_users/extension_add', true);
 					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState == 4) {
@@ -52,7 +53,7 @@
 							}
 						}
 					}
-					var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&password_field=' + data[1] + '&submit=' + data[2];
+					var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
 
 					xhr.send(d);
 

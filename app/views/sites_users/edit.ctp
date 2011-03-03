@@ -23,6 +23,7 @@
 					echo $form->input('id');
 					echo $form->input('username');
 					echo $form->input('password', array('after' => '<span title="' . __('Show hidden password', true) . '" id="show">' . __('Show', true) . '</span>'));
+					echo $form->input('extra');
 					echo $form->input('description');
 				?>
 			<?php
