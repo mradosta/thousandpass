@@ -162,7 +162,7 @@ class SitesUsersController extends AppController {
 
 	function extension_add() {
 
-		$ok = false;
+		$res = 'er';
 
 		$tmp = explode('|', $_POST['username_field']);
 		$username_field = $tmp[0] . '|' . $tmp[1];
@@ -206,22 +206,40 @@ class SitesUsersController extends AppController {
 
 		if (!empty($siteId)) {
 
-			$data = array();
-			$data['user_id'] = $this->Session->read('Auth.User.id');
-			$data['order'] = 1000;
-			$data['site_id'] = $siteId;
-			$data['username'] = $username;
-			$data['password'] = $password;
-			$data['extra'] = $extra;
+			$r = $this->SitesUser->find('all',
+				array(
+					'recursive'		=> -1,	
+					'conditions' 	=>
+						array(
+							'SitesUser.site_id' 	=> $siteId,
+							'SitesUser.username' 	=> $username,
+							'SitesUser.password' 	=> $password
+						)
+				)
+			);
 
-			if ($this->SitesUser->save(array('SitesUser' => $data))) {
-				$ok = true;
+			if (!empty($r)) {
+				$res = 'du'; //duplicated
+			} else {
+
+				$data = array();
+				$data['user_id'] = $this->Session->read('Auth.User.id');
+				$data['order'] = 1000;
+				$data['site_id'] = $siteId;
+				$data['username'] = $username;
+				$data['password'] = $password;
+				$data['extra'] = $extra;
+
+				if ($this->SitesUser->save(array('SitesUser' => $data))) {
+					$res = 'true';
+				}
+
 			}
 		}
 
 		Configure::write('debug', 0);
 		$this->layout = 'ajax';
-		$this->set('data', $ok);
+		$this->set('data', $res);
 	}
 
 	function add($siteId = null) {

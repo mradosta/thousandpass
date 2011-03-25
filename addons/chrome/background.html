@@ -3,15 +3,32 @@
 
 	<script>
 
-		var addTo1000Pass = function(info, tab) {
-			chrome.tabs.sendRequest(tab.id, 'add_to_1000pass');
+		var addTo1000PassAuto = function(info, tab) {
+			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
+			if (answer) {
+				chrome.tabs.sendRequest(tab.id, 'add_to_1000pass_auto');
+			}
 		};
 
-		var contextMenuId = chrome.contextMenus.create({
-			"title"		: 'Agregar a 1000Pass.com',
+		var addTo1000PassManual = function(info, tab) {
+			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
+			if (answer) {
+				chrome.tabs.sendRequest(tab.id, 'add_to_1000pass_manual');
+			}
+		};
+
+
+		chrome.contextMenus.create({
+			"title"		: 'Agregar (Automatico)',
 			"type" 		: 'normal',
 			"contexts" 	: ['all'],
-			"onclick"	: addTo1000Pass
+			"onclick"	: addTo1000PassAuto
+		});
+		chrome.contextMenus.create({
+			"title"		: 'Agregar (Manual)',
+			"type" 		: 'normal',
+			"contexts" 	: ['all'],
+			"onclick"	: addTo1000PassManual
 		});
 
 
@@ -46,10 +63,13 @@
 					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState == 4) {
+alert(xhr.responseText);
 							if (xhr.responseText == 'ok') {
 								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');
-							} else {
+							} else if (xhr.responseText == 'er') {
 								alert('No fue posible agregar el nuevo sitio a su cuenta 1000pass.com. Verifique que su sesion en 1000pass.com este activa');
+							} else if (xhr.responseText == 'du') {
+								alert('El sitio que intenta agregar ya existe en su cuenta de 1000pass.com');
 							}
 						}
 					}

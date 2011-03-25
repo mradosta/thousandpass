@@ -96,6 +96,7 @@
 	} else {
 		if (substr($data['Site']['logo'], -11) == 'favicon.ico') {
 			$logoClass = 'favicon';
+			//$data['Site']['logo'] = 'transparent.png';
 		} else if (!file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
 			$data['Site']['logo'] = 'default.png';
 		}
@@ -119,7 +120,8 @@
 			$logo = $html->image('logos/' . $data['Site']['logo'], $imgOptions);
 		} else {
 			$imgOptions['class'] .= ' ' . $logoClass;
-			$logo = $html->image($data['Site']['logo'], $imgOptions);
+			$imgOptions['style'] = 'background-image:url(\'' . $data['Site']['logo'] . '\');';
+			$logo = $html->image('logos/transparent.png', $imgOptions);
 		}
 		$out[] = $html->tag('div', $logo, array('class' => 'drag_selector requiere_add_on' . $class));
 	} else {
