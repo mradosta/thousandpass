@@ -58,12 +58,11 @@
 				if (port.name == 'finish_adding') {
 
 					var xhr = new XMLHttpRequest();
-					//xhr.open('POST', 'http://www.1000pass.com/sites_users/extension_add', true);
-					xhr.open('POST', 'http://localhost/thousandpass/sites_users/extension_add', true);
+					xhr.open('POST', 'http://www.1000pass.com/sites_users/extension_add', true);
+					//xhr.open('POST', 'http://localhost/thousandpass/sites_users/extension_add', true);
 					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState == 4) {
-alert(xhr.responseText);
 							if (xhr.responseText == 'ok') {
 								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');
 							} else if (xhr.responseText == 'er') {
