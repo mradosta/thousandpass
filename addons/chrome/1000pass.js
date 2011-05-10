@@ -1,5 +1,6 @@
 var objects = new Array();;
 
+/*
 var mover = function(event) {
 	$(event.target).addClass('tp_over');
 }
@@ -7,9 +8,10 @@ var mover = function(event) {
 var mout = function(event) {
 	$(event.target).removeClass('tp_over');
 }
-
+*/
 var mdown = function(event) {
 
+	var finishSelection = false;
 	var object;
 	if (objects.length == 0) {
 		if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'text') {
@@ -33,30 +35,56 @@ var mdown = function(event) {
 		}
 		object = event.target;
 
-	} else if (objects.length == 2) {
-		if (event.target.tagName == 'IMG' && event.target.parentNode.tagName == 'A') {
-			object = event.target.parentNode;
+	} else if (objects.length >= 2) {
+
+		if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'text') {
+
+			if ($(event.target).val().trim().length == 0) {
+				alert('Debe completar el campo extra antes de continuar con la seleccion');
+				$(event.target).focus();
+				return;
+			} else {
+				object = event.target;
+			}
+
 		} else {
-			object = event.target;
+
+			if ((event.target.tagName == 'IMG' || event.target.tagName == 'SPAN')
+				&& event.target.parentNode.tagName == 'A') {
+
+				object = event.target.parentNode;
+			} else {
+				object = event.target;
+			}
+
+			finishSelection = true;
 		}
+
 	}
+
 
 
 	objects.push(object);
 	$(object).addClass('tp_selected');
 
-	if (objects.length == 3) {
+	if (finishSelection) {
 
 		var loginInput = objects[0];
-		var extraInput = null;
 		var passwordInput = objects[1];
-		var submitInput = objects[2];
+		if (objects.length == 3) {
+			var extraInput = null;
+			var submitInput = objects[2];
+		} else {
+			var extraInput = objects[2];
+			var submitInput = objects[3];
+		}
+
 
 		save(loginInput, extraInput, passwordInput, submitInput);
 
 		document.body.removeEventListener('mousedown', mdown, false);
-		document.body.removeEventListener('mouseover', mover, false);
-		document.body.removeEventListener('mouseout', mout, false);
+		//document.body.removeEventListener('mouseover', mover, false);
+		//document.body.removeEventListener('mouseout', mout, false);
 
 	}
 
@@ -67,9 +95,9 @@ chrome.extension.onRequest.addListener(
 
 		if (request == 'add_to_1000pass_manual') {
 
-			document.body.addEventListener('mousedown', mdown, false);
-			document.body.addEventListener('mouseover', mover, false);
-			document.body.addEventListener('mouseout', mout, false);
+			document.body.addEventListener('mousedown', mdown, true);
+			//document.body.addEventListener('mouseover', mover, true);
+			//document.body.addEventListener('mouseout', mout, true);
 
 		} else if (request == 'add_to_1000pass_auto') {
 
@@ -207,6 +235,7 @@ var save = function(loginInput, extraInput, passwordInput, submitInput) {
 			selections.push('');
 		}
 
+
 		var port = chrome.extension.connect({name: 'finish_adding'});
 		port.postMessage(selections);
 
@@ -334,6 +363,7 @@ chrome.extension.onConnect.addListener(function(port) {
 						var evt = document.createEvent('HTMLEvents');
 						evt.initEvent('click', true, true ); // event type,bubbling,cancelable
 						mySubmitter.dispatchEvent(evt);
+						console.log(mySubmitter);
 
 					}
 				},

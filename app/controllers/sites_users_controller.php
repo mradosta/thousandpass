@@ -231,7 +231,7 @@ class SitesUsersController extends AppController {
 				$data['extra'] = $extra;
 
 				if ($this->SitesUser->save(array('SitesUser' => $data))) {
-					$res = 'true';
+					$res = 'ok';
 				}
 
 			}

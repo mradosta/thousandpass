@@ -69,11 +69,13 @@
 								alert('No fue posible agregar el nuevo sitio a su cuenta 1000pass.com. Verifique que su sesion en 1000pass.com este activa');
 							} else if (xhr.responseText == 'du') {
 								alert('El sitio que intenta agregar ya existe en su cuenta de 1000pass.com');
+							} else {
+								alert('Ocurrio un error al agregar el nuevo sitio a 1000pass.com');
 							}
 						}
 					}
-					var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
 
+					var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
 					xhr.send(d);
 
 				} else if (port.name == 'go') {

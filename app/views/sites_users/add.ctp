@@ -42,13 +42,28 @@
 						$disabled = true;
 					}
 
+
+					$colours = array(
+						array('name' => __('Green', true), 'value' => '#B2C200', 'style' => 'background:#B2C200;'),
+						array('name' => __('Ligth Blue', true), 'value' => '#0065FE', 'style' => 'background:#0065FE;'),
+						array('name' => __('Pink', true), 'value' => '#FE0065', 'style' => 'background:#FE0065;'),
+						array('name' => __('Red', true), 'value' => '#C20000', 'style' => 'background:#C20000;'),
+						array('name' => __('Violet', true), 'value' => '#BB00C2', 'style' => 'background:#BB00C2;'),
+						array('name' => __('Yellow', true), 'value' => '#FED700', 'style' => 'background:#FED700;')
+					);
+					echo $form->input('group', array('label' => __('Group', true), 'options' => $colours));
+
+
 					echo $form->input('autocomplete', array('value' => $value, 'label' => __('Site', true), 'id' => 'autoComplete', 'disabled' => $disabled));
 					echo $form->input('site_id', array('type' => 'hidden', 'value' => $hiddenValue));
 					echo $form->input('username', array('label' => __('Username', true)));
 					echo $form->input('password', array('label' => __('Password', true)));
 					echo $form->input('extra', array('label' => __('Extra', true)));
 					echo $form->input('description', array('type' => 'text', 'label' => __('Description', true)));
+
 				?>
+
+
 			<?php
 				echo $form->end(__('Add', true));
 				$javascript->link('jquery/jquery.autocomplete', false);
@@ -62,6 +77,12 @@
 
 <script type="text/javascript">
 	$(document).ready(function($) {
+
+
+		$('#SitesUserGroup').bind('change', function() {
+			$(this).attr('style', 'background-color:' + $(this).val() + ';');
+		});
+
 
 		var url = '<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'autoComplete')); ?>';
 		$('#autoComplete').autocomplete(url,
