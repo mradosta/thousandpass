@@ -49,6 +49,12 @@
 
 		?>
 	</ul>
+
+	<div>
+		<?php
+			echo $html->image(Configure::read('Config.language') . '_add_new.jpg');
+		?>
+	</div>
 </div> <!--inner_container_vertical_scroll-->
 
 
