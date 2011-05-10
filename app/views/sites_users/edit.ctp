@@ -30,9 +30,9 @@
 						array('name' => __('Yellow', true), 'value' => '#FED700', 'style' => 'background:#FED700;')
 					);
 					if (!empty($this->data['SitesUser']['group'])) {
-						echo $form->input('group', array('label' => __('Group', true), 'options' => $colours, 'style' => 'background:' . $this->data['SitesUser']['group'] . ';'));
+						echo $form->input('group', array('label' => __('Group', true), 'empty' => true, 'options' => $colours, 'style' => 'background:' . $this->data['SitesUser']['group'] . ';'));
 					} else {
-						echo $form->input('group', array('label' => __('Group', true), 'options' => $colours));
+						echo $form->input('group', array('label' => __('Group', true), 'empty' => true, 'options' => $colours));
 					}
 
 					echo $form->input('username');

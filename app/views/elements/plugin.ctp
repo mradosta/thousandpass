@@ -65,7 +65,12 @@
 			}
 		}
 
-		$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar' . $extraClass, 'title' => $data['Site']['title']));
+
+		if (!empty($data['SitesUser']['group'])) {
+			$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar' . $extraClass, 'title' => $data['Site']['title'], 'style' => 'background:url(css/img/' . substr($data['SitesUser']['group'], 1) . '.png) no-repeat;'));
+		} else {
+			$out[] = $html->tag('div', implode("\n", $toolbar), array('class' => 'toolbar' . $extraClass, 'title' => $data['Site']['title']));
+		}
 
 	} else {
 		if ($data['Site']['state'] == 'pending') {

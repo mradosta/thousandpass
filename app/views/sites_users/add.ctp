@@ -51,7 +51,7 @@
 						array('name' => __('Violet', true), 'value' => '#BB00C2', 'style' => 'background:#BB00C2;'),
 						array('name' => __('Yellow', true), 'value' => '#FED700', 'style' => 'background:#FED700;')
 					);
-					echo $form->input('group', array('label' => __('Group', true), 'options' => $colours));
+					echo $form->input('group', array('label' => __('Group', true), 'empty' => true, 'options' => $colours));
 
 
 					echo $form->input('autocomplete', array('value' => $value, 'label' => __('Site', true), 'id' => 'autoComplete', 'disabled' => $disabled));
