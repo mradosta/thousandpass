@@ -1,4 +1,4 @@
-var objects = new Array();;
+var objects = new Array();
 
 /*
 var mover = function(event) {

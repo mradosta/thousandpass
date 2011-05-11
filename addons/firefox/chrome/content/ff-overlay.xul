@@ -9,14 +9,16 @@
 	  <statusbarpanel id="link-target-finder-status-bar-icon" class="statusbarpanel-menu-iconic" src="chrome://thousandpass/skin/status-bar.png" style="cursor:pointer;" onclick="thousandpass.onclick();"></statusbarpanel>
   </statusbar>
 
-  <!--
   <popup id="contentAreaContextMenu">
-	<menuitem id="context-thousandpass" label="&thousandpassContext.label;"
-              accesskey="&thousandpassContext.accesskey;"
+	  <menuitem id="context-thousandpass-auto" label="Agregar a 1000pass (Automatico)"
               insertafter="context-stop"
-			  oncommand="thousandpass.onMenuItemCommand(event)"/>
+			  oncommand="thousandpass.addTo1000PassAuto();"/>
+	  <menuitem id="context-thousandpass-manual" label="Agregar a 1000pass (Manual)"
+				insertafter="context-stop"
+				oncommand="thousandpass.addTo1000PassManual();"/>
   </popup>
   
+  <!--
   <statusbar id="status-bar">
 	  <statusbarpanel id="link-target-finder-status-bar-icon" class="statusbarpanel-menu-iconic" context="rightclickpopup" popup="leftclickpopup" src="chrome://thousandpass/skin/status-bar.png" onclick="thousandpass.onClick()"></statusbarpanel>
   </statusbar>
