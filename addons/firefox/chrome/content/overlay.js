@@ -151,8 +151,8 @@ var thousandpass = function () {
 
 
 				var req = new XMLHttpRequest();
-				req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", true);
-				//req.open('POST', "http://www.1000pass.com/sites_users/extension_add", true);
+				//req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", true);
+				req.open('POST', "http://www.1000pass.com/sites_users/extension_add", true);
 				req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
 				req.onreadystatechange = function (aEvt) {
 					if (req.readyState == 4) {
