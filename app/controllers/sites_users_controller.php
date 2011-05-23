@@ -113,8 +113,7 @@ class SitesUsersController extends AppController {
 			'order' 		=> array('SitesUser.order' => 'asc'),
 			'contain' 		=> array('Site', 'ParentSitesUser'),
 			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))));
-		$defaults = range(1, 6);
-		$missingDefaults = array_diff($defaults, Set::extract('/Site/id', $mySites));
+
 
 		$myShares = $this->SitesUser->find('all',
 			array(
@@ -133,7 +132,7 @@ class SitesUsersController extends AppController {
 				'conditions' 	=>
 				array(
 					array(
-						'Site.id' => array_merge($defaults, (array)Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites)))
+						'Site.id' => (array)Set::filter(Set::extract('/ParentSitesUser/site_id', $mySites))
 					)
 				)
 			)
@@ -156,7 +155,24 @@ class SitesUsersController extends AppController {
 		$this->set('sitesUsers', $mySites);
 		$this->set('sites', Set::combine($sites, '{n}.Site.id', '{n}.Site'));
 		$this->set('users', Set::combine($users, '{n}.User.id', '{n}.User'));
-		$this->set('missingDefaults', $missingDefaults);
+	}
+
+
+	function saveImage($url, $name) {
+		$ch = curl_init ($img);
+		curl_setopt($ch, CURLOPT_HEADER, 0);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+		$rawdata = curl_exec($ch);
+		curl_close ($ch);
+
+		$fullpath = WWW_ROOT . 'img' . DS . 'logos' . DS . $name;
+		if (file_exists($fullpath)){
+			unlink($fullpath);
+		}
+		$fp = fopen($fullpath, 'x');
+		fwrite($fp, $rawdata);
+		fclose($fp);
 	}
 
 
@@ -187,8 +203,10 @@ class SitesUsersController extends AppController {
 
 		if (empty($exists)) {
 
+			$name = uniqid();
+			$this->saveImage($_POST['logo'], $name);
 			$data['login_url'] = $_POST['login_url'];
-			$data['logo'] = $_POST['logo'];
+			$data['logo'] = $name;
 			$data['username_field'] = $username_field;
 			$data['password_field'] = $password_field;
 			$data['extra_field'] = $extra_field;
@@ -212,6 +230,7 @@ class SitesUsersController extends AppController {
 					'conditions' 	=>
 						array(
 							'SitesUser.site_id' 	=> $siteId,
+							'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id'),
 							'SitesUser.username' 	=> $username,
 							'SitesUser.password' 	=> $password
 						)

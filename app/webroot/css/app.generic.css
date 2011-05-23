@@ -343,8 +343,21 @@ div.top_addsense {
 }
 
 div.bottom_addsense {
-	width: 728px;
-	margin: 15px 10px 0 90px;
+	1border: 1px solid red;
+	1width: 728px;
+	1margin: 15px 10px 0 90px;
+	margin-top: 15px;
+}
+
+div.top_banner img {
+	width: 234px;
+	height: 70px;
+	padding: 3px;
+}
+
+div.bottom_banner img {
+	width: 445px;
+	height: 130px;
 }
 
 

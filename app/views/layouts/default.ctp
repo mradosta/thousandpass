@@ -84,6 +84,22 @@
 
 		echo $scripts_for_layout;
 	?>
+
+
+	<script type="text/javascript">
+
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-23444154-1']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+
+	</script>
+
 </head>
 
 
@@ -99,6 +115,9 @@
 						'alt'	=> __('Home', true),
 						'title'	=> __('Home', true),
 						'url' 	=> ($loggedIn)?'/home':'/'));
+
+
+					$banners = ClassRegistry::init('Banner')->getBannersForLayout();
 				?>
 			</div> <!--logo-->
 
@@ -118,8 +137,23 @@
 
 
 			<?php
+
+				/*
+				<div class="top_addsense">
+					xxxxxxxxxxxxxxxxxxxxx
+				</div>
+				*/
 				$debugLevel = Configure::read('debug');
+				$debugLevel = 0; // remove in production site
 				if ($debugLevel == 0) {
+
+					if (Set::check($banners, 'top.0.Banner')) {
+						$b = $html->image('banners/' . $banners['top'][0]['Banner']['image'], array('url' => $banners['top'][0]['Banner']['url']));
+						echo $html->tag('div', $b, array('class' => 'addsense top_addsense top_banner'));
+					}
+
+
+					/*
 					echo '
 						<div class="addsense top_addsense">
 							<script type="text/javascript">
@@ -130,6 +164,7 @@
 							</script>
 							<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 						</div>';
+					*/
 				}
 			?>
 
@@ -148,7 +183,8 @@
 						$out = null;
 						$out[] = '<div id="menu">';
 						$out[] = $html->link(__('Sites', true), array('controller' => 'sites'));
-						$out[] = $html->link(__('User', true), array('controller' => 'users'));
+						$out[] = $html->link(__('Users', true), array('controller' => 'users'));
+						$out[] = $html->link(__('Banners', true), array('controller' => 'banners'));
 						$out[] = '</div>';
 						echo implode('', $out);
 					}
@@ -276,6 +312,22 @@
 			echo $out . $content_for_layout;
 
 			if ($debugLevel == 0) {
+
+				$b = '';
+				if (Set::check($banners, 'bottom.0.Banner')) {
+					$b .= $html->image('banners/' . $banners['bottom'][0]['Banner']['image'], array('url' => $banners['bottom'][0]['Banner']['url']));
+				}
+				if (Set::check($banners, 'bottom.1.Banner')) {
+					$b .= '&nbsp;&nbsp;&nbsp;&nbsp;';
+					$b .= $html->image('banners/' . $banners['bottom'][1]['Banner']['image'], array('url' => $banners['bottom'][1]['Banner']['url']));
+				}
+
+				echo $html->tag('div',
+					$b,
+					array('class' => 'addsense bottom_addsense bottom_banner')
+				);
+				
+				/*
 				echo '
 					<div class="addsense bottom_addsense">
 						<script type="text/javascript">
@@ -286,6 +338,7 @@
 						</script>
 						<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js"></script>
 					</div>';
+				*/
 			}
 		?>
 

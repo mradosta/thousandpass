@@ -23,6 +23,7 @@
 			}
 
 
+			/*
 			array_unshift($missingDefaults, 0);
 			$sites[0]['title'] = __('Add web site', true);
 			$sites[0]['logo'] = 'other_sites.png';
@@ -46,6 +47,7 @@
 					$html->link(__('Habilitar ahora!', true), array('action' => 'add', $missingDefault)));
 				echo '</li>';
 			}
+			*/
 
 		?>
 	</ul>
@@ -56,6 +58,7 @@
 		?>
 	</div>
 </div> <!--inner_container_vertical_scroll-->
+
 
 
 <?php

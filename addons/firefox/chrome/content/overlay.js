@@ -15,6 +15,142 @@ var thousandpass = function () {
 
 		objects : [],
 
+
+		getElementById : function(id) {
+
+			var myFrames = thousandpass.getFrames();
+
+			for (var i = 0; i < myFrames.length; i++) {
+
+				if (myFrames[i].document.getElementById(id)) {
+
+					return myFrames[i].document.getElementById(id);
+				}
+
+				return window.content.document.getElementById(id);
+			}
+
+/*
+			if (window.content.top.frames.length > 0) {
+
+				for (var i = 0; i < window.content.top.frames.length; i++) {
+
+					if (window.content.top.frames.length[i] != undefined
+					&& window.content.top.frames.length[i].document.getElementById(id) != null) {
+						return window.content.top.frames.length[i].document.getElementById(id);
+					}
+
+				}
+
+				return window.content.document.getElementById(id);
+
+			} else {
+
+				return window.content.document.getElementById(id);
+			}
+*/
+		},
+
+
+		getFrames : function() {
+
+			var myFrames = new Array();
+
+			for (var i = 0; i < window.content.top.frames.length; i++) {
+
+				if (window.content.top.frames.length[i] != undefined) {
+					myFrames.push(window.content.top.frames.length[i]);
+				}
+
+			}
+
+			if (myFrames.length == 0) {
+				myFrames.push(window.content);
+			}
+			return myFrames;
+		},
+
+
+		getElementByNameAttribute : function(name) {
+
+			/*
+			var myFrames = new Array();
+			if (window.content.top.frames.length == 0) {
+				myFrames.push(window.content);
+			} else {
+
+				for (var i = 0; i < window.content.top.frames.length; i++) {
+
+					if (window.content.top.frames.length[i] != undefined) {
+						myFrames.push(window.content.top.frames.length[i]);
+					}
+
+				}
+
+				if (myFrames.length == 0) {
+					myFrames.push(window.content);
+				}
+			}
+			*/
+
+
+
+
+
+
+			var myFrames = thousandpass.getFrames();
+
+			for (var i = 0; i < myFrames.length; i++) {
+
+				var inputs = myFrames[i].document.getElementsByTagName('input');
+
+				for (var i = 0; i < inputs.length; i++) {
+					if (inputs[i].name == name) {
+						return inputs[i];
+					}
+				}
+			}
+
+
+
+			if (window.content.top.frames.length > 0) {
+
+				for (var i = 0; i < window.content.top.frames.length; i++) {
+
+					if (window.content.top.frames[i] != undefined) {
+						var inputs = window.content.top.frames[i].document.getElementsByTagName('input');
+
+						for (var j = 0; j < inputs.length; j++) {
+							if (inputs[j].name == name) {
+								return inputs[j];
+							}
+						}
+					} else {
+
+						var inputs = window.content.document.getElementsByTagName('input');
+						for (var i = 0; i < inputs.length; i++) {
+							if (inputs[i].name == name) {
+								return inputs[i];
+							}
+						}
+
+					}
+				}
+
+			} else {
+
+				var inputs = window.content.document.getElementsByTagName('input');
+
+				for (var i = 0; i < inputs.length; i++) {
+					if (inputs[i].name == name) {
+						return inputs[i];
+					}
+				}
+			}
+
+		},
+
+
 		mdown : function(event) {
 
 			var finishSelection = false;
@@ -55,10 +191,18 @@ var thousandpass = function () {
 
 				} else {
 
-					if ((event.target.tagName == 'IMG' || event.target.tagName == 'SPAN')
-						&& event.target.parentNode.tagName == 'A') {
+					if (event.target.tagName == 'IMG' || event.target.tagName == 'SPAN' || event.target.tagName == 'DIV') {
 
-						object = event.target.parentNode;
+						if (event.target.parentNode.tagName == 'A') {
+							object = event.target.parentNode;
+						} else if (event.target.parentNode.parentNode.tagName == 'A') {
+							object = event.target.parentNode.parentNode;
+						} else if (event.target.parentNode.parentNode.parentNode.tagName == 'A') {
+							object = event.target.parentNode.parentNode.parentNode;
+						} else {
+							object = event.target;
+						}
+
 					} else {
 						object = event.target;
 					}
@@ -177,7 +321,6 @@ var thousandpass = function () {
 
 				var url = window.top.getBrowser().selectedBrowser.contentWindow.location.href.replace(/&/g, '**||**');
 				var d = 'title=' + window.content.document.title + '&login_url=' + url + '&logo=' + url.match(/([http|https]+):\/\/(.[^/]+)/)[0] + '/favicon.ico' + '&username_field=' + selections[0] + '&extra_field=' + selections[1] + '&password_field=' + selections[2] + '&submit=' + selections[3];
-				alert(d);
 				req.send(d);
 
 			} else {
@@ -251,6 +394,12 @@ var thousandpass = function () {
 
 		addTo1000PassAuto : function () {
 
+			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
+			if (!answer) {
+				return;
+			}
+
+
 			var passwordFields = $('input[type="password"]', window.content.document);
 			if (passwordFields.length == 0) {
 				//alert('No es posible encontrar los campos de usuario y contraseña en esta pagina. Se buscara mas profundo...');
@@ -279,6 +428,12 @@ var thousandpass = function () {
 		},
 
 		addTo1000PassManual: function () {
+
+			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
+			if (!answer) {
+				return;
+			}
+
 			window.content.document.body.addEventListener('mousedown', thousandpass.mdown, true);
 		},
 
@@ -303,6 +458,46 @@ var thousandpass = function () {
 
 		getHostNameFromUrl : function (url) {
 			return url.match(/:\/\/(.[^/]+)/)[1]; //.replace('www.','');
+		},
+
+
+		beginsWith : function (string, text) {
+			var pos = string.indexOf(text);
+			if (pos == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		},
+
+		deleteCookies : function (url) {
+			var cookieManager = Components.classes["@mozilla.org/cookiemanager;1"].getService(Components.interfaces.nsICookieManager);
+
+			current_url = url.toUpperCase()
+			
+			// Add a "." before the URL, as some cookies are stored as .www.domain.com
+			if (thousandpass.beginsWith(current_url, "HTTP://") && current_url.length>7) {
+				//alert("beginswith 1 true " + current_url);
+				var s = current_url;
+				current_url = s.substring(0, 7) + "." + s.substring(7);
+			} else if (thousandpass.beginsWith(current_url, "HTTPS://") && current_url.length>8) {
+				var s = current_url;
+				current_url = s.substring(0, 8) + "." + s.substring(8);
+			}
+
+			//alert(current_url);
+			var iter = cookieManager.enumerator;
+			while (iter.hasMoreElements()) {
+				var cookie = iter.getNext();
+				if (cookie instanceof Components.interfaces.nsICookie) {
+					//alert(current_url + " instanceOf " + cookie.host + current_url.indexOf(cookie.host));
+					if (current_url.indexOf(cookie.host.toUpperCase()) != -1) {
+						//Firebug.Console.log(cookie.host);
+						//Firebug.Console.log(cookie.name);
+						cookieManager.remove(cookie.host, cookie.name, cookie.path, cookie.blocked);
+					}
+				}
+			}
 		},
 
 
@@ -332,15 +527,9 @@ var thousandpass = function () {
 
 							if (attrData[1] != data.id) {
 								
-								/** Must close previous session from first site before continue */
-								if (data.logout_type == 'scrap') {
+								thousandpass.deleteCookies(data.url);
 
-									var logout_url = data.logout_url + tabbrowser.contentDocument.body.innerHTML.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
-								} else {
-									var logout_url = data.logout_url;
-								}
-
-								$.get(logout_url, function() {
+								setTimeout(function() {
 
 									gBrowser.removeCurrentTab();
 
@@ -349,22 +538,23 @@ var thousandpass = function () {
 									var tabbrowser = browserEnumerator.getNext().gBrowser;
 
 									// Create tab
-									var newTab = tabbrowser.addTab(data.url);
+									var newTab = tabbrowser.addTab(data.url.replace(/&amp;/g, '&'));
 									newTab.setAttribute(attrName, domain + '|' + data.id);
 
 									// Focus tab
 									tabbrowser.selectedTab = newTab;
-									
+
 									// Focus *this* browser window in case another one is currently focused
 									tabbrowser.ownerDocument.defaultView.focus();
 
-								});
+								}, 300);
 
 							} else {
 
 								// Focus *this* browser window in case another one is currently focused
 								tabbrowser.ownerDocument.defaultView.focus();
 							}
+
 							found = true;
 							break;
 						}
@@ -374,17 +564,20 @@ var thousandpass = function () {
 
 			if (!found) {
 
+
+				thousandpass.deleteCookies(data.url);
+
 				// Our tab isn't open. Open it now.
 				var browserEnumerator = wm.getEnumerator("navigator:browser");
 				var tabbrowser = browserEnumerator.getNext().gBrowser;
 
 				// Create tab
-				var newTab = tabbrowser.addTab(data.url);
+				var newTab = tabbrowser.addTab(data.url.replace(/&amp;/g, '&'));
 				newTab.setAttribute(attrName, domain + '|' + data.id);
 
 				// Focus tab
 				tabbrowser.selectedTab = newTab;
-				
+
 				// Focus *this* browser window in case another one is currently focused
 				tabbrowser.ownerDocument.defaultView.focus();
 			}
@@ -428,20 +621,40 @@ var thousandpass = function () {
 				};
 
 
-				var onLoadTabListener = function () {
+				var onLoadTabListener = function (data) {
 
+					//if (!(event.originalTarget instanceof HTMLDocument)) {
+					//	return;
+					//}
+					//alert(event.originalTarget.defaultView.top);
+
+//alert(data.usernameField);
 					/** Username */
 					var tmpUsernameField = data.usernameField.split('|');
 					if (tmpUsernameField[0] == 'id') {
-						var myUsername = content.document.getElementById(tmpUsernameField[1]);
+						//var myUsername = window.content.document.getElementById(tmpUsernameField[1]);
+//alert('searching...');
+//alert(window.content.document.getElementById(tmpUsernameField[1]));
+
+						var myUsername = thousandpass.getElementById(tmpUsernameField[1]);
+//alert(myUsername);
 					} else if (tmpUsernameField[0] == 'name') {
-						var myUsernames = content.document.getElementsByTagName('input');
+//alert(tmpUsernameField[1]);
+
+						var myUsername = thousandpass.getElementByNameAttribute(tmpUsernameField[1]);
+
+//alert(myUsername);
+
+						/*
+
+						var myUsernames = window.content.document.getElementsByTagName('input');
 						for(var i=0; i<myUsernames.length; i++) {
 							if (myUsernames[i].name == tmpUsernameField[1]) {
 								var myUsername = myUsernames[i];
 								break;
 							}
 						}
+						*/
 					}
 					myUsername.value = data.username;
 
@@ -449,37 +662,47 @@ var thousandpass = function () {
 					/** Password */
 					var tmpPasswordField = data.passwordField.split('|');
 					if (tmpPasswordField[0] == 'id') {
-						var myPassword = content.document.getElementById(tmpPasswordField[1]);
+						//var myPassword = window.content.document.getElementById(tmpPasswordField[1]);
+						var myPassword = thousandpass.getElementById(tmpPasswordField[1]);
 					} else if (tmpPasswordField[0] == 'name') {
-						var myPasswords = content.document.getElementsByTagName('input');
+
+
+						var myPassword = thousandpass.getElementByNameAttribute(tmpPasswordField[1]);
+						/*
+						var myPasswords = window.content.document.getElementsByTagName('input');
 						for(var i=0; i<myPasswords.length; i++) {
 							if (myPasswords[i].type == 'password' && myPasswords[i].name == tmpPasswordField[1]) {
 								var myPassword = myPasswords[i];
 								break;
 							}
 						}
+						*/
 					}
 					myPassword.value = data.password;
+
 
 
 					/** Extra Fields Info */
 					var tmpExtraField = data.extraField.split('|');
 					if (tmpExtraField[0] == 'id') {
-						var myExtra = content.document.document.getElementById(tmpExtraField[1]);
+						//var myExtra = window.content.document.getElementById(tmpExtraField[1]);
+						var myExtra = thousandpass.getElementById(tmpExtraField[1]);
 					} else if (tmpExtraField[0] == 'name') {
-						var myExtras = content.document.document.getElementsByTagName('input');
+
+						var myExtra = thousandpass.getElementByNameAttribute(tmpExtraField[1]);
+						/*
+						var myExtras = window.content.document.getElementsByTagName('input');
 						for (var i=0; i<myExtras.length; i++) {
 							if (myExtras[i].name == tmpExtraField[1]) {
 								var myExtra = myExtras[i];
 								break;
 							}
 						}
+						*/
 					}
 					if (myExtra != undefined) {
 						myExtra.value = data.extra;
 					}
-
-
 
 
 
@@ -494,15 +717,47 @@ var thousandpass = function () {
 					} else {
 						var tmpForm = data.form.split('|');
 						if (tmpForm[0] == 'id') {
-							var mySubmitter= window.content.document.getElementById(tmpForm[1]);
+
+							var mySubmitter = thousandpass.getElementById(tmpForm[1]);
+							//var mySubmitter = window.content.document.getElementById(tmpForm[1]);
+
 						} else if (tmpForm[0] == 'name') {
-							var myInputs = window.content.document.getElementsByTagName('input');
-							for (var i = 0; i < myInputs.length; i++) {
-								if (myInputs[i].name == tmpForm[1]) {
-									var mySubmitter = myInputs[i];
-									break;
+
+
+
+							var myFrames = thousandpass.getFrames();
+/*
+							var myFrames = new Array();
+							if (window.content.top.frames.length == 0) {
+								myFrames.push(window.content);
+							} else {
+
+								for (var i = 0; i < window.content.top.frames.length; i++) {
+
+									if (window.content.top.frames.length[i] != undefined) {
+										myFrames.push(window.content.top.frames.length[i]);
+									}
+
 								}
 							}
+*/
+
+							for (var i = 0; i < myFrames.length; i++) {
+
+								var myInputs = myFrames[i].document.getElementsByTagName('input');
+
+								for (var i = 0; i < myInputs.length; i++) {
+
+									if (myInputs[i].name == tmpForm[1] && myUsername.form == myInputs[i].form) {
+										var mySubmitter = myInputs[i];
+										break;
+									} else if (myInputs[i].name == tmpForm[1]) {
+										var mySubmitter = myInputs[i];
+									}
+
+								}
+							}
+
 
 							if (mySubmitter == undefined) {
 								var myForms = window.content.document.getElementsByTagName('form');
@@ -513,44 +768,81 @@ var thousandpass = function () {
 									}
 								}
 							}
-						/* } else if (tmpForm[0] == 'action') {
-							var myForms = document.getElementsByTagName('form');
-							for (var i = 0; i < myForms.length; i++) {
-								if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
-									|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
-									var mySubmitter = myForms[i];
-									break;
-								}
-							}
-						*/
+
 						} else if (tmpForm[0] == 'class') {
 							var myForms = myUsername.form.getElementsByClassName(tmpForm[1]);
-							if (myForms.length == 0) {
-								myForms = window.content.document.getElementsByClassName(tmpForm[1]);
+							if (myForms.length == 1) {
+								var mySubmitter = myForms[0];
+							} else {
+								if (myForms.length == 0) {
+									myForms = window.content.document.getElementsByClassName(tmpForm[1]);
+								} else {
+
+									for (var i = 0; i < myForms.length; i++) {
+
+										if (myUsername.form == myInputs[i].form) {
+											var mySubmitter = myInputs[i];
+											break;
+										}
+
+										if (myInputs[i].tagName == 'A') {
+											var mySubmitter = myInputs[i];
+											break;
+										}
+
+									}
+
+								}
 							}
-							var mySubmitter = myForms[0];
 						}
+
+
+						var tab = this;
+						setTimeout(
+							function(){
+
+								// try with the param, but also old fashion if the first does not work
+								if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
+
+
+								var e = window.content.document.createEvent('KeyboardEvent');
+								e.initKeyEvent('keydown', true, true, null, false, false, false, false, 13, 0);
+								myPassword.dispatchEvent(e);
+
+								setTimeout(
+									function() {
+										var e = window.content.document.createEvent('KeyboardEvent');
+										e.initKeyEvent('keypress', true, true, window, false, false, false, false, 13, 0);
+										myPassword.dispatchEvent(e);
+
+									}, 2000);
+
+								}
+							},
+						2000);
+
 
 						setTimeout(
 							function(){
 
 								// try with the param, but also old fashion if the first does not work
 								if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
-									var evt = window.content.document.createEvent('HTMLEvents');
+
+									var evt = window.content.document.createEvent('MouseEvents');
 									evt.initEvent('click', true, true ); // event type,bubbling,cancelable
 									mySubmitter.dispatchEvent(evt);
-									tab.removeAttribute('my-attribute-mark');
+									//tab.removeAttribute('my-attribute-mark');
 
 								}
 							},
-						2000);
+						3000);
 
 						// also try to submit old fashion way...
 						setTimeout(
 							function(){
 								var myForm = myUsername.form;
 								myForm.submit();
-								tab.removeAttribute('my-attribute-mark');
+								//tab.removeAttribute('my-attribute-mark');
 							},
 						4000);
 
@@ -588,8 +880,28 @@ var thousandpass = function () {
 				};
 
 				var myTab = thousandpass.openAndReuseOneTabPerAttributeValue(data);
-				if (data.form != '') {
-					myTab.addEventListener('load', onLoadTabListener, true);
+				if (data.usernameField != '') {
+
+					var doTheJob = function(event) {
+
+						if (event.originalTarget instanceof HTMLDocument) {
+
+							var win = event.originalTarget.defaultView;
+							if (win.frameElement) {
+								//setTimeout(function() {onLoadTabListener(data);}, 8000);
+								setTimeout(function() {
+									onLoadTabListener(data);
+									myTab.removeEventListener('load', doTheJob, true);
+								}, 8000);
+							} else {
+								setTimeout(function() {
+									onLoadTabListener(data);
+									myTab.removeEventListener('load', doTheJob, true);
+								}, 3000);
+							}
+						}
+					}
+					myTab.addEventListener('load', doTheJob, true);
 				}
 			} //openFillFieldsAndSubmit
 		} // bindEvents

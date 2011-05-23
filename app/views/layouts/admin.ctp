@@ -52,6 +52,9 @@
 				$out[] = $html->link(__('User', true), array('controller' => 'users'));
 				$out[] = '</div>';
 				$out[] = '<div>';
+				$out[] = $html->link(__('Banners', true), array('controller' => 'banners'));
+				$out[] = '</div>';
+				$out[] = '<div>';
 				$out[] = $html->link(__('Logout', true), array('controller' => 'users', 'action' => 'logout'));
 				$out[] = '</div>';
 				$out[] = '</ul>';

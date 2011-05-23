@@ -49,19 +49,25 @@ var mdown = function(event) {
 
 		} else {
 
-			if ((event.target.tagName == 'IMG' || event.target.tagName == 'SPAN')
-				&& event.target.parentNode.tagName == 'A') {
+			if (event.target.tagName == 'IMG' || event.target.tagName == 'SPAN' || event.target.tagName == 'DIV') {
 
-				object = event.target.parentNode;
+				if (event.target.parentNode.tagName == 'A') {
+					object = event.target.parentNode;
+				} else if (event.target.parentNode.parentNode.tagName == 'A') {
+					object = event.target.parentNode.parentNode;
+				} else if (event.target.parentNode.parentNode.parentNode.tagName == 'A') {
+					object = event.target.parentNode.parentNode.parentNode;
+				} else {
+					object = event.target;
+				}
+
 			} else {
 				object = event.target;
 			}
 
 			finishSelection = true;
 		}
-
 	}
-
 
 
 	objects.push(object);
@@ -249,13 +255,14 @@ var save = function(loginInput, extraInput, passwordInput, submitInput) {
 	}
 }
 
+
+
 chrome.extension.onConnect.addListener(function(port) {
 	port.onMessage.addListener(function(data) {
 
 		if (data.state == 'opened') {
 			return;
 		}
-
 
 		/** Username */
 		var tmpUsernameField = data.usernameField.split('|');
@@ -318,13 +325,15 @@ chrome.extension.onConnect.addListener(function(port) {
 		} else {
 			var tmpForm = data.form.split('|');
 			if (tmpForm[0] == 'id') {
-				var mySubmitter= document.getElementById(tmpForm[1]);
+				var mySubmitter = document.getElementById(tmpForm[1]);
 			} else if (tmpForm[0] == 'name') {
 				var myInputs = document.getElementsByTagName('input');
 				for (var i = 0; i < myInputs.length; i++) {
-					if (myInputs[i].name == tmpForm[1]) {
+					if (myInputs[i].name == tmpForm[1] && myUsername.form == myInputs[i].form) {
 						var mySubmitter = myInputs[i];
 						break;
+					} else if (myInputs[i].name == tmpForm[1]) {
+						var mySubmitter = myInputs[i];
 					}
 				}
 
@@ -363,8 +372,6 @@ chrome.extension.onConnect.addListener(function(port) {
 						var evt = document.createEvent('HTMLEvents');
 						evt.initEvent('click', true, true ); // event type,bubbling,cancelable
 						mySubmitter.dispatchEvent(evt);
-						console.log(mySubmitter);
-
 					}
 				},
 			2000);
@@ -379,7 +386,7 @@ chrome.extension.onConnect.addListener(function(port) {
 
 		}
 
-		var port = chrome.extension.connect({name: "done"});
+		var port = chrome.extension.connect({name: 'done'});
 		port.postMessage(data);
 
 
@@ -412,16 +419,33 @@ var bind_events = function() {
 
 	var location = window.location.toString();
 	if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/' && location.substr(0, 25) != 'https://www.1000pass.com/') {
+
 		return;
 	}
+
+
+
+	if (typeof($('div#1000pass_add_on')) == 'object') {
+
+		var port = chrome.extension.connect({name: '1000pass'});
+		port.postMessage();
+		/*
+		setInterval(
+			function() {
+				console.log('loggin 1000');
+			}, 1000);
+		*/
+	}
+
+
 
 	/** Modify the dom to tell the addon is present */
 	$('div#1000pass_add_on').addClass('installed');
 	$('div#1000pass_add_on_version').addClass('1.0');
 
 
-	$("img.remote_site_logo").css('cursor', 'pointer');
-	$("img.remote_site_logo").click(function() {
+	$('img.remote_site_logo').css('cursor', 'pointer');
+	$('img.remote_site_logo').click(function() {
 
 		var plugin = $(this).parent().parent();
 		var data = {
