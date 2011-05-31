@@ -295,8 +295,8 @@ var thousandpass = function () {
 
 
 				var req = new XMLHttpRequest();
-				//req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", true);
-				req.open('POST', "http://www.1000pass.com/sites_users/extension_add", true);
+				//req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", false);
+				req.open('POST', "http://www.1000pass.com/sites_users/extension_add", false);
 				req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
 				req.onreadystatechange = function (aEvt) {
 					if (req.readyState == 4) {
@@ -594,6 +594,14 @@ var thousandpass = function () {
 			$('div#1000pass_add_on', window.content.document).addClass('installed');
 			$('div#1000pass_add_on_version', window.content.document).addClass('1.0');
 
+			/*
+			function refreshOnTabSelected(event) {
+				alert(window.content.document.getElementById('1000pass_add_on'));
+				gBrowser.tabContainer.removeEventListener("TabSelect", refreshOnTabSelected, false);
+			}
+			*/
+
+
 
 			$("img.remote_site_logo", window.content.document).css('cursor', 'pointer');
 			var clickableLogos = window.content.document.getElementsByClassName("remote_site_logo");
@@ -628,22 +636,14 @@ var thousandpass = function () {
 					//}
 					//alert(event.originalTarget.defaultView.top);
 
-//alert(data.usernameField);
 					/** Username */
 					var tmpUsernameField = data.usernameField.split('|');
 					if (tmpUsernameField[0] == 'id') {
-						//var myUsername = window.content.document.getElementById(tmpUsernameField[1]);
-//alert('searching...');
-//alert(window.content.document.getElementById(tmpUsernameField[1]));
 
 						var myUsername = thousandpass.getElementById(tmpUsernameField[1]);
-//alert(myUsername);
+
 					} else if (tmpUsernameField[0] == 'name') {
-//alert(tmpUsernameField[1]);
-
 						var myUsername = thousandpass.getElementByNameAttribute(tmpUsernameField[1]);
-
-//alert(myUsername);
 
 						/*
 

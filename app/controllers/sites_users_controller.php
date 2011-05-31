@@ -159,10 +159,11 @@ class SitesUsersController extends AppController {
 
 
 	function saveImage($url, $name) {
-		$ch = curl_init ($img);
+
+		$ch = curl_init($url);
 		curl_setopt($ch, CURLOPT_HEADER, 0);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_BINARYTRANSFER,1);
+		curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
 		$rawdata = curl_exec($ch);
 		curl_close ($ch);
 
@@ -170,9 +171,35 @@ class SitesUsersController extends AppController {
 		if (file_exists($fullpath)){
 			unlink($fullpath);
 		}
-		$fp = fopen($fullpath, 'x');
-		fwrite($fp, $rawdata);
-		fclose($fp);
+
+		if (!empty($rawdata)) {
+			$fp = fopen($fullpath, 'x');
+			fwrite($fp, $rawdata);
+			fclose($fp);
+
+			return true;
+		} else {
+
+			return false;
+		}
+	}
+
+
+	function check() {
+
+		$r = $this->SitesUser->find('count',
+			array(
+				'recursive'		=> -1,
+				'conditions' 	=>
+					array(
+						'SitesUser.user_id' 	=> $this->Session->read('Auth.User.id'),
+					)
+			)
+		);
+
+		Configure::write('debug', 0);
+		$this->layout = 'ajax';
+		$this->set('data', $r);
 	}
 
 
@@ -203,10 +230,21 @@ class SitesUsersController extends AppController {
 
 		if (empty($exists)) {
 
-			$name = uniqid();
-			$this->saveImage($_POST['logo'], $name);
+			if (strpos($_POST['login_url'], '/') !== false) {
+				$logoName = array_pop(explode('//', $_POST['login_url']));
+				if (strpos($logoName, '/') !== false) {
+					$logoName = array_shift(explode('/', $logoName));
+				}
+			} else {
+				$logoName = $_POST['login_url'];
+			}
+			$logoName = str_replace('.', '_', $logoName) . '_' . uniqid() . '.ico';
+
+			if ($this->saveImage($_POST['logo'], $logoName)) {
+				$data['logo'] = $logoName;
+			}
+
 			$data['login_url'] = $_POST['login_url'];
-			$data['logo'] = $name;
 			$data['username_field'] = $username_field;
 			$data['password_field'] = $password_field;
 			$data['extra_field'] = $extra_field;

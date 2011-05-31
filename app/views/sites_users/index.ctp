@@ -2,6 +2,7 @@
 	$this->pageTitle = '1000Pass.com - ' . __('My Sites', true);
 ?>
 
+<div id="total_sites" style="display:none;"></div>
 <div class="inner_container_vertical_scroll">
 	<ul>
 		<?php
@@ -68,6 +69,31 @@
 <script type="text/javascript">
 
 	jQuery(document).ready(function($) {
+
+		setInterval(
+			function() {
+				$.get('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'check')); ?>', function (data) {
+					
+					var total = $('#total_sites').text();
+					if (total == '') {
+
+						$('#total_sites').text(data);
+
+					} else if (total != data) {
+
+						$('#total_sites').text(data);
+
+						var resp = confirm('Se han agregado nuevos sitios. Desea recargar la pagina actual?');
+						if (resp == true) {
+							window.location.reload();
+						}
+					}
+				});
+			},
+			3000
+		);
+			
+
 
 		$('ul').dragsort({
 			dragSelector: '.title',

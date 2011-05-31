@@ -65,14 +65,7 @@
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState == 4) {
 							if (xhr.responseText == 'ok') {
-								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');
-
-								chrome.tabs.get(tab1000pass,
-									function () {
-
-									}
-								);
-								
+								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');			
 							} else if (xhr.responseText == 'er') {
 								alert('No fue posible agregar el nuevo sitio a su cuenta 1000pass.com. Verifique que su sesion en 1000pass.com este activa');
 							} else if (xhr.responseText == 'du') {
