@@ -28,10 +28,11 @@ class BannersController extends AppController {
 			$this->Banner->create();
 
 			if (is_uploaded_file($this->data['Banner']['image']['tmp_name'])) {
-				$this->data['Banner']['image'] = $this->data['Banner']['image']['name'];
-				$target_path = WWW_ROOT . 'img' . DS . 'banners' . DS . $this->data['Banner']['image'];
+				$target_path = WWW_ROOT . 'img' . DS . 'banners' . DS . $this->data['Banner']['image']['name'];
 				if (move_uploaded_file($this->data['Banner']['image']['tmp_name'], $target_path)) {
 					$this->data['Banner']['image'] = $this->data['Banner']['image']['name'];
+				} else {
+					$this->data['Banner']['image'] = '';
 				}
 			}
 
@@ -58,10 +59,11 @@ class BannersController extends AppController {
 			}
 
 			if (is_uploaded_file($this->data['Banner']['image']['tmp_name'])) {
-				$this->data['Banner']['image'] = $this->data['Banner']['image']['name'];
-				$target_path = WWW_ROOT . 'img' . DS . 'banners' . DS . $this->data['Banner']['image'];
+				$target_path = WWW_ROOT . 'img' . DS . 'banners' . DS . $this->data['Banner']['image']['name'];
 				if (move_uploaded_file($this->data['Banner']['image']['tmp_name'], $target_path)) {
 					$this->data['Banner']['image'] = $this->data['Banner']['image']['name'];
+				} else {
+					$this->data['Banner']['image'] = '';
 				}
 			}
 
