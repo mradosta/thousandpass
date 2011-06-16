@@ -148,7 +148,7 @@
 				if ($debugLevel == 0) {
 
 					if (Set::check($banners, 'top.0.Banner')) {
-						$b .= $html->link($html->image('banners/' . $banners['top'][0]['Banner']['image']), $banners['top'][0]['Banner']['url'], array('escape' => false, 'target' => '_BLANK'));
+						$b = $html->link($html->image('banners/' . $banners['top'][0]['Banner']['image']), $banners['top'][0]['Banner']['url'], array('escape' => false, 'target' => '_BLANK'));
 						echo $html->tag('div', $b, array('class' => 'addsense top_addsense top_banner'));
 					}
 
