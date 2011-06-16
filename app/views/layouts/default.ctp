@@ -326,7 +326,7 @@
 				}
 				if (Set::check($banners, 'bottom_small.1.Banner')) {
 					$b .= '&nbsp;&nbsp;&nbsp;&nbsp;';
-					$b .= $html->link($html->image('banners/' . $banners['bottom_small'][2]['Banner']['image']), $banners['bottom_small'][2]['Banner']['url'], array('escape' => false, 'target' => '_BLANK'));
+					$b .= $html->link($html->image('banners/' . $banners['bottom_small'][1]['Banner']['image']), $banners['bottom_small'][1]['Banner']['url'], array('escape' => false, 'target' => '_BLANK'));
 				}
 
 				if (Set::check($banners, 'bottom_big.2.Banner')) {
