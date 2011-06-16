@@ -34,6 +34,8 @@ class BannersController extends AppController {
 				} else {
 					$this->data['Banner']['image'] = '';
 				}
+			} else {
+				unset($this->data['Banner']['image']);
 			}
 
 			if ($this->Banner->save($this->data)) {
@@ -65,6 +67,8 @@ class BannersController extends AppController {
 				} else {
 					$this->data['Banner']['image'] = '';
 				}
+			} else {
+				unset($this->data['Banner']['image']);
 			}
 
 			if ($this->Banner->save($this->data)) {

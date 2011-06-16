@@ -15,11 +15,19 @@ class Banner extends AppModel {
 			)
 		);
 
-		$banners['bottom'] = $this->find('all',
+		$banners['bottom_small'] = $this->find('all',
 			array(
-				'conditions' 	=> array('Banner.location' => 'bottom'),
+				'conditions' 	=> array('Banner.location' => 'bottom_small'),
 				'order'			=> 'rand()',
-				'limit'			=> 2
+				'limit'			=> 3
+			)
+		);
+
+		$banners['bottom_big'] = $this->find('all',
+			array(
+				'conditions' 	=> array('Banner.location' => 'bottom_big'),
+				'order'			=> 'rand()',
+				'limit'			=> 3
 			)
 		);
 

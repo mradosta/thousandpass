@@ -356,10 +356,25 @@ div.top_banner img {
 }
 
 div.bottom_banner img {
+	padding: 4px;
+}
+
+/*
+div.bottom_banner img {
 	width: 445px;
 	height: 130px;
 }
 
+div.bottom_small_banner img {
+	width: 98px;
+	height: 70px;
+}
+
+div.bottom_big_banner img {
+	width: 178px;
+	height: 70px;
+}
+*/
 
 /** Languages */
 #languages {
