@@ -76,7 +76,10 @@
 						}
 					}
 
-					var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
+					//var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
+
+					var d = 'title=' + encodeURI(port.tab.title) + '&login_url=' + encodeURI(port.tab.url.replace(/&/g, '**||**')) + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
+
 					xhr.send(d);
 
 

@@ -204,7 +204,7 @@ class SitesUsersController extends AppController {
 
 
 	function extension_add() {
-
+		//$_POST = $_GET;
 		$res = 'er';
 
 		$tmp = explode('|', $_POST['username_field']);
@@ -226,6 +226,7 @@ class SitesUsersController extends AppController {
 
 		$_POST['login_url'] = str_replace('&amp;', '&', str_replace('**||**', '&', $_POST['login_url']));
 
+		$this->SitesUser->Site->recursive = -1;
 		$exists = $this->SitesUser->Site->findByLoginUrl($_POST['login_url']);
 
 		if (empty($exists)) {

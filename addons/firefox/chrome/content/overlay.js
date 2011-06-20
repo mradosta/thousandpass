@@ -274,25 +274,25 @@ var thousandpass = function () {
 			}
 
 
+
+			var selections = new Array();
+			selections.push(thousandpass.getIdentifier($(loginInput)) + '|' + $(loginInput).val());
+			if (extraInput != undefined) {
+				selections.push(thousandpass.getIdentifier($(extraInput)) + '|' + $(extraInput).val());
+			} else {
+				selections.push('');
+			}
+			selections.push(thousandpass.getIdentifier($(passwordInput)) + '|' + $(passwordInput).val());
+
+			if (typeof(submitInput) == 'object') {
+				selections.push(thousandpass.getIdentifier(submitInput));
+			} else {
+				selections.push('');
+			}
+
+
 			var resp = confirm('Confirma que desea agregar el nuevo sitio a 1000pass.com?');
 			if (resp == true) {
-
-				var selections = new Array();
-				selections.push(thousandpass.getIdentifier($(loginInput)) + '|' + $(loginInput).val());
-				if (extraInput != undefined) {
-					selections.push(thousandpass.getIdentifier($(extraInput)) + '|' + $(extraInput).val());
-				} else {
-					selections.push('');
-				}
-				selections.push(thousandpass.getIdentifier($(passwordInput)) + '|' + $(passwordInput).val());
-
-				if (typeof(submitInput) == 'object') {
-					selections.push(thousandpass.getIdentifier(submitInput));
-				} else {
-					selections.push('');
-				}
-
-
 
 				var req = new XMLHttpRequest();
 				//req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", false);
@@ -320,8 +320,10 @@ var thousandpass = function () {
 
 
 				var url = window.top.getBrowser().selectedBrowser.contentWindow.location.href.replace(/&/g, '**||**');
-				var d = 'title=' + window.content.document.title + '&login_url=' + url + '&logo=' + url.match(/([http|https]+):\/\/(.[^/]+)/)[0] + '/favicon.ico' + '&username_field=' + selections[0] + '&extra_field=' + selections[1] + '&password_field=' + selections[2] + '&submit=' + selections[3];
+				var d = 'title=' + encodeURI(window.content.document.title) + '&login_url=' + encodeURI(url) + '&logo=' + url.match(/([http|https]+):\/\/(.[^/]+)/)[0] + '/favicon.ico' + '&username_field=' + selections[0] + '&extra_field=' + selections[1] + '&password_field=' + selections[2] + '&submit=' + selections[3];
+
 				req.send(d);
+
 
 			} else {
 				$('.tp_selected').each(
@@ -434,6 +436,7 @@ var thousandpass = function () {
 				return;
 			}
 
+			thousandpass.objects = new Array();
 			window.content.document.body.addEventListener('mousedown', thousandpass.mdown, true);
 		},
 
