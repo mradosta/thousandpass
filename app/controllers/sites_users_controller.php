@@ -270,9 +270,8 @@ class SitesUsersController extends AppController {
 			}
 
 			$logoName = str_replace('.', '_', $logoName) . '_' . uniqid() . '.jpg';
-			if ($this->saveImage($_POST['login_url'], $logoName)) {
-				$data['logo'] = $logoName;
-			}
+			$this->saveImage($_POST['login_url'], $logoName);
+			$data['logo'] = $logoName;
 
 			$data['login_url'] = $_POST['login_url'];
 			$data['username_field'] = $username_field;

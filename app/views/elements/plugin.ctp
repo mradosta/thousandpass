@@ -96,17 +96,14 @@
 	
 
 	$logoClass = null;
-	if (empty($data['Site']['logo'])) {
+	if (empty($data['Site']['logo']) || !file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
 		$data['Site']['logo'] = 'default.png';
 	} else {
 		if (substr($data['Site']['logo'], -11) == 'favicon.ico') {
-$data['Site']['logo'] = '';
+			$data['Site']['logo'] = '';
 			$logoClass = 'favicon';
 			//$data['Site']['logo'] = 'transparent.png';
-		} else if (!file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
-			$data['Site']['logo'] = 'default.png';
 		}
-
 	}
 
 

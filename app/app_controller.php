@@ -70,7 +70,6 @@ class AppController extends Controller {
 			$locale = $L10nExtended->locale;
 
 			$language = $L10nExtended->getLanguage();
-			$this->Cookie->write('language', $language, false, '10 year');
 
 			$availableLanguages = Configure::read('Config.languages');
 			if (in_array($language, $availableLanguages)) {
@@ -79,6 +78,8 @@ class AppController extends Controller {
 			} else {
 				$language = 'eng';
 			}
+
+			$this->Cookie->write('language', $language, false, '10 year');
 		}
 		Configure::write('Config.language', $language);
 
