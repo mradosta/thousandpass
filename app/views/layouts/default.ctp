@@ -243,7 +243,6 @@
 				} else {
 					echo '<div class="login">';
 					echo $form->create('User', array('action' => 'login'));
-					//echo '<p class="triangle-isosceles">ssssssssssssssss</p>';
 					echo $form->input('username', array(
 						'class'		=> 'login_email',
 						'id'		=> null,
@@ -284,12 +283,12 @@
 
 				$token = $session->read('Auth.User.token');
 				if (!empty($token)) {
-					$toolbar[] = '<div id="1000pass_add_on" class="not_installed" token="' . $token . '"></div>';
+					$toolbar[] = '<div id="1000pass_add_on" class="not_installed" token="' . $token . '"><div id="1000pass_add_on_version" class="0"></div></div>';
 				} else {
-					$toolbar[] = '<div id="1000pass_add_on" class="not_installed"></div>';
+					$toolbar[] = '<div id="1000pass_add_on" class="not_installed"><div id="1000pass_add_on_version" class="0"></div></div>';
 				}
 				
-				$toolbar[] = '<div id="1000pass_add_on_version" class="0"></div>';
+				//$toolbar[] = '<div id="1000pass_add_on_version" class="0"></div>';
 
 				echo implode('', $toolbar);
 				echo '</div>';

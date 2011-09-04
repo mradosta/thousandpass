@@ -216,6 +216,12 @@ class SitesUsersController extends AppController {
 
     function saveImage($url, $name) {
 
+		// only for windows
+		if (PHP_OS == 'Linux') {
+			return;
+		}
+
+
         $saveFileAs = IMAGES . 'logos' . DS . $name;
 
 		// run in the bg
@@ -329,10 +335,16 @@ class SitesUsersController extends AppController {
 
 					if ($this->SitesUser->save(array('SitesUser' => $data))) {
 						$res = __('El sitio se agrego correctamente a su cuenta de 1000Pass.com', true);
+					} else {
+						$res = __('No fue posible agregar el sitio a su cuenta. Contactese con admin@1000pass.com', true);
 					}
 
 				}
+
+			} else {
+				$res = __('No fue posible agregar el sitio. Contactese con admin@1000pass.com', true);
 			}
+
 		} else {
 			$res = __('No es posible identificar su usuario. Por favor, ingrese a 1000Pass.com y luego intente agregar el sitio nuevamente', true);
 		}

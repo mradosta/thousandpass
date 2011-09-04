@@ -83,7 +83,6 @@ class AppController extends Controller {
 		}
 		Configure::write('Config.language', $language);
 
-
 		$sharedToMe = ClassRegistry::init('SitesUser')->find('all',
 			array(
 				'contain' 		=> array('ParentSitesUser' => array('User', 'Site')),

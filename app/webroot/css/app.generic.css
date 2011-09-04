@@ -577,10 +577,7 @@ div.installed {
 	width: 32px;
 	height: 32px;
 	background: url(img/green_ball.png) no-repeat;
-}
-
-div.installed img {
-	float: right;
+	text-align: center;
 }
 
 div.not_installed {
@@ -588,6 +585,7 @@ div.not_installed {
 	width: 32px;
 	height: 32px;
 	background: url(img/orange_ball.png) no-repeat;
+	text-align: center;
 }
 
 #top_bar div.toolbar img {
