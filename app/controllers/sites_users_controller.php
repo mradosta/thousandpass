@@ -3,6 +3,13 @@ class SitesUsersController extends AppController {
 
 	var $name = 'SitesUsers';
 	var $helpers = array('Text');
+	//var $components = array('Webthumb');
+
+
+	function beforeFilter() {
+		$this->Auth->allow(array('extension_add'));
+		return parent::beforeFilter();
+	}
 
 
 	function reassign($oldSiteId, $newSiteId, $userId) {
@@ -158,30 +165,33 @@ class SitesUsersController extends AppController {
 	}
 
 
-	function saveImage($url, $name) {
+	function getThumbalizrRequestUrl_deprecated($url = 'http://www.corven.com.br') {
 
-		$ch = curl_init($url);
-		curl_setopt($ch, CURLOPT_HEADER, 0);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
-		$rawdata = curl_exec($ch);
-		curl_close ($ch);
+		$config = array(
+			'api_key' => '6271300ff409f013f632ef28bb0f4622',
+			'service_url' => 'http://api.thumbalizr.com/',
+			'quality' => 90,
+			'width' => 250,
+			'encoding' => 'png',
+			'delay' => '5',
+			'mode' => 'screen',
+			'bwidth' => 1280,
+			'bheight' => 1024
 
-		$fullpath = WWW_ROOT . 'img' . DS . 'logos' . DS . $name;
-		if (file_exists($fullpath)){
-			unlink($fullpath);
-		}
+		);
+		return $config['service_url'] .'?'. http_build_query(array(
+			'api_key' => $config['api_key'],
+			'quality' => $config['quality'],
+			'width' => $config['width'],
+			'encoding' => $config['encoding'],
+			'delay' => $config['delay'],
+			'mode' => $config['mode'],
+			'bwidth' => $config['bwidth'],
+			'bheight' => $config['bheight'],
+			'url' => $url,
+		));
 
-		if (!empty($rawdata)) {
-			$fp = fopen($fullpath, 'x');
-			fwrite($fp, $rawdata);
-			fclose($fp);
-
-			return true;
-		} else {
-
-			return false;
-		}
+		
 	}
 
 
@@ -203,7 +213,145 @@ class SitesUsersController extends AppController {
 	}
 
 
+
+    function saveImage($url, $name) {
+
+        $saveFileAs = IMAGES . 'logos' . DS . $name;
+
+		// run in the bg
+		$WshShell = new COM('WScript.Shell');
+		$r = $WshShell->Run('e:\wamp\bin\php\php5.3.0\php.exe e:\wamp\www\app\webroot\files\helpers\capture.php ' . $url . ' ' . $saveFileAs, 0, false);
+
+    }
+
+
 	function extension_add() {
+
+		//$_POST = $_GET;
+		//Configure::write('debug', 0);
+		//$this->layout = 'ajax';
+		//$this->set('data', json_encode($_POST));
+
+		//$_POST = $_GET;
+		$_POST['logo'] = '';
+		$res = __('Error agregando el nuevo sitio', true);
+
+		$tmp = explode('|', $_POST['username_field']);
+		$username_field = $tmp[0];
+		$username = $tmp[1];
+
+		if (!empty($_POST['extra_field'])) {
+			$tmp = explode('|', $_POST['extra_field']);
+			$extra_field = $tmp[0];
+			$extra = $tmp[1];
+		} else {
+			$extra_field = '';
+			$extra = '';
+		}
+
+		$tmp = explode('|', $_POST['password_field']);
+		$password_field = $tmp[0];
+		$password = $tmp[1];
+
+		$_POST['login_url'] = str_replace('&amp;', '&', str_replace('**||**', '&', $_POST['login_url']));
+
+		$this->SitesUser->Site->recursive = -1;
+		$exists = $this->SitesUser->Site->findByLoginUrl($_POST['login_url']);
+
+		if (empty($exists)) {
+
+			if (strpos($_POST['login_url'], '/') !== false) {
+				$logoName = array_pop(explode('//', $_POST['login_url']));
+				if (strpos($logoName, '/') !== false) {
+					$logoName = array_shift(explode('/', $logoName));
+				}
+			} else {
+				$logoName = $_POST['login_url'];
+			}
+
+			$logoName = str_replace('.', '_', $logoName) . '_' . uniqid() . '.jpg';
+			if ($this->saveImage($_POST['login_url'], $logoName)) {
+				$data['logo'] = $logoName;
+			}
+
+			$data['login_url'] = $_POST['login_url'];
+			$data['username_field'] = $username_field;
+			$data['password_field'] = $password_field;
+			$data['extra_field'] = $extra_field;
+			$data['submit'] = $_POST['submit'];
+			$data['title'] = $_POST['title'];
+			$data['state'] = 'approved';
+
+			if ($this->SitesUser->Site->save(array('Site' => $data))) {
+				$siteId = $this->SitesUser->Site->id;
+			} else {
+				$res = __('No es posible guardar el sitio (B)', true);
+			}
+
+		} else {
+			$siteId = $exists['Site']['id'];
+		}
+
+
+		$user = $this->SitesUser->User->find('first',
+			array(
+				'conditions' => array('User.token' => $_POST['token'])
+			)
+		);
+
+		if (!empty($user['User']['id'])) {
+			if (!empty($siteId)) {
+				$r = $this->SitesUser->find('all',
+					array(
+						'recursive'		=> -1,	
+						'conditions' 	=>
+							array(
+								'SitesUser.site_id' 	=> $siteId,
+								'SitesUser.user_id' 	=> $user['User']['id'],
+								'SitesUser.username' 	=> $username,
+								'SitesUser.password' 	=> $password
+							)
+					)
+				);
+
+				if (!empty($r)) {
+
+					$res = __('El sitio ya esta agregado en su cuenta 1000Pass.com', true); //duplicated
+
+				} else {
+	
+					$data = array();
+					$data['user_id'] = $user['User']['id'];
+					$data['order'] = 1000;
+					$data['site_id'] = $siteId;
+					$data['username'] = $username;
+					$data['password'] = $password;
+					$data['extra'] = $extra;
+
+					if ($this->SitesUser->save(array('SitesUser' => $data))) {
+						$res = __('El sitio se agrego correctamente a su cuenta de 1000Pass.com', true);
+					}
+
+				}
+			}
+		} else {
+			$res = __('No es posible identificar su usuario. Por favor, ingrese a 1000Pass.com y luego intente agregar el sitio nuevamente', true);
+		}
+
+		Configure::write('debug', 0);
+		$this->layout = 'ajax';
+		$this->set('data', $res);
+	}
+
+
+	function xextension_add() {
+
+		//$_POST = $_GET;
+		Configure::write('debug', 0);
+		$this->layout = 'ajax';
+		$this->set('data', json_encode($_POST));
+		/*
+
 		//$_POST = $_GET;
 		$res = 'er';
 
@@ -298,7 +446,9 @@ class SitesUsersController extends AppController {
 		Configure::write('debug', 0);
 		$this->layout = 'ajax';
 		$this->set('data', $res);
+		*/
 	}
+
 
 	function add($siteId = null) {
 

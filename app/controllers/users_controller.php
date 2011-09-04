@@ -59,22 +59,60 @@ class UsersController extends AppController {
      *  for login, so you can leave this function blank.
      */
     function login() {
+
+		if (!(empty($this->data)) && $this->Auth->user()) {
+
+			// delete prev in session
+			$sql = 'DELETE FROM cake_sessions WHERE data LIKE \'%' . 's:8:"username";s:' . strlen($this->data['User']['username']) . ':"' . $this->data['User']['username'] . '"' . '%\'';
+			$this->User->query($sql);
+
+			$this->Session->write('add_on', array(
+				'state' 	=> $this->data['User']['1000pass_add_on'],
+				'version' 	=> $this->data['User']['1000pass_add_on_version']));
+
+
+			// create token
+			$token = uniqid();
+			$this->User->id = $this->Auth->user('id');
+			if ($this->User->saveField('token', $token)) {
+				$this->Session->write('Auth.User.token', $token);
+			}
+
+			$this->redirect($this->Auth->redirect());
+		}
+
 		$this->render('register');
     }
 
+
     function logout() {
+
+		// delete token
+		if ($this->Auth->isAuthorized()) {
+			$this->User->id = $this->Auth->user('id');
+			$this->User->saveField('token', '');
+		}
+
 		$this->redirect($this->Auth->logout());
     }
 
 
 	function beforeFilter() {
 
+		$this->Auth->autoRedirect = false;
+
+		//d($this->User);
+		//$this->User->birthdate = date("Y-m-d");
+            //$this->User->saveField('last_login', date('Y-m-d H:i:s'));
+
 		/**
 		* Allows a user to sign up for a new account
 		*/
 		$this->Auth->allow(array('get_contacts', 'captcha', 'register', 'recover_password', 'terms_of_service', 'help'));
 
+		/*
 		if (!empty($this->params['action']) && $this->params['action'] == 'login' && !empty($this->data['User']['username'])) {
+
 			$sql = 'DELETE FROM cake_sessions WHERE data LIKE \'%' . 's:8:"username";s:' . strlen($this->data['User']['username']) . ':"' . $this->data['User']['username'] . '"' . '%\'';
 			$this->User->query($sql);
 
@@ -82,6 +120,7 @@ class UsersController extends AppController {
 				'state' 	=> $this->data['User']['1000pass_add_on'],
 				'version' 	=> $this->data['User']['1000pass_add_on_version']));
 		}
+		*/
 
 		return parent::beforeFilter();
 	}

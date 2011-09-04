@@ -47,7 +47,6 @@ class AppController extends Controller {
 
 		$this->Auth->loginRedirect = '/home';
 		$this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'register');
-		//$this->Auth->loginAction = array('controller' => 'users', 'action' => 'register');
 
 		/** if admin url requested */
 		if (isset($this->params['admin']) && $this->params['admin']) {

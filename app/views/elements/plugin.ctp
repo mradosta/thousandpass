@@ -149,12 +149,15 @@ $data['Site']['logo'] = '';
 	if ($data['Site']['state'] == 'approved') {
 		$out[] = $html->tag('div', $data['Site']['title'], array('id' => 'title'));
 		$out[] = $html->tag('div', $data['Site']['login_url'], array('id' => 'url'));
+
+		/*
 		$logoutUrl = explode('|', $data['Site']['logout_url']);
 		if (empty($logoutUrl[1])) {
 			$logoutUrl[1] = $logoutUrl[0];
 			$logoutUrl[0] = 'link';
 		}
 		$out[] = $html->tag('div', $logoutUrl[1], array('id' => 'logout_url', 'class' => $logoutUrl[0]));
+		*/
 		$out[] = $html->tag('div', $data['SitesUser']['username'], array('id' => 'username', 'class' => $data['Site']['username_field']));
 		$out[] = $html->tag('div', $data['SitesUser']['password'], array('id' => 'password', 'class' => $data['Site']['password_field']));
 		//$out[] = $html->tag('div', $data['Site']['extra'], array('id' => 'extra'));

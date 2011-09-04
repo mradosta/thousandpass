@@ -117,7 +117,7 @@
 
 		$('.add_on_not_installed').css('cursor', 'pointer').click(
 			function() {
-
+return;
 				alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
 
 				var basePath = '<?php echo Router::url('/'); ?>';

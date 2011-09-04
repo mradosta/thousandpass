@@ -1,3 +1,162 @@
+/*
+var path = '/HTML/BODY/TABLE[3]/TBODY[1]/TR[1]/TD[1]/TABLE[1]/TBODY[1]/TR[3]/TD[1]/TABLE[1]/TBODY[1]/TR[1]/TD[2]/FORM[2]/TABLE[1]/TBODY[1]/TR[3]/TD[2]/INPUT[1]';
+
+var xpathobj = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+console.log(xpathobj);
+console.log(xpathobj.singleNodeValue);
+console.log(xpathobj.singleNodeValue.tagName);
+return;
+*/
+
+/*
+function getPath(event) {
+  event = event || window.event;
+
+  var pathElements = [];
+  var elem = event.currentTarget;
+  var index = 0;
+  var siblings = event.currentTarget.parentNode.getElementsByTagName(event.currentTarget.tagName);
+  for (var i=0, imax=siblings.length; i<imax; i++) {
+      if (event.currentTarget === siblings[i] {
+        index = i+1; // add 1 for xpath 1-based
+      }
+  }
+
+
+  while (elem.tagName.toLowerCase() != "html") {
+    pathElements.unshift(elem.tagName);
+    elem = elem.parentNode;
+  }
+  return pathElements.join("/") + "[" + index + "]";
+}
+*/
+function getPathTo(element) {
+    if (element.id!=='')
+        return 'id("'+element.id+'")';
+    if (element===document.body)
+        return element.tagName;
+
+    var ix= 0;
+    var siblings= element.parentNode.childNodes;
+    for (var i= 0; i<siblings.length; i++) {
+        var sibling= siblings[i];
+        if (sibling===element)
+            return getPathTo(element.parentNode)+'/'+element.tagName+'['+(ix+1)+']';
+        if (sibling.nodeType===1 && sibling.tagName===element.tagName)
+            ix++;
+    }
+}
+
+function getPageXY(element) {
+    var x= 0, y= 0;
+    while (element) {
+        x+= element.offsetLeft;
+        y+= element.offsetTop;
+        element= element.offsetParent;
+    }
+    return [x, y];
+}
+
+
+// http://stackoverflow.com/questions/2661818/javascript-get-xpath-of-a-node/5178132#5178132
+function createXPathFromElement(elm) { 
+    var allNodes = document.getElementsByTagName('*'); 
+    for (segs = []; elm && elm.nodeType == 1; elm = elm.parentNode) 
+    { 
+        if (elm.hasAttribute('id')) { 
+                var uniqueIdCount = 0; 
+                for (var n=0;n < allNodes.length;n++) { 
+                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++; 
+                    if (uniqueIdCount > 1) break; 
+                }; 
+                if ( uniqueIdCount == 1) { 
+                    segs.unshift('id("' + elm.getAttribute('id') + '")'); 
+                    return segs.join('/'); 
+                } else { 
+                    segs.unshift(elm.localName.toLowerCase() + '[@id="' + elm.getAttribute('id') + '"]'); 
+                } 
+        } else if (elm.hasAttribute('class')) { 
+            segs.unshift(elm.localName.toLowerCase() + '[@class="' + elm.getAttribute('class') + '"]'); 
+        } else { 
+            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
+                if (sib.localName == elm.localName)  i++; }; 
+                segs.unshift(elm.localName.toLowerCase() + '[' + i + ']'); 
+        }; 
+    }; 
+    return segs.length ? '/' + segs.join('/') : null; 
+}; 
+
+function lookupElementByXPath(path) { 
+    var evaluator = new XPathEvaluator(); 
+    var result = evaluator.evaluate(path, document.documentElement, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
+    return  result.singleNodeValue; 
+} 
+
+
+function lookupElementByXPathInDocument(doc, path) {
+    var evaluator = new XPathEvaluator(); 
+    var result = evaluator.evaluate(path, doc.documentElement, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+    return  result.singleNodeValue; 
+} 
+
+/*
+
+jQuery.fn.extend({
+	getPath: function( path ) {
+		// The first time this function is called, path won't be defined.
+		if ( typeof path == 'undefined' ) path = '';
+
+		// If this element is <html> we've reached the end of the path.
+		if ( this.is('html') )
+			return 'html' + path;
+
+		// Add the element name.
+		var cur = this.get(0).nodeName.toLowerCase();
+
+		// Determine the IDs and path.
+		var id    = this.attr('id'),
+		    class = this.attr('class');
+
+
+		// Add the #id if there is one.
+		if ( typeof id != 'undefined' )
+			cur += '#' + id;
+
+		// Add any classes.
+		if ( typeof class != 'undefined' )
+			cur += '.' + class.split(/[\s\n]+/).join('.');
+
+		// Recurse up the DOM.
+		return this.parent().getPath( ' > ' + cur + path );
+	}
+});
+*/
+/*
+jQuery.fn.getPath = function () {
+    if (this.length != 1) throw 'Requires one element.';
+
+    var path, node = this;
+    while (node.length) {
+        var realNode = node[0], name = realNode.localName;
+        if (!name) break;
+        name = name.toLowerCase();
+
+        var parent = node.parent();
+
+        var siblings = parent.children(name);
+        if (siblings.length > 1) { 
+            name += ':eq(' + siblings.index(realNode) + ')';
+        }
+
+        path = name + (path ? '>' + path : '');
+        node = parent;
+    }
+
+    return path;
+};
+*/
+
+
 var objects = new Array();
 
 /*
@@ -11,6 +170,71 @@ var mout = function(event) {
 */
 var mdown = function(event) {
 
+
+		if (event===undefined) event= window.event;                     // IE hack
+		var target= 'target' in event? event.target : event.srcElement; // another IE hack
+
+		var root= document.compatMode==='CSS1Compat'? document.documentElement : document.body;
+		var mxy= [event.clientX+root.scrollLeft, event.clientY+root.scrollTop];
+
+		var path= getPathTo(target);
+		var txy= getPageXY(target);
+		//alert('Clicked element '+path+' offset '+(mxy[0]-txy[0])+', '+(mxy[1]-txy[1]));
+		var xpathobj = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+
+		console.log(path);
+
+		var path = '/HTML/BODY/TABLE[3]/TBODY[1]/TR[1]/TD[1]/TABLE[1]/TBODY[1]/TR[3]/TD[1]/TABLE[1]/TBODY[1]/TR[1]/TD[2]/FORM[2]/TABLE[1]/TBODY[1]/TR[3]/TD[2]/INPUT[1]';
+
+		console.log(xpathobj);
+		console.log(xpathobj.singleNodeValue);
+		console.log(xpathobj.singleNodeValue.tagName);
+		return;
+
+		console.log(window.frames);
+		console.log(window.frames[0]);
+		console.log(window.frames[0].document);
+		console.log(window.frames.length);
+		var frames = window.document.getElementsByTagName('frame');
+		console.log('frames.length: ' + frames.length);
+
+		var framesets = window.document.getElementsByTagName('frameset');
+		console.log('framesets.length: ' + framesets.length);
+
+		for (var i = 0; i < framesets.length; i++) {
+			console.log(framesets[i]);
+		}
+
+		var xpath = "/html/frameset/frame[@name='BISframe']";
+		var frameResult = window.document.evaluate(xpath, window.document, null, XPathResult.ANY_UNORDERED_NODE_TYPE,null);
+		console.log('xx');
+		console.log(frameResult);
+
+		var frameResult = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE,null);
+		console.log('yy');
+		console.log(frameResult);
+
+
+		var document2 = frameResult.contentDocument;
+		console.log(document2);
+		console.log(lookupElementByXPathInDocument(document2, path));
+
+		
+		$(lookupElementByXPathInDocument(documnet2, path)).click();
+
+		return;
+
+
+
+		var xpath = createXPathFromElement(target);
+		console.log(xpath);
+		console.log(lookupElementByXPath(xpath));
+		$(lookupElementByXPath(xpath)).val('xxxxxxxxxxxxxxxxxxxxxxxx');
+
+
+		return;
+
+
 	var finishSelection = false;
 	var object;
 	if (objects.length == 0) {
@@ -23,6 +247,35 @@ var mdown = function(event) {
 			return;
 		}
 		object = event.target;
+
+
+		/*
+		if (event===undefined) event= window.event;                     // IE hack
+		var target= 'target' in event? event.target : event.srcElement; // another IE hack
+
+		var root= document.compatMode==='CSS1Compat'? document.documentElement : document.body;
+		var mxy= [event.clientX+root.scrollLeft, event.clientY+root.scrollTop];
+
+		var path= getPathTo(target);
+		var txy= getPageXY(target);
+		//alert('Clicked element '+path+' offset '+(mxy[0]-txy[0])+', '+(mxy[1]-txy[1]));
+		var xpathobj = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+		console.log(path);
+		console.log(xpathobj);
+		console.log(xpathobj.singleNodeValue);
+		console.log(xpathobj.singleNodeValue.tagName);
+		lookupElementByXPath(xpath).click();
+
+
+
+		var xpath = createXPathFromElement(target);
+		console.log(xpath);
+		console.log(lookupElementByXPath(xpath));
+		$(lookupElementByXPath(xpath)).val('xxxxxxxxxxxxxxxxxxxxxxxx');
+		*/
+
+		//console.log($(object).getPath());
+		//xpathobj = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
 
 	} else if (objects.length == 1) {
 		if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'password') {
