@@ -96,7 +96,7 @@
 	
 
 	$logoClass = null;
-	if (empty($data['Site']['logo']) || !file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo'])) {
+	if (empty($data['Site']['logo']) || !file_exists(IMAGES . DS . 'logos' . DS . $data['Site']['logo']) || filesize(IMAGES . DS . 'logos' . DS . $data['Site']['logo']) <= 500) {
 		$data['Site']['logo'] = 'default.png';
 	} else {
 		if (substr($data['Site']['logo'], -11) == 'favicon.ico') {
