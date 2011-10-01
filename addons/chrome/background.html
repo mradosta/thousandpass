@@ -3,34 +3,67 @@
 
 	<script>
 
+		var token = null;
+
 		var addTo1000PassAuto = function(info, tab) {
-			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
-			if (answer) {
-				chrome.tabs.sendRequest(tab.id, 'add_to_1000pass_auto');
+			if (token != null) {
+				var answer = confirm ('Para poder agregar el nuevo sitio a 1000Pass.com es necesario que haya ingresado su usuario y clave. Ya lo ha hecho?')
+				if (answer) {
+					chrome.tabs.sendRequest(tab.id, 'add_to_1000pass_auto');
+				}
+			} else {
+				alert('Debe ingresar a su cuenta de 1000Pass.com en una nueva pestaña del navegador antes de poder agregar el nuevo sitio.')
 			}
 		};
 
 		var addTo1000PassManual = function(info, tab) {
-			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
-			if (answer) {
-				chrome.tabs.sendRequest(tab.id, 'add_to_1000pass_manual');
+			if (token != null) {
+				var answer = confirm ('Para poder agregar el nuevo sitio a 1000Pass.com es necesario que haya ingresado su usuario y clave. Ya lo ha hecho?')
+				if (answer) {
+					alert('Haga click sobre el boton ingresar');
+					chrome.tabs.sendRequest(tab.id, 'add_to_1000pass_manual');
+				}
+			} else {
+				alert('Debe ingresar a su cuenta de 1000Pass.com en una nueva pestaña del navegador antes de poder agregar el nuevo sitio.')
 			}
 		};
 
 
 		chrome.contextMenus.create({
-			"title"		: 'Agregar (Automatico)',
-			"type" 		: 'normal',
-			"contexts" 	: ['all'],
-			"onclick"	: addTo1000PassAuto
+			'title'		: 'Agregar (Automatico)',
+			'type' 		: 'normal',
+			'contexts' 	: ['all'],
+			'onclick'	: addTo1000PassAuto
 		});
 		chrome.contextMenus.create({
-			"title"		: 'Agregar (Manual)',
-			"type" 		: 'normal',
-			"contexts" 	: ['all'],
-			"onclick"	: addTo1000PassManual
+			'title'		: 'Agregar (Manual)',
+			'type' 		: 'normal',
+			'contexts' 	: ['all'],
+			'onclick'	: addTo1000PassManual
 		});
 
+
+/*
+chrome.extension.onRequest.addListener(function(request) {
+    if(request.cmd == "createSelectionMenu") {
+        chrome.contextMenus.removeAll(function() {
+            chrome.contextMenus.create({
+                "title": "B",
+                "contexts":["selection"],
+                "onclick": function () {alert('dob');}
+            });
+        });
+    } else if(request.cmd == "createRegularMenu") {
+        chrome.contextMenus.removeAll(function() {
+            chrome.contextMenus.create({
+                "title": "A",
+                "contexts":["page"],
+                "onclick": function () {alert('doa');}
+            });
+        });
+    }
+});
+*/
 
 		chrome.browserAction.onClicked.addListener(
 			function(tab) {
@@ -57,71 +90,26 @@
 			port.onMessage.addListener(function(data) {
 
 				if (port.name == 'finish_adding') {
-
+					
 					var xhr = new XMLHttpRequest();
 					xhr.open('POST', 'http://www.1000pass.com/sites_users/extension_add', true);
 					//xhr.open('POST', 'http://localhost/thousandpass/sites_users/extension_add', true);
 					xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
 					xhr.onreadystatechange = function() {
 						if (xhr.readyState == 4) {
-							if (xhr.responseText == 'ok') {
-								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');			
-							} else if (xhr.responseText == 'er') {
-								alert('No fue posible agregar el nuevo sitio a su cuenta 1000pass.com. Verifique que su sesion en 1000pass.com este activa');
-							} else if (xhr.responseText == 'du') {
-								alert('El sitio que intenta agregar ya existe en su cuenta de 1000pass.com');
-							} else {
-								alert('Ocurrio un error al agregar el nuevo sitio a 1000pass.com');
-							}
+							alert(xhr.responseText);
 						}
 					}
 
-					//var d = 'title=' + port.tab.title + '&login_url=' + port.tab.url.replace(/&/g, '**||**') + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
-
-					var d = 'title=' + encodeURI(port.tab.title) + '&login_url=' + encodeURI(port.tab.url.replace(/&/g, '**||**')) + '&logo=' + port.tab.favIconUrl + '&username_field=' + data[0] + '&extra_field=' + data[1] + '&password_field=' + data[2] + '&submit=' + data[3];
+					var d = 'token=' + token + '&title=' + encodeURI(port.tab.title) + '&login_url=' + encodeURI(port.tab.url.replace(/&/g, '**||**')) + '&username_field=' + data.usernameElement + '|' + data.username + '&password_field=' + data.passwordElement + '|' + data.password + '&submit=' + data.enterElement;
 
 					xhr.send(d);
 
-
 				} else if (port.name == '1000pass') {
 
-
+					token = data;
 					tab1000pass = port.tab.id;
-					//alert();
-
-					//alert(openedTabs.length);
-					/*
-					for (var i = 0; i < openedTabs.length; i++) {
-
-						if (openedTabs[i].tab_id == port.tab.id) {
-							console.log(openedTabs[i]);
-						}
-
-					}
-					*/
-
-
-					//console.log((port.tab);
-					//alert(port.tab.xxx);
-
-					//port.tab.myxxx = 'xxx';
-					//console.log((port.tab);
-
-					/*
-
-					for (var i = 0; i < openedTabs.length; i++) {
-						if (openedTabs[i].tab_id == tabId) {
-							var port = chrome.tabs.connect(tabId);
-							port.postMessage(openedTabs[i]);
-						}
-					}
-
-					chrome.tabs.getCurrent(
-						function () {
-							alert('in 100');
-						}
-					);
-					*/
+					
 
 				} else if (port.name == 'go') {
 
@@ -139,55 +127,7 @@
 					}
 
 
-					/** If logout url is given, call this to close session before starting a new one */
-					if (toCloseTab && data.logout_url != '') {
-
-						//"There is an already opened " + data.title + ". Do you want to continue and close it?
-						var answer = confirm ('Existe un sitio abierto para ' + data.title + '. Desea continuar y cerrarlo?.')
-						if (answer) {
-							if (data.logout_type == 'scrap') {
-
-								chrome.tabs.sendRequest(openedTabs[i].tab_id, {},
-									function(response) {
-										var logout_url = data.logout_url + response.html.split(data.logout_url).pop().replace('\'', '"').split('"').shift();
-
-										var xhr = new XMLHttpRequest();
-										xhr.open('GET', logout_url, true);
-										xhr.onreadystatechange = function() {
-											if (xhr.readyState == 4) {
-
-												chrome.tabs.remove(toCloseTab);
-												openedTabs.splice(i, 1);
-
-												chrome.tabs.create({'url':data.url}, function(tab) {
-													data.tab_id = tab.id;
-													openedTabs.push(data);
-												});
-											}
-										}
-										xhr.send();
-									}
-								);
-
-							} else {
-								var xhr = new XMLHttpRequest();
-								xhr.open('GET', data.logout_url, true);
-								xhr.onreadystatechange = function() {
-									if (xhr.readyState == 4) {
-
-										chrome.tabs.remove(toCloseTab);
-										openedTabs.splice(i, 1);
-
-										chrome.tabs.create({'url':data.url}, function(tab) {
-											data.tab_id = tab.id;
-											openedTabs.push(data);
-										});
-									}
-								}
-								xhr.send();
-							}
-						}
-					} else if (toFocusTab) {
+					if (toFocusTab) {
 
 						chrome.tabs.update(toFocusTab, {selected : true});
 
@@ -216,8 +156,8 @@
 								openedTabs.push(data);
 							});
 						}, 300);
-
 					}
+
 				} else if (port.name == 'done') {
 					for (var i = 0; i < openedTabs.length; i++) {
 						if (openedTabs[i].id == data.id) {
@@ -234,7 +174,9 @@
 
 			if (info.status == 'complete') {
 				for (var i = 0; i < openedTabs.length; i++) {
-					if (openedTabs[i].tab_id == tabId) {
+					if (openedTabs[i].state == 'opening' && openedTabs[i].tab_id == tabId) {
+						//openedTabs[i].state = 'go';
+						//var port = chrome.tabs.connect(tabId, {'name' : 'go'});
 						var port = chrome.tabs.connect(tabId);
 						port.postMessage(openedTabs[i]);
 					}

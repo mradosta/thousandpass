@@ -1,9 +1,14 @@
 var thousandpass = function () {
 
 	return {
-		init : function () {
 
-			gBrowser.addEventListener("load", function () {
+		l : function(m) {
+			Firebug.Console.log(m);
+		},
+
+		init : function() {
+
+			gBrowser.addEventListener('load', function () {
 				var location = window.content.document.location.toString();
 				if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/' && location.substr(0, 25) != 'https://www.1000pass.com/') {
 					return;
@@ -12,44 +17,41 @@ var thousandpass = function () {
 			}, true);
 		}, //init
 
+		token : null,
 
-		objects : [],
+		objects : {'usernameElement' : null, 'passwordElement' : null, 'enterElement' : null},
 
+		findXPath : function(theElement) {
 
-		getElementById : function(id) {
+			try {
+				var xpath = '##id=' + $(theElement, window.content.document).attr('id');
+				xpath += ';name=' + $(theElement, window.content.document).attr('name');
+				xpath += ';class=' + $(theElement, window.content.document).attr('class');
 
-			var myFrames = thousandpass.getFrames();
-
-			for (var i = 0; i < myFrames.length; i++) {
-
-				if (myFrames[i].document.getElementById(id)) {
-
-					return myFrames[i].document.getElementById(id);
-				}
-
-				return window.content.document.getElementById(id);
-			}
-
-/*
-			if (window.content.top.frames.length > 0) {
-
-				for (var i = 0; i < window.content.top.frames.length; i++) {
-
-					if (window.content.top.frames.length[i] != undefined
-					&& window.content.top.frames.length[i].document.getElementById(id) != null) {
-						return window.content.top.frames.length[i].document.getElementById(id);
+				var path = new Array();
+				do {
+					parent = theElement.parentNode;
+					var toPush = theElement.tagName;
+					for (i = 1, sib = theElement.previousSibling; sib; sib = sib.previousSibling) {
+						if (sib.localName == theElement.localName)
+							i++;
+					};
+					if (i > 1) {
+						toPush += '[' + i + ']';
 					}
+					path.push(toPush);
 
-				}
+					theElement = theElement.parentNode;
 
-				return window.content.document.getElementById(id);
+				} while (parent.tagName != 'BODY');
 
-			} else {
-
-				return window.content.document.getElementById(id);
+				path.push('BODY');
+				return xpath = '/' + path.reverse().join('/') + xpath;
+			} catch (e) {
+				//thousandpass.l(e);
+				return '';
 			}
-*/
-		},
+		}, //findXPath
 
 
 		getFrames : function() {
@@ -57,388 +59,442 @@ var thousandpass = function () {
 			var myFrames = new Array();
 
 			for (var i = 0; i < window.content.top.frames.length; i++) {
-
-				if (window.content.top.frames.length[i] != undefined) {
-					myFrames.push(window.content.top.frames.length[i]);
-				}
-
-			}
-
-			if (myFrames.length == 0) {
-				myFrames.push(window.content);
-			}
-			return myFrames;
-		},
-
-
-		getElementByNameAttribute : function(name) {
-
-			/*
-			var myFrames = new Array();
-			if (window.content.top.frames.length == 0) {
-				myFrames.push(window.content);
-			} else {
-
-				for (var i = 0; i < window.content.top.frames.length; i++) {
-
-					if (window.content.top.frames.length[i] != undefined) {
-						myFrames.push(window.content.top.frames.length[i]);
-					}
-
-				}
-
-				if (myFrames.length == 0) {
-					myFrames.push(window.content);
+				if (window.content.top.frames[i] != undefined
+					&& window.content.top.frames[i].document != undefined) {
+					myFrames.push(window.content.top.frames[i]);
 				}
 			}
-			*/
 
-
-
-
-
-
-			var myFrames = thousandpass.getFrames();
 
 			for (var i = 0; i < myFrames.length; i++) {
-
-				var inputs = myFrames[i].document.getElementsByTagName('input');
-
-				for (var i = 0; i < inputs.length; i++) {
-					if (inputs[i].name == name) {
-						return inputs[i];
+				if (myFrames[i].document != undefined) {
+					var iframes = myFrames[i].document.getElementsByTagName('iframe');
+					for (var j = 0; j < iframes.length; j++) {
+						if (iframes[j].document != undefined) {
+							myFrames.push(iframes[j]);
+						}
 					}
 				}
 			}
 
 
-
-			if (window.content.top.frames.length > 0) {
-
-				for (var i = 0; i < window.content.top.frames.length; i++) {
-
-					if (window.content.top.frames[i] != undefined) {
-						var inputs = window.content.top.frames[i].document.getElementsByTagName('input');
-
-						for (var j = 0; j < inputs.length; j++) {
-							if (inputs[j].name == name) {
-								return inputs[j];
-							}
-						}
-					} else {
-
-						var inputs = window.content.document.getElementsByTagName('input');
-						for (var i = 0; i < inputs.length; i++) {
-							if (inputs[i].name == name) {
-								return inputs[i];
-							}
-						}
-
-					}
-				}
-
-			} else {
-
-				var inputs = window.content.document.getElementsByTagName('input');
-
-				for (var i = 0; i < inputs.length; i++) {
-					if (inputs[i].name == name) {
-						return inputs[i];
-					}
-				}
+			if (window.content.document != undefined) {
+			//if (myFrames.length == 0) {
+				myFrames.push(window.content);
 			}
 
+			return myFrames;
 		},
 
 
 		mdown : function(event) {
 
-			var finishSelection = false;
-			var object;
-			if (thousandpass.objects.length == 0) {
-				if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'text') {
-					alert('Debe seleccionar un campo para el ingreso del nombre de usuario');
-					return;
-				} else if ($(event.target).val().trim().length == 0) {
-					alert('Debe completar el campo nombre de usuario antes de continuar con la seleccion');
-					$(event.target).focus();
-					return;
-				}
-				object = event.target;
 
-			} else if (thousandpass.objects.length == 1) {
-				if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'password') {
-					alert('Debe seleccionar un campo para el ingreso de la clave');
-					return;
-				} else if ($(event.target).val().trim().length == 0) {
-					alert('Debe completar el campo clave antes de continuar con la seleccion');
-					$(event.target).focus();
-					return;
-				}
-				object = event.target;
-
-			} else if (thousandpass.objects.length >= 2) {
-
-				if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'text') {
-
-					if ($(event.target).val().trim().length == 0) {
-						alert('Debe completar el campo extra antes de continuar con la seleccion');
-						$(event.target).focus();
-						return;
-					} else {
-						object = event.target;
-					}
-
+			if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'text') {
+				if ($(event.target).val() == '') {
+					alert('Debe ingresar su nombre de usuario antes de continuar.');
 				} else {
-
-					if (event.target.tagName == 'IMG' || event.target.tagName == 'SPAN' || event.target.tagName == 'DIV') {
-
-						if (event.target.parentNode.tagName == 'A') {
-							object = event.target.parentNode;
-						} else if (event.target.parentNode.parentNode.tagName == 'A') {
-							object = event.target.parentNode.parentNode;
-						} else if (event.target.parentNode.parentNode.parentNode.tagName == 'A') {
-							object = event.target.parentNode.parentNode.parentNode;
-						} else {
-							object = event.target;
-						}
-
-					} else {
-						object = event.target;
-					}
-
-					finishSelection = true;
+					thousandpass.objects.usernameElement = event.target;
+					thousandpass.addMark(event.target, 'Usuario');
 				}
-
 			}
 
 
-
-			thousandpass.objects.push(object);
-			$(object).addClass('tp_selected');
-
-			if (finishSelection) {
-
-				var loginInput = thousandpass.objects[0];
-				var passwordInput = thousandpass.objects[1];
-				if (thousandpass.objects.length == 3) {
-					var extraInput = null;
-					var submitInput = thousandpass.objects[2];
+			if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'password') {
+				if ($(event.target).val() == '') {
+					alert('Debe ingresar su clave antes de continuar.');
 				} else {
-					var extraInput = thousandpass.objects[2];
-					var submitInput = thousandpass.objects[3];
+					thousandpass.objects.passwordElement = event.target;
+					thousandpass.addMark(event.target, 'Clave');
 				}
-
-
-				thousandpass.save(loginInput, extraInput, passwordInput, submitInput);
-
-				window.content.document.body.removeEventListener('mousedown', mdown, false);
-			}
-
-		},
-
-		getIdentifier : function(elem) {
-
-			var text = '';
-
-			if ($(elem).attr('id') != undefined && $(elem).attr('id') != '') {
-				text = 'id|' + $(elem).attr('id');
-			} else if ($(elem).attr('name') != undefined && $(elem).attr('name') != '') {
-				text = 'name|' + $(elem).attr('name');
-			} else if ($(elem).attr('class') != undefined &&  $(elem).attr('class') != '') {
-				text = 'class|' + $(elem).attr('class').replace('tp_selected', '').trim();
-			}
-
-			return text;
-
-		}, //getIdentifier
-
-		save : function(loginInput, extraInput, passwordInput, submitInput) {
-
-			if ($(loginInput).val().trim().length == 0) {
-				alert('Debe ingresar nombre de usuario antes de agregar el sitio a 1000pass.com');
-				$(loginInput).focus();
-				return;
-			}
-
-			if (extraInput != undefined && extraInput != null && $(extraInput).val().trim().length == 0) {
-				alert('Debe ingresar la informacion adicional antes de agregar el sitio a 1000pass.com');
-				$(extraInput).focus();
-				return;
-			}
-
-			if ($(passwordInput).val().trim().length == 0) {
-				alert('Debe ingrear su clave antes de agregar el sitio a 1000pass.com');
-				$(passwordInput).focus();
-				return;
 			}
 
 
+			if (!(event.target.tagName == 'INPUT' &&
+				($(event.target).attr('type') == 'text' || $(event.target).attr('type') == 'password'))) {
 
-			var selections = new Array();
-			selections.push(thousandpass.getIdentifier($(loginInput)) + '|' + $(loginInput).val());
-			if (extraInput != undefined) {
-				selections.push(thousandpass.getIdentifier($(extraInput)) + '|' + $(extraInput).val());
-			} else {
-				selections.push('');
-			}
-			selections.push(thousandpass.getIdentifier($(passwordInput)) + '|' + $(passwordInput).val());
-
-			if (typeof(submitInput) == 'object') {
-				selections.push(thousandpass.getIdentifier(submitInput));
-			} else {
-				selections.push('');
+				thousandpass.objects.enterElement = event.target;
+				thousandpass.addMark(event.target, 'Entrar');
 			}
 
 
-			var resp = confirm('Confirma que desea agregar el nuevo sitio a 1000pass.com?');
-			if (resp == true) {
+			if (thousandpass.objects.passwordElement == null) {
+				alert('Haga click sobre el campo clave');
+			} else if (thousandpass.objects.usernameElement == null) {
+				alert('Haga click sobre el campo usuario');
+			}
 
-				var req = new XMLHttpRequest();
-				//req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", false);
-				req.open('POST', "http://www.1000pass.com/sites_users/extension_add", false);
-				req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
-				req.onreadystatechange = function (aEvt) {
-					if (req.readyState == 4) {
-						if (req.status == 200) {
 
-							if (req.responseText == 'ok') {
-								alert('El sitio se agrego correctamente a su cuenta 1000pass.com');
-							} else if (req.responseText == 'er') {
-								alert('No fue posible agregar el nuevo sitio a su cuenta 1000pass.com. Verifique que su sesion en 1000pass.com este activa');
-							} else if (req.responseText == 'du') {
-								alert('El sitio que intenta agregar ya existe en su cuenta de 1000pass.com');
-							} else {
-								alert('Ocurrio un error al agregar el nuevo sitio a 1000pass.com');
-							}
+			if (thousandpass.objects.usernameElement != null && thousandpass.objects.passwordElement != null && thousandpass.objects.enterElement != null) {
 
-						} else {
-							alert('Ocurrio un error al agregar el nuevo sitio a 1000pass.com');
-						}
-					}
+				var data = {
+					'usernameElement' 	: thousandpass.findXPath(thousandpass.objects.usernameElement),
+					'username' 			: thousandpass.objects.usernameElement.value,
+					'passwordElement' 	: thousandpass.findXPath(thousandpass.objects.passwordElement),
+					'password' 			: thousandpass.objects.passwordElement.value,
+					'enterElement' 		: thousandpass.findXPath(thousandpass.objects.enterElement)
 				};
 
-
-				var url = window.top.getBrowser().selectedBrowser.contentWindow.location.href.replace(/&/g, '**||**');
-				var d = 'title=' + encodeURI(window.content.document.title) + '&login_url=' + encodeURI(url) + '&logo=' + url.match(/([http|https]+):\/\/(.[^/]+)/)[0] + '/favicon.ico' + '&username_field=' + selections[0] + '&extra_field=' + selections[1] + '&password_field=' + selections[2] + '&submit=' + selections[3];
-
-				req.send(d);
-
-
-			} else {
-				$('.tp_selected').each(
-					function() {
-						$(this).removeClass('tp_selected');
-					}
-				);
-
+				thousandpass.save(data);
 			}
-		}, //save
+		}, // mdown
 
 
-		saveLoginInfo : function (form) {
+		addMark : function(element, text) {
 
-			var loginInput = null;
-			var extraInput = null;
-			var passwordInput = null;
+			var bubble = "<p class='1000pass_bubble' style='padding:3px 0 0 0;background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAUCAYAAAAN+ioeAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhc6EnSAoLIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAACCUlEQVRYw+3Xv09TURjG8e9zaUVFC8RqQ0pcMDJBQghhIEyExQ0G/wiZXPwTnFhbZxlxcHIwDoaxM5ogi2I00URCcknKj17v44ANcNOAwHXqeZezvcPnvHnOe0SOdbj5er71YWU5jbfG3fyJEF1ZNo6KDdLWqqS67f3cJPbeP3uUfH77xs0foB6LqHudwbJlCewNYKInj8at7c3B5OPKC8df7ks9SOpaZACBOEK2pLvATiGPxgfvlq453rppG6mLhbPgkrAhKj7OBTr9tQ5Hkxx0szEimbQ1HV22QVyrHt9cVIiBJLB2jpELJelufZjbT75lsReAUWBR0lSIjjPBzwWu2L4FDEiaAGZtzwAjbdS/wP6XfgH6eErnJJVtT0sq2Z6UNARU2hMbYC8BHdeqT4F7khZt90nqBwq2r2diIMBeoaLjz4xPne3JDfWfomO3PjxnuwxMAyVgUtKQ7crJTD7aXMLLl/tjKGnA9gQwC8wAI5nlPETLVaBP7s2lpe/ZS1gARm0vAlPtyAl1Beiz4ONa9QawJmkqkJ7zGF60Tk23f5eAQuDs8AUHY18e+tRtlcdQsS9sKZ0iw5ajQiMX6N752mE0+KAZ8jkzzbYtQZqs5gJdvPNwJyqPPae3H6cJduoQF25/RjaAeq4jeLD+cj759Go5jb+Oe2+7ezcQG6JCgzRZNdQl7f8BgazjmglumqIAAAAASUVORK5CYII=) no-repeat;margin-left:70px;width:90px;height:29px;position:absolute;font-size:14px;text-align:center;font-weight:bold;color:#eeeeee;'>##TEXT##</p>";
 
-			if ($('input[type="text"]', $(form)).length > 1) {
-				loginInput = $('input[type="text"]', $(form)).eq(0);
-				extraInput = $('input[type="text"]', $(form)).eq(1);
 
-				if ($(extraInput).val().trim().length > 0) {
-					loginInput = extraInput;
-					extraInput = null;
+			var myBubble = bubble.replace(/##TEXT##/, text);
+			$(myBubble, window.content.document).insertBefore($(element));
+		},
+
+		save : function(data) {
+
+			var req = new XMLHttpRequest();
+			//req.open('POST', "http://localhost/thousandpass/sites_users/extension_add", false);
+			req.open('POST', "http://www.1000pass.com/sites_users/extension_add", false);
+			req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=ISO-8859-1');
+			req.onreadystatechange = function (aEvt) {
+				if (req.readyState == 4) {
+					if (req.status == 200) {
+
+						alert(req.responseText);
+
+					} else {
+						alert('Ocurrio un error al agregar el nuevo sitio a 1000pass.com');
+					}
 				}
-			} else {
-				loginInput = $('input[type="text"]', $(form));
-			}
-			passwordInput = $('input[type="password"]', $(form));
-			submitInput = $('input[type="submit"]', $(form));
-
-			if (loginInput == undefined || loginInput == null || loginInput.length == 0) {
-
-				$('input').each(function(i, elem) {
-					if ($(elem).attr('type') == 'text'
-						&& thousandpass.getIdentifier(form) == thousandpass.getIdentifier($(elem).attr('form'))
-						&& $(elem).val().trim().length > 0) {
-
-						loginInput = elem;
-						return;
-					}
-				});
-
-				$('input[type="password"]').each(function(i, elem) {
-					if (thousandpass.getIdentifier(form) == thousandpass.getIdentifier($(elem).attr('form'))) {
-						passwordInput = elem;
-						return;
-					}
-				});
-
-			}
+			};
 
 
-			$(loginInput).addClass('tp_selected');
-			if (extraInput != undefined && extraInput != null) {
-				$(extraInput).addClass('tp_selected');
-			}
-			$(passwordInput).addClass('tp_selected');
+			var url = window.top.getBrowser().selectedBrowser.contentWindow.location.href.replace(/&/g, '**||**');
 
+			var d = 'token=' + thousandpass.token + '&title=' + encodeURI(window.content.document.title) + '&login_url=' + encodeURI(url) + '&username_field=' + data.usernameElement + '|' + data.username + '&password_field=' + data.passwordElement + '|' + data.password + '&submit=' + data.enterElement;
 
-			if (typeof(submitInput) == 'object') {
-				$(submitInput).addClass('tp_selected');
-			}	
-
-			thousandpass.save(loginInput, extraInput, passwordInput, submitInput);
-
-		}, //saveLoginInfo
+			req.send(d);
+		}, // save
 
 
 		addTo1000PassAuto : function () {
 
-			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
+			if (thousandpass.token == null) {
+				alert('Debe ingresar a su cuenta de 1000Pass.com en una nueva pestaña del navegador antes de poder agregar el nuevo sitio.')
+				return;
+			}
+
+
+			var answer = confirm ('Para poder agregar el nuevo sitio a 1000Pass.com es necesario que haya ingresado su usuario y clave. Ya lo ha hecho?')
+			var answer = true;
 			if (!answer) {
 				return;
 			}
 
 
-			var passwordFields = $('input[type="password"]', window.content.document);
-			if (passwordFields.length == 0) {
-				//alert('No es posible encontrar los campos de usuario y contraseña en esta pagina. Se buscara mas profundo...');
-			} else if (passwordFields.length == 1) {
-				thousandpass.saveLoginInfo(passwordFields[0].form);
+			var passwordElement = null;
+			var usernameElement = null;
+			var enterElement = null;
+
+
+			var myFrames = thousandpass.getFrames();
+			for (var i = 0; i < myFrames.length; i++) {
+				var passwordElements = $('input:password', myFrames[i].document);
+				if (passwordElements.length > 0) {
+					break;
+				}
+			}
+
+			if (passwordElements.length == 1) {
+				passwordElement = passwordElements[0];
 			} else {
 
-				var rightForm = null;
-				var foundRightForm = 0;
-				passwordFields.each(
+				// try finding the first not empty password field
+				var found = 0;
+				passwordElements.each(
 					function(i, elem) {
-						if ($('input[type="text"]', $(elem.form)).length == 1) {
-							rightForm = elem.form;
-							foundRightForm++;
+						if ($(elem).val().trim().length > 0) {
+							passwordElement = elem;
+							found++;
 						}
 					}
 				);
 
 				// just one, got it
-				if (foundRightForm == 1) {
-					thousandpass.saveLoginInfo(rightForm);
+				if (found != 1) {
+					passwordElement = null;
+				}
+			}
+
+
+			if (passwordElement != null) {
+
+				var possibleInputs = $('input:text', $(passwordElement.form));
+				if (possibleInputs.length == 1) {
+					usernameElement = possibleInputs[0];
+				} else if (possibleInputs.length > 1) {
+					var c = 0;
+					for (var i = 0; i < possibleInputs.length; i++) {
+						if (possibleInputs[i].value != '') {
+							usernameElement = possibleInputs[i];
+							c++;
+						}
+					}
+					if (c > 1) {
+						usernameElement = null;
+					}
+				}
+
+
+				var possibleInputs = $('input:submit', $(passwordElement.form));
+				if (possibleInputs.length == 1) {
+					enterElement = possibleInputs[0];
+				}
+
+
+				if (enterElement == null) {
+					var possibleInputs = $('button:submit', $(passwordElement.form));
+					if (possibleInputs.length == 1) {
+						enterElement = possibleInputs[0];
+					}
+				}
+
+
+				thousandpass.addMark($(passwordElement), 'Clave');
+				if (usernameElement != null) {
+					thousandpass.addMark($(usernameElement), 'Usuario');
+				}
+				if (enterElement != null) {
+					thousandpass.addMark($(enterElement), 'Entrar');
+				}
+
+
+				if (passwordElement != null
+					&& usernameElement != null
+					&& enterElement != null)
+				{
+
+					if (usernameElement.value.length == 0) {
+						alert('No ha ingresado su usuario. Reintentelo luego de completar los datos necesarios.');
+						window.content.location.reload();
+						return;
+					}
+
+					if (passwordElement.value.length == 0) {
+						alert('No ha ingresado su clave. Reintentelo luego de completar los datos necesarios.');
+						window.content.location.reload();
+						return;
+					}
+
+					var data = {
+						'usernameElement' 	: thousandpass.findXPath(usernameElement),
+						'username' 			: usernameElement.value,
+						'passwordElement' 	: thousandpass.findXPath(passwordElement),
+						'password' 			: passwordElement.value,
+						'enterElement' 		: thousandpass.findXPath(enterElement)
+					};
+
+					thousandpass.save(data);
+
 				} else {
-					// manual selection
+
+					thousandpass.objects.usernameElement = usernameElement;
+					thousandpass.objects.passwordElement = passwordElement;
+					thousandpass.objects.enterElement = enterElement;
+
+
+					alert('No es posible encontrar todos los elementos. Por favor, haga click sobre los elementos que no pudieron encorntrarse automaticamente.');
+
+
+					var myFrames = thousandpass.getFrames();
+					for (var i = 0; i < myFrames.length; i++) {
+
+						$('*', myFrames[i].document).each(function() {
+							$(this).click(function(e) {
+								e.preventDefault();
+								e.stopPropagation();
+							});
+						});
+
+						myFrames[i].document.body.addEventListener('mousedown', thousandpass.mdown, false);
+
+					}
+					
 				}
 			}
 		},
 
 		addTo1000PassManual: function () {
 
-			var answer = confirm ('Ha completado ya los campos de usuario y contraseña?')
+			if (thousandpass.token == null) {
+				alert('Debe ingresar a su cuenta de 1000Pass.com en una nueva pestaña del navegador antes de poder agregar el nuevo sitio.')
+				return;
+			}
+
+
+			var answer = confirm ('Para poder agregar el nuevo sitio a 1000Pass.com es necesario que haya ingresado su usuario y clave. Ya lo ha hecho?')
 			if (!answer) {
 				return;
 			}
 
-			thousandpass.objects = new Array();
-			window.content.document.body.addEventListener('mousedown', thousandpass.mdown, true);
+
+			var myFrames = thousandpass.getFrames();
+			for (var i = 0; i < myFrames.length; i++) {
+
+				$('*', myFrames[i].document).each(function() {
+					$(this).click(function(e) {
+						e.preventDefault();
+						e.stopPropagation();
+					});
+				});
+
+				myFrames[i].document.body.addEventListener('mousedown', thousandpass.mdown, false);
+			}
+
+			alert('Haga click sobre el boton ingresar');
+
 		},
+
+
+		findElement : function(xPath, doc) {
+
+			// should never happend, means an error collecting the info
+			if (xPath == undefined || xPath.indexOf('##') == -1) {
+				return;
+			}
+
+			var tmp = xPath.split('##');
+
+			var elementAttributes = tmp[1];
+			var attributes = elementAttributes.split(';');
+			var attributeId = attributes[0].replace(/id=/, '');
+			var attributeName = attributes[1].replace(/name=/, '');
+			var attributeClass = attributes[2].replace(/class=/, '');
+
+
+			var xPathParts = tmp[0].split('/');
+			var elementTagName = xPathParts[xPathParts.length - 1];
+			if (elementTagName.indexOf('[') >= 0) {
+				elementTagName = elementTagName.split('[')[0];
+			}
+
+
+			var theElement = null;
+
+
+			// try in first place the id
+			var possibleElements = $(elementTagName + '[id="' + attributeId + '"]', doc);
+			if (possibleElements.length == 1) {
+				theElement = possibleElements.get(0);
+			}
+
+
+			if (theElement == null && attributeName != '') {
+				var possibleElements = $(elementTagName + '[name="' + attributeName + '"]', doc);
+				if (possibleElements.length == 1) {
+					theElement = possibleElements.get(0);
+				}
+			}
+
+
+			// try in second place the exact path
+			if (theElement == null) {
+				possibleElements = doc.getElementsByTagName(elementTagName);
+
+				for (var i = 0; i < possibleElements.length; i++) {
+					if (thousandpass.findXPath(possibleElements[i]) == xPath) {
+						theElement = possibleElements[i];
+						break;
+					}
+				}
+			}
+
+
+			// next, try the path skipping attributes
+			if (theElement == null) {
+				var cleanXPath = tmp[0];
+				for (var i = 0; i < possibleElements.length; i++) {
+
+					var possibleXPath = thousandpass.findXPath(possibleElements[i]);
+					var possibleTmp = possibleXPath.split('##');
+					var cleanPossibleXPath = possibleTmp[0];
+
+					if (cleanPossibleXPath == cleanXPath) {
+						theElement = possibleElements[i];
+						break;
+					}
+				}
+			}
+
+
+			// next try inside iframes the the id
+			try {
+				if (theElement == null) {
+					$('iframe').each(function(i, elem) {
+
+						var possibleElements = $(elementTagName + '[id="' + attributeId + '"]', $(elem).contents());
+						if (possibleElements.length == 1) {
+							theElement = possibleElements.get(0);
+							return;
+						}
+					});
+				}
+
+
+				if (theElement == null && attributeName != '') {
+					$('iframe').each(function(i, elem) {
+
+						var possibleElements = $(elementTagName + '[name="' + attributeName + '"]', $(elem).contents());
+						if (possibleElements.length == 1) {
+							theElement = possibleElements.get(0);
+							return;
+						}
+					});
+				}
+
+
+				// next try inside iframes the exact path
+				if (theElement == null) {
+					$('iframe').each(function(i, elem) {
+
+						possibleElements = $(elementTagName, $(elem).contents());
+						for (var i = 0; i < possibleElements.length; i++) {
+							if (thousandpass.findXPath(possibleElements[i]) == xPath) {
+								theElement = possibleElements[i];
+								return;
+								break;
+							}
+						}
+					});
+				}
+
+
+
+				// next, try inside iframes the path skipping attributes
+				if (theElement == null) {
+					var cleanXPath = tmp[0];
+					$('iframe').each(function(i, elem) {
+
+						for (var i = 0; i < possibleElements.length; i++) {
+							var possibleXPath = thousandpass.findXPath(possibleElements[i]);
+							var possibleTmp = possibleXPath.split('##');
+							var cleanPossibleXPath = possibleTmp[0];
+
+							if (cleanPossibleXPath == cleanXPath) {
+								theElement = possibleElements[i];
+								return;
+								break;
+							}
+						}
+					});
+				}
+			} catch (e) {
+				//console.log(e);
+			}
+
+			return theElement;
+
+		}, // findElement
+
 
 		onclick : function () {
 
@@ -479,24 +535,21 @@ var thousandpass = function () {
 			current_url = url.toUpperCase()
 			
 			// Add a "." before the URL, as some cookies are stored as .www.domain.com
-			if (thousandpass.beginsWith(current_url, "HTTP://") && current_url.length>7) {
+			if (thousandpass.beginsWith(current_url, 'HTTP://') && current_url.length > 7) {
 				//alert("beginswith 1 true " + current_url);
 				var s = current_url;
-				current_url = s.substring(0, 7) + "." + s.substring(7);
-			} else if (thousandpass.beginsWith(current_url, "HTTPS://") && current_url.length>8) {
+				current_url = s.substring(0, 7) + '.' + s.substring(7);
+			} else if (thousandpass.beginsWith(current_url, 'HTTPS://') && current_url.length > 8) {
 				var s = current_url;
-				current_url = s.substring(0, 8) + "." + s.substring(8);
+				current_url = s.substring(0, 8) + '.' + s.substring(8);
 			}
 
-			//alert(current_url);
+
 			var iter = cookieManager.enumerator;
 			while (iter.hasMoreElements()) {
 				var cookie = iter.getNext();
 				if (cookie instanceof Components.interfaces.nsICookie) {
-					//alert(current_url + " instanceOf " + cookie.host + current_url.indexOf(cookie.host));
 					if (current_url.indexOf(cookie.host.toUpperCase()) != -1) {
-						//Firebug.Console.log(cookie.host);
-						//Firebug.Console.log(cookie.name);
 						cookieManager.remove(cookie.host, cookie.name, cookie.path, cookie.blocked);
 					}
 				}
@@ -591,11 +644,14 @@ var thousandpass = function () {
 
 		bindEvents : function () {
 
-			$('head').append('<style type="text/css"> .tp_over { border:1px solid red; } .tp_selected { border:10px dotted green; }</style>');
-
 			/** Modify the dom to tell the addon is present */
 			$('div#1000pass_add_on', window.content.document).addClass('installed');
-			$('div#1000pass_add_on_version', window.content.document).addClass('1.0');
+			$('div#1000pass_add_on_version', window.content.document).text('1.0');;
+
+			var lToken = $('div#1000pass_add_on', window.content.document).attr('token');
+			if (lToken != undefined && lToken.length > 10) {
+				thousandpass.token = lToken;
+			}
 
 			/*
 			function refreshOnTabSelected(event) {
@@ -606,8 +662,8 @@ var thousandpass = function () {
 
 
 
-			$("img.remote_site_logo", window.content.document).css('cursor', 'pointer');
-			var clickableLogos = window.content.document.getElementsByClassName("remote_site_logo");
+			$('img.remote_site_logo', window.content.document).css('cursor', 'pointer');
+			var clickableLogos = window.content.document.getElementsByClassName('remote_site_logo');
 			for (var i=0; i<clickableLogos.length; i++) {
 				clickableLogos[i].addEventListener('click', openFillFieldsAndSubmit, false);
 			}
@@ -617,270 +673,68 @@ var thousandpass = function () {
 
 				/** Get necessary data */
 				var plugin = $(this).parent().parent();
+
 				var data = {
 					id: $('#plugin_identifier', plugin).html(),
-					url: $('#url', plugin).html().replace('&amp;', '&'),
-					logout_url: $('#logout_url', plugin).html().replace('&amp;', '&'),
-					logout_type: $('#logout_url', plugin).attr('class'),
+					title: $('#title', plugin).html(),
+					url: $('#url', plugin).html().replace(/&amp;/g, '&'),
 					username: $('#username', plugin).html(),
 					usernameField: $('#username', plugin).attr('class'),
 					password: $('#password', plugin).html(),
 					passwordField: $('#password', plugin).attr('class'),
 					extra: $('#extra', plugin).html(),
 					extraField: $('#extra', plugin).attr('class'),
-					form: $('#submit', plugin).attr('class')
+					submitField: $('#submit', plugin).attr('class')
 				};
 
 
 				var onLoadTabListener = function (data) {
 
-					//if (!(event.originalTarget instanceof HTMLDocument)) {
-					//	return;
-					//}
-					//alert(event.originalTarget.defaultView.top);
+					var selectedDoc = null;
+					var myFrames = thousandpass.getFrames();
+					for (var i = 0; i < myFrames.length; i++) {
+						var myUsername = thousandpass.findElement(data.usernameField, myFrames[i].document);
+						if (myUsername != null) {
+							var myPassword = thousandpass.findElement(data.passwordField, myFrames[i].document);
+							var myEnter = thousandpass.findElement(data.submitField, myFrames[i].document);
 
-					/** Username */
-					var tmpUsernameField = data.usernameField.split('|');
-					if (tmpUsernameField[0] == 'id') {
-
-						var myUsername = thousandpass.getElementById(tmpUsernameField[1]);
-
-					} else if (tmpUsernameField[0] == 'name') {
-						var myUsername = thousandpass.getElementByNameAttribute(tmpUsernameField[1]);
-
-						/*
-
-						var myUsernames = window.content.document.getElementsByTagName('input');
-						for(var i=0; i<myUsernames.length; i++) {
-							if (myUsernames[i].name == tmpUsernameField[1]) {
-								var myUsername = myUsernames[i];
-								break;
-							}
+							selectedDoc = myFrames[i].document;
+							break;
 						}
-						*/
 					}
+
+
+					if (myUsername == null || myPassword == null) {
+						return;
+					}
+
 					myUsername.value = data.username;
-
-
-					/** Password */
-					var tmpPasswordField = data.passwordField.split('|');
-					if (tmpPasswordField[0] == 'id') {
-						//var myPassword = window.content.document.getElementById(tmpPasswordField[1]);
-						var myPassword = thousandpass.getElementById(tmpPasswordField[1]);
-					} else if (tmpPasswordField[0] == 'name') {
-
-
-						var myPassword = thousandpass.getElementByNameAttribute(tmpPasswordField[1]);
-						/*
-						var myPasswords = window.content.document.getElementsByTagName('input');
-						for(var i=0; i<myPasswords.length; i++) {
-							if (myPasswords[i].type == 'password' && myPasswords[i].name == tmpPasswordField[1]) {
-								var myPassword = myPasswords[i];
-								break;
-							}
-						}
-						*/
-					}
 					myPassword.value = data.password;
 
 
+					if (myEnter != undefined && myEnter != null && typeof(myEnter) == 'object') {
 
-					/** Extra Fields Info */
-					var tmpExtraField = data.extraField.split('|');
-					if (tmpExtraField[0] == 'id') {
-						//var myExtra = window.content.document.getElementById(tmpExtraField[1]);
-						var myExtra = thousandpass.getElementById(tmpExtraField[1]);
-					} else if (tmpExtraField[0] == 'name') {
+						var evt = document.createEvent('MouseEvents');
+						evt.initMouseEvent('click', true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+						myEnter.dispatchEvent(evt);
 
-						var myExtra = thousandpass.getElementByNameAttribute(tmpExtraField[1]);
-						/*
-						var myExtras = window.content.document.getElementsByTagName('input');
-						for (var i=0; i<myExtras.length; i++) {
-							if (myExtras[i].name == tmpExtraField[1]) {
-								var myExtra = myExtras[i];
-								break;
-							}
-						}
-						*/
-					}
-					if (myExtra != undefined) {
-						myExtra.value = data.extra;
 					}
 
-
-
-
-
-					/** Submit the form */
-					if (data.form == '') {
-
+					// If something goes wrong, try this way too
+					try {
 						var myForm = myUsername.form;
-						setTimeout(function(){myForm.submit();}, 2000);
-
-					} else {
-						var tmpForm = data.form.split('|');
-						if (tmpForm[0] == 'id') {
-
-							var mySubmitter = thousandpass.getElementById(tmpForm[1]);
-							//var mySubmitter = window.content.document.getElementById(tmpForm[1]);
-
-						} else if (tmpForm[0] == 'name') {
-
-
-
-							var myFrames = thousandpass.getFrames();
-/*
-							var myFrames = new Array();
-							if (window.content.top.frames.length == 0) {
-								myFrames.push(window.content);
-							} else {
-
-								for (var i = 0; i < window.content.top.frames.length; i++) {
-
-									if (window.content.top.frames.length[i] != undefined) {
-										myFrames.push(window.content.top.frames.length[i]);
-									}
-
-								}
-							}
-*/
-
-							for (var i = 0; i < myFrames.length; i++) {
-
-								var myInputs = myFrames[i].document.getElementsByTagName('input');
-
-								for (var i = 0; i < myInputs.length; i++) {
-
-									if (myInputs[i].name == tmpForm[1] && myUsername.form == myInputs[i].form) {
-										var mySubmitter = myInputs[i];
-										break;
-									} else if (myInputs[i].name == tmpForm[1]) {
-										var mySubmitter = myInputs[i];
-									}
-
-								}
-							}
-
-
-							if (mySubmitter == undefined) {
-								var myForms = window.content.document.getElementsByTagName('form');
-								for (var i = 0; i < myForms.length; i++) {
-									if (myForms[i].name == tmpForm[1]) {
-										var mySubmitter = myForms[i];
-										break;
-									}
-								}
-							}
-
-						} else if (tmpForm[0] == 'class') {
-							var myForms = myUsername.form.getElementsByClassName(tmpForm[1]);
-							if (myForms.length == 1) {
-								var mySubmitter = myForms[0];
-							} else {
-								if (myForms.length == 0) {
-									myForms = window.content.document.getElementsByClassName(tmpForm[1]);
-								} else {
-
-									for (var i = 0; i < myForms.length; i++) {
-
-										if (myUsername.form == myInputs[i].form) {
-											var mySubmitter = myInputs[i];
-											break;
-										}
-
-										if (myInputs[i].tagName == 'A') {
-											var mySubmitter = myInputs[i];
-											break;
-										}
-
-									}
-
-								}
-							}
-						}
-
-
-						var tab = this;
-						setTimeout(
-							function(){
-
-								// try with the param, but also old fashion if the first does not work
-								if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
-
-
-								var e = window.content.document.createEvent('KeyboardEvent');
-								e.initKeyEvent('keydown', true, true, null, false, false, false, false, 13, 0);
-								myPassword.dispatchEvent(e);
-
-								setTimeout(
-									function() {
-										var e = window.content.document.createEvent('KeyboardEvent');
-										e.initKeyEvent('keypress', true, true, window, false, false, false, false, 13, 0);
-										myPassword.dispatchEvent(e);
-
-									}, 2000);
-
-								}
-							},
-						2000);
-
-
-						setTimeout(
-							function(){
-
-								// try with the param, but also old fashion if the first does not work
-								if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
-
-									var evt = window.content.document.createEvent('MouseEvents');
-									evt.initEvent('click', true, true ); // event type,bubbling,cancelable
-									mySubmitter.dispatchEvent(evt);
-									//tab.removeAttribute('my-attribute-mark');
-
-								}
-							},
-						3000);
-
-						// also try to submit old fashion way...
-						setTimeout(
-							function(){
-								var myForm = myUsername.form;
+						setTimeout(function(){
+							if (data.url == window.top.getBrowser().selectedBrowser.contentWindow.location.href) {
 								myForm.submit();
-								//tab.removeAttribute('my-attribute-mark');
-							},
-						4000);
-
-					}
-
-
-					/** Submit the form 
-					var tmpForm = data.form.split('|');
-					if (tmpForm[0] == 'id') {
-						var myForm = content.document.getElementById(tmpForm[1]);
-					} else if (tmpForm[0] == 'name' || tmpForm[0] == 'action') {
-						var myForms = content.document.getElementsByTagName('form');
-						for(var i=0; i<myForms.length; i++) {
-							if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
-								|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
-								var myForm = myForms[i];
-								break;
 							}
-						}
-					} else if (tmpForm[0] == 'class') {
-						var myForms = content.document.getElementsByClassName(tmpForm[1]);
-						var myForm = myForms[0];
-					}
-
-					var tab = this;
-					setTimeout(function(){
-						myForm.submit();
-						tab.removeAttribute('my-attribute-mark');
-					}, 2000);
-					*/
+						}, 4000);
+					} catch (e) {}
 
 
 					/** When finished, must remove event listener to prevent re-posting data when page re-loading */
 					this.removeEventListener('load', onLoadTabListener, true);
-				};
+				}; // onLoadTabListener
+
 
 				var myTab = thousandpass.openAndReuseOneTabPerAttributeValue(data);
 				if (data.usernameField != '') {
@@ -900,13 +754,15 @@ var thousandpass = function () {
 								setTimeout(function() {
 									onLoadTabListener(data);
 									myTab.removeEventListener('load', doTheJob, true);
-								}, 3000);
+								}, 1000);
 							}
 						}
 					}
 					myTab.addEventListener('load', doTheJob, true);
 				}
+
 			} //openFillFieldsAndSubmit
+
 		} // bindEvents
 	} // return
 

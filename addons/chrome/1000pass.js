@@ -1,392 +1,209 @@
-/*
-var path = '/HTML/BODY/TABLE[3]/TBODY[1]/TR[1]/TD[1]/TABLE[1]/TBODY[1]/TR[3]/TD[1]/TABLE[1]/TBODY[1]/TR[1]/TD[2]/FORM[2]/TABLE[1]/TBODY[1]/TR[3]/TD[2]/INPUT[1]';
+var objects = {'usernameElement' : null, 'passwordElement' : null, 'enterElement' : null};
 
-var xpathobj = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-console.log(xpathobj);
-console.log(xpathobj.singleNodeValue);
-console.log(xpathobj.singleNodeValue.tagName);
-return;
-*/
+function addMark(element, text) {
 
-/*
-function getPath(event) {
-  event = event || window.event;
-
-  var pathElements = [];
-  var elem = event.currentTarget;
-  var index = 0;
-  var siblings = event.currentTarget.parentNode.getElementsByTagName(event.currentTarget.tagName);
-  for (var i=0, imax=siblings.length; i<imax; i++) {
-      if (event.currentTarget === siblings[i] {
-        index = i+1; // add 1 for xpath 1-based
-      }
-  }
+	var bubble = "<p class='1000pass_bubble' style='padding:3px 0 0 0;background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAUCAYAAAAN+ioeAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhc6EnSAoLIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAACCUlEQVRYw+3Xv09TURjG8e9zaUVFC8RqQ0pcMDJBQghhIEyExQ0G/wiZXPwTnFhbZxlxcHIwDoaxM5ogi2I00URCcknKj17v44ANcNOAwHXqeZezvcPnvHnOe0SOdbj5er71YWU5jbfG3fyJEF1ZNo6KDdLWqqS67f3cJPbeP3uUfH77xs0foB6LqHudwbJlCewNYKInj8at7c3B5OPKC8df7ks9SOpaZACBOEK2pLvATiGPxgfvlq453rppG6mLhbPgkrAhKj7OBTr9tQ5Hkxx0szEimbQ1HV22QVyrHt9cVIiBJLB2jpELJelufZjbT75lsReAUWBR0lSIjjPBzwWu2L4FDEiaAGZtzwAjbdS/wP6XfgH6eErnJJVtT0sq2Z6UNARU2hMbYC8BHdeqT4F7khZt90nqBwq2r2diIMBeoaLjz4xPne3JDfWfomO3PjxnuwxMAyVgUtKQ7crJTD7aXMLLl/tjKGnA9gQwC8wAI5nlPETLVaBP7s2lpe/ZS1gARm0vAlPtyAl1Beiz4ONa9QawJmkqkJ7zGF60Tk23f5eAQuDs8AUHY18e+tRtlcdQsS9sKZ0iw5ajQiMX6N752mE0+KAZ8jkzzbYtQZqs5gJdvPNwJyqPPae3H6cJduoQF25/RjaAeq4jeLD+cj759Go5jb+Oe2+7ezcQG6JCgzRZNdQl7f8BgazjmglumqIAAAAASUVORK5CYII=) no-repeat;margin-left:70px;width:90px;height:29px;position:absolute;font-size:14px;text-align:center;font-weight:bold;color:#eeeeee;'>##TEXT##</p>";
 
 
-  while (elem.tagName.toLowerCase() != "html") {
-    pathElements.unshift(elem.tagName);
-    elem = elem.parentNode;
-  }
-  return pathElements.join("/") + "[" + index + "]";
-}
-*/
-function getPathTo(element) {
-    if (element.id!=='')
-        return 'id("'+element.id+'")';
-    if (element===document.body)
-        return element.tagName;
+	var myBubble = bubble.replace(/##TEXT##/, text);
+	$(myBubble).insertBefore($(element));
 
-    var ix= 0;
-    var siblings= element.parentNode.childNodes;
-    for (var i= 0; i<siblings.length; i++) {
-        var sibling= siblings[i];
-        if (sibling===element)
-            return getPathTo(element.parentNode)+'/'+element.tagName+'['+(ix+1)+']';
-        if (sibling.nodeType===1 && sibling.tagName===element.tagName)
-            ix++;
-    }
 }
 
-function getPageXY(element) {
-    var x= 0, y= 0;
-    while (element) {
-        x+= element.offsetLeft;
-        y+= element.offsetTop;
-        element= element.offsetParent;
-    }
-    return [x, y];
-}
-
-
-// http://stackoverflow.com/questions/2661818/javascript-get-xpath-of-a-node/5178132#5178132
-function createXPathFromElement(elm) { 
-    var allNodes = document.getElementsByTagName('*'); 
-    for (segs = []; elm && elm.nodeType == 1; elm = elm.parentNode) 
-    { 
-        if (elm.hasAttribute('id')) { 
-                var uniqueIdCount = 0; 
-                for (var n=0;n < allNodes.length;n++) { 
-                    if (allNodes[n].hasAttribute('id') && allNodes[n].id == elm.id) uniqueIdCount++; 
-                    if (uniqueIdCount > 1) break; 
-                }; 
-                if ( uniqueIdCount == 1) { 
-                    segs.unshift('id("' + elm.getAttribute('id') + '")'); 
-                    return segs.join('/'); 
-                } else { 
-                    segs.unshift(elm.localName.toLowerCase() + '[@id="' + elm.getAttribute('id') + '"]'); 
-                } 
-        } else if (elm.hasAttribute('class')) { 
-            segs.unshift(elm.localName.toLowerCase() + '[@class="' + elm.getAttribute('class') + '"]'); 
-        } else { 
-            for (i = 1, sib = elm.previousSibling; sib; sib = sib.previousSibling) { 
-                if (sib.localName == elm.localName)  i++; }; 
-                segs.unshift(elm.localName.toLowerCase() + '[' + i + ']'); 
-        }; 
-    }; 
-    return segs.length ? '/' + segs.join('/') : null; 
-}; 
-
-function lookupElementByXPath(path) { 
-    var evaluator = new XPathEvaluator(); 
-    var result = evaluator.evaluate(path, document.documentElement, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null); 
-    return  result.singleNodeValue; 
-} 
-
-
-function lookupElementByXPathInDocument(doc, path) {
-    var evaluator = new XPathEvaluator(); 
-    var result = evaluator.evaluate(path, doc.documentElement, null,XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-    return  result.singleNodeValue; 
-} 
-
-/*
-
-jQuery.fn.extend({
-	getPath: function( path ) {
-		// The first time this function is called, path won't be defined.
-		if ( typeof path == 'undefined' ) path = '';
-
-		// If this element is <html> we've reached the end of the path.
-		if ( this.is('html') )
-			return 'html' + path;
-
-		// Add the element name.
-		var cur = this.get(0).nodeName.toLowerCase();
-
-		// Determine the IDs and path.
-		var id    = this.attr('id'),
-		    class = this.attr('class');
-
-
-		// Add the #id if there is one.
-		if ( typeof id != 'undefined' )
-			cur += '#' + id;
-
-		// Add any classes.
-		if ( typeof class != 'undefined' )
-			cur += '.' + class.split(/[\s\n]+/).join('.');
-
-		// Recurse up the DOM.
-		return this.parent().getPath( ' > ' + cur + path );
-	}
-});
-*/
-/*
-jQuery.fn.getPath = function () {
-    if (this.length != 1) throw 'Requires one element.';
-
-    var path, node = this;
-    while (node.length) {
-        var realNode = node[0], name = realNode.localName;
-        if (!name) break;
-        name = name.toLowerCase();
-
-        var parent = node.parent();
-
-        var siblings = parent.children(name);
-        if (siblings.length > 1) { 
-            name += ':eq(' + siblings.index(realNode) + ')';
-        }
-
-        path = name + (path ? '>' + path : '');
-        node = parent;
-    }
-
-    return path;
-};
-*/
-
-
-var objects = new Array();
-
-/*
-var mover = function(event) {
-	$(event.target).addClass('tp_over');
-}
-
-var mout = function(event) {
-	$(event.target).removeClass('tp_over');
-}
-*/
 var mdown = function(event) {
 
-
-		if (event===undefined) event= window.event;                     // IE hack
-		var target= 'target' in event? event.target : event.srcElement; // another IE hack
-
-		var root= document.compatMode==='CSS1Compat'? document.documentElement : document.body;
-		var mxy= [event.clientX+root.scrollLeft, event.clientY+root.scrollTop];
-
-		var path= getPathTo(target);
-		var txy= getPageXY(target);
-		//alert('Clicked element '+path+' offset '+(mxy[0]-txy[0])+', '+(mxy[1]-txy[1]));
-		var xpathobj = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-
-		console.log(path);
-
-		var path = '/HTML/BODY/TABLE[3]/TBODY[1]/TR[1]/TD[1]/TABLE[1]/TBODY[1]/TR[3]/TD[1]/TABLE[1]/TBODY[1]/TR[1]/TD[2]/FORM[2]/TABLE[1]/TBODY[1]/TR[3]/TD[2]/INPUT[1]';
-
-		console.log(xpathobj);
-		console.log(xpathobj.singleNodeValue);
-		console.log(xpathobj.singleNodeValue.tagName);
-		return;
-
-		console.log(window.frames);
-		console.log(window.frames[0]);
-		console.log(window.frames[0].document);
-		console.log(window.frames.length);
-		var frames = window.document.getElementsByTagName('frame');
-		console.log('frames.length: ' + frames.length);
-
-		var framesets = window.document.getElementsByTagName('frameset');
-		console.log('framesets.length: ' + framesets.length);
-
-		for (var i = 0; i < framesets.length; i++) {
-			console.log(framesets[i]);
-		}
-
-		var xpath = "/html/frameset/frame[@name='BISframe']";
-		var frameResult = window.document.evaluate(xpath, window.document, null, XPathResult.ANY_UNORDERED_NODE_TYPE,null);
-		console.log('xx');
-		console.log(frameResult);
-
-		var frameResult = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE,null);
-		console.log('yy');
-		console.log(frameResult);
-
-
-		var document2 = frameResult.contentDocument;
-		console.log(document2);
-		console.log(lookupElementByXPathInDocument(document2, path));
-
-		
-		$(lookupElementByXPathInDocument(documnet2, path)).click();
-
-		return;
-
-
-
-		var xpath = createXPathFromElement(target);
-		console.log(xpath);
-		console.log(lookupElementByXPath(xpath));
-		$(lookupElementByXPath(xpath)).val('xxxxxxxxxxxxxxxxxxxxxxxx');
-
-
-		return;
-
-
-	var finishSelection = false;
-	var object;
-	if (objects.length == 0) {
-		if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'text') {
-			alert('Debe seleccionar un campo para el ingreso del nombre de usuario');
-			return;
-		} else if ($(event.target).val().trim().length == 0) {
-			alert('Debe completar el campo nombre de usuario antes de continuar con la seleccion');
-			$(event.target).focus();
-			return;
-		}
-		object = event.target;
-
-
-		/*
-		if (event===undefined) event= window.event;                     // IE hack
-		var target= 'target' in event? event.target : event.srcElement; // another IE hack
-
-		var root= document.compatMode==='CSS1Compat'? document.documentElement : document.body;
-		var mxy= [event.clientX+root.scrollLeft, event.clientY+root.scrollTop];
-
-		var path= getPathTo(target);
-		var txy= getPageXY(target);
-		//alert('Clicked element '+path+' offset '+(mxy[0]-txy[0])+', '+(mxy[1]-txy[1]));
-		var xpathobj = document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-		console.log(path);
-		console.log(xpathobj);
-		console.log(xpathobj.singleNodeValue);
-		console.log(xpathobj.singleNodeValue.tagName);
-		lookupElementByXPath(xpath).click();
-
-
-
-		var xpath = createXPathFromElement(target);
-		console.log(xpath);
-		console.log(lookupElementByXPath(xpath));
-		$(lookupElementByXPath(xpath)).val('xxxxxxxxxxxxxxxxxxxxxxxx');
-		*/
-
-		//console.log($(object).getPath());
-		//xpathobj = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
-
-	} else if (objects.length == 1) {
-		if (event.target.tagName != 'INPUT' || $(event.target).attr('type') != 'password') {
-			alert('Debe seleccionar un campo para el ingreso de la clave');
-			return;
-		} else if ($(event.target).val().trim().length == 0) {
-			alert('Debe completar el campo clave antes de continuar con la seleccion');
-			$(event.target).focus();
-			return;
-		}
-		object = event.target;
-
-	} else if (objects.length >= 2) {
-
-		if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'text') {
-
-			if ($(event.target).val().trim().length == 0) {
-				alert('Debe completar el campo extra antes de continuar con la seleccion');
-				$(event.target).focus();
-				return;
-			} else {
-				object = event.target;
-			}
-
+	if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'text') {
+		if ($(event.target).val() == '') {
+			alert('Debe ingresar su nombre de usuario antes de continuar.');
 		} else {
-
-			if (event.target.tagName == 'IMG' || event.target.tagName == 'SPAN' || event.target.tagName == 'DIV') {
-
-				if (event.target.parentNode.tagName == 'A') {
-					object = event.target.parentNode;
-				} else if (event.target.parentNode.parentNode.tagName == 'A') {
-					object = event.target.parentNode.parentNode;
-				} else if (event.target.parentNode.parentNode.parentNode.tagName == 'A') {
-					object = event.target.parentNode.parentNode.parentNode;
-				} else {
-					object = event.target;
-				}
-
-			} else {
-				object = event.target;
-			}
-
-			finishSelection = true;
+			objects.usernameElement = event.target;
+			addMark($(event.target), 'Usuario');
 		}
 	}
 
 
-	objects.push(object);
-	$(object).addClass('tp_selected');
-
-	if (finishSelection) {
-
-		var loginInput = objects[0];
-		var passwordInput = objects[1];
-		if (objects.length == 3) {
-			var extraInput = null;
-			var submitInput = objects[2];
+	if (event.target.tagName == 'INPUT' && $(event.target).attr('type') == 'password') {
+		if ($(event.target).val() == '') {
+			alert('Debe ingresar su clave antes de continuar.');
 		} else {
-			var extraInput = objects[2];
-			var submitInput = objects[3];
+			objects.passwordElement = event.target;
+			addMark($(event.target), 'Clave');
 		}
+	}
 
 
-		save(loginInput, extraInput, passwordInput, submitInput);
 
-		document.body.removeEventListener('mousedown', mdown, false);
-		//document.body.removeEventListener('mouseover', mover, false);
-		//document.body.removeEventListener('mouseout', mout, false);
+	var blackList = ['HEAD', 'BODY', 'IFRAME', 'FRAME', 'FRAMESET'];
+	if (!(event.target.tagName == 'INPUT' &&
+		($(event.target).attr('type') == 'hidden' || $(event.target).attr('type') == 'text' || $(event.target).attr('type') == 'password'))
+		&& $.inArray(event.target.tagName, blackList) == -1) {
+
+		// prevent default "submitting"
+		event.target.onclick = function() {return false;};
+
+		objects.enterElement = event.target;
+		addMark($(event.target), 'Entrar');
+
+	}
+
+
+	if (objects.passwordElement == null) {
+		alert('Haga click sobre el campo clave');
+	} else if (objects.usernameElement == null) {
+		alert('Haga click sobre el campo usuario');
+	}
+
+
+	if (objects.usernameElement != null && objects.passwordElement != null && objects.enterElement != null) {
+
+		var data = {
+			'usernameElement' 	: findXPath(objects.usernameElement),
+			'username' 			: objects.usernameElement.value,
+			'passwordElement' 	: findXPath(objects.passwordElement),
+			'password' 			: objects.passwordElement.value,
+			'enterElement' 		: findXPath(objects.enterElement)
+		};
+
+		var port = chrome.extension.connect({name: 'finish_adding'});
+		port.postMessage(data);
 
 	}
 
 }
+
 
 chrome.extension.onRequest.addListener(
 	function(request, sender, sendResponse) {
 
 		if (request == 'add_to_1000pass_manual') {
 
-			document.body.addEventListener('mousedown', mdown, true);
-			//document.body.addEventListener('mouseover', mover, true);
-			//document.body.addEventListener('mouseout', mout, true);
+			document.body.addEventListener('mousedown', mdown, false);
 
 		} else if (request == 'add_to_1000pass_auto') {
 
+			var passwordElement = null;
+			var usernameElement = null;
+			var enterElement = null;
 
-			var passwordFields = $('input[type="password"]');
-			if (passwordFields.length == 0) {
-				//alert('No es posible encontrar los campos de usuario y contraseña en esta pagina. Se buscara mas profundo...');
-			} else if (passwordFields.length == 1) {
-				saveLoginInfo(passwordFields[0].form);
+			var passwordElements = $('input:password');
+			if (passwordElements.length == 1) {
+				passwordElement = passwordElements[0];
 			} else {
 
-				var rightForm = null;
-				var foundRightForm = 0;
-				passwordFields.each(
+				// try finding the first not empty password field
+				var found = 0;
+				passwordElements.each(
 					function(i, elem) {
-						if ($('input[type="text"]', $(elem.form)).length == 1) {
-							rightForm = elem.form;
-							foundRightForm++;
+						if ($(elem).val().trim().length > 0) {
+							passwordElement = elem;
+							found++;
 						}
 					}
 				);
 
 				// just one, got it
-				if (foundRightForm == 1) {
-					saveLoginInfo(rightForm);
-				} else {
-					// manual selection
+				if (found != 1) {
+					passwordElement = null;
 				}
 			}
 
+
+			if (passwordElement != null) {
+
+				var possibleInputs = $('input:text', $(passwordElement.form));
+				if (possibleInputs.length == 1) {
+					usernameElement = possibleInputs[0];
+				} else if (possibleInputs.length > 1) {
+					var c = 0;
+					for (var i = 0; i < possibleInputs.length; i++) {
+						if (possibleInputs[i].value != '') {
+							usernameElement = possibleInputs[i];
+							c++;
+						}
+					}
+					if (c > 1) {
+						usernameElement = null;
+					}
+				}
+
+
+				var possibleInputs = $('input:submit', $(passwordElement.form));
+				if (possibleInputs.length == 1) {
+					enterElement = possibleInputs[0];
+				}
+
+
+				if (enterElement == null) {
+					var possibleInputs = $('button:submit', $(passwordElement.form));
+					if (possibleInputs.length == 1) {
+						enterElement = possibleInputs[0];
+					}
+				}
+
+
+				addMark($(passwordElement), 'Clave');
+				if (usernameElement != null) {
+					addMark($(usernameElement), 'Usuario');
+				}
+				if (enterElement != null) {
+					addMark($(enterElement), 'Entrar');
+				}
+
+
+
+				if (passwordElement != null
+					&& usernameElement != null
+					&& enterElement != null)
+				{
+
+					if (usernameElement.value.length == 0) {
+						alert('No ha ingresado su usuario. Reintentelo luego de completar los datos necesarios.');
+						window.location.reload();
+						return;
+					}
+
+					if (passwordElement.value.length == 0) {
+						alert('No ha ingresado su clave. Reintentelo luego de completar los datos necesarios.');
+						window.location.reload();
+						return;
+					}
+
+
+					var data = {
+						'usernameElement' 	: findXPath(usernameElement),
+						'username' 			: usernameElement.value,
+						'passwordElement' 	: findXPath(passwordElement),
+						'password' 			: passwordElement.value,
+						'enterElement' 		: findXPath(enterElement)
+					};
+
+
+					var port = chrome.extension.connect({name: 'finish_adding'});
+					port.postMessage(data);
+
+				} else {
+
+					objects.usernameElement = usernameElement;
+					objects.passwordElement = passwordElement;
+					objects.enterElement = enterElement;
+
+					if (usernameElement != null) {
+						addMark($(usernameElement), 'Usuario');
+					}
+					if (passwordElement != null) {
+						addMark($(passwordElement), 'Clave');
+					}
+					if (enterElement != null) {
+						addMark($(enterElement), 'Entrar');
+					}
+
+
+					alert('No es posible encontrar todos los elementos. Por favor, haga click sobre los elementos que no pudieron encorntrarse automaticamente.');
+
+					document.body.addEventListener('mousedown', mdown, false);
+				}
+
+			}
 
 		} else {
 			sendResponse({html: $('body').html()});
@@ -395,280 +212,245 @@ chrome.extension.onRequest.addListener(
 );
 
 
-var saveLoginInfo = function (form) {
-
-	var loginInput = null;
-	var extraInput = null;
-	var passwordInput = null;
-
-	if ($('input[type="text"]', $(form)).length > 1) {
-		loginInput = $('input[type="text"]', $(form)).eq(0);
-		extraInput = $('input[type="text"]', $(form)).eq(1);
-
-		if ($(extraInput).val().trim().length > 0) {
-			loginInput = extraInput;
-			extraInput = null;
-		}
-	} else {
-		loginInput = $('input[type="text"]', $(form));
-	}
-	passwordInput = $('input[type="password"]', $(form));
-	submitInput = $('input[type="submit"]', $(form));
 
 
-	if (loginInput == undefined || loginInput == null || loginInput.length == 0) {
+function findXPath(theElement) {
 
-		$('input').each(function(i, elem) {
-			if ($(elem).attr('type') == 'text'
-				&& getIdentifier(form) == getIdentifier($(elem).attr('form'))
-				&& $(elem).val().trim().length > 0) {
+	try {
+		var xpath = '##id=' + $(theElement).attr('id');
+		xpath += ';name=' + $(theElement).attr('name');
+		xpath += ';class=' + $(theElement).attr('class');
 
-				loginInput = elem;
-				return;
+		var path = new Array();
+		do {
+			parent = theElement.parentNode;
+			var toPush = theElement.tagName;
+			for (i = 1, sib = theElement.previousSibling; sib; sib = sib.previousSibling) {
+				if (sib.localName == theElement.localName)
+					i++;
+			};
+			if (i > 1) {
+				toPush += '[' + i + ']';
 			}
-		});
+			path.push(toPush);
 
-		$('input[type="password"]').each(function(i, elem) {
-			if (getIdentifier(form) == getIdentifier($(elem).attr('form'))) {
-				passwordInput = elem;
-				return;
-			}
-		});
+			theElement = theElement.parentNode;
 
-	}
+		} while (parent.tagName != 'BODY');
 
-
-
-	$(loginInput).addClass('tp_selected');
-	if (extraInput != undefined && extraInput != null) {
-		$(extraInput).addClass('tp_selected');
-	}
-	$(passwordInput).addClass('tp_selected');
-
-
-	if (typeof(submitInput) == 'object') {
-		$(submitInput).addClass('tp_selected');
-	}	
-
-	save(loginInput, extraInput, passwordInput, submitInput);
-
-}
-
-
-var save = function(loginInput, extraInput, passwordInput, submitInput) {
-
-	if ($(loginInput).val().trim().length == 0) {
-		alert('Debe ingresar nombre de usuario antes de agregar el sitio a 1000pass.com');
-		$(loginInput).focus();
-		return;
-	}
-
-	if (extraInput != undefined && extraInput != null && $(extraInput).val().trim().length == 0) {
-		alert('Debe ingresar la informacion adicional antes de agregar el sitio a 1000pass.com');
-		$(extraInput).focus();
-		return;
-	}
-
-	if ($(passwordInput).val().trim().length == 0) {
-		alert('Debe ingrear su clave antes de agregar el sitio a 1000pass.com');
-		$(passwordInput).focus();
-		return;
-	}
-
-
-	var resp = confirm('Confirma que desea agregar el nuevo sitio a 1000pass.com?');
-	if (resp == true) {
-
-		var selections = new Array();
-		selections.push(getIdentifier($(loginInput)) + '|' + $(loginInput).val());
-		if (extraInput != undefined) {
-			selections.push(getIdentifier($(extraInput)) + '|' + $(extraInput).val());
-		} else {
-			selections.push('');
-		}
-		selections.push(getIdentifier($(passwordInput)) + '|' + $(passwordInput).val());
-
-		if (typeof(submitInput) == 'object') {
-			selections.push(getIdentifier(submitInput));
-		} else {
-			selections.push('');
-		}
-
-
-		var port = chrome.extension.connect({name: 'finish_adding'});
-		port.postMessage(selections);
-
-	} else {
-		$('.tp_selected').each(
-			function() {
-				$(this).removeClass('tp_selected');
-			}
-		);
-
+		path.push('BODY');
+		return xpath = '/' + path.reverse().join('/') + xpath;
+	} catch (e) {
+		//console.log(e);
+		return '';
 	}
 }
 
 
+function findElement(xPath) {
 
-chrome.extension.onConnect.addListener(function(port) {
-	port.onMessage.addListener(function(data) {
+	// should never happend, means an error collecting the info
+	if (xPath == undefined || xPath.indexOf('##') == -1) {
+		return;
+	}
 
-		if (data.state == 'opened') {
-			return;
+	var tmp = xPath.split('##');
+
+	var elementAttributes = tmp[1];
+	var attributes = elementAttributes.split(';');
+	var attributeId = attributes[0].replace(/id=/, '');
+	var attributeName = attributes[1].replace(/name=/, '');
+	var attributeClass = attributes[2].replace(/class=/, '');
+
+
+	var xPathParts = tmp[0].split('/');
+	var elementTagName = xPathParts[xPathParts.length - 1];
+	if (elementTagName.indexOf('[') >= 0) {
+		elementTagName = elementTagName.split('[')[0];
+	}
+
+
+	var theElement = null;
+
+
+	// try in first place the id
+	var possibleElements = $(elementTagName + '[id="' + attributeId + '"]');
+	if (possibleElements.length == 1) {
+		theElement = possibleElements.get(0);
+	}
+
+
+	if (theElement == null && attributeName != '') {
+		var possibleElements = $(elementTagName + '[name="' + attributeName + '"]');
+		if (possibleElements.length == 1) {
+			theElement = possibleElements.get(0);
 		}
+	}
 
-		/** Username */
-		var tmpUsernameField = data.usernameField.split('|');
-		if (tmpUsernameField[0] == 'id') {
-			var myUsername = document.getElementById(tmpUsernameField[1]);
-		} else if (tmpUsernameField[0] == 'name') {
-			var myUsernames = document.getElementsByTagName('input');
-			for (var i=0; i<myUsernames.length; i++) {
-				if (myUsernames[i].name == tmpUsernameField[1]) {
-					var myUsername = myUsernames[i];
-					break;
-				}
+
+
+	// try in second place the exact path
+	if (theElement == null) {
+		possibleElements = document.getElementsByTagName(elementTagName);
+
+		for (var i = 0; i < possibleElements.length; i++) {
+			if (findXPath(possibleElements[i]) == xPath) {
+				theElement = possibleElements[i];
+				break;
 			}
 		}
-		myUsername.value = data.username;
+	}
 
 
-		/** Password */
-		var tmpPasswordField = data.passwordField.split('|');
-		if (tmpPasswordField[0] == 'id') {
-			var myPassword = document.getElementById(tmpPasswordField[1]);
-		} else if (tmpPasswordField[0] == 'name') {
-			var myPasswords = document.getElementsByTagName('input');
-			for (var i=0; i<myPasswords.length; i++) {
-				if (myPasswords[i].type == 'password' && myPasswords[i].name == tmpPasswordField[1]) {
-					var myPassword = myPasswords[i];
-					break;
-				}
+	// next, try the path skipping attributes
+	if (theElement == null) {
+		var cleanXPath = tmp[0];
+		for (var i = 0; i < possibleElements.length; i++) {
+
+			var possibleXPath = findXPath(possibleElements[i]);
+			var possibleTmp = possibleXPath.split('##');
+			var cleanPossibleXPath = possibleTmp[0];
+
+			if (cleanPossibleXPath == cleanXPath) {
+				theElement = possibleElements[i];
+				break;
 			}
 		}
-		myPassword.value = data.password;
+	}
 
 
-		/** Extra Fields Info */
-		var tmpExtraField = data.extraField.split('|');
-		if (tmpExtraField[0] == 'id') {
-			var myExtra = document.getElementById(tmpExtraField[1]);
-		} else if (tmpExtraField[0] == 'name') {
-			var myExtras = document.getElementsByTagName('input');
-			for (var i=0; i<myExtras.length; i++) {
-				if (myExtras[i].name == tmpExtraField[1]) {
-					var myExtra = myExtras[i];
-					break;
-				}
-			}
-		}
-		if (myExtra != undefined) {
-			myExtra.value = data.extra;
-		}
+	// next try inside iframes the the id
+	try {
+		if (theElement == null) {
+			$('iframe').each(function(i, elem) {
 
-
-
-		/** Submit the form */
-		console.log(data.form);
-		if (data.form == '') {
-
-			var myForm = myUsername.form;
-			setTimeout(function(){myForm.submit();}, 2000);
-
-		} else {
-			var tmpForm = data.form.split('|');
-			if (tmpForm[0] == 'id') {
-				var mySubmitter = document.getElementById(tmpForm[1]);
-			} else if (tmpForm[0] == 'name') {
-				var myInputs = document.getElementsByTagName('input');
-				for (var i = 0; i < myInputs.length; i++) {
-					if (myInputs[i].name == tmpForm[1] && myUsername.form == myInputs[i].form) {
-						var mySubmitter = myInputs[i];
-						break;
-					} else if (myInputs[i].name == tmpForm[1]) {
-						var mySubmitter = myInputs[i];
+				if ($(elem).attr('src').indexOf('chrome-extension') == -1) {
+					var possibleElements = $(elementTagName + '[id="' + attributeId + '"]', $(elem).contents());
+					if (possibleElements.length == 1) {
+						theElement = possibleElements.get(0);
+						return;
 					}
 				}
+			});
+		}
 
-				if (mySubmitter == undefined) {
-					var myForms = document.getElementsByTagName('form');
-					for (var i = 0; i < myForms.length; i++) {
-						if (myForms[i].name == tmpForm[1]) {
-							var mySubmitter = myForms[i];
+
+		if (theElement == null && attributeName != '') {
+			$('iframe').each(function(i, elem) {
+
+				if ($(elem).attr('src').indexOf('chrome-extension') == -1) {
+					var possibleElements = $(elementTagName + '[name="' + attributeName + '"]', $(elem).contents());
+					if (possibleElements.length == 1) {
+						theElement = possibleElements.get(0);
+						return;
+					}
+				}
+			});
+		}
+
+
+		// next try inside iframes the exact path
+		if (theElement == null) {
+			$('iframe').each(function(i, elem) {
+
+				if ($(elem).attr('src').indexOf('chrome-extension') == -1) {
+					possibleElements = $(elementTagName, $(elem).contents());
+					for (var i = 0; i < possibleElements.length; i++) {
+						if (findXPath(possibleElements[i]) == xPath) {
+							theElement = possibleElements[i];
+							return;
 							break;
 						}
 					}
 				}
-			/* } else if (tmpForm[0] == 'action') {
-				var myForms = document.getElementsByTagName('form');
-				for (var i = 0; i < myForms.length; i++) {
-					if ((tmpForm[0] == 'name' && myForms[i].name == tmpForm[1])
-						|| (tmpForm[0] == 'action' && myForms[i].action == tmpForm[1])) {
-						var mySubmitter = myForms[i];
-						break;
-					}
-				}
-			*/
-			} else if (tmpForm[0] == 'class') {
-				var myForms = myUsername.form.getElementsByClassName(tmpForm[1]);
-				if (myForms.length == 0) {
-					myForms = document.getElementsByClassName(tmpForm[1]);
-				}
-				var mySubmitter = myForms[0];
-			}
-
-			setTimeout(
-				function(){
-
-					// try with the param, but also old fashion if the first does not work
-					if (mySubmitter != undefined && mySubmitter != null && typeof(mySubmitter) == 'object') {
-						var evt = document.createEvent('HTMLEvents');
-						evt.initEvent('click', true, true ); // event type,bubbling,cancelable
-						mySubmitter.dispatchEvent(evt);
-					}
-				},
-			2000);
-
-			// also try to submit old fashion way...
-			setTimeout(
-				function(){
-					var myForm = myUsername.form;
-					myForm.submit();
-				},
-			4000);
-
+			});
 		}
 
-		var port = chrome.extension.connect({name: 'done'});
-		port.postMessage(data);
 
 
+		// next, try inside iframes the path skipping attributes
+		if (theElement == null) {
+			var cleanXPath = tmp[0];
+			$('iframe').each(function(i, elem) {
+
+				if ($(elem).attr('src').indexOf('chrome-extension') == -1) {
+					for (var i = 0; i < possibleElements.length; i++) {
+						var possibleXPath = findXPath(possibleElements[i]);
+						var possibleTmp = possibleXPath.split('##');
+						var cleanPossibleXPath = possibleTmp[0];
+
+						if (cleanPossibleXPath == cleanXPath) {
+							theElement = possibleElements[i];
+							return;
+							break;
+						}
+					}
+				}
+			});
+		}
+	} catch (e) {
+		console.log(e);
+	}
+
+
+	// one more chance
+	if (theElement == null && attributeName != '') {
+		var possibleElements = $(elementTagName + '[name="' + attributeName + '"]');
+		if (possibleElements.length >= 1) {
+			theElement = possibleElements.get(0);
+		}
+	}
+
+	console.log(theElement);
+	return theElement;
+}
+
+
+var fillFields = function(data) {
+
+	if (data.state == 'opened') {
+		return;
+	}
+
+	var myUsername = findElement(data.usernameField);
+	var myPassword = findElement(data.passwordField);
+	var myEnter = findElement(data.submitField);
+
+	if (myUsername == null || myPassword == null) {
+		return;
+	}
+
+	myUsername.value = data.username;
+	myPassword.value = data.password;
+
+
+	if (myEnter != undefined && myEnter != null && typeof(myEnter) == 'object') {
+		var evt = document.createEvent('HTMLEvents');
+		evt.initEvent('click', true, true ); // event type, bubbling, cancelable
+		myEnter.dispatchEvent(evt);
+
+	}
+
+	// If something goes wrong, try this way too
+	try {
+		var myForm = myUsername.form;
+		setTimeout(function(){myForm.submit();}, 2000);
+	} catch (e) {}
+
+	var port = chrome.extension.connect({name: 'done'});
+	port.postMessage(data);
+
+}
+
+chrome.extension.onConnect.addListener(function(port) {
+	port.onMessage.addListener(function(data) {
+		fillFields(data);
 	});
 });
 
 
 
-var getIdentifier = function(elem) {
-
-	var text = '';
-
-	if ($(elem).attr('id') != undefined && $(elem).attr('id') != '') {
-		text = 'id|' + $(elem).attr('id');
-	} else if ($(elem).attr('name') != undefined && $(elem).attr('name') != '') {
-		text = 'name|' + $(elem).attr('name');
-	} else if ($(elem).attr('class') != undefined &&  $(elem).attr('class') != '') {
-		text = 'class|' + $(elem).attr('class').replace('tp_selected', '').trim();
-	}
-
-	return text;
-
-}
-
-
 var bind_events = function() {
-
-	$('head').append('<style type="text/css"> .tp_over { border:1px solid red; } .tp_selected { border:10px dotted green; }</style>');
-
 
 	var location = window.location.toString();
 	if (location.substr(0, 17) != 'http://localhost/' && location.substr(0, 24) != 'http://www.1000pass.com/' && location.substr(0, 25) != 'https://www.1000pass.com/') {
@@ -678,23 +460,18 @@ var bind_events = function() {
 
 
 
-	if (typeof($('div#1000pass_add_on')) == 'object') {
-
-		var port = chrome.extension.connect({name: '1000pass'});
-		port.postMessage();
-		/*
-		setInterval(
-			function() {
-				console.log('loggin 1000');
-			}, 1000);
-		*/
-	}
-
-
-
 	/** Modify the dom to tell the addon is present */
 	$('div#1000pass_add_on').addClass('installed');
-	$('div#1000pass_add_on_version').addClass('1.0');
+	$('div#1000pass_add_on_version').text('1.0');
+
+
+	if (typeof($('div#1000pass_add_on')) == 'object') {
+
+		var token = $('div#1000pass_add_on').attr('token');
+		var port = chrome.extension.connect({name: '1000pass'});
+		port.postMessage(token);
+	}
+
 
 
 	$('img.remote_site_logo').css('cursor', 'pointer');
@@ -705,24 +482,24 @@ var bind_events = function() {
 			id: $('#plugin_identifier', plugin).html(),
 			title: $('#title', plugin).html(),
 			url: $('#url', plugin).html().replace(/&amp;/g, '&'),
-			logout_url: $('#logout_url', plugin).html().replace(/&amp;/g, '&'),
-			logout_type: $('#logout_url', plugin).attr('class'),
 			username: $('#username', plugin).html(),
 			usernameField: $('#username', plugin).attr('class'),
 			password: $('#password', plugin).html(),
 			passwordField: $('#password', plugin).attr('class'),
 			extra: $('#extra', plugin).html(),
 			extraField: $('#extra', plugin).attr('class'),
-			form: $('#submit', plugin).attr('class')
+			submitField: $('#submit', plugin).attr('class')
 		};
-		var port = chrome.extension.connect({name: "go"});
+
+		var port = chrome.extension.connect({name: 'go'});
 		port.postMessage(data);
+
 	});
 }
 
 
-if (document.readyState == "complete") {
+if (document.readyState == 'complete') {
 	bind_events();
 } else {
-	window.addEventListener("load", bind_events, false);
+	window.addEventListener('load', bind_events, false);
 }
