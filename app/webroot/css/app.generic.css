@@ -396,6 +396,26 @@ div.bottom_big_banner img {
 	width: auto;
 }
 
+
+#search {
+	width:300px;
+}
+
+#search input {
+	float: left;
+}
+
+#search input.submit {
+	width: 77px;
+	float: left;
+	margin: 3px 0 0 10px;
+	text-align: center;
+	background: url(img/button_bg.png) no-repeat;
+	cursor: pointer;
+}
+
+
+
 /** Top Bar */
 #top_bar {
 	background: url(img/search_bg.jpg) no-repeat;

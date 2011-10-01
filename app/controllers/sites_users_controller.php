@@ -116,10 +116,25 @@ class SitesUsersController extends AppController {
 
 	function index() {
 
+		$search = array();
+		if (!empty($this->data['SitesUser']['search'])) {
+			$term = '%' . $this->data['SitesUser']['search'] . '%';
+			$search = array('OR' => array(
+				'Site.title LIKE' 			=> $term,
+				'Site.login_url LIKE' 		=> $term,
+				'SitesUser.username LIKE' 	=> $term
+			));
+		}
+
+
 		$mySites = $this->SitesUser->find('all', array(
 			'order' 		=> array('SitesUser.order' => 'asc'),
 			'contain' 		=> array('Site', 'ParentSitesUser'),
-			'conditions' 	=> array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))));
+			'conditions' 	=> array_merge(
+					$search,
+					array('SitesUser.user_id' => $this->Session->read('Auth.User.id'))
+			)
+		));
 
 
 		$myShares = $this->SitesUser->find('all',

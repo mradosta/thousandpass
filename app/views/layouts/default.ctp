@@ -195,13 +195,25 @@
 			<div id="top_bar">
 			<?php
 				if ($loggedIn) {
+
 					echo '<div class="actions">';
 
+					echo '<div id="search">';
+					echo $form->create('SitesUser', array('action' => 'index'));
+					//echo $form->input('SitesUser.search', array('label' => __('Search', true)));
+					echo $form->input('SitesUser.search', array('label' => false, 'div' => false));
+					echo $form->submit(__('Search', true), array('div' => false, 'class' => 'submit'));
+					echo $form->end();
+					echo '</div>';
+
+
+/*
 						echo $html->image('add.png', array(
 							'alt'	=> __('Add web site', true),
 							'title'	=> __('Add web site', true),
 							'url' 	=> array('controller' => 'sites_users', 'action' => 'add')));
 						echo $html->tag('span', __('Add web site', true), array('class' => 'label'));
+*/
 
 					echo '</div>';
 
