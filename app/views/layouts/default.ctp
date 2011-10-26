@@ -169,6 +169,14 @@
 			?>
 
 
+			<div id="browsers">
+				<?php
+					echo $html->link($html->image('chrome.png'), 'http://www.google.com/chrome', array('escape' => false, 'target' => '_BLANK'));
+					echo $html->link($html->image('firefox.png'), 'http://www.mozilla.org/es-AR/firefox/new/', array('escape' => false, 'target' => '_BLANK'));
+					echo $html->link($html->image('explorer.png'), 'http://windows.microsoft.com/es-ES/internet-explorer/downloads/ie-8', array('escape' => false, 'target' => '_BLANK'));
+				?>
+			</div>
+
 			<div id="languages">
 				<?php
 					echo $html->image('eng.png', array('class' => 'eng'));

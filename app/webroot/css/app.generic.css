@@ -380,14 +380,29 @@ div.bottom_big_banner img {
 #languages {
 	width: 60px;
 	float: left;
-	margin-left: 285px;
+	margin-left: 45px;
 }
 
 #languages img {
-	margin: 5px;
+	margin: 20px 5px 5px 5px;
 	cursor: pointer;
 	width: 16px;
 	height: 11px;
+}
+
+
+/** Browsers */
+#browsers {
+	width: 130px;
+	float: left;
+	margin-left: 195px;
+}
+
+#browsers img {
+	margin: 5px;
+	cursor: pointer;
+	width: 30px;
+	height: 30px;
 }
 
 
