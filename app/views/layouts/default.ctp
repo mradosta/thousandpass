@@ -169,22 +169,6 @@
 			?>
 
 
-			<div id="browsers">
-				<?php
-					echo $html->link($html->image('chrome.png'), 'http://www.google.com/chrome', array('escape' => false, 'target' => '_BLANK'));
-					echo $html->link($html->image('firefox.png'), 'http://www.mozilla.org/es-AR/firefox/new/', array('escape' => false, 'target' => '_BLANK'));
-					echo $html->link($html->image('explorer.png'), 'http://windows.microsoft.com/es-ES/internet-explorer/downloads/ie-8', array('escape' => false, 'target' => '_BLANK'));
-				?>
-			</div>
-
-			<div id="languages">
-				<?php
-					echo $html->image('eng.png', array('class' => 'eng'));
-					echo $html->image('spa.png', array('class' => 'spa'));
-				?>
-			</div>
-
-
 			<div id="admin_menus">
 				<?php
 					if ($loggedIn['username'] === 'root') {
@@ -303,7 +287,7 @@
 
 				$token = $session->read('Auth.User.token');
 				if (!empty($token)) {
-					$toolbar[] = '<div id="1000pass_add_on" class="not_installed" token="' . $token . '"><div id="1000pass_add_on_version" class="0"></div></div>';
+					$toolbar[] = '<div id="1000pass_add_on" class="not_installed" token="' . $token . '"><div id="1000pass_add_on_version"></div></div>';
 				} else {
 					$toolbar[] = '<div id="1000pass_add_on" class="not_installed"><div id="1000pass_add_on_version" class="0"></div></div>';
 				}

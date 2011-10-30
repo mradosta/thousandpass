@@ -68,10 +68,42 @@
 
 <script type="text/javascript">
 
+	var downloadAddOn = function() {
+		var basePath = '<?php echo Router::url('/'); ?>';
+		var browserName = $.browser.name;
+		if (browserName == 'firefox') {
+			//window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail&confirmed');
+			window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
+		} else if (browserName == 'msie') {
+			//window.location.replace(basePath + 'files/addons/msie/<?php //echo substr( strtolower(Configure::read('Config.language')), 0, 3); ?>_1000pass.exe');
+			window.location.replace(basePath + 'files/addons/msie/1000pass.exe');
+		} else if (browserName == 'chrome') {
+			window.location.replace(basePath + 'files/addons/chrome/1000pass.crx');
+		}
+	}
+
 	jQuery(document).ready(function($) {
 
 		setInterval(
 			function() {
+
+
+				if ($('#1000pass_add_on_version').html() == '') {
+					alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
+
+					downloadAddOn();
+				}
+
+				if ($('#1000pass_add_on_version').html() != '1.0') {
+
+					// prevent warning the user again
+					$('#1000pass_add_on_version').html('1.0');
+
+					alert('<?php __('Existe una nueva version de la extension 1000pass.com. Por favor, acepte la descarga.');?>');
+					downloadAddOn();
+				}
+
+
 				$.get('<?php echo Router::url(array('controller' => 'sites_users', 'action' => 'check')); ?>', function (data) {
 					
 					var total = $('#total_sites').text();
@@ -90,7 +122,7 @@
 					}
 				});
 			},
-			3000
+			5000
 		);
 			
 
@@ -115,9 +147,10 @@
 		};
 
 
+		/*
 		$('.add_on_not_installed').css('cursor', 'pointer').click(
 			function() {
-return;
+
 				alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
 
 				var basePath = '<?php echo Router::url('/'); ?>';
@@ -133,6 +166,9 @@ return;
 				}
 			}
 		);
+		*/
+
+
 
 	});
 
