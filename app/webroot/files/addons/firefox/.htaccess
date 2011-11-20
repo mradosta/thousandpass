@@ -1,4 +1,5 @@
 AddType application/x-xpinstall .xpi
+AddType text/xml .rdf
 <IfModule mod_rewrite.c>
     RewriteEngine Off
 </IfModule>
