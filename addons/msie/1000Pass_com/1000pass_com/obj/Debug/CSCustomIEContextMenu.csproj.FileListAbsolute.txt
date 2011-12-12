@@ -1,0 +1,16 @@
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\Debug\Resource\OpenImage.htm
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\Debug\CSCustomIEContextMenu.dll
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\Debug\CSCustomIEContextMenu.pdb
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\CSCustomIEContextMenu\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\CSCustomIEContextMenu\obj\Debug\Interop.SHDocVw.dll
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\CSCustomIEContextMenu\obj\Debug\CSCustomIEContextMenu.csproj.ResolveComReference.cache
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\CSCustomIEContextMenu\obj\Debug\CSCustomIEContextMenu.dll
+C:\Documents and Settings\x\Escritorio\CSCustomIEContextMenu\CSCustomIEContextMenu\obj\Debug\CSCustomIEContextMenu.pdb
+C:\Documents and Settings\x\Escritorio\1000Pass_com\Debug\Resource\OpenImage.htm
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Debug\ResolveAssemblyReference.cache
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Debug\Interop.SHDocVw.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Debug\CSCustomIEContextMenu.csproj.ResolveComReference.cache
+C:\Documents and Settings\x\Escritorio\1000Pass_com\Debug\1000Pass_com.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\Debug\1000Pass_com.pdb
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Debug\1000Pass_com.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Debug\1000Pass_com.pdb

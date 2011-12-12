@@ -1,5 +1,55 @@
 var objects = {'usernameElement' : null, 'passwordElement' : null, 'enterElement' : null};
 
+function decode64(input) {
+
+	var keyStr = "ABCDEFGHIJKLMNOP" +
+				"QRSTUVWXYZabcdef" +
+				"ghijklmnopqrstuv" +
+				"wxyz0123456789+/" +
+				"=";
+
+	var output = "";
+	var chr1, chr2, chr3 = "";
+	var enc1, enc2, enc3, enc4 = "";
+	var i = 0;
+
+	// remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+	var base64test = /[^A-Za-z0-9\+\/\=]/g;
+	if (base64test.exec(input)) {
+		alert("There were invalid base64 characters in the input text.\n" +
+			"Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+			"Expect errors in decoding.");
+	}
+	input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+
+	do {
+		enc1 = keyStr.indexOf(input.charAt(i++));
+		enc2 = keyStr.indexOf(input.charAt(i++));
+		enc3 = keyStr.indexOf(input.charAt(i++));
+		enc4 = keyStr.indexOf(input.charAt(i++));
+
+		chr1 = (enc1 << 2) | (enc2 >> 4);
+		chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+		chr3 = ((enc3 & 3) << 6) | enc4;
+
+		output = output + String.fromCharCode(chr1);
+
+		if (enc3 != 64) {
+		output = output + String.fromCharCode(chr2);
+		}
+		if (enc4 != 64) {
+		output = output + String.fromCharCode(chr3);
+		}
+
+		chr1 = chr2 = chr3 = "";
+		enc1 = enc2 = enc3 = enc4 = "";
+
+	} while (i < input.length);
+
+	return unescape(output);
+}
+
+
 function addMark(element, text) {
 
 	var bubble = "<p class='1000pass_bubble' style='padding:3px 0 0 0;background: transparent url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFoAAAAUCAYAAAAN+ioeAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sIGhc6EnSAoLIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAACCUlEQVRYw+3Xv09TURjG8e9zaUVFC8RqQ0pcMDJBQghhIEyExQ0G/wiZXPwTnFhbZxlxcHIwDoaxM5ogi2I00URCcknKj17v44ANcNOAwHXqeZezvcPnvHnOe0SOdbj5er71YWU5jbfG3fyJEF1ZNo6KDdLWqqS67f3cJPbeP3uUfH77xs0foB6LqHudwbJlCewNYKInj8at7c3B5OPKC8df7ks9SOpaZACBOEK2pLvATiGPxgfvlq453rppG6mLhbPgkrAhKj7OBTr9tQ5Hkxx0szEimbQ1HV22QVyrHt9cVIiBJLB2jpELJelufZjbT75lsReAUWBR0lSIjjPBzwWu2L4FDEiaAGZtzwAjbdS/wP6XfgH6eErnJJVtT0sq2Z6UNARU2hMbYC8BHdeqT4F7khZt90nqBwq2r2diIMBeoaLjz4xPne3JDfWfomO3PjxnuwxMAyVgUtKQ7crJTD7aXMLLl/tjKGnA9gQwC8wAI5nlPETLVaBP7s2lpe/ZS1gARm0vAlPtyAl1Beiz4ONa9QawJmkqkJ7zGF60Tk23f5eAQuDs8AUHY18e+tRtlcdQsS9sKZ0iw5ajQiMX6N752mE0+KAZ8jkzzbYtQZqs5gJdvPNwJyqPPae3H6cJduoQF25/RjaAeq4jeLD+cj759Go5jb+Oe2+7ezcQG6JCgzRZNdQl7f8BgazjmglumqIAAAAASUVORK5CYII=) no-repeat;margin-left:70px;width:90px;height:29px;position:absolute;font-size:14px;text-align:center;font-weight:bold;color:#eeeeee;'>##TEXT##</p>";
@@ -484,7 +534,7 @@ var bind_events = function() {
 			url: $('#url', plugin).html().replace(/&amp;/g, '&'),
 			username: $('#username', plugin).html(),
 			usernameField: $('#username', plugin).attr('class'),
-			password: $('#password', plugin).html(),
+			password: decode64($('#password', plugin).html()),
 			passwordField: $('#password', plugin).attr('class'),
 			extra: $('#extra', plugin).html(),
 			extraField: $('#extra', plugin).attr('class'),

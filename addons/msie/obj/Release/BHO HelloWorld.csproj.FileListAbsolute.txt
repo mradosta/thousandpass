@@ -1,8 +1,0 @@
-C:\1000pass\csharp\bin\Release\BHOHelloWorld.dll
-C:\1000pass\csharp\bin\Release\BHOHelloWorld.pdb
-C:\1000pass\csharp\bin\Release\Interop.SHDocVw.dll
-C:\1000pass\csharp\obj\Release\ResolveAssemblyReference.cache
-C:\1000pass\csharp\obj\Release\Interop.SHDocVw.dll
-C:\1000pass\csharp\obj\Release\BHO HelloWorld.csproj.ResolveComReference.cache
-C:\1000pass\csharp\obj\Release\BHOHelloWorld.dll
-C:\1000pass\csharp\obj\Release\BHOHelloWorld.pdb

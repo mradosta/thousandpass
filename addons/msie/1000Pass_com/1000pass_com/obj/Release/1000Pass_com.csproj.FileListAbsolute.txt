@@ -1,0 +1,16 @@
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\bin\Release\1000Pass_com.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\bin\Release\1000Pass_com.pdb
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\bin\Release\Interop.SHDocVw.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Release\Interop.SHDocVw.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Release\1000Pass_com.csproj.ResolveComReference.cache
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Release\1000Pass_com.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\CSCustomIEContextMenu\obj\Release\1000Pass_com.pdb
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\bin\Release\1000Pass_com.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\bin\Release\1000Pass_com.pdb
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\bin\Release\Interop.SHDocVw.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\obj\Release\ResolveAssemblyReference.cache
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\obj\Release\Interop.SHDocVw.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\obj\Release\1000Pass_com.csproj.ResolveComReference.cache
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\obj\Release\1000Pass_com.dll
+C:\Documents and Settings\x\Escritorio\1000Pass_com\1000pass_com\obj\Release\1000Pass_com.pdb
