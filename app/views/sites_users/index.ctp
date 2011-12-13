@@ -68,17 +68,17 @@
 
 <script type="text/javascript">
 
-	var downloadAddOn = function() {
+	var downloadAddOn = function(version) {
 		var basePath = '<?php echo Router::url('/'); ?>';
 		var browserName = $.browser.name;
 		if (browserName == 'firefox') {
 			//window.location.replace('https://addons.mozilla.org/en-US/firefox/downloads/file/86631/thousandpass-0.1-fx.xpi?src=addondetail&confirmed');
-			window.location.replace(basePath + 'files/addons/firefox/1000pass.xpi');
+			window.location.replace(basePath + 'files/addons/firefox/1000pass_v' + version + '.xpi');
 		} else if (browserName == 'msie') {
 			//window.location.replace(basePath + 'files/addons/msie/<?php //echo substr( strtolower(Configure::read('Config.language')), 0, 3); ?>_1000pass.exe');
-			window.location.replace(basePath + 'files/addons/msie/1000pass.exe');
+			window.location.replace(basePath + 'files/addons/msie/1000pass_v' + version + '.exe');
 		} else if (browserName == 'chrome') {
-			window.location.replace(basePath + 'files/addons/chrome/1000pass.crx');
+			window.location.replace(basePath + 'files/addons/chrome/1000pass_v' + version + '.crx');
 		}
 	}
 
@@ -94,13 +94,13 @@
 					downloadAddOn();
 				}
 
-				if ($('#1000pass_add_on_version').html() != '1.0') {
+				if ($('#1000pass_add_on_version').html() != '2.0') {
 
 					// prevent warning the user again
-					$('#1000pass_add_on_version').html('1.0');
+					$('#1000pass_add_on_version').html('2.0');
 
 					alert('<?php __('Existe una nueva version de la extension 1000pass.com. Por favor, acepte la descarga.');?>');
-					downloadAddOn();
+					downloadAddOn(2);
 				}
 
 
