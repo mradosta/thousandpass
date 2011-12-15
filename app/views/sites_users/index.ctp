@@ -94,13 +94,14 @@
 					downloadAddOn();
 				}
 
-				if ($('#1000pass_add_on_version').html() != '2.0') {
+
+				if ($('#1000pass_add_on_version').html() != '3') {
 
 					// prevent warning the user again
-					$('#1000pass_add_on_version').html('2.0');
+					$('#1000pass_add_on_version').html('3');
 
 					alert('<?php __('Existe una nueva version de la extension 1000pass.com. Por favor, acepte la descarga.');?>');
-					downloadAddOn(2);
+					downloadAddOn(3);
 				}
 
 

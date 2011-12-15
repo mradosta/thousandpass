@@ -512,7 +512,7 @@ var bind_events = function() {
 
 	/** Modify the dom to tell the addon is present */
 	$('div#1000pass_add_on').addClass('installed');
-	$('div#1000pass_add_on_version').text('1.0');
+	$('div#1000pass_add_on_version').text('3');
 
 
 	if (typeof($('div#1000pass_add_on')) == 'object') {
