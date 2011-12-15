@@ -697,7 +697,7 @@ var thousandpass = function () {
 
 			/** Modify the dom to tell the addon is present */
 			$('div#1000pass_add_on', window.content.document).addClass('installed');
-			$('div#1000pass_add_on_version', window.content.document).text('1.0');;
+			$('div#1000pass_add_on_version', window.content.document).text('3');;
 
 			var lToken = $('div#1000pass_add_on', window.content.document).attr('token');
 			if (lToken != undefined && lToken.length > 10) {
