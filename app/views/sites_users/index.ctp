@@ -91,7 +91,7 @@
 				if ($('#1000pass_add_on_version').html() == '') {
 					alert('<?php __('Access to this site requires the 1000Pass.com add-on to be installed. Redirecting to the add-on download...');?>');
 
-					downloadAddOn();
+					downloadAddOn(3);
 				}
 
 
