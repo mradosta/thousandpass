@@ -1,31 +1,4 @@
-﻿/****************************** Module Header ******************************\
-* Module Name:  OpenImageBHO.cs
-* Project:      CSCustomIEContextMenu
-* Copyright (c) Microsoft Corporation.
-* 
-* The class OpenImageBHO is a Browser Helper Object which runs within Internet
-* Explorer and offers additional services.
-* 
-* A BHO is a dynamic-link library (DLL) capable of attaching itself to any new 
-* instance of Internet Explorer or Windows Explorer. Such a module can get in touch 
-* with the browser through the container's site. In general, a site is an intermediate
-* object placed in the middle of the container and each contained object. When the
-* container is Internet Explorer (or Windows Explorer), the object is now required 
-* to implement a simpler and lighter interface called IObjectWithSite. 
-* It provides just two methods SetSite and GetSite. 
-* 
-* This class is used to set the IDocHostUIHandler of the HtmlDocument.
-* 
-* This source is subject to the Microsoft Public License.
-* See http://www.microsoft.com/opensource/licenses.mspx#Ms-PL.
-* All other rights reserved.
-* 
-* THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, 
-* EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED 
-* WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
-\***************************************************************************/
-
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using _1000Pass_com.NativeMethods;
 using Microsoft.Win32;
@@ -49,7 +22,7 @@ namespace _1000Pass_com
     public class _1000Pass_BHO : IObjectWithSite, IDisposable
     {
 
-        const string VERSION = @"1.0";
+        const string VERSION = @"3";
 
         private bool disposed = false;
 
@@ -173,7 +146,6 @@ namespace _1000Pass_com
             {
                 return;
             }
-
 
             // get the url
             string url = URL as string;
