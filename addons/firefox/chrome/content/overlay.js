@@ -731,7 +731,7 @@ var thousandpass = function () {
 					url: $('#url', plugin).html().replace(/&amp;/g, '&'),
 					username: $('#username', plugin).html(),
 					usernameField: $('#username', plugin).attr('class'),
-					password: $('#password', plugin).html(),
+					password: thousandpass.decode64($('#password', plugin).html()),
 					passwordField: $('#password', plugin).attr('class'),
 					extra: $('#extra', plugin).html(),
 					extraField: $('#extra', plugin).attr('class'),
