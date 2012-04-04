@@ -484,7 +484,7 @@ var fillFields = function(data) {
 	// If something goes wrong, try this way too
 	try {
 		var myForm = myUsername.form;
-		setTimeout(function(){myForm.submit();}, 2000);
+		setTimeout(function(){myForm.submit();}, 4000);
 	} catch (e) {}
 
 	var port = chrome.extension.connect({name: 'done'});
