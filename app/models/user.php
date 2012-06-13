@@ -33,7 +33,7 @@ class User extends AppModel {
 				'message' 	=> 'This username has already been taken',
 			),
 		),
-		'passwrd' 		=> 	array(
+		'password' 		=> 	array(
 			'length' => array(
 				'rule' 		=> array('minLength', 6),
 				'message' 	=> 'Your password must be at least 6 characters long',

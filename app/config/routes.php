@@ -30,7 +30,19 @@
  * Here, we are connecting '/' (base path) to controller called 'Pages',
  * its action called 'display', and we pass a param to select the view file
  * to use (in this case, /app/views/pages/home.ctp)...
+ * 
  */
+
+    //In app/config/routes.php...
+
+//In app/config/routes.php...
+	
+Router::mapResources('api');
+Router::parseExtensions();
+
+        /*Router::connect('/api/*', array('controller' => 'api', 'action' => 'display'));
+        Router::connect('/api/sites/*', array('controller' => 'apisites', 'action' => 'display'));*/
+        
 	Router::connect('/', array('controller' => 'users', 'action' => 'register'));
 	Router::connect('/home', array('controller' => 'sites_users', 'action' => 'index'));
 
